@@ -1,4 +1,4 @@
-package storemanager.com.storemanager;
+package storemanager.com.app;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

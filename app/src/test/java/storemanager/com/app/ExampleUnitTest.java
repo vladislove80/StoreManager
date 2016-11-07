@@ -1,4 +1,4 @@
-package storemanager.com.storemanager;
+package storemanager.com.app;
 
 import org.junit.Test;
 
