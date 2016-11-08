@@ -8,13 +8,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="storemanager.com.app.MainActivity" >
+        <activity android:name="storemanager.com.app.activity.ChooserActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="storemanager.com.app.activity.GoogleSignInActivity"
+            android:label="@string/label_google_sign_in" />
+        <activity
+            android:name="storemanager.com.app.activity.FacebookLoginActivity"
+            android:label="@string/label_facebook_login" />
     </application>
 
 </manifest>

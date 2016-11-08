@@ -1,7 +1,9 @@
-package storemanager.com.app;
+package storemanager.com.app.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import storemanager.com.app.R;
 
 public class MainActivity extends AppCompatActivity {
 
