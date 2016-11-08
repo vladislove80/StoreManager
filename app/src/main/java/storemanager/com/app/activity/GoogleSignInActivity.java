@@ -122,7 +122,11 @@ public class GoogleSignInActivity extends BaseActivity implements
         Log.d(TAG, "onActivityResult: requestCode = " + requestCode);
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
+            Log.d(TAG, "firebaseAuthWithGoogle: data = " + data);
+            Log.d(TAG, "firebaseAuthWithGoogle: data.toString() = " + data.toString());
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            Log.d(TAG, "firebaseAuthWithGoogle: result = " + result);
+            Log.d(TAG, "firebaseAuthWithGoogle: result.getStatus = " + result.getStatus());
             Log.d(TAG, "firebaseAuthWithGoogle: result.isSuccess = " + result.isSuccess());
             if (result.isSuccess()) {
                 Log.d(TAG, "firebaseAuthWithGoogle: result.isSuccess");
