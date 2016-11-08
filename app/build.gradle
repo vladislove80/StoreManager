@@ -28,8 +28,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     //firebase
     compile 'com.google.firebase:firebase-auth:9.8.0'
-    // Firebase Authentication
-    compile 'com.google.firebase:firebase-auth:9.8.0'
+    compile 'com.google.android.gms:play-services-auth:9.8.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
