@@ -22,4 +22,6 @@
 
     <string name="facebook_status_fmt">Facebook User: %s</string>
     <string name="facebook_title_text">Facebook Login</string>
+
+    <string name="facebook_app_id">165070403956965</string>
 </resources>

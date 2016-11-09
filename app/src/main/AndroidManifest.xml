@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="storemanager.com.app" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,12 +17,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="storemanager.com.app.activity.GoogleSignInActivity"
             android:label="@string/label_google_sign_in" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
         <activity
-            android:name="storemanager.com.app.activity.FacebookLoginActivity"
-            android:label="@string/label_facebook_login" />
+            android:name="storemanager.com.app.activity.FacebookActivity"
+            android:label="@string/label_facebook_login"/>
+
     </application>
+
 
 </manifest>

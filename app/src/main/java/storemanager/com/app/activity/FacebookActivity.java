@@ -14,6 +14,7 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -27,7 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import storemanager.com.app.R;
 
-public class FacebookLoginActivity extends BaseActivity implements
+public class FacebookActivity extends BaseActivity implements
         View.OnClickListener {
 
     private static final String TAG = "FacebookLogin";
@@ -49,7 +50,9 @@ public class FacebookLoginActivity extends BaseActivity implements
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_facebook);
+        Log.d(TAG, "onCreate:");
 
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
@@ -66,6 +69,7 @@ public class FacebookLoginActivity extends BaseActivity implements
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
+                Log.d(TAG, "FacebookActivity: onCreate: onAuthStateChanged");
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
@@ -125,6 +129,7 @@ public class FacebookLoginActivity extends BaseActivity implements
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, "FacebookActivity: onActivityResult");
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -146,8 +151,8 @@ public class FacebookLoginActivity extends BaseActivity implements
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithCredential", task.getException());
-                            Toast.makeText(FacebookLoginActivity.this, "Authentication failed.",
+                            Log.d(TAG, "signInWithCredential", task.getException());
+                            Toast.makeText(FacebookActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
 
