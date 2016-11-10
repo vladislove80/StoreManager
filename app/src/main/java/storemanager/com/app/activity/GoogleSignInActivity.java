@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import storemanager.com.app.R;
+import storemanager.com.app.utils.Utils;
 
 public class GoogleSignInActivity extends BaseActivity implements
         GoogleApiClient.OnConnectionFailedListener,
@@ -44,6 +46,7 @@ public class GoogleSignInActivity extends BaseActivity implements
     private GoogleApiClient mGoogleApiClient;
     private TextView mStatusTextView;
     private TextView mDetailTextView;
+    private Button mAddDataButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
         mDetailTextView = (TextView) findViewById(R.id.detail);
+        mAddDataButton = (Button) findViewById(R.id.add_to_database);
 
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -215,11 +219,22 @@ public class GoogleSignInActivity extends BaseActivity implements
         Log.d(TAG, "updateUI");
         hideProgressDialog();
         if (user != null) {
-            mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
-            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+            final String userEmail = user.getEmail();
+            final String userId = user.getUid();
+            mStatusTextView.setText(getString(R.string.google_status_fmt, userEmail));
+            mDetailTextView.setText(getString(R.string.firebase_status_fmt, userId));
 
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+            mAddDataButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(GoogleSignInActivity.this, AddDataActivity.class);
+                    intent.putExtra(Utils.EXTRA_TAG_MAIL, userEmail);
+                    intent.putExtra(Utils.EXTRA_TAG_ID, userId);
+                    startActivity(intent);
+                }
+            });
         } else {
             mStatusTextView.setText(R.string.signed_out);
             mDetailTextView.setText(null);
