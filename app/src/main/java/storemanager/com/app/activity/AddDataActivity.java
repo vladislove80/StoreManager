@@ -1,5 +1,6 @@
 package storemanager.com.app.activity;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,10 +13,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import storemanager.com.app.R;
+import storemanager.com.app.dialog.AddDataDialog;
 import storemanager.com.app.utils.Utils;
 
 public class AddDataActivity extends AppCompatActivity implements View.OnClickListener{
-
+    DialogFragment dlg1;
 
     private DatabaseReference mDatabase;
     private String userEmail;
@@ -48,13 +50,15 @@ public class AddDataActivity extends AppCompatActivity implements View.OnClickLi
         Log.d(Utils.LOG_TAG, "email = " + userEmail);
         Log.d(Utils.LOG_TAG, "id = " + userId);
         Log.d(Utils.LOG_TAG, "date = " + date);
+
+        dlg1 = new AddDataDialog();
     }
 
     @Override
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.add_button) {
-
+            dlg1.show(getFragmentManager(), "dlg1");
         } else if (i == R.id.save_button) {
 
         }
