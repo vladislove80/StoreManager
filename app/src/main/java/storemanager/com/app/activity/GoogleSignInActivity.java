@@ -56,7 +56,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
         mDetailTextView = (TextView) findViewById(R.id.detail);
-        mAddDataButton = (Button) findViewById(R.id.add_to_database);
+        mAddDataButton = (Button) findViewById(R.id.start_sales_activity);
 
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -226,6 +226,7 @@ public class GoogleSignInActivity extends BaseActivity implements
 
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+            mAddDataButton.setVisibility(View.VISIBLE);
             mAddDataButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -24,4 +24,5 @@
     <string name="facebook_title_text">Facebook Login</string>
 
     <string name="facebook_app_id">165070403956965</string>
+    <string name="label_send_data">Send data to database</string>
 </resources>

@@ -41,11 +41,12 @@
             tools:text="Firebase User ID: 123456789abc" />
 
         <Button
-            android:id="@+id/add_to_database"
+            android:id="@+id/start_sales_activity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add item"
-            android:visibility="gone"/>
+            android:text="Sales"
+            android:visibility="invisible"
+            android:theme="@style/ThemeOverlay.MyDarkButton" />
 
     </LinearLayout>
 

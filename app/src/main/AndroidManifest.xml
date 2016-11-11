@@ -29,6 +29,9 @@
             android:name="storemanager.com.app.activity.FacebookActivity"
             android:label="@string/label_facebook_login"/>
 
+        <activity android:name=".activity.AddDataActivity"
+            android:label="@string/label_send_data"/>
+
     </application>
 
 
