@@ -2,8 +2,10 @@ package storemanager.com.app.activity;
 import android.app.ProgressDialog;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import storemanager.com.app.R;
+import storemanager.com.app.utils.Utils;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -18,6 +20,7 @@ public class BaseActivity extends AppCompatActivity {
         }
 
         mProgressDialog.show();
+        Log.v(Utils.LOG_TAG, "BaseActivity->showProgressDialog");
     }
 
     public void hideProgressDialog() {

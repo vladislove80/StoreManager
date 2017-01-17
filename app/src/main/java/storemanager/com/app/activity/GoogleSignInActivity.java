@@ -52,6 +52,7 @@ public class GoogleSignInActivity extends BaseActivity implements
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google);
+        Log.v(Utils.LOG_TAG, "GoogleSignInActivity");
 
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);

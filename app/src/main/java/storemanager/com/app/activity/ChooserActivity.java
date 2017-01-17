@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import storemanager.com.app.R;
+import storemanager.com.app.utils.Utils;
 
 public class ChooserActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -32,6 +34,7 @@ public class ChooserActivity extends AppCompatActivity implements AdapterView.On
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chooser);
+        Log.v(Utils.LOG_TAG, "ChooserActivity");
 
         // Set up ListView and Adapter
         ListView listView = (ListView) findViewById(R.id.list_view);

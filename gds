@@ -1,0 +1,268 @@
+[1mdiff --git a/.idea/encodings.xml b/.idea/encodings.xml[m
+[1mdeleted file mode 100644[m
+[1mindex 97626ba..0000000[m
+[1m--- a/.idea/encodings.xml[m
+[1m+++ /dev/null[m
+[36m@@ -1,6 +0,0 @@[m
+[31m-<?xml version="1.0" encoding="UTF-8"?>[m
+[31m-<project version="4">[m
+[31m-  <component name="Encoding">[m
+[31m-    <file url="PROJECT" charset="UTF-8" />[m
+[31m-  </component>[m
+[31m-</project>[m
+\ No newline at end of file[m
+[1mdiff --git a/.idea/misc.xml b/.idea/misc.xml[m
+[1mindex 97cc110..3be1ace 100644[m
+[1m--- a/.idea/misc.xml[m
+[1m+++ b/.idea/misc.xml[m
+[36m@@ -51,7 +51,18 @@[m
+           <splitter-proportions>[m
+             <option name="proportions">[m
+               <list>[m
+[31m-                <option value="0.23277661" />[m
+[32m+[m[32m                <option value="0.2" />[m
+[32m+[m[32m              </list>[m
+[32m+[m[32m            </option>[m
+[32m+[m[32m          </splitter-proportions>[m
+[32m+[m[32m        </settings>[m
+[32m+[m[32m      </state>[m
+[32m+[m[32m      <state key="ScopeChooserConfigurable.UI">[m
+[32m+[m[32m        <settings>[m
+[32m+[m[32m          <splitter-proportions>[m
+[32m+[m[32m            <option name="proportions">[m
+[32m+[m[32m              <list>[m
+[32m+[m[32m                <option value="0.2" />[m
+               </list>[m
+             </option>[m
+           </splitter-proportions>[m
+[1mdiff --git a/app/proguard-rules.pro b/app/proguard-rules.pro[m
+[1mindex 62ddeed..3465228 100644[m
+[1m--- a/app/proguard-rules.pro[m
+[1m+++ b/app/proguard-rules.pro[m
+[36m@@ -15,3 +15,13 @@[m
+ #-keepclassmembers class fqcn.of.javascript.interface.for.webview {[m
+ #   public *;[m
+ #}[m
+[32m+[m
+[32m+[m[32m# global rule[m
+[32m+[m[32m-keepattributes Signature[m
+[32m+[m
+[32m+[m[32m# This rule will properly ProGuard all the model classes in[m
+[32m+[m[32m# the package com.yourcompany.models. Modify to fit the structure[m
+[32m+[m[32m# of your app.[m
+[32m+[m[32m-keepclassmembers storemanager.com.app.** {[m
+[32m+[m[32m  *;[m
+[32m+[m[32m}[m
+[1mdiff --git a/app/src/main/java/storemanager/com/app/MainActivity.java b/app/src/main/java/storemanager/com/app/MainActivity.java[m
+[1mdeleted file mode 100644[m
+[1mindex 48cd1e0..0000000[m
+[1m--- a/app/src/main/java/storemanager/com/app/MainActivity.java[m
+[1m+++ /dev/null[m
+[36m@@ -1,13 +0,0 @@[m
+[31m-package storemanager.com.app;[m
+[31m-[m
+[31m-import android.support.v7.app.AppCompatActivity;[m
+[31m-import android.os.Bundle;[m
+[31m-[m
+[31m-public class MainActivity extends AppCompatActivity {[m
+[31m-[m
+[31m-    @Override[m
+[31m-    protected void onCreate(Bundle savedInstanceState) {[m
+[31m-        super.onCreate(savedInstanceState);[m
+[31m-        setContentView(R.layout.activity_main);[m
+[31m-    }[m
+[31m-}[m
+[1mdiff --git a/app/src/main/java/storemanager/com/app/activity/AddDataActivity.java b/app/src/main/java/storemanager/com/app/activity/AddDataActivity.java[m
+[1mindex bf01841..688198b 100644[m
+[1m--- a/app/src/main/java/storemanager/com/app/activity/AddDataActivity.java[m
+[1m+++ b/app/src/main/java/storemanager/com/app/activity/AddDataActivity.java[m
+[36m@@ -14,10 +14,12 @@[m [mimport com.google.firebase.database.FirebaseDatabase;[m
+ [m
+ import storemanager.com.app.R;[m
+ import storemanager.com.app.dialog.AddDataDialog;[m
+[32m+[m[32mimport storemanager.com.app.models.User;[m
+ import storemanager.com.app.utils.Utils;[m
+ [m
+ public class AddDataActivity extends AppCompatActivity implements View.OnClickListener{[m
+[31m-    DialogFragment dlg1;[m
+[32m+[m
+[32m+[m[32m    private DialogFragment dlg1;[m
+ [m
+     private DatabaseReference mDatabase;[m
+     private String userEmail;[m
+[36m@@ -26,20 +28,20 @@[m [mpublic class AddDataActivity extends AppCompatActivity implements View.OnClickLi[m
+     private Button mAddItemButton;[m
+     private Button mSaveToDatabaseButton;[m
+ [m
+[32m+[m[32m    int test = 10;[m
+[32m+[m
+ [m
+     @Override[m
+     protected void onCreate(@Nullable Bundle savedInstanceState) {[m
+         super.onCreate(savedInstanceState);[m
+         setContentView(R.layout.activity_database);[m
+[32m+[m[32m        Log.v(Utils.LOG_TAG, "AddDataActivity");[m
+         mDatabase = FirebaseDatabase.getInstance().getReference();[m
+ [m
+         Intent intent = getIntent();[m
+         userEmail = intent.getStringExtra(Utils.EXTRA_TAG_MAIL);[m
+         userId = intent.getStringExtra(Utils.EXTRA_TAG_ID);[m
+ [m
+[31m-        /*User user = new User(userEmail, userId);[m
+[31m-        mDatabase.child("users").child(userId).setValue(user);*/[m
+[31m-[m
+         String date = Utils.getCurrentDate();[m
+         mAddItemButton = (Button) findViewById(R.id.add_button);[m
+         mSaveToDatabaseButton = (Button) findViewById(R.id.save_button);[m
+[36m@@ -60,7 +62,14 @@[m [mpublic class AddDataActivity extends AppCompatActivity implements View.OnClickLi[m
+         if (i == R.id.add_button) {[m
+             dlg1.show(getFragmentManager(), "dlg1");[m
+         } else if (i == R.id.save_button) {[m
+[31m-[m
+[32m+[m[32m            String userName = "TestName2" + test;[m
+[32m+[m[32m            writeNewUser(userId, userName, userEmail);[m
+[32m+[m[32m            test = test * 2;[m
+         }[m
+     }[m
+[32m+[m
+[32m+[m[32m    private void writeNewUser(String userId, String name, String email) {[m
+[32m+[m[32m        User user = new User(name, email);[m
+[32m+[m[32m        mDatabase.child("users" + name).child(userId).setValue(user);[m
+[32m+[m[32m    }[m
+ }[m
+[1mdiff --git a/app/src/main/java/storemanager/com/app/activity/BaseActivity.java b/app/src/main/java/storemanager/com/app/activity/BaseActivity.java[m
+[1mindex d42a5bb..cd49039 100644[m
+[1m--- a/app/src/main/java/storemanager/com/app/activity/BaseActivity.java[m
+[1m+++ b/app/src/main/java/storemanager/com/app/activity/BaseActivity.java[m
+[36m@@ -2,8 +2,10 @@[m [mpackage storemanager.com.app.activity;[m
+ import android.app.ProgressDialog;[m
+ import android.support.annotation.VisibleForTesting;[m
+ import android.support.v7.app.AppCompatActivity;[m
+[32m+[m[32mimport android.util.Log;[m
+ [m
+ import storemanager.com.app.R;[m
+[32m+[m[32mimport storemanager.com.app.utils.Utils;[m
+ [m
+ public class BaseActivity extends AppCompatActivity {[m
+ [m
+[36m@@ -18,6 +20,7 @@[m [mpublic class BaseActivity extends AppCompatActivity {[m
+         }[m
+ [m
+         mProgressDialog.show();[m
+[32m+[m[32m        Log.v(Utils.LOG_TAG, "BaseActivity->showProgressDialog");[m
+     }[m
+ [m
+     public void hideProgressDialog() {[m
+[1mdiff --git a/app/src/main/java/storemanager/com/app/activity/ChooserActivity.java b/app/src/main/java/storemanager/com/app/activity/ChooserActivity.java[m
+[1mindex 3be66f8..deee026 100644[m
+[1m--- a/app/src/main/java/storemanager/com/app/activity/ChooserActivity.java[m
+[1m+++ b/app/src/main/java/storemanager/com/app/activity/ChooserActivity.java[m
+[36m@@ -6,6 +6,7 @@[m [mimport android.os.Bundle;[m
+ import android.support.annotation.NonNull;[m
+ import android.support.annotation.Nullable;[m
+ import android.support.v7.app.AppCompatActivity;[m
+[32m+[m[32mimport android.util.Log;[m
+ import android.view.LayoutInflater;[m
+ import android.view.View;[m
+ import android.view.ViewGroup;[m
+[36m@@ -15,6 +16,7 @@[m [mimport android.widget.ListView;[m
+ import android.widget.TextView;[m
+ [m
+ import storemanager.com.app.R;[m
+[32m+[m[32mimport storemanager.com.app.utils.Utils;[m
+ [m
+ public class ChooserActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {[m
+ [m
+[36m@@ -32,6 +34,7 @@[m [mpublic class ChooserActivity extends AppCompatActivity implements AdapterView.On[m
+     protected void onCreate(@Nullable Bundle savedInstanceState) {[m
+         super.onCreate(savedInstanceState);[m
+         setContentView(R.layout.activity_chooser);[m
+[32m+[m[32m        Log.v(Utils.LOG_TAG, "ChooserActivity");[m
+ [m
+         // Set up ListView and Adapter[m
+         ListView listView = (ListView) findViewById(R.id.list_view);[m
+[1mdiff --git a/app/src/main/java/storemanager/com/app/activity/FacebookActivity.java b/app/src/main/java/storemanager/com/app/activity/FacebookActivity.java[m
+[1mindex f2e0dbd..61dc676 100644[m
+[1m--- a/app/src/main/java/storemanager/com/app/activity/FacebookActivity.java[m
+[1m+++ b/app/src/main/java/storemanager/com/app/activity/FacebookActivity.java[m
+[36m@@ -52,7 +52,7 @@[m [mpublic class FacebookActivity extends BaseActivity implements[m
+         FacebookSdk.sdkInitialize(getApplicationContext());[m
+         AppEventsLogger.activateApp(this);[m
+         setContentView(R.layout.activity_facebook);[m
+[31m-        Log.d(TAG, "onCreate:");[m
+[32m+[m[32m        Log.d(TAG, "FacebookActivity:");[m
+ [m
+         // Views[m
+         mStatusTextView = (TextView) findViewById(R.id.status);[m
+[1mdiff --git a/app/src/main/java/storemanager/com/app/activity/GoogleSignInActivity.java b/app/src/main/java/storemanager/com/app/activity/GoogleSignInActivity.java[m
+[1mindex 19381b0..a460d79 100644[m
+[1m--- a/app/src/main/java/storemanager/com/app/activity/GoogleSignInActivity.java[m
+[1m+++ b/app/src/main/java/storemanager/com/app/activity/GoogleSignInActivity.java[m
+[36m@@ -52,6 +52,7 @@[m [mpublic class GoogleSignInActivity extends BaseActivity implements[m
+     protected void onCreate(@Nullable Bundle savedInstanceState) {[m
+         super.onCreate(savedInstanceState);[m
+         setContentView(R.layout.activity_google);[m
+[32m+[m[32m        Log.v(Utils.LOG_TAG, "GoogleSignInActivity");[m
+ [m
+         // Views[m
+         mStatusTextView = (TextView) findViewById(R.id.status);[m
+[1mdiff --git a/app/src/main/java/storemanager/com/app/activity/MainActivity.java b/app/src/main/java/storemanager/com/app/activity/MainActivity.java[m
+[1mindex 51c05b9..b651264 100644[m
+[1m--- a/app/src/main/java/storemanager/com/app/activity/MainActivity.java[m
+[1m+++ b/app/src/main/java/storemanager/com/app/activity/MainActivity.java[m
+[36m@@ -2,8 +2,10 @@[m [mpackage storemanager.com.app.activity;[m
+ [m
+ import android.support.v7.app.AppCompatActivity;[m
+ import android.os.Bundle;[m
+[32m+[m[32mimport android.util.Log;[m
+ [m
+ import storemanager.com.app.R;[m
+[32m+[m[32mimport storemanager.com.app.utils.Utils;[m
+ [m
+ public class MainActivity extends AppCompatActivity {[m
+ [m
+[36m@@ -11,5 +13,6 @@[m [mpublic class MainActivity extends AppCompatActivity {[m
+     protected void onCreate(Bundle savedInstanceState) {[m
+         super.onCreate(savedInstanceState);[m
+         setContentView(R.layout.activity_main);[m
+[32m+[m[32m        Log.v(Utils.LOG_TAG, "MainActivity");[m
+     }[m
+ }[m
+[1mdiff --git a/app/src/main/java/storemanager/com/app/models/User.java b/app/src/main/java/storemanager/com/app/models/User.java[m
+[1mindex a3b438d..d341858 100644[m
+[1m--- a/app/src/main/java/storemanager/com/app/models/User.java[m
+[1m+++ b/app/src/main/java/storemanager/com/app/models/User.java[m
+[36m@@ -5,9 +5,10 @@[m [mimport com.google.firebase.database.IgnoreExtraProperties;[m
+ @IgnoreExtraProperties[m
+ public class User {[m
+ [m
+[31m-    private String status;[m
+[31m-    private String id;[m
+[31m-    private String email;[m
+[32m+[m[32m    public String status;[m
+[32m+[m[32m    public String name;[m
+[32m+[m[32m    public String id;[m
+[32m+[m[32m    public String email;[m
+ [m
+     public User() {[m
+         // Default constructor required for calls to DataSnapshot.getValue(User.class)[m
+[36m@@ -18,9 +19,16 @@[m [mpublic class User {[m
+         this.email = email;[m
+     }[m
+ [m
+[31m-    public User(String status, String id, String email) {[m
+[32m+[m[32m    public User(String id, String name, String email) {[m
+[32m+[m[32m        this.id = id;[m
+[32m+[m[32m        this.name = name;[m
+[32m+[m[32m        this.email = email;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public User(String status, String id, String name, String email) {[m
+         this.status = status;[m
+         this.id = id;[m
+[32m+[m[32m        this.name = name;[m
+         this.email = email;[m
+     }[m
+ [m
+warning: LF will be replaced by CRLF in .idea/misc.xml.
+The file will have its original line endings in your working directory.

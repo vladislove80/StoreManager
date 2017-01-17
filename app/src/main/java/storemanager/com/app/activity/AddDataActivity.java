@@ -14,10 +14,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import storemanager.com.app.R;
 import storemanager.com.app.dialog.AddDataDialog;
+import storemanager.com.app.models.User;
 import storemanager.com.app.utils.Utils;
 
 public class AddDataActivity extends AppCompatActivity implements View.OnClickListener{
-    DialogFragment dlg1;
+
+    private DialogFragment dlg1;
 
     private DatabaseReference mDatabase;
     private String userEmail;
@@ -26,19 +28,19 @@ public class AddDataActivity extends AppCompatActivity implements View.OnClickLi
     private Button mAddItemButton;
     private Button mSaveToDatabaseButton;
 
+    int test = 10;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_database);
+        Log.v(Utils.LOG_TAG, "AddDataActivity");
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         Intent intent = getIntent();
         userEmail = intent.getStringExtra(Utils.EXTRA_TAG_MAIL);
         userId = intent.getStringExtra(Utils.EXTRA_TAG_ID);
-
-        /*User user = new User(userEmail, userId);
-        mDatabase.child("users").child(userId).setValue(user);*/
 
         String date = Utils.getCurrentDate();
         mAddItemButton = (Button) findViewById(R.id.add_button);
@@ -60,7 +62,14 @@ public class AddDataActivity extends AppCompatActivity implements View.OnClickLi
         if (i == R.id.add_button) {
             dlg1.show(getFragmentManager(), "dlg1");
         } else if (i == R.id.save_button) {
-
+            String userName = "TestName2" + test;
+            writeNewUser(userId, userName, userEmail);
+            test = test * 2;
         }
+    }
+
+    private void writeNewUser(String userId, String name, String email) {
+        User user = new User(name, email);
+        mDatabase.child("users" + name).child(userId).setValue(user);
     }
 }

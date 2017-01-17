@@ -52,7 +52,7 @@ public class FacebookActivity extends BaseActivity implements
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_facebook);
-        Log.d(TAG, "onCreate:");
+        Log.d(TAG, "FacebookActivity:");
 
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
