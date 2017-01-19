@@ -35,7 +35,7 @@
 
         <activity
             android:name=".activity.AddItemsActivity"
-            android:label="@string/label_add_items"
+            android:label="@string/label_add_item"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.Light.Dialog"
             />

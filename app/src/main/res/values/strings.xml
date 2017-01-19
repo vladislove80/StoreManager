@@ -24,12 +24,14 @@
     <string name="facebook_title_text">Facebook Login</string>
 
     <string name="facebook_app_id">165070403956965</string>
-    <string name="label_send_data">Send data to database</string>
-    <string name="label_add_items">Add data to list for send to database</string>
 
     <!--SummaryComposerActivity-->
+    <string name="label_send_data">Summary</string>
     <string name="table_number">№</string>
     <string name="name">Name</string>
     <string name="num">Num</string>
     <string name="price">Price</string>
+
+    <!--AddItemsActivity-->
+    <string name="label_add_item">Add item</string>
 </resources>
