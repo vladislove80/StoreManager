@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import storemanager.com.app.R;
+import storemanager.com.app.models.CoffeItemsToAddInSummary;
 import storemanager.com.app.models.User;
 import storemanager.com.app.utils.Utils;
 
@@ -27,6 +28,8 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     private TextView mDateTextView;
 
     int test = 10;
+
+    public final static int REQ_CODE_CHILD = 1;
 
 
     @Override
@@ -61,7 +64,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         int i = v.getId();
         if (i == R.id.add_button) {
             Intent intent = new Intent(SummaryComposerActivity.this, AddItemsActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, REQ_CODE_CHILD);
         } else if (i == R.id.send_button) {
             String userName = "TestName2" + test;
             writeNewUser(userId, userName, userEmail);
@@ -72,5 +75,13 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     private void writeNewUser(String userId, String name, String email) {
         User user = new User(name, email);
         mDatabase.child("users" + name).child(userId).setValue(user);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQ_CODE_CHILD && data != null) {
+            CoffeItemsToAddInSummary list = (CoffeItemsToAddInSummary) data.getExtras().getSerializable(AddItemsActivity.TAG);
+            Log.v(Utils.LOG_TAG, "SummaryComposerActivity-> Item = " + list.getItem().getName());
+        }
     }
 }
