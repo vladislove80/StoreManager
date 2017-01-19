@@ -1,0 +1,8 @@
+package storemanager.com.app.activity;
+
+import android.support.v7.app.AppCompatActivity;
+
+public class AddItemsActivity extends AppCompatActivity {
+
+
+}

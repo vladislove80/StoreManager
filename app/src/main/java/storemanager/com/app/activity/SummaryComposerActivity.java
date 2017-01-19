@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -15,7 +16,7 @@ import storemanager.com.app.R;
 import storemanager.com.app.models.User;
 import storemanager.com.app.utils.Utils;
 
-public class AddDataActivity extends AppCompatActivity implements View.OnClickListener{
+public class SummaryComposerActivity extends AppCompatActivity implements View.OnClickListener{
 
     private DatabaseReference mDatabase;
     private String userEmail;
@@ -23,6 +24,7 @@ public class AddDataActivity extends AppCompatActivity implements View.OnClickLi
 
     private Button mAddItemButton;
     private Button mSaveToDatabaseButton;
+    private TextView mDateTextView;
 
     int test = 10;
 
@@ -30,8 +32,8 @@ public class AddDataActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_database);
-        Log.v(Utils.LOG_TAG, "AddDataActivity");
+        setContentView(R.layout.activity_summary_composer);
+        Log.v(Utils.LOG_TAG, "SummaryComposerActivity");
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         Intent intent = getIntent();
@@ -39,8 +41,10 @@ public class AddDataActivity extends AppCompatActivity implements View.OnClickLi
         userId = intent.getStringExtra(Utils.EXTRA_TAG_ID);
 
         String date = Utils.getCurrentDate();
+        mDateTextView = (TextView) findViewById(R.id.date);
+        mDateTextView.setText(date);
         mAddItemButton = (Button) findViewById(R.id.add_button);
-        mSaveToDatabaseButton = (Button) findViewById(R.id.save_button);
+        mSaveToDatabaseButton = (Button) findViewById(R.id.send_button);
 
         mAddItemButton.setOnClickListener(this);
         mSaveToDatabaseButton.setOnClickListener(this);
@@ -56,8 +60,9 @@ public class AddDataActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.add_button) {
-
-        } else if (i == R.id.save_button) {
+            Intent intent = new Intent(SummaryComposerActivity.this, AddItemsActivity.class);
+            startActivity(intent);
+        } else if (i == R.id.send_button) {
             String userName = "TestName2" + test;
             writeNewUser(userId, userName, userEmail);
             test = test * 2;

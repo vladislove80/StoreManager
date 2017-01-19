@@ -29,8 +29,16 @@
             android:name="storemanager.com.app.activity.FacebookActivity"
             android:label="@string/label_facebook_login"/>
 
-        <activity android:name=".activity.AddDataActivity"
+        <activity
+            android:name=".activity.SummaryComposerActivity"
             android:label="@string/label_send_data"/>
+
+        <activity
+            android:name=".activity.AddItemsActivity"
+            android:label="@string/label_add_items"
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"
+            />
 
     </application>
 

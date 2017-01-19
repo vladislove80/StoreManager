@@ -4,8 +4,21 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
 
+    <!--SummaryComposerActivity-->
     <dimen name="icon_top_margin">24dp</dimen>
     <dimen name="icon_bottom_margin">24dp</dimen>
     <dimen name="title_bottom_margin">16dp</dimen>
     <dimen name="field_width_standard">160dp</dimen>
+    <dimen name="label_size">22sp</dimen>
+    <dimen name="label_padding_top">10dp</dimen>
+    <dimen name="date_size">18sp</dimen>
+    <dimen name="date_padding_top">5dp</dimen>
+    <dimen name="add_buton_margin_bottom">10dp</dimen>
+    <dimen name="add_buton_margin_top">10dp</dimen>
+    <dimen name="send_buton_margin_bottom">10dp</dimen>
+    <dimen name="send_buton_margin_top">10dp</dimen>
+    <dimen name="send_buton_margin_left">10dp</dimen>
+    <dimen name="top_table_row_conteiner_padding_left">10dp</dimen>
+    <dimen name="top_table_row_conteiner_padding_right">10dp</dimen>
+    <dimen name="top_table_row_text_size">12sp</dimen>
 </resources>

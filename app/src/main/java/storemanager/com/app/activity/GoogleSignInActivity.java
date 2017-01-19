@@ -231,7 +231,7 @@ public class GoogleSignInActivity extends BaseActivity implements
             mAddDataButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(GoogleSignInActivity.this, AddDataActivity.class);
+                    Intent intent = new Intent(GoogleSignInActivity.this, SummaryComposerActivity.class);
                     intent.putExtra(Utils.EXTRA_TAG_MAIL, userEmail);
                     intent.putExtra(Utils.EXTRA_TAG_ID, userId);
                     startActivity(intent);
