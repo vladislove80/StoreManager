@@ -29,6 +29,7 @@
     <string name="label_send_data">Summary</string>
     <string name="table_number">№</string>
     <string name="name">Name</string>
+    <string name="size">Size</string>
     <string name="num">Num</string>
     <string name="price">Price</string>
 

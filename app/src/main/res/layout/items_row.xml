@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/summary_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/top_table_row_conteiner_padding_left"
+    android:paddingRight="@dimen/top_table_row_conteiner_padding_right">
+
+    <TextView
+        android:id="@+id/item_number_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/top_table_row_text_size"
+        android:layout_alignParentLeft="true"/>
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/top_table_row_text_size"
+        android:paddingLeft="20dp"
+        android:layout_toRightOf="@id/item_number_row"/>
+    <TextView
+        android:id="@+id/item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/top_table_row_text_size"
+        android:layout_alignParentRight="true"/>
+    <TextView
+        android:id="@+id/item_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/top_table_row_text_size"
+        android:paddingRight="45dp"
+        android:layout_toLeftOf="@id/item_price"/>
+    <TextView
+        android:id="@+id/item_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/top_table_row_text_size"
+        android:paddingRight="45dp"
+        android:layout_toLeftOf="@id/item_amount"/>
+</RelativeLayout>

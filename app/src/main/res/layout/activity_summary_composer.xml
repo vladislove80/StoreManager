@@ -64,7 +64,7 @@
         android:paddingRight="@dimen/top_table_row_conteiner_padding_right">
 
         <TextView
-            android:id="@+id/table_number"
+            android:id="@+id/item_number_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/table_number"
@@ -77,25 +77,34 @@
             android:text="@string/name"
             android:textSize="@dimen/top_table_row_text_size"
             android:paddingLeft="20dp"
-            android:layout_toRightOf="@id/table_number"/>
+            android:layout_toRightOf="@id/item_number_row"/>
         <TextView
-            android:id="@+id/items_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/num"
-            android:textSize="@dimen/top_table_row_text_size"
-            android:paddingRight="20dp"
-            android:layout_toRightOf="@id/item_name"/>
-        <TextView
-            android:id="@+id/price"
+            android:id="@+id/item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/price"
             android:textSize="@dimen/top_table_row_text_size"
             android:layout_alignParentRight="true"/>
+        <TextView
+            android:id="@+id/item_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/num"
+            android:textSize="@dimen/top_table_row_text_size"
+            android:paddingRight="20dp"
+            android:layout_toLeftOf="@id/item_price"/>
+        <TextView
+            android:id="@+id/item_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/size"
+            android:textSize="@dimen/top_table_row_text_size"
+            android:paddingRight="40dp"
+            android:layout_toLeftOf="@id/item_amount"/>
     </RelativeLayout>
 
     <ListView
+        android:id="@+id/summury"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

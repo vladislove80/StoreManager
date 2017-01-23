@@ -24,13 +24,13 @@ public class AddItemsActivity extends AppCompatActivity {
 
     private CoffeItemsToAddInSummary cofeItemsToAdd;
     private CoffeItem cofeItem;
-    private int coffeItemNumber = 1;
+    private int coffeItemAmount = 1;
     private Button buttonAdd;
     private Button buttonCancel;
 
     private Spinner itemsSpiner;
     private Spinner sizeSpiner;
-    private Spinner numberSpiner;
+    private Spinner amountSpiner;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class AddItemsActivity extends AppCompatActivity {
 
         itemsSpiner = (Spinner) findViewById(R.id.item_spinner);
         sizeSpiner = (Spinner) findViewById(R.id.size_spinner);
-        numberSpiner = (Spinner) findViewById(R.id.number_spinner);
+        amountSpiner = (Spinner) findViewById(R.id.number_spinner);
 
         buttonAdd.setOnClickListener(buttonAddClickListener);
         buttonCancel.setOnClickListener(buttonCancelClickListener);
@@ -94,16 +94,16 @@ public class AddItemsActivity extends AppCompatActivity {
 
         ArrayAdapter<Integer> numAdapter = new ArrayAdapter<>(this, R.layout.items_spinner, Utils.coffeNumber);
 
-        numberSpiner.setAdapter(numAdapter);
-        numberSpiner.setPrompt(Utils.coffeNumber.get(0).toString());
-        numberSpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        amountSpiner.setAdapter(numAdapter);
+        amountSpiner.setPrompt(Utils.coffeNumber.get(0).toString());
+        amountSpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
                 ((TextView) parent.getChildAt(0)).setTextSize(20);
                 Integer num = Utils.coffeNumber.get(position);
                 sizeSpiner.setPrompt(num.toString());
-                coffeItemNumber = num;
+                coffeItemAmount = num;
             }
 
             @Override
@@ -116,7 +116,7 @@ public class AddItemsActivity extends AppCompatActivity {
     View.OnClickListener buttonAddClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            CoffeItemsToAddInSummary listToAddInSummary = new CoffeItemsToAddInSummary(cofeItem, coffeItemNumber);
+            CoffeItemsToAddInSummary listToAddInSummary = new CoffeItemsToAddInSummary(cofeItem, coffeItemAmount);
             int resultCode = 101;
             Intent resultIntent = new Intent();
             resultIntent.putExtra(TAG, listToAddInSummary);

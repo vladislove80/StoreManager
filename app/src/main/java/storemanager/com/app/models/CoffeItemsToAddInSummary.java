@@ -4,11 +4,13 @@ import java.io.Serializable;
 
 public class CoffeItemsToAddInSummary implements Serializable {
     private CoffeItem item;
-    private int number;
+    private int amount;
 
-    public CoffeItemsToAddInSummary(CoffeItem item, int number) {
+    public CoffeItemsToAddInSummary() {}
+
+    public CoffeItemsToAddInSummary(CoffeItem item, int amount) {
         this.item = item;
-        this.number = number;
+        this.amount = amount;
     }
 
     public CoffeItem getItem() {
@@ -19,11 +21,11 @@ public class CoffeItemsToAddInSummary implements Serializable {
         this.item = item;
     }
 
-    public int getNumber() {
-        return number;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }

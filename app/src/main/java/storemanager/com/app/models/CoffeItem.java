@@ -8,7 +8,7 @@ public class CoffeItem implements Serializable{
 
     private String name;
     private Integer size;
-    private String price;
+    private Integer price;
 
     public CoffeItem() {
     }
@@ -29,11 +29,11 @@ public class CoffeItem implements Serializable{
         this.size = size;
     }
 
-    public String getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 

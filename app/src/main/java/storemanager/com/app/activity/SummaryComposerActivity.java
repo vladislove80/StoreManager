@@ -7,12 +7,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import storemanager.com.app.R;
+import storemanager.com.app.models.CoffeItem;
 import storemanager.com.app.models.CoffeItemsToAddInSummary;
 import storemanager.com.app.models.User;
 import storemanager.com.app.utils.Utils;
@@ -26,6 +31,10 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     private Button mAddItemButton;
     private Button mSaveToDatabaseButton;
     private TextView mDateTextView;
+
+    private ListView summuryListView;
+    private List<CoffeItemsToAddInSummary> summaryList;
+    private SummaryAdapter adapter;
 
     int test = 10;
 
@@ -48,6 +57,11 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         mDateTextView.setText(date);
         mAddItemButton = (Button) findViewById(R.id.add_button);
         mSaveToDatabaseButton = (Button) findViewById(R.id.send_button);
+        summuryListView = (ListView) findViewById(R.id.summury);
+
+        summaryList = new ArrayList<>();
+        adapter = new SummaryAdapter(getBaseContext(), summaryList);
+        summuryListView.setAdapter(adapter);
 
         mAddItemButton.setOnClickListener(this);
         mSaveToDatabaseButton.setOnClickListener(this);
@@ -55,7 +69,6 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         Log.d(Utils.LOG_TAG, "email = " + userEmail);
         Log.d(Utils.LOG_TAG, "id = " + userId);
         Log.d(Utils.LOG_TAG, "date = " + date);
-
 
     }
 
@@ -80,8 +93,10 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && requestCode == REQ_CODE_CHILD) {
-            CoffeItemsToAddInSummary list = (CoffeItemsToAddInSummary) data.getExtras().getSerializable(AddItemsActivity.TAG);
-            Log.v(Utils.LOG_TAG, "SummaryComposerActivity-> Item = " + list.getItem().getName());
+            CoffeItemsToAddInSummary item = (CoffeItemsToAddInSummary) data.getExtras().getSerializable(AddItemsActivity.TAG);
+            summaryList.add(item);
+            Log.v(Utils.LOG_TAG, "SummaryComposerActivity-> Item = " + item.getItem().getName() + "Num = " + item.getAmount());
+            adapter.notifyDataSetChanged();
         }
     }
 }
