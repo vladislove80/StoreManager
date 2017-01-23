@@ -1,15 +1,16 @@
 package storemanager.com.app.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import storemanager.com.app.R;
@@ -21,16 +22,15 @@ public class AddItemsActivity extends AppCompatActivity {
 
     public static final String TAG = "add_atems";
 
-    private LinearLayout listContainer;
-    private TextView itemTextView;
-    private TextView sizeTextView;
-    private TextView numberTextView;
-
     private CoffeItemsToAddInSummary cofeItemsToAdd;
     private CoffeItem cofeItem;
-    private int coffeItemNumber = 0;
+    private int coffeItemNumber = 1;
     private Button buttonAdd;
     private Button buttonCancel;
+
+    private Spinner itemsSpiner;
+    private Spinner sizeSpiner;
+    private Spinner numberSpiner;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,24 +38,79 @@ public class AddItemsActivity extends AppCompatActivity {
         Log.v(Utils.LOG_TAG, "AddItemsActivity");
         setContentView(R.layout.add_items_activity);
 
-        listContainer = (LinearLayout) findViewById(R.id.items_data_container);
-
-        itemTextView = (TextView) findViewById(R.id.item);
-        sizeTextView = (TextView) findViewById(R.id.size);
-        numberTextView = (TextView) findViewById(R.id.number);
         buttonAdd = (Button) findViewById(R.id.add_button);
         buttonCancel = (Button) findViewById(R.id.cancel_button);
+
+        itemsSpiner = (Spinner) findViewById(R.id.item_spinner);
+        sizeSpiner = (Spinner) findViewById(R.id.size_spinner);
+        numberSpiner = (Spinner) findViewById(R.id.number_spinner);
 
         buttonAdd.setOnClickListener(buttonAddClickListener);
         buttonCancel.setOnClickListener(buttonCancelClickListener);
 
-        itemTextView.setOnClickListener(itemClickListener);
-        sizeTextView.setText("250");
-        sizeTextView.setOnClickListener(sizeClickListener);
-        numberTextView.setText("1");
-        numberTextView.setOnClickListener(numberClickListener);
-
         cofeItem = new CoffeItem();
+
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this, R.layout.items_spinner, Utils.coffeItems);
+
+        itemsSpiner.setAdapter(itemsAdapter);
+        itemsSpiner.setPrompt(Utils.coffeItems.get(0));
+
+        itemsSpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
+                ((TextView) parent.getChildAt(0)).setTextSize(20);
+
+                String itemName = Utils.coffeItems.get(position);
+                itemsSpiner.setPrompt(itemName);
+                cofeItem.setName(itemName);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                cofeItem.setName(Utils.coffeItems.get(0));
+            }
+        });
+
+        ArrayAdapter<Integer> sizeAdapter = new ArrayAdapter<>(this, R.layout.items_spinner, Utils.coffeSizes);
+
+        sizeSpiner.setAdapter(sizeAdapter);
+        sizeSpiner.setPrompt(Utils.coffeSizes.get(0).toString());
+        sizeSpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
+                ((TextView) parent.getChildAt(0)).setTextSize(20);
+                Integer size = Utils.coffeSizes.get(position);
+                sizeSpiner.setPrompt(size.toString());
+                cofeItem.setSize(size);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                cofeItem.setSize(Utils.coffeSizes.get(0));
+            }
+        });
+
+        ArrayAdapter<Integer> numAdapter = new ArrayAdapter<>(this, R.layout.items_spinner, Utils.coffeNumber);
+
+        numberSpiner.setAdapter(numAdapter);
+        numberSpiner.setPrompt(Utils.coffeNumber.get(0).toString());
+        numberSpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
+                ((TextView) parent.getChildAt(0)).setTextSize(20);
+                Integer num = Utils.coffeNumber.get(position);
+                sizeSpiner.setPrompt(num.toString());
+                coffeItemNumber = num;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     View.OnClickListener buttonAddClickListener = new View.OnClickListener() {
@@ -76,104 +131,5 @@ public class AddItemsActivity extends AppCompatActivity {
             finish();
         }
     };
-
-    View.OnClickListener itemClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Log.v(Utils.LOG_TAG, "AddItemsActivity->itemClickListener");
-            showItemPopupMenu(v);
-        }
-    };
-
-    private void showItemPopupMenu(View v) {
-        PopupMenu popupMenu = new PopupMenu(this, v, Gravity.CENTER);
-        popupMenu.getMenu().add("Эспрессо");
-        popupMenu.getMenu().add("Эспрессо 2x");
-        popupMenu.getMenu().add("Американо");
-        popupMenu.getMenu().add("Кофе с молоком");
-        popupMenu.getMenu().add("Кофе по Ирландски");popupMenu.getMenu().add("Эспрессо");
-        popupMenu.getMenu().add("Эспрессо 2x");
-        popupMenu.getMenu().add("Американо");
-        popupMenu.getMenu().add("Кофе с молоком");
-        popupMenu.getMenu().add("Кофе по Ирландски");popupMenu.getMenu().add("Эспрессо");
-        popupMenu.getMenu().add("Эспрессо 2x");
-        popupMenu.getMenu().add("Американо");
-        popupMenu.getMenu().add("Кофе с молоком");
-        popupMenu.getMenu().add("Кофе по Ирландски");popupMenu.getMenu().add("Эспрессо");
-        popupMenu.getMenu().add("Эспрессо 2x");
-        popupMenu.getMenu().add("Американо");
-        popupMenu.getMenu().add("Кофе с молоком");
-        popupMenu.getMenu().add("Кофе по Ирландски");popupMenu.getMenu().add("Эспрессо");
-        popupMenu.getMenu().add("Эспрессо 2x");
-        popupMenu.getMenu().add("Американо");
-        popupMenu.getMenu().add("Кофе с молоком");
-        popupMenu.getMenu().add("Кофе по Ирландски");
-        popupMenu.getMenuInflater().inflate(R.menu.item_menu, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(android.view.MenuItem item) {
-                Log.v(Utils.LOG_TAG, "AddItemsActivity->itemClickListener->onMenuItemClick");
-                cofeItem.setName(item.getTitle().toString());
-                itemTextView.setText(item.getTitle());
-                return true;
-            }
-        });
-        popupMenu.show();
-    }
-
-    View.OnClickListener sizeClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Log.v(Utils.LOG_TAG, "AddItemsActivity->itemClickListener");
-            showSizePopupMenu(v);
-        }
-    };
-
-    private void showSizePopupMenu(View v) {
-        PopupMenu popupMenu = new PopupMenu(this, v, Gravity.CENTER);
-        popupMenu.getMenu().add("250");
-        popupMenu.getMenu().add("350");
-        popupMenu.getMenu().add("450");
-
-        popupMenu.getMenuInflater().inflate(R.menu.item_menu, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(android.view.MenuItem item) {
-                Log.v(Utils.LOG_TAG, "AddItemsActivity->itemClickListener->onMenuItemClick");
-                cofeItem.setSize(item.getTitle().toString());
-                sizeTextView.setText(item.getTitle());
-                return true;
-            }
-        });
-        popupMenu.show();
-    }
-
-    View.OnClickListener numberClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Log.v(Utils.LOG_TAG, "AddItemsActivity->itemClickListener");
-            showNumberPopupMenu(v);
-        }
-    };
-
-    private void showNumberPopupMenu(View v) {
-        PopupMenu popupMenu = new PopupMenu(this, v, Gravity.CENTER);
-        popupMenu.getMenu().add("1");
-        popupMenu.getMenu().add("2");
-        popupMenu.getMenu().add("3");
-        popupMenu.getMenu().add("4");
-        popupMenu.getMenu().add("5");
-        popupMenu.getMenuInflater().inflate(R.menu.item_menu, popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(android.view.MenuItem item) {
-                Log.v(Utils.LOG_TAG, "AddItemsActivity->itemClickListener->onMenuItemClick");
-                coffeItemNumber = Integer.parseInt(item.getTitle().toString());
-                numberTextView.setText(item.getTitle());
-                return true;
-            }
-        });
-        popupMenu.show();
-    }
 
 }

@@ -7,8 +7,8 @@ public class CoffeItem implements Serializable{
     private boolean oneSize;
 
     private String name;
-    private String size;
-    private String prize;
+    private Integer size;
+    private String price;
 
     public CoffeItem() {
     }
@@ -21,20 +21,20 @@ public class CoffeItem implements Serializable{
         this.name = name;
     }
 
-    public String getSize() {
+    public Integer getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Integer size) {
         this.size = size;
     }
 
-    public String getPrize() {
-        return prize;
+    public String getPrice() {
+        return price;
     }
 
-    public void setPrize(String prize) {
-        this.prize = prize;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public boolean isOneSize() {

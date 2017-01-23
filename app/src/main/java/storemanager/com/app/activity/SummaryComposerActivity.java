@@ -79,7 +79,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQ_CODE_CHILD && data != null) {
+        if(data != null && requestCode == REQ_CODE_CHILD) {
             CoffeItemsToAddInSummary list = (CoffeItemsToAddInSummary) data.getExtras().getSerializable(AddItemsActivity.TAG);
             Log.v(Utils.LOG_TAG, "SummaryComposerActivity-> Item = " + list.getItem().getName());
         }
