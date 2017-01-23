@@ -87,7 +87,9 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
 
     private void writeNewUser(String userId, String name, String email) {
         User user = new User(name, email);
+
         mDatabase.child("users" + name).child(userId).setValue(user);
+        mDatabase.child("users" + name).child(userId).setValue(summaryList);
     }
 
     @Override
