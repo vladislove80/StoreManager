@@ -22,7 +22,7 @@ import storemanager.com.app.models.CoffeItem;
 import storemanager.com.app.utils.CoffeMenu;
 import storemanager.com.app.utils.Utils;
 
-public class ChooserActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class SignInActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private static final Class[] CLASSES = new Class[]{
             GoogleSignInActivity.class,
@@ -38,7 +38,7 @@ public class ChooserActivity extends AppCompatActivity implements AdapterView.On
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chooser);
-        Log.v(Utils.LOG_TAG, "ChooserActivity");
+        Log.v(Utils.LOG_TAG, "SignInActivity");
 
         // Set up ListView and Adapter
         ListView listView = (ListView) findViewById(R.id.list_view);
