@@ -20,6 +20,7 @@ import storemanager.com.app.R;
 import storemanager.com.app.models.CoffeItem;
 import storemanager.com.app.models.CoffeItemsToAddInSummary;
 import storemanager.com.app.models.User;
+import storemanager.com.app.utils.CoffeMenu;
 import storemanager.com.app.utils.Utils;
 
 public class SummaryComposerActivity extends AppCompatActivity implements View.OnClickListener{
@@ -39,6 +40,11 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     int test = 10;
 
     public final static int REQ_CODE_CHILD = 1;
+    public final static String MENU_TAG = "names";
+
+    private CoffeMenu priceList;
+    private List<CoffeItem> menu;
+    ArrayList<String> coffeItemNames;
 
 
     @Override
@@ -70,6 +76,15 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         Log.d(Utils.LOG_TAG, "id = " + userId);
         Log.d(Utils.LOG_TAG, "date = " + date);
 
+        priceList = new CoffeMenu();
+        menu = priceList.getMenu();
+        coffeItemNames = new ArrayList<>();
+        for (CoffeItem item : menu) {
+            String itemName = item.getName();
+            if (!coffeItemNames.contains(itemName)) {
+                coffeItemNames.add(itemName);
+            }
+        }
     }
 
     @Override
@@ -77,6 +92,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         int i = v.getId();
         if (i == R.id.add_button) {
             Intent intent = new Intent(SummaryComposerActivity.this, AddItemsActivity.class);
+            intent.putStringArrayListExtra(MENU_TAG, coffeItemNames);
             startActivityForResult(intent, REQ_CODE_CHILD);
         } else if (i == R.id.send_button) {
             String userName = "TestName2" + test;
@@ -97,7 +113,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         if(data != null && requestCode == REQ_CODE_CHILD) {
             CoffeItemsToAddInSummary item = (CoffeItemsToAddInSummary) data.getExtras().getSerializable(AddItemsActivity.TAG);
             summaryList.add(item);
-            Log.v(Utils.LOG_TAG, "SummaryComposerActivity-> Item = " + item.getItem().getName() + "Num = " + item.getAmount());
+            Log.v(Utils.LOG_TAG, "SummaryComposerActivity-> Item = " + item.getItem().getName() + " Num = " + item.getAmount());
             adapter.notifyDataSetChanged();
         }
     }

@@ -20,5 +20,5 @@
     <dimen name="send_buton_margin_left">10dp</dimen>
     <dimen name="top_table_row_conteiner_padding_left">10dp</dimen>
     <dimen name="top_table_row_conteiner_padding_right">10dp</dimen>
-    <dimen name="top_table_row_text_size">16sp</dimen>
+    <dimen name="top_table_row_text_size">22sp</dimen>
 </resources>

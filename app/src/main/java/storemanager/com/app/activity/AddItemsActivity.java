@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import storemanager.com.app.R;
 import storemanager.com.app.models.CoffeItem;
 import storemanager.com.app.models.CoffeItemsToAddInSummary;
@@ -32,6 +34,8 @@ public class AddItemsActivity extends AppCompatActivity {
     private Spinner sizeSpiner;
     private Spinner amountSpiner;
 
+    private ArrayList<String> coffeItemNames;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +52,12 @@ public class AddItemsActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(buttonAddClickListener);
         buttonCancel.setOnClickListener(buttonCancelClickListener);
 
+        Intent intent = getIntent();
+        coffeItemNames = intent.getStringArrayListExtra(SummaryComposerActivity.MENU_TAG);
+
         cofeItem = new CoffeItem();
 
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this, R.layout.items_spinner, Utils.coffeItems);
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this, R.layout.items_spinner, coffeItemNames);
 
         itemsSpiner.setAdapter(itemsAdapter);
         itemsSpiner.setPrompt(Utils.coffeItems.get(0));
@@ -61,7 +68,7 @@ public class AddItemsActivity extends AppCompatActivity {
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
                 ((TextView) parent.getChildAt(0)).setTextSize(20);
 
-                String itemName = Utils.coffeItems.get(position);
+                String itemName = coffeItemNames.get(position);
                 itemsSpiner.setPrompt(itemName);
                 cofeItem.setName(itemName);
             }
