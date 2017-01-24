@@ -15,7 +15,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import storemanager.com.app.R;
+import storemanager.com.app.models.CoffeItem;
+import storemanager.com.app.utils.CoffeMenu;
 import storemanager.com.app.utils.Utils;
 
 public class ChooserActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -44,6 +48,12 @@ public class ChooserActivity extends AppCompatActivity implements AdapterView.On
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
+
+/*        CoffeMenu menu = new CoffeMenu();
+        List<CoffeItem> testMenu = menu.getMenu();
+        for (CoffeItem item : testMenu) {
+            Log.v(Utils.LOG_TAG, "ItemName: " + item.getName() + ", OneSize: " + item.isOneSize() + ", ItemSize: " + item.getSize() + ". Price (hrn): " + item.getPrice());
+        }*/
     }
 
     @Override
