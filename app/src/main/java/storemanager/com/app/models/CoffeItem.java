@@ -44,4 +44,14 @@ public class CoffeItem implements Serializable{
     public void setOneSize(boolean oneSize) {
         this.oneSize = oneSize;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (this == null) return false;
+        if (this.getClass() != obj.getClass()) return false;
+        CoffeItem item = (CoffeItem) obj;
+        return this.name.equals(item.getName())
+                && this.size.equals(item.getSize());
+    }
 }

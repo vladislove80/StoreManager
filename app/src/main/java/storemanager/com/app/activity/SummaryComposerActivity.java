@@ -44,7 +44,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
 
     private CoffeMenu priceList;
     private List<CoffeItem> menu;
-    ArrayList<String> coffeItemNames;
+    private ArrayList<String> coffeItemNames;
 
 
     @Override
@@ -112,9 +112,22 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && requestCode == REQ_CODE_CHILD) {
             CoffeItemsToAddInSummary item = (CoffeItemsToAddInSummary) data.getExtras().getSerializable(AddItemsActivity.TAG);
+            item = setPrice(menu, item);
             summaryList.add(item);
             Log.v(Utils.LOG_TAG, "SummaryComposerActivity-> Item = " + item.getItem().getName() + " Num = " + item.getAmount());
             adapter.notifyDataSetChanged();
         }
+    }
+
+    private CoffeItemsToAddInSummary setPrice(List<CoffeItem> menu, CoffeItemsToAddInSummary items) {
+        CoffeItem itemWithoutPrice = items.getItem();
+        int num = items.getAmount();
+        for (CoffeItem menuItem : menu) {
+            if (menuItem.equals(itemWithoutPrice)) {
+                items.getItem().setPrice(menuItem.getPrice()*num);
+                return items;
+            }
+        }
+        return items;
     }
 }
