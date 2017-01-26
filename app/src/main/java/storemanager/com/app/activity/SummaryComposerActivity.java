@@ -23,6 +23,7 @@ import java.util.List;
 import storemanager.com.app.R;
 import storemanager.com.app.models.CoffeItem;
 import storemanager.com.app.models.CoffeItemInSummary;
+import storemanager.com.app.models.Summary;
 import storemanager.com.app.models.User;
 import storemanager.com.app.utils.CoffeMenu;
 import storemanager.com.app.utils.Utils;
@@ -135,8 +136,10 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     private void writeNewUser(String userId, String name, String email) {
         User user = new User(name, email);
 
-        mDatabase.child("users" + name).child(userId).setValue(user);
-        mDatabase.child("users" + name).child(userId).setValue(summaryList);
+        Summary summary = new Summary(user, summaryList);
+
+        mDatabase.child(name).setValue(user);
+        mDatabase.child(name).setValue(summary);
     }
 
     @Override
