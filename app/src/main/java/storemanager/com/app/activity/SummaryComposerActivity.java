@@ -124,10 +124,17 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         int num = items.getAmount();
         for (CoffeItem menuItem : menu) {
             if (menuItem.equals(itemWithoutPrice)) {
-                items.getItem().setPrice(menuItem.getPrice()*num);
+                if (menuItem.isOneSize()) {
+                    itemWithoutPrice.setOneSize(true);
+                    itemWithoutPrice.setSize(menuItem.getSize());
+                    items.getItem().setPrice(menuItem.getPrice()*num);
+                } else {
+                    items.getItem().setPrice(menuItem.getPrice()*num);
+                }
                 return items;
             }
         }
+
         return items;
     }
 }

@@ -51,7 +51,6 @@ public class CoffeItem implements Serializable{
         if (this == null) return false;
         if (this.getClass() != obj.getClass()) return false;
         CoffeItem item = (CoffeItem) obj;
-        return this.name.equals(item.getName())
-                && this.size.equals(item.getSize());
+        return this.name.equals(item.getName());
     }
 }
