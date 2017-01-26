@@ -32,12 +32,14 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     private Button mAddItemButton;
     private Button mSaveToDatabaseButton;
     private TextView mDateTextView;
+    private TextView total;
 
     private ListView summuryListView;
     private List<CoffeItemsToAddInSummary> summaryList;
     private SummaryAdapter adapter;
 
-    int test = 10;
+    private int test = 10;
+    private int totalPrice = 0;
 
     public final static int REQ_CODE_CHILD = 1;
     public final static String MENU_TAG = "names";
@@ -64,6 +66,8 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         mAddItemButton = (Button) findViewById(R.id.add_button);
         mSaveToDatabaseButton = (Button) findViewById(R.id.send_button);
         summuryListView = (ListView) findViewById(R.id.summury);
+        total = (TextView) findViewById(R.id.total);
+        total.setText("0");
 
         summaryList = new ArrayList<>();
         adapter = new SummaryAdapter(getBaseContext(), summaryList);
@@ -114,8 +118,10 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
             CoffeItemsToAddInSummary item = (CoffeItemsToAddInSummary) data.getExtras().getSerializable(AddItemsActivity.TAG);
             item = setPrice(menu, item);
             summaryList.add(item);
+            totalPrice = totalPrice + item.getItemsPrice();
             Log.v(Utils.LOG_TAG, "SummaryComposerActivity-> Item = " + item.getItem().getName() + " Num = " + item.getAmount());
             adapter.notifyDataSetChanged();
+            total.setText(String.valueOf(totalPrice));
         }
     }
 

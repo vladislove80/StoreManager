@@ -32,6 +32,7 @@
     <string name="size">Size</string>
     <string name="num">Num</string>
     <string name="price">Price</string>
+    <string name="table_bottom_total_text">Total:</string>
 
     <!--AddItemsActivity-->
     <string name="label_add_item">Add item</string>

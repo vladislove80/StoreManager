@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/top_table_row_conteiner_padding_left"
-    android:paddingRight="@dimen/top_table_row_conteiner_padding_right">
+    android:paddingRight="@dimen/top_table_row_conteiner_padding_right"
+    android:paddingTop="@dimen/top_table_row_conteiner_padding_right"
+    android:paddingBottom="@dimen/top_table_row_conteiner_padding_right">
 
     <TextView
         android:id="@+id/item_number_row"
@@ -31,13 +33,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/top_table_row_text_size"
-        android:paddingRight="45dp"
+        android:paddingRight="55dp"
         android:layout_toLeftOf="@id/item_price"/>
     <TextView
         android:id="@+id/item_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/top_table_row_text_size"
-        android:paddingRight="45dp"
+        android:paddingRight="65dp"
         android:layout_toLeftOf="@id/item_amount"/>
 </RelativeLayout>

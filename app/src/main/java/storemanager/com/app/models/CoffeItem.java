@@ -7,8 +7,8 @@ public class CoffeItem implements Serializable{
     private boolean oneSize;
 
     private String name;
-    private Integer size;
-    private Integer price;
+    private int size;
+    private int price;
 
     public CoffeItem() {
     }
@@ -21,7 +21,7 @@ public class CoffeItem implements Serializable{
         this.name = name;
     }
 
-    public Integer getSize() {
+    public int getSize() {
         return size;
     }
 
@@ -29,7 +29,7 @@ public class CoffeItem implements Serializable{
         this.size = size;
     }
 
-    public Integer getPrice() {
+    public int getPrice() {
         return price;
     }
 

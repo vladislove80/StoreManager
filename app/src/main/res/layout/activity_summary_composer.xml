@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:text="@string/num"
             android:textSize="@dimen/top_table_row_text_size"
-            android:paddingRight="20dp"
+            android:paddingRight="25dp"
             android:layout_toLeftOf="@id/item_price"/>
         <TextView
             android:id="@+id/item_size"
@@ -106,5 +106,29 @@
     <ListView
         android:id="@+id/summury"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/table_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/top_table_row_conteiner_padding_left"
+        android:paddingRight="@dimen/top_table_row_conteiner_padding_right">
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/top_table_row_text_size"
+            android:layout_alignParentRight="true"/>
+
+        <TextView
+            android:id="@+id/total_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/table_bottom_total_text"
+            android:textSize="@dimen/top_table_row_text_size"
+            android:paddingRight="40dp"
+            android:layout_toLeftOf="@id/total"/>
+    </RelativeLayout>
 </LinearLayout>
