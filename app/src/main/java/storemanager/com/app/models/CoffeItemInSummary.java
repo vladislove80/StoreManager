@@ -2,14 +2,14 @@ package storemanager.com.app.models;
 
 import java.io.Serializable;
 
-public class CoffeItemToAddInSummary implements Serializable {
+public class CoffeItemInSummary implements Serializable {
     private CoffeItem item;
     private int amount;
     private int itemsPrice;
 
-    public CoffeItemToAddInSummary() {}
+    public CoffeItemInSummary() {}
 
-    public CoffeItemToAddInSummary(CoffeItem item, int amount) {
+    public CoffeItemInSummary(CoffeItem item, int amount) {
         this.item = item;
         this.amount = amount;
     }
@@ -43,7 +43,7 @@ public class CoffeItemToAddInSummary implements Serializable {
         if (this == obj) return true;
         if (this == null) return false;
         if (this.getClass() != obj.getClass()) return false;
-        CoffeItemToAddInSummary items = (CoffeItemToAddInSummary) obj;
+        CoffeItemInSummary items = (CoffeItemInSummary) obj;
         return this.item.equals(items.getItem());
     }
 }

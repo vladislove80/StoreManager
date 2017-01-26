@@ -238,6 +238,7 @@ public class GoogleSignInActivity extends BaseActivity implements
                 }
             });
         } else {
+            mAddDataButton.setVisibility(View.GONE);
             mStatusTextView.setText(R.string.signed_out);
             mDetailTextView.setText(null);
 
