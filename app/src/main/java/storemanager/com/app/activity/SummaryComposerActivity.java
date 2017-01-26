@@ -1,13 +1,17 @@
 package storemanager.com.app.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -72,6 +76,29 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         summaryList = new ArrayList<>();
         adapter = new SummaryAdapter(getBaseContext(), summaryList);
         summuryListView.setAdapter(adapter);
+        summuryListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                Log.d(Utils.LOG_TAG, "ItemName - " + summaryList.get(position).getItem().getName());
+                Context wrapper = new ContextThemeWrapper(getBaseContext(), R.style.PopupMenu);
+                PopupMenu popupMenu = new PopupMenu(wrapper, view);
+                popupMenu.getMenu().add("Delete");
+                popupMenu.getMenuInflater().inflate(R.menu.item_menu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(android.view.MenuItem item) {
+                        Log.v(Utils.LOG_TAG, "AddItemsActivity->DELETE");
+                        totalPrice = totalPrice - summaryList.get(position).getItem().getPrice();
+                        summaryList.remove(position);
+                        adapter.notifyDataSetChanged();
+                        total.setText(String.valueOf(totalPrice));
+                        return true;
+                    }
+                });
+                popupMenu.show();
+                return false;
+            }
+        });
 
         mAddItemButton.setOnClickListener(this);
         mSaveToDatabaseButton.setOnClickListener(this);
@@ -166,5 +193,9 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                 summaryItem.setAmount(newAmount);
             }
         }
+    }
+
+    private void deleteItemFromSummary(List<CoffeItemToAddInSummary> summuryList, CoffeItemToAddInSummary item) {
+
     }
 }

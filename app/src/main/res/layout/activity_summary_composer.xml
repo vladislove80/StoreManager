@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/label_padding_top"
-        android:text="Sales"
+        android:text="@string/check_label"
         android:textSize="@dimen/label_size"
         android:textAlignment="center"
         />

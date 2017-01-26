@@ -26,6 +26,7 @@
     <string name="facebook_app_id">165070403956965</string>
 
     <!--SummaryComposerActivity-->
+    <string name="check_label">Check</string>
     <string name="label_send_data">Summary</string>
     <string name="table_number">№</string>
     <string name="name">Name</string>

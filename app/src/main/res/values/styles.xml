@@ -37,4 +37,9 @@
         <item name="android:textSize">36sp</item>
     </style>
 
+    <style name="PopupMenu" parent="AppTheme">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:itemBackground">@color/white</item>
+    </style>
+
 </resources>
