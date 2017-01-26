@@ -10,14 +10,14 @@ import android.widget.TextView;
 import java.util.List;
 
 import storemanager.com.app.R;
-import storemanager.com.app.models.CoffeItemsToAddInSummary;
+import storemanager.com.app.models.CoffeItemToAddInSummary;
 
-public class SummaryAdapter extends ArrayAdapter<CoffeItemsToAddInSummary> {
+public class SummaryAdapter extends ArrayAdapter<CoffeItemToAddInSummary> {
 
     private Context context;
-    private List<CoffeItemsToAddInSummary> coffeItem;
+    private List<CoffeItemToAddInSummary> coffeItem;
 
-    public SummaryAdapter(Context context, List<CoffeItemsToAddInSummary> coffeItem) {
+    public SummaryAdapter(Context context, List<CoffeItemToAddInSummary> coffeItem) {
         super(context, R.layout.items_row, coffeItem);
         this.context = context;
         this.coffeItem = coffeItem;
@@ -51,7 +51,7 @@ public class SummaryAdapter extends ArrayAdapter<CoffeItemsToAddInSummary> {
         viewHolder.itemName.setText(coffeItem.get(position).getItem().getName());
         viewHolder.itemAmount.setText(String.valueOf(coffeItem.get(position).getAmount()));
         viewHolder.itemSize.setText(String.valueOf(coffeItem.get(position).getItem().getSize()));
-        viewHolder.itemPrice.setText(String.valueOf(coffeItem.get(position).getItem().getPrice()));
+        viewHolder.itemPrice.setText(String.valueOf(coffeItem.get(position).getItem().getPrice() * coffeItem.get(position).getAmount()));
 
         return convertView;
     }

@@ -18,7 +18,7 @@ import java.util.List;
 
 import storemanager.com.app.R;
 import storemanager.com.app.models.CoffeItem;
-import storemanager.com.app.models.CoffeItemsToAddInSummary;
+import storemanager.com.app.models.CoffeItemToAddInSummary;
 import storemanager.com.app.models.User;
 import storemanager.com.app.utils.CoffeMenu;
 import storemanager.com.app.utils.Utils;
@@ -35,7 +35,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     private TextView total;
 
     private ListView summuryListView;
-    private List<CoffeItemsToAddInSummary> summaryList;
+    private List<CoffeItemToAddInSummary> summaryList;
     private SummaryAdapter adapter;
 
     private int test = 10;
@@ -115,9 +115,13 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && requestCode == REQ_CODE_CHILD) {
-            CoffeItemsToAddInSummary item = (CoffeItemsToAddInSummary) data.getExtras().getSerializable(AddItemsActivity.TAG);
+            CoffeItemToAddInSummary item = (CoffeItemToAddInSummary) data.getExtras().getSerializable(AddItemsActivity.TAG);
             item = setPrice(menu, item);
-            summaryList.add(item);
+            if (!isItemInSummary(summaryList, item)) {
+                summaryList.add(item);
+            } else {
+                changeItemsAmountInSummary(summaryList, item);
+            }
             totalPrice = totalPrice + item.getItemsPrice();
             Log.v(Utils.LOG_TAG, "SummaryComposerActivity-> Item = " + item.getItem().getName() + " Num = " + item.getAmount());
             adapter.notifyDataSetChanged();
@@ -125,22 +129,42 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         }
     }
 
-    private CoffeItemsToAddInSummary setPrice(List<CoffeItem> menu, CoffeItemsToAddInSummary items) {
-        CoffeItem itemWithoutPrice = items.getItem();
-        int num = items.getAmount();
+    private CoffeItemToAddInSummary setPrice(List<CoffeItem> menu, CoffeItemToAddInSummary item) {
+        CoffeItem itemWithoutPrice = item.getItem();
         for (CoffeItem menuItem : menu) {
-            if (menuItem.equals(itemWithoutPrice)) {
+            if (menuItem.getName().equals(itemWithoutPrice.getName())) {
                 if (menuItem.isOneSize()) {
                     itemWithoutPrice.setOneSize(true);
                     itemWithoutPrice.setSize(menuItem.getSize());
-                    items.getItem().setPrice(menuItem.getPrice()*num);
+                    item.getItem().setPrice(menuItem.getPrice());
+                    return item;
                 } else {
-                    items.getItem().setPrice(menuItem.getPrice()*num);
+                    if (menuItem.getSize() == itemWithoutPrice.getSize()) {
+                        item.getItem().setPrice(menuItem.getPrice());
+                        return item;
+                    }
                 }
-                return items;
             }
         }
 
-        return items;
+        return item;
+    }
+
+    private boolean isItemInSummary(List<CoffeItemToAddInSummary> summuryList, CoffeItemToAddInSummary addedItem) {
+        for (CoffeItemToAddInSummary summaryItem : summuryList) {
+            if (summaryItem.equals(addedItem)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void changeItemsAmountInSummary(List<CoffeItemToAddInSummary> summuryList, CoffeItemToAddInSummary item) {
+        for (CoffeItemToAddInSummary summaryItem : summuryList) {
+            if (summaryItem.equals(item)) {
+                int newAmount = summaryItem.getAmount() + item.getAmount();
+                summaryItem.setAmount(newAmount);
+            }
+        }
     }
 }
