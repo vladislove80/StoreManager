@@ -33,12 +33,17 @@
             android:name=".activity.SummaryComposerActivity"
             android:label="@string/label_send_data"/>
 
+
         <activity
             android:name=".activity.AddItemsActivity"
             android:label="@string/label_add_item"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.Light.Dialog"
             />
+
+        <activity
+            android:name=".activity.SummaryViewerActivity"
+            android:label="@string/label_view_data"/>
 
     </application>
 

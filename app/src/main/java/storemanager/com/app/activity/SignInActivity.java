@@ -49,11 +49,11 @@ public class SignInActivity extends AppCompatActivity implements AdapterView.OnI
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
 
-        CoffeMenu menu = new CoffeMenu();
+        /*CoffeMenu menu = new CoffeMenu();
         List<CoffeItem> testMenu = menu.getMenu();
         for (CoffeItem item : testMenu) {
             Log.v(Utils.LOG_TAG, "ItemName: " + item.getName() + ", OneSize: " + item.isOneSize() + ", ItemSize: " + item.getSize() + ". Price (hrn): " + item.getPrice());
-        }
+        }*/
     }
 
     @Override

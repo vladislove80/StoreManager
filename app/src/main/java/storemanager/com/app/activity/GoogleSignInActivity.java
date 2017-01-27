@@ -47,6 +47,7 @@ public class GoogleSignInActivity extends BaseActivity implements
     private TextView mStatusTextView;
     private TextView mDetailTextView;
     private Button mAddDataButton;
+    private Button mViewDataButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,10 +59,12 @@ public class GoogleSignInActivity extends BaseActivity implements
         mStatusTextView = (TextView) findViewById(R.id.status);
         mDetailTextView = (TextView) findViewById(R.id.detail);
         mAddDataButton = (Button) findViewById(R.id.start_sales_activity);
+        mViewDataButton = (Button) findViewById(R.id.start_viewer_activity);
 
         // Button listeners
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         findViewById(R.id.sign_out_button).setOnClickListener(this);
+        findViewById(R.id.disconnect_button).setOnClickListener(this);
         findViewById(R.id.disconnect_button).setOnClickListener(this);
 
         // [START config_signin]
@@ -234,6 +237,14 @@ public class GoogleSignInActivity extends BaseActivity implements
                     Intent intent = new Intent(GoogleSignInActivity.this, SummaryComposerActivity.class);
                     intent.putExtra(Utils.EXTRA_TAG_MAIL, userEmail);
                     intent.putExtra(Utils.EXTRA_TAG_ID, userId);
+                    startActivity(intent);
+                }
+            });
+            mViewDataButton.setVisibility(View.VISIBLE);
+            mViewDataButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(GoogleSignInActivity.this, SummaryViewerActivity.class);
                     startActivity(intent);
                 }
             });

@@ -37,4 +37,7 @@
 
     <!--AddItemsActivity-->
     <string name="label_add_item">Add item</string>
+
+    <!--SummaryViewerActivity-->
+    <string name="label_view_data">View</string>
 </resources>

@@ -128,13 +128,13 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
             startActivityForResult(intent, REQ_CODE_CHILD);
         } else if (i == R.id.send_button) {
             String userName = "TestName2" + test;
-            writeNewUser(userId, userName, userEmail);
+            setSummaryToDatabase(userId, userName, userEmail);
             test = test * 2;
         }
     }
 
-    private void writeNewUser(String userId, String name, String email) {
-        User user = new User(name, email);
+    private void setSummaryToDatabase(String userId, String name, String email) {
+        User user = new User(userId, name, email);
 
         Summary summary = new Summary(user, summaryList);
 
