@@ -89,7 +89,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                     @Override
                     public boolean onMenuItemClick(android.view.MenuItem item) {
                         Log.v(Utils.LOG_TAG, "AddItemsActivity->DELETE");
-                        totalPrice = totalPrice - summaryList.get(position).getItem().getPrice();
+                        totalPrice = totalPrice - summaryList.get(position).getItem().getPrice() * summaryList.get(position).getAmount();
                         summaryList.remove(position);
                         adapter.notifyDataSetChanged();
                         total.setText(String.valueOf(totalPrice));
