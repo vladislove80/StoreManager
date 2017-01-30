@@ -36,7 +36,7 @@ public class SummaryViewerActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Summary object and use the values to update the UI
 
-                Summary summary = dataSnapshot.getValue(Summary.class);
+                Summary summary = dataSnapshot.child("test").getValue(Summary.class);
 
                 User user = summary.getUser();
                 List<CoffeItemInSummary> coffeItemslist = summary.getItemInSummary();

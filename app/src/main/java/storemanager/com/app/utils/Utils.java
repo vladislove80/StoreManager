@@ -34,11 +34,12 @@ public class Utils {
     public static int priceChocolateCocao[] = {20,24,27,25,30,32,25,30,32,22,27,32,17,20,22,20,24,27,14,19,22};
 
     public static final String EXTRA_TAG_MAIL = "email";
+    public static final String EXTRA_TAG_NAME = "name";
     public static final String EXTRA_TAG_ID = "id";
 
     public static String getCurrentDate() {
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("yyyy / MM / dd , HH:mm");
+        SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm, dd / MM / yyyy");
         return mdformat.format(calendar.getTime());
 
     }

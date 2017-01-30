@@ -30,8 +30,9 @@ import storemanager.com.app.utils.Utils;
 
 public class SummaryComposerActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private DatabaseReference mDatabase;
+    //private DatabaseReference mDatabase;
     private String userEmail;
+    private String userName;
     private String userId;
 
     private Button mAddItemButton;
@@ -45,6 +46,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
 
     private int test = 10;
     private int totalPrice = 0;
+    private String date;
 
     public final static int REQ_CODE_CHILD = 1;
     public final static String MENU_TAG = "names";
@@ -59,13 +61,14 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary_composer);
         Log.v(Utils.LOG_TAG, "SummaryComposerActivity");
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        //mDatabase = FirebaseDatabase.getInstance().getReference();
 
         Intent intent = getIntent();
         userEmail = intent.getStringExtra(Utils.EXTRA_TAG_MAIL);
+        userName = intent.getStringExtra(Utils.EXTRA_TAG_NAME);
         userId = intent.getStringExtra(Utils.EXTRA_TAG_ID);
 
-        String date = Utils.getCurrentDate();
+        date = Utils.getCurrentDate();
         mDateTextView = (TextView) findViewById(R.id.date);
         mDateTextView.setText(date);
         mAddItemButton = (Button) findViewById(R.id.add_button);
@@ -127,19 +130,27 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
             intent.putStringArrayListExtra(MENU_TAG, coffeItemNames);
             startActivityForResult(intent, REQ_CODE_CHILD);
         } else if (i == R.id.send_button) {
-            String userName = "TestName2" + test;
             setSummaryToDatabase(userId, userName, userEmail);
-            test = test * 2;
+            mAddItemButton.setVisibility(View.GONE);
         }
     }
 
     private void setSummaryToDatabase(String userId, String name, String email) {
-        User user = new User(userId, name, email);
+        User user = new User();
+        user.setId(userId);
+        user.setName(name);
+        user.setEmail(email);
 
-        Summary summary = new Summary(user, summaryList);
+        Summary summary = new Summary();
+        summary.setUser(user);
+        summary.setDate(date);
+        summary.setItemInSummary(summaryList);
 
-        mDatabase.child(name).setValue(user);
-        mDatabase.child(name).setValue(summary);
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("test").setValue(user);
+        mDatabase.child("test").setValue(date);
+        mDatabase.child("test").setValue(summary);
     }
 
     @Override

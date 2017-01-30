@@ -5,14 +5,10 @@ import java.util.List;
 public class Summary {
 
     private User user;
-    List<CoffeItemInSummary> itemInSummary;
+    private String date;
+    private List<CoffeItemInSummary> itemInSummary;
 
     public Summary() {}
-
-    public Summary(User user, List<CoffeItemInSummary> itemInSummary) {
-        this.user = user;
-        this.itemInSummary = itemInSummary;
-    }
 
     public User getUser() {
         return user;
@@ -20,6 +16,14 @@ public class Summary {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public List<CoffeItemInSummary> getItemInSummary() {

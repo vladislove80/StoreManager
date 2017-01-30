@@ -224,9 +224,10 @@ public class GoogleSignInActivity extends BaseActivity implements
         hideProgressDialog();
         if (user != null) {
             final String userEmail = user.getEmail();
+            final String userName = user.getDisplayName();
             final String userId = user.getUid();
             mStatusTextView.setText(getString(R.string.google_status_fmt, userEmail));
-            mDetailTextView.setText(getString(R.string.firebase_status_fmt, userId));
+            mDetailTextView.setText(getString(R.string.firebase_status_fmt, userName));
 
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
@@ -236,6 +237,7 @@ public class GoogleSignInActivity extends BaseActivity implements
                 public void onClick(View v) {
                     Intent intent = new Intent(GoogleSignInActivity.this, SummaryComposerActivity.class);
                     intent.putExtra(Utils.EXTRA_TAG_MAIL, userEmail);
+                    intent.putExtra(Utils.EXTRA_TAG_NAME, userName);
                     intent.putExtra(Utils.EXTRA_TAG_ID, userId);
                     startActivity(intent);
                 }

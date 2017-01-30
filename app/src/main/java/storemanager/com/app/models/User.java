@@ -14,24 +14,6 @@ public class User {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String id, String email) {
-        this.id = id;
-        this.email = email;
-    }
-
-    public User(String id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
-
-    public User(String status, String id, String name, String email) {
-        this.status = status;
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
-
     public String getStatus() {
         return status;
     }
