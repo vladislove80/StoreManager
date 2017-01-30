@@ -12,7 +12,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import storemanager.com.app.R;
 import storemanager.com.app.models.CoffeItemInSummary;
@@ -36,7 +41,26 @@ public class SummaryViewerActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Summary object and use the values to update the UI
 
-                Summary summary = dataSnapshot.child("test").getValue(Summary.class);
+                Log.e(Utils.LOG_TAG ,"dataSnapshot.getChildrenCount: " + dataSnapshot.getChildrenCount());
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    Map<String, Summary> td = (HashMap<String, Summary>) postSnapshot.getValue();
+                    /*Map<String, Summary> td = (HashMap<String,Summary>) dataSnapshot.getValue();
+                    List<Summary> list = new ArrayList<>(td.values());*/
+
+                    Set<String> key = td.keySet();
+                    Iterator<String> it = key.iterator();
+                    String s = it.next();
+                        Summary summary = postSnapshot.child("test1").getValue(Summary.class);
+                    User user = summary.getUser();
+                    List<CoffeItemInSummary> coffeItemslist = summary.getItemInSummary();
+                    Log.v(Utils.LOG_TAG, "Summury: " + user.getName());
+                    for (CoffeItemInSummary item : coffeItemslist) {
+                        Log.v(Utils.LOG_TAG, item.getItem().getName() + " " + item.getItem().getSize() + " " + item.getAmount() + " " + item.getItemsPrice());
+                    }
+
+                }
+
+                /*Summary summary = dataSnapshot.child("test").getValue(Summary.class);
 
                 User user = summary.getUser();
                 List<CoffeItemInSummary> coffeItemslist = summary.getItemInSummary();
@@ -44,7 +68,7 @@ public class SummaryViewerActivity extends AppCompatActivity {
                 for (CoffeItemInSummary item : coffeItemslist) {
 
                     Log.v(Utils.LOG_TAG, item.getItem().getName() + " " + item.getItem().getSize() + " " + item.getAmount() + " " + item.getItemsPrice());
-                }
+                }*/
             }
 
             @Override

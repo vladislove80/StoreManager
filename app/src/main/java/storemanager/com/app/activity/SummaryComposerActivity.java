@@ -30,7 +30,6 @@ import storemanager.com.app.utils.Utils;
 
 public class SummaryComposerActivity extends AppCompatActivity implements View.OnClickListener{
 
-    //private DatabaseReference mDatabase;
     private String userEmail;
     private String userName;
     private String userId;
@@ -44,7 +43,6 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     private List<CoffeItemInSummary> summaryList;
     private SummaryAdapter adapter;
 
-    private int test = 10;
     private int totalPrice = 0;
     private String date;
 
@@ -61,7 +59,6 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary_composer);
         Log.v(Utils.LOG_TAG, "SummaryComposerActivity");
-        //mDatabase = FirebaseDatabase.getInstance().getReference();
 
         Intent intent = getIntent();
         userEmail = intent.getStringExtra(Utils.EXTRA_TAG_MAIL);
@@ -130,12 +127,13 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
             intent.putStringArrayListExtra(MENU_TAG, coffeItemNames);
             startActivityForResult(intent, REQ_CODE_CHILD);
         } else if (i == R.id.send_button) {
-            setSummaryToDatabase(userId, userName, userEmail);
+            sendSummaryToDatabase(userId, userName, userEmail);
             mAddItemButton.setVisibility(View.GONE);
+            mSaveToDatabaseButton.setVisibility(View.GONE);
         }
     }
 
-    private void setSummaryToDatabase(String userId, String name, String email) {
+    private void sendSummaryToDatabase(String userId, String name, String email) {
         User user = new User();
         user.setId(userId);
         user.setName(name);
@@ -147,10 +145,10 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         summary.setItemInSummary(summaryList);
 
         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("test").setValue(user);
-        mDatabase.child("test").setValue(date);
-        mDatabase.child("test").setValue(summary);
+        mDatabase = FirebaseDatabase.getInstance().getReference().push();
+        mDatabase.child("test1").setValue(user);
+        mDatabase.child("test1").setValue(date);
+        mDatabase.child("test1").setValue(summary);
     }
 
     @Override

@@ -22,6 +22,9 @@ public class Utils {
     public static final ArrayList<Integer> coffeSizes = new ArrayList<>(Arrays.asList(cSizes));
     public static final ArrayList<Integer> coffeNumber = new ArrayList<>(Arrays.asList(cNumber));
 
+    public static final String[] cShops = {"Таврия-В", "Цветочный рынок", "Парк Приморский"};
+    public static final ArrayList<String> coffeShops = new ArrayList<>(Arrays.asList(cShops));
+
     public static final String[] cItems1 = {
             "Эспрессо", "Эспрессо 2x", "Американо", "Кофе с молоком", "Кофе по Ирландски", "Кофе по Французски",  "Кофе Choco Mocco"};
     public static final String[] cItems2 = {
