@@ -147,13 +147,14 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         Summary summary = new Summary();
         summary.setUser(user);
         summary.setDate(date);
+        summary.setShop(shop);
         summary.setItemInSummary(summaryList);
 
         DatabaseReference mDatabase;
         mDatabase = FirebaseDatabase.getInstance().getReference().push();
-        mDatabase.child("test1").setValue(user);
-        mDatabase.child("test1").setValue(date);
-        mDatabase.child("test1").setValue(summary);
+        mDatabase.child(shop).setValue(user);
+        mDatabase.child(shop).setValue(date);
+        mDatabase.child(shop).setValue(summary);
     }
 
     @Override

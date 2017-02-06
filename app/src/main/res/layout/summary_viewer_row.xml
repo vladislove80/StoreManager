@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight">
+
+    <TextView
+        android:id="@+id/viewer_number_row"
+        android:layout_width="wrap_content"
+        android:layout_column="0"
+        android:layout_weight="1"
+        android:textSize="@dimen/top_table_row_text_size"/>
+    <TextView
+        android:id="@+id/viewer_item_name"
+        android:layout_width="wrap_content"
+        android:layout_column="1"
+        android:layout_weight="3"
+        android:textSize="@dimen/top_table_row_text_size"
+        android:paddingLeft="20dp"/>
+    <TextView
+        android:id="@+id/viewer_item_price"
+        android:layout_width="wrap_content"
+        android:layout_column="2"
+        android:layout_weight="1"
+        android:textSize="@dimen/top_table_row_text_size"/>
+    <TextView
+        android:id="@+id/viewer_item_amount"
+        android:layout_width="wrap_content"
+        android:layout_column="3"
+        android:layout_weight="1"
+        android:textSize="@dimen/top_table_row_text_size"
+        android:paddingRight="55dp"
+        android:layout_toLeftOf="@id/item_price"/>
+    <TextView
+        android:id="@+id/viewer_item_size"
+        android:layout_width="wrap_content"
+        android:layout_column="4"
+        android:layout_weight="1"
+        android:textSize="@dimen/top_table_row_text_size"/>
+</TableRow>

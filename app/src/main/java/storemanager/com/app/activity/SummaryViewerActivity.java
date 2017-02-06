@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -28,13 +30,23 @@ import storemanager.com.app.utils.Utils;
 public class SummaryViewerActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
+    private ListView mListView;
+    private List<Summary> summaryList;
+    private TextView label;
+    private SummaryViewerAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary_viewer);
         Log.v(Utils.LOG_TAG, "SummaryViewerActivity");
+        mListView = (ListView) findViewById(R.id.full_summury);
+        label = (TextView) findViewById(R.id.viewer_label);
+        label.setText("Summary: ");
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        summaryList = new ArrayList<>();
+        adapter = new SummaryViewerAdapter(getBaseContext(), summaryList);
+        mListView.setAdapter(adapter);
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -42,33 +54,28 @@ public class SummaryViewerActivity extends AppCompatActivity {
                 // Get Summary object and use the values to update the UI
 
                 Log.e(Utils.LOG_TAG ,"dataSnapshot.getChildrenCount: " + dataSnapshot.getChildrenCount());
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    Map<String, Summary> td = (HashMap<String, Summary>) postSnapshot.getValue();
-                    /*Map<String, Summary> td = (HashMap<String,Summary>) dataSnapshot.getValue();
-                    List<Summary> list = new ArrayList<>(td.values());*/
+                for (String shop : Utils.cShops) {
 
-                    Set<String> key = td.keySet();
-                    Iterator<String> it = key.iterator();
-                    String s = it.next();
-                        Summary summary = postSnapshot.child("test1").getValue(Summary.class);
-                    User user = summary.getUser();
-                    List<CoffeItemInSummary> coffeItemslist = summary.getItemInSummary();
-                    Log.v(Utils.LOG_TAG, "Summury: " + user.getName());
-                    for (CoffeItemInSummary item : coffeItemslist) {
-                        Log.v(Utils.LOG_TAG, item.getItem().getName() + " " + item.getItem().getSize() + " " + item.getAmount() + " " + item.getItemsPrice());
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        if (postSnapshot.hasChild(shop)) {
+                            Summary summary = postSnapshot.child(shop).getValue(Summary.class);
+                            if (summary != null) {
+                                summary.setShop(shop);
+                                summaryList.add(summary);
+                            }
+                        if (summary != null) {
+                            String date = summary.getDate();
+                            User user = summary.getUser();
+                            List<CoffeItemInSummary> coffeItemslist = summary.getItemInSummary();
+                            Log.v(Utils.LOG_TAG, "Summury: " + ": " + shop + ", " + user.getName());
+                            for (CoffeItemInSummary item : coffeItemslist) {
+                                Log.v(Utils.LOG_TAG, item.getItem().getName() + " " + item.getItem().getSize() + " " + item.getAmount() + " " + item.getItemsPrice());
+                            }
+                        }
+                        }
                     }
-
                 }
-
-                /*Summary summary = dataSnapshot.child("test").getValue(Summary.class);
-
-                User user = summary.getUser();
-                List<CoffeItemInSummary> coffeItemslist = summary.getItemInSummary();
-                Log.v(Utils.LOG_TAG, "Summury: " + user.getName());
-                for (CoffeItemInSummary item : coffeItemslist) {
-
-                    Log.v(Utils.LOG_TAG, item.getItem().getName() + " " + item.getItem().getSize() + " " + item.getAmount() + " " + item.getItemsPrice());
-                }*/
+                adapter.notifyDataSetChanged();
             }
 
             @Override

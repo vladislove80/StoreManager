@@ -6,7 +6,7 @@
 
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/viewer_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/date_padding_top"
