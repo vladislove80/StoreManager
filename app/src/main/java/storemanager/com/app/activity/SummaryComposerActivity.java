@@ -33,10 +33,12 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     private String userEmail;
     private String userName;
     private String userId;
+    private String shop;
 
     private Button mAddItemButton;
     private Button mSaveToDatabaseButton;
     private TextView mDateTextView;
+    private TextView mShopTextView;
     private TextView total;
 
     private ListView summuryListView;
@@ -64,10 +66,13 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         userEmail = intent.getStringExtra(Utils.EXTRA_TAG_MAIL);
         userName = intent.getStringExtra(Utils.EXTRA_TAG_NAME);
         userId = intent.getStringExtra(Utils.EXTRA_TAG_ID);
+        shop = intent.getStringExtra(Utils.EXTRA_TAG_SHOP);
 
         date = Utils.getCurrentDate();
         mDateTextView = (TextView) findViewById(R.id.date);
+        mShopTextView = (TextView) findViewById(R.id.shop);
         mDateTextView.setText(date);
+        mShopTextView.setText("\"" + shop + "\"");
         mAddItemButton = (Button) findViewById(R.id.add_button);
         mSaveToDatabaseButton = (Button) findViewById(R.id.send_button);
         summuryListView = (ListView) findViewById(R.id.summury);

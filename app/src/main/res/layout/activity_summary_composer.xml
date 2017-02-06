@@ -22,6 +22,14 @@
         android:textSize="@dimen/date_size"
         android:textAlignment="center"/>
 
+    <TextView
+        android:id="@+id/shop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/date_padding_top"
+        android:textSize="@dimen/date_size"
+        android:textAlignment="center"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

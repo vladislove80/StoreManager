@@ -1,9 +1,11 @@
 package storemanager.com.app.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -219,7 +221,7 @@ public class GoogleSignInActivity extends BaseActivity implements
                 });
     }
 
-    private void updateUI(FirebaseUser user) {
+    private void updateUI(final FirebaseUser user) {
         Log.d(TAG, "updateUI");
         hideProgressDialog();
         if (user != null) {
@@ -235,11 +237,7 @@ public class GoogleSignInActivity extends BaseActivity implements
             mAddDataButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(GoogleSignInActivity.this, SummaryComposerActivity.class);
-                    intent.putExtra(Utils.EXTRA_TAG_MAIL, userEmail);
-                    intent.putExtra(Utils.EXTRA_TAG_NAME, userName);
-                    intent.putExtra(Utils.EXTRA_TAG_ID, userId);
-                    startActivity(intent);
+                    dialog(user);
                 }
             });
             mViewDataButton.setVisibility(View.VISIBLE);
@@ -258,6 +256,42 @@ public class GoogleSignInActivity extends BaseActivity implements
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
         }
+    }
+
+    void dialog(final FirebaseUser user){
+        final String cShopItem[] = new String[1];
+        AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
+        alt_bld.setTitle("Выберите название торговой точки:");
+        alt_bld.setSingleChoiceItems(Utils.cShops, -1, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                cShopItem[0] = Utils.cShops[item];
+                Toast.makeText(getApplicationContext(), "Торговая точка \"" + Utils.cShops[item] + "\"", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alt_bld.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                final String userEmail = user.getEmail();
+                final String userName = user.getDisplayName();
+                final String userId = user.getUid();
+                mStatusTextView.setText(getString(R.string.google_status_fmt, userEmail));
+                mDetailTextView.setText(getString(R.string.firebase_status_fmt, userName));
+                Intent intent = new Intent(GoogleSignInActivity.this, SummaryComposerActivity.class);
+                intent.putExtra(Utils.EXTRA_TAG_MAIL, userEmail);
+                intent.putExtra(Utils.EXTRA_TAG_NAME, userName);
+                intent.putExtra(Utils.EXTRA_TAG_ID, userId);
+                intent.putExtra(Utils.EXTRA_TAG_SHOP, cShopItem[0]);
+                startActivity(intent);
+            }
+        });
+        alt_bld.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alert = alt_bld.create();
+        alert.show();
     }
 
     @Override
