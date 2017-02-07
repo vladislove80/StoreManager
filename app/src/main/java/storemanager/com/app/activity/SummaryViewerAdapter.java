@@ -53,7 +53,7 @@ public class SummaryViewerAdapter extends ArrayAdapter<Summary> {
         viewHolder.shopTextView.setText(summary.getShop());
         viewHolder.nameTextView.setText(summary.getUser().getName());
         viewHolder.dateTextView.setText(summary.getDate());
-        int i = 1;
+        /*int i = 1;
         for (CoffeItemInSummary item : itemInSummary) {
             final TableRow tableRow = (TableRow) convertView.inflate(context, R.layout.summary_viewer_row, null);
             TextView tv;
@@ -78,7 +78,7 @@ public class SummaryViewerAdapter extends ArrayAdapter<Summary> {
             tv.setLayoutParams(layoutParams);
             viewHolder.table.addView(tableRow);
             i++;
-        }
+        }*/
         return convertView;
     }
 }
