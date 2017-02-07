@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,7 @@ public class SummaryViewerActivity extends AppCompatActivity {
     private List<Summary> summaryList;
     private TextView label;
     private SummaryViewerAdapter adapter;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class SummaryViewerActivity extends AppCompatActivity {
         Log.v(Utils.LOG_TAG, "SummaryViewerActivity");
         mListView = (ListView) findViewById(R.id.full_summury);
         label = (TextView) findViewById(R.id.viewer_label);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         label.setText("Summary: ");
         mDatabase = FirebaseDatabase.getInstance().getReference();
         summaryList = new ArrayList<>();
@@ -75,6 +79,7 @@ public class SummaryViewerActivity extends AppCompatActivity {
                         }
                     }
                 }
+                progressBar.setVisibility(View.GONE);
                 adapter.notifyDataSetChanged();
             }
 
