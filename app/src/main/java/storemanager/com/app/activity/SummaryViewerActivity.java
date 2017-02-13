@@ -41,12 +41,13 @@ public class SummaryViewerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_summary_viewer);
         Log.v(Utils.LOG_TAG, "SummaryViewerActivity");
         mListView = (ListView) findViewById(R.id.full_summury);
         label = (TextView) findViewById(R.id.viewer_label);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        label.setText("Summary: ");
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
         summaryList = new ArrayList<>();
         adapter = new SummaryViewerAdapter(getBaseContext(), summaryList);
@@ -59,7 +60,6 @@ public class SummaryViewerActivity extends AppCompatActivity {
 
                 Log.e(Utils.LOG_TAG ,"dataSnapshot.getChildrenCount: " + dataSnapshot.getChildrenCount());
                 for (String shop : Utils.cShops) {
-
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         if (postSnapshot.hasChild(shop)) {
                             Summary summary = postSnapshot.child(shop).getValue(Summary.class);
@@ -67,15 +67,15 @@ public class SummaryViewerActivity extends AppCompatActivity {
                                 summary.setShop(shop);
                                 summaryList.add(summary);
                             }
-                        if (summary != null) {
-                            String date = summary.getDate();
-                            User user = summary.getUser();
-                            List<CoffeItemInSummary> coffeItemslist = summary.getItemInSummary();
-                            Log.v(Utils.LOG_TAG, "Summury: " + ": " + shop + ", " + user.getName());
-                            for (CoffeItemInSummary item : coffeItemslist) {
-                                Log.v(Utils.LOG_TAG, item.getItem().getName() + " " + item.getItem().getSize() + " " + item.getAmount() + " " + item.getItemsPrice());
-                            }
-                        }
+                            /*if (summary != null) {
+                                String date = summary.getDate();
+                                User user = summary.getUser();
+                                List<CoffeItemInSummary> coffeItemslist = summary.getItemInSummary();
+                                Log.v(Utils.LOG_TAG, "Summury: " + ": " + shop + ", " + user.getName());
+                                for (CoffeItemInSummary item : coffeItemslist) {
+                                    Log.v(Utils.LOG_TAG, item.getItem().getName() + " " + item.getItem().getSize() + " " + item.getAmount() + " " + item.getItemsPrice());
+                                }
+                            }*/
                         }
                     }
                 }
@@ -94,6 +94,5 @@ public class SummaryViewerActivity extends AppCompatActivity {
             }
         };
         mDatabase.addValueEventListener(postListener);
-
     }
 }

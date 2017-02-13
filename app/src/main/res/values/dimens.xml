@@ -21,4 +21,12 @@
     <dimen name="top_table_row_conteiner_padding_left">10dp</dimen>
     <dimen name="top_table_row_conteiner_padding_right">10dp</dimen>
     <dimen name="top_table_row_text_size">22sp</dimen>
+
+    <!--Viewer-->
+    <dimen name="viewer_margin_top">15dp</dimen>
+    <dimen name="shop_text_size">22sp</dimen>
+    <dimen name="name_text_size">18sp</dimen>
+    <dimen name="date_text_size">20sp</dimen>
+    <dimen name="summary_data_item_margin_start">15dp</dimen>
+
 </resources>
