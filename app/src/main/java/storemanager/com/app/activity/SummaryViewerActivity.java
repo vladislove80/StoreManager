@@ -93,6 +93,7 @@ public class SummaryViewerActivity extends AppCompatActivity {
                 // [END_EXCLUDE]
             }
         };
-        mDatabase.addValueEventListener(postListener);
+        //mDatabase.addValueEventListener(postListener);
+        mDatabase.addListenerForSingleValueEvent(postListener);
     }
 }
