@@ -4,8 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import storemanager.com.app.models.CoffeItem;
+import storemanager.com.app.models.Summary;
 
 public class Utils {
     public static final String LOG_TAG = "debug";
@@ -46,6 +48,11 @@ public class Utils {
         SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm, dd / MM / yyyy");
         return mdformat.format(calendar.getTime());
 
+    }
+
+    public static List<Summary> sortSummaryListByDate(List<Summary> summaryList) {
+
+        return summaryList;
     }
 
 }

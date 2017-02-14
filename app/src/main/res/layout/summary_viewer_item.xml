@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginStart="@dimen/summary_data_item_margin_start">
+    android:layout_marginStart="@dimen/summary_data_item_margin_start"
+    android:id="@+id/ll_summary_container">
 
     <TextView
         android:id="@+id/viewer_shop"
@@ -27,7 +28,8 @@
     <TableLayout
         android:id="@+id/summary_table"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
     </TableLayout>
 
 </LinearLayout>
