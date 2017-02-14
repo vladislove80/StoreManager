@@ -17,16 +17,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import storemanager.com.app.R;
-import storemanager.com.app.models.CoffeItemInSummary;
 import storemanager.com.app.models.Summary;
-import storemanager.com.app.models.User;
 import storemanager.com.app.utils.Utils;
 
 public class SummaryViewerActivity extends AppCompatActivity {
@@ -56,7 +50,6 @@ public class SummaryViewerActivity extends AppCompatActivity {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Summary object and use the values to update the UI
 
                 Log.e(Utils.LOG_TAG ,"dataSnapshot.getChildrenCount: " + dataSnapshot.getChildrenCount());
                 for (String shop : Utils.cShops) {
@@ -67,15 +60,6 @@ public class SummaryViewerActivity extends AppCompatActivity {
                                 summary.setShop(shop);
                                 summaryList.add(summary);
                             }
-                            /*if (summary != null) {
-                                String date = summary.getDate();
-                                User user = summary.getUser();
-                                List<CoffeItemInSummary> coffeItemslist = summary.getItemInSummary();
-                                Log.v(Utils.LOG_TAG, "Summury: " + ": " + shop + ", " + user.getName());
-                                for (CoffeItemInSummary item : coffeItemslist) {
-                                    Log.v(Utils.LOG_TAG, item.getItem().getName() + " " + item.getItem().getSize() + " " + item.getAmount() + " " + item.getItemsPrice());
-                                }
-                            }*/
                         }
                     }
                 }
@@ -85,12 +69,8 @@ public class SummaryViewerActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
                 Log.w(Utils.LOG_TAG, "loadPost:onCancelled", databaseError.toException());
-                // [START_EXCLUDE]
-                Toast.makeText(getBaseContext(), "Failed to load post.",
-                        Toast.LENGTH_SHORT).show();
-                // [END_EXCLUDE]
+                Toast.makeText(getBaseContext(), "Failed to load post.", Toast.LENGTH_SHORT).show();
             }
         };
         //mDatabase.addValueEventListener(postListener);
