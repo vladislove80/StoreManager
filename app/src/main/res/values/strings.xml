@@ -24,7 +24,9 @@
     <string name="facebook_title_text">Facebook Login</string>
 
     <string name="facebook_app_id">165070403956965</string>
-
+    <!--GoogleSignInActivity-->
+    <string name="button_sales">Сформировать отчет</string>
+    <string name="button_view">Просмотр отчетов</string>
     <!--SummaryComposerActivity-->
     <string name="check_label">Check</string>
     <string name="label_send_data">Summary</string>
@@ -40,4 +42,5 @@
 
     <!--SummaryViewerActivity-->
     <string name="label_view_data">View</string>
+    <string name="viewer_label">Отчеты:</string>
 </resources>

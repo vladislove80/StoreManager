@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/date_size"
         android:textAlignment="center"
-        android:text="Отчеты: "
+        android:text="@string/viewer_label"
         android:layout_alignParentTop="true"
         android:layout_marginTop="@dimen/viewer_margin_top"/>
 
