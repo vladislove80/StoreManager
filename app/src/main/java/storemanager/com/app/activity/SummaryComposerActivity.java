@@ -1,9 +1,11 @@
 package storemanager.com.app.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -213,7 +215,27 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         }
     }
 
-    private void deleteItemFromSummary(List<CoffeItemInSummary> summuryList, CoffeItemInSummary item) {
-
+    @Override
+    public void onBackPressed() {
+        if(summaryList.size() != 0) {
+            AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
+            alt_bld.setTitle("Отчет не пуст. Выйти ?");
+            alt_bld.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            alt_bld.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog alert = alt_bld.create();
+            alert.show();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
