@@ -134,9 +134,28 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
             intent.putStringArrayListExtra(MENU_TAG, coffeItemNames);
             startActivityForResult(intent, REQ_CODE_CHILD);
         } else if (i == R.id.send_button) {
-            sendSummaryToDatabase(userId, userName, userEmail);
-            mAddItemButton.setVisibility(View.GONE);
-            mSaveToDatabaseButton.setVisibility(View.GONE);
+            if (summaryList.size() != 0) {
+                sendSummaryToDatabase(userId, userName, userEmail);
+                mAddItemButton.setVisibility(View.GONE);
+                mSaveToDatabaseButton.setVisibility(View.GONE);
+            } else {
+                AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
+                alt_bld.setTitle("Отчет пуст!");
+                alt_bld.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                /*alt_bld.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });*/
+                AlertDialog alert = alt_bld.create();
+                alert.show();
+            }
         }
     }
 
