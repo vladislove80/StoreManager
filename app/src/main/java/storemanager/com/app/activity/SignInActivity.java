@@ -58,8 +58,10 @@ public class SignInActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Class clicked = CLASSES[position];
-        startActivity(new Intent(this, clicked));
+        if (position == 0) {
+            Class clicked = CLASSES[position];
+            startActivity(new Intent(this, clicked));
+        }
     }
 
     public static class MyArrayAdapter extends ArrayAdapter<Class> {
