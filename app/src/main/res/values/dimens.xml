@@ -21,6 +21,7 @@
     <dimen name="top_table_row_conteiner_padding_left">10dp</dimen>
     <dimen name="top_table_row_conteiner_padding_right">10dp</dimen>
     <dimen name="top_table_row_text_size">22sp</dimen>
+    <dimen name="top_table_total_padding_right">40dp</dimen>
 
     <!--Viewer-->
     <dimen name="viewer_margin_top">15dp</dimen>
@@ -28,5 +29,18 @@
     <dimen name="name_text_size">18sp</dimen>
     <dimen name="date_text_size">20sp</dimen>
     <dimen name="summary_data_item_margin_start">15dp</dimen>
+
+    <!--AddItemsActivity-->
+    <dimen name="container_padding_left">15dp</dimen>
+    <dimen name="container_padding_right">15dp</dimen>
+    <dimen name="item_spinner_margin_top">15dp</dimen>
+    <dimen name="item_spinner_margin_bottom">15dp</dimen>
+    <dimen name="size_spinner_margin_top">15dp</dimen>
+    <dimen name="size_spinner_margin_bottom">15dp</dimen>
+    <dimen name="number_spinner_margin_top">15dp</dimen>
+    <dimen name="number_spinner_margin_bottom">15dp</dimen>
+    <dimen name="button_ll_margin_top">15dp</dimen>
+    <dimen name="button_ll_margin_left">15dp</dimen>
+    <dimen name="button_ll_margin_right">15dp</dimen>
 
 </resources>

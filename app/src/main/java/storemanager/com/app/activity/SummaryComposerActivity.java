@@ -147,12 +147,6 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                         dialog.dismiss();
                     }
                 });
-                /*alt_bld.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });*/
                 AlertDialog alert = alt_bld.create();
                 alert.show();
             }

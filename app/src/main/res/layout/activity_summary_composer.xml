@@ -132,7 +132,7 @@
             android:layout_height="wrap_content"
             android:text="@string/table_bottom_total_text"
             android:textSize="@dimen/top_table_row_text_size"
-            android:paddingRight="40dp"
+            android:paddingRight="@dimen/top_table_total_padding_right"
             android:layout_toLeftOf="@id/total"/>
     </RelativeLayout>
 </LinearLayout>

@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
+    android:paddingLeft="@dimen/container_padding_left"
+    android:paddingRight="@dimen/container_padding_right"
     android:orientation="vertical"
     >
 
@@ -17,22 +17,22 @@
             android:id="@+id/item_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="@dimen/item_spinner_margin_top"
+            android:layout_marginBottom="@dimen/item_spinner_margin_bottom"
             />
         <Spinner
             android:id="@+id/size_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="@dimen/size_spinner_margin_top"
+            android:layout_marginBottom="@dimen/size_spinner_margin_bottom"
             />
         <Spinner
             android:id="@+id/number_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginTop="@dimen/number_spinner_margin_top"
+            android:layout_marginBottom="@dimen/number_spinner_margin_bottom"
             />
 
     </LinearLayout>
@@ -42,9 +42,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp">
+        android:layout_marginTop="@dimen/button_ll_margin_top"
+        android:layout_marginLeft="@dimen/button_ll_margin_left"
+        android:layout_marginRight="@dimen/button_ll_margin_right">
 
         <Button
             android:id="@+id/add_button"
