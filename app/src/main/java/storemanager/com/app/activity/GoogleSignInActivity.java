@@ -238,7 +238,7 @@ public class GoogleSignInActivity extends BaseActivity implements
             mAddDataButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    dialog(user);
+                    dialogShops(user);
                 }
             });
             if (userEmail.equals(ADMIN_EMAIL) || userEmail.equals("vladislove.n.u@gmail.com")) {
@@ -262,7 +262,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         }
     }
 
-    void dialog(final FirebaseUser user){
+    void dialogShops(final FirebaseUser user){
         final String cShopItem[] = new String[1];
         AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
         alt_bld.setTitle("Выберите название торговой точки:");
