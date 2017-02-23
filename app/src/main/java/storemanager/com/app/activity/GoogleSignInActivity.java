@@ -36,6 +36,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         View.OnClickListener{
 
     private static final String TAG = "GoogleActivity";
+    private static final String ADMIN_EMAIL = "evgeniyvakulich@gmail.com";
     private static final int RC_SIGN_IN = 9001;
 
     // auth
@@ -240,14 +241,16 @@ public class GoogleSignInActivity extends BaseActivity implements
                     dialog(user);
                 }
             });
-            mViewDataButton.setVisibility(View.VISIBLE);
-            mViewDataButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(GoogleSignInActivity.this, SummaryViewerActivity.class);
-                    startActivity(intent);
-                }
-            });
+            if (userEmail.equals(ADMIN_EMAIL) || userEmail.equals("vladislove.n.u@gmail.com")) {
+                mViewDataButton.setVisibility(View.VISIBLE);
+                mViewDataButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(GoogleSignInActivity.this, SummaryViewerActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            }
         } else {
             mAddDataButton.setVisibility(View.GONE);
             mViewDataButton.setVisibility(View.GONE);
