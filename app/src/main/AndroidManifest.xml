@@ -45,6 +45,10 @@
             android:name=".activity.SummaryViewerActivity"
             android:label="@string/label_view_data"/>
 
+        <activity
+            android:name=".activity.FilterPreferenceActivity"
+            android:label="@string/label_filter_pref"/>
+
     </application>
 
 

@@ -45,6 +45,22 @@
     <string name="viewer_label">Отчеты:</string>
 
     <!--Settings-->
-    <string name="filter">Фильтр отчетов</string>
+    <string name="filter">Отчеты</string>
     <string name="export_xls">"Экспорт в Excel</string>
+    <string name="label_filter_pref">SETTINGS</string>
+    <string name="filter_today">today</string>
+    <string name="filter_tomorrow">tomorrow:</string>
+    <string name="filter_all">all</string>
+
+    <string-array name="filter">
+        <item>Сегодня</item>
+        <item>Вчера и сегодня</item>
+        <item>Все</item>
+    </string-array>
+
+    <string-array name="filter_values">
+        <item>@string/filter_today</item>
+        <item>@string/filter_tomorrow</item>
+        <item>@string/filter_all</item>
+    </string-array>
 </resources>
