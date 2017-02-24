@@ -50,7 +50,6 @@ public class SummaryViewerActivity extends AppCompatActivity {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 Log.e(Utils.LOG_TAG ,"dataSnapshot.getChildrenCount: " + dataSnapshot.getChildrenCount());
                 for (String shop : Utils.cShops) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {

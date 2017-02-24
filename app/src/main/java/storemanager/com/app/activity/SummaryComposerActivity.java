@@ -91,7 +91,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                 Context wrapper = new ContextThemeWrapper(getBaseContext(), R.style.PopupMenu);
                 PopupMenu popupMenu = new PopupMenu(wrapper, view);
                 popupMenu.getMenu().add("Delete");
-                popupMenu.getMenuInflater().inflate(R.menu.item_menu, popupMenu.getMenu());
+                popupMenu.getMenuInflater().inflate(R.menu.summary_item_menu, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(android.view.MenuItem item) {
