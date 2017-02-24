@@ -43,4 +43,8 @@
     <!--SummaryViewerActivity-->
     <string name="label_view_data">View</string>
     <string name="viewer_label">Отчеты:</string>
+
+    <!--Settings-->
+    <string name="filter">Фильтр отчетов</string>
+    <string name="export_xls">"Экспорт в Excel</string>
 </resources>

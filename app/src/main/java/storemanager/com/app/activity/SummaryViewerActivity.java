@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -74,5 +76,26 @@ public class SummaryViewerActivity extends AppCompatActivity {
         };
         //mDatabase.addValueEventListener(postListener);
         mDatabase.addListenerForSingleValueEvent(postListener);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.viewer_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case R.id.filter_settings:
+                Toast.makeText(this, "FILTER", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.export_settings:
+                Toast.makeText(this, "EXPORT", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.SummaryViewerActivity">
+
+    <item
+        android:id="@+id/filter_settings"
+        android:orderInCategory="100"
+        android:title="@string/filter"
+        android:icon="@drawable/ic_pageview_black_24dp"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/export_settings"
+        android:orderInCategory="100"
+        android:title="@string/export_xls"
+        android:icon="@drawable/ic_view_list_black_24dp"
+        app:showAsAction="always"/>
+</menu>
