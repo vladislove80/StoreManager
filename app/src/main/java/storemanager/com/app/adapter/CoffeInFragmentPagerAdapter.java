@@ -12,7 +12,7 @@ import storemanager.com.app.fragment.SummaryFragment;
 public class CoffeInFragmentPagerAdapter extends FragmentPagerAdapter {
 
     final int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[] { "Shops", "Menu", "Summary" };
+    private String tabTitles[] = new String[] { "Точки", "Меню", "Отчеты" };
     private Context context;
 
     public CoffeInFragmentPagerAdapter(FragmentManager fm, Context context) {

@@ -42,4 +42,16 @@
         <item name="android:itemBackground">@color/white</item>
     </style>
 
+    <style name="TabLayoutStyle" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/indicatorColor</item>
+        <item name="tabIndicatorHeight">5dp</item>
+        <item name="tabPaddingStart">32dp</item>
+        <item name="tabPaddingEnd">32dp</item>
+        <item name="tabBackground">?attr/selectableItemBackground</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">18sp</item>
+        <item name="tabSelectedTextColor">?android:textColorPrimary</item>
+    </style>
+
+
 </resources>
