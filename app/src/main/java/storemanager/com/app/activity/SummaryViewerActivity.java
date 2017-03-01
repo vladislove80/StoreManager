@@ -94,14 +94,14 @@ public class SummaryViewerActivity extends AppCompatActivity {
         mDatabase.addListenerForSingleValueEvent(postListener);
     }
 
-    @Override
+    /*@Override
     protected void onResume() {
         String filter = sp.getString("filter", "all");
         summaryListWithFilter = new ArrayList<>();
         summaryListWithFilter.addAll(applyFilterToList(summaryList, filter));
         //summaryListWithFilter.addAll(summaryList);
         super.onResume();
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

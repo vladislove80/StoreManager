@@ -234,7 +234,8 @@ public class GoogleSignInActivity extends BaseActivity implements
 
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
-            mAddDataButton.setVisibility(View.VISIBLE);
+
+            /*mAddDataButton.setVisibility(View.VISIBLE);
             mAddDataButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -250,7 +251,7 @@ public class GoogleSignInActivity extends BaseActivity implements
                         startActivity(intent);
                     }
                 });
-            }
+            }*/
         } else {
             mAddDataButton.setVisibility(View.GONE);
             mViewDataButton.setVisibility(View.GONE);
