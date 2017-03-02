@@ -45,6 +45,12 @@
             />
 
         <activity
+            android:name=".activity.AddShopActivity"
+            android:label="@string/label_add_shop"
+            android:launchMode="singleInstance"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
+
+        <activity
             android:name=".activity.SummaryViewerActivity"
             android:label="@string/label_view_data"/>
 

@@ -65,9 +65,4 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ViewHolder> 
         return mDataset.size();
     }
 
-    public void notifyNewsFeedAdapter(List<Shop> itemList){
-        mDataset.clear();
-        mDataset.addAll(itemList);
-        notifyDataSetChanged();
-    }
 }

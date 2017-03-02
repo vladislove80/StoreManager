@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/container_padding_left"
+    android:paddingRight="@dimen/container_padding_right"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edit_name_shop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/button_ll_margin_top"
+        android:layout_marginLeft="@dimen/button_ll_margin_left"
+        android:layout_marginRight="@dimen/button_ll_margin_right">
+
+        <Button
+            android:id="@+id/add_shop_button"
+            android:text="Add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.MyDarkButton"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/add_buton_margin_bottom"
+            android:layout_marginTop="@dimen/add_buton_margin_top"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:id="@+id/cancel_shop_button"
+            android:text="Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.MyDarkButton"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/add_buton_margin_bottom"
+            android:layout_marginTop="@dimen/add_buton_margin_top"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
+</LinearLayout>
