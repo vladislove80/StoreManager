@@ -15,11 +15,13 @@ import java.util.List;
 
 import storemanager.com.app.R;
 import storemanager.com.app.adapter.ShopsAdapter;
+import storemanager.com.app.models.Shop;
+import storemanager.com.app.utils.Utils;
 
 public class ShopsFragment extends Fragment {
     public static final String TAG = ShopsFragment.class.getSimpleName();
 
-    private List<String> mDataset;
+    private List<Shop> mDataset;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -39,24 +41,51 @@ public class ShopsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(TAG);
         mDataset = new ArrayList<>();
-        mDataset.add("Цветочный рынок");
-        mDataset.add("Таврия-В");
-        mDataset.add("Приморский парк");
-        mDataset.add("Цветочный рынок");
-        mDataset.add("Таврия-В");
-        mDataset.add("Приморский парк");
-        mDataset.add("Цветочный рынок");
-        mDataset.add("Таврия-В");
-        mDataset.add("Приморский парк");
-        mDataset.add("Цветочный рынок");
-        mDataset.add("Таврия-В");
-        mDataset.add("Приморский парк");
-        mDataset.add("Цветочный рынок");
-        mDataset.add("Таврия-В");
-        mDataset.add("Приморский парк");
-        mDataset.add("Цветочный рынок");
-        mDataset.add("Таврия-В");
-        mDataset.add("Приморский парк");
+        Shop shop = new Shop();
+        shop.setName("Цветочный рынок");
+        shop.setCreationDate(Utils.getCurrentDateWithoutTime());
+        shop.setSummaryTooday(false);
+        mDataset.add(shop);
+        shop = new Shop();
+        shop.setName("Таврия-В");
+        shop.setCreationDate(Utils.getCurrentDateWithoutTime());
+        shop.setSummaryTooday(true);
+        mDataset.add(shop);
+        shop = new Shop();
+        shop.setName("Приморский парк");
+        shop.setCreationDate(Utils.getCurrentDateWithoutTime());
+        shop.setSummaryTooday(true);
+        mDataset.add(shop);
+        shop = new Shop();
+        shop.setName("Цветочный рынок");
+        shop.setCreationDate(Utils.getCurrentDateWithoutTime());
+        shop.setSummaryTooday(false);
+        mDataset.add(shop);
+        shop = new Shop();
+        shop.setName("Таврия-В");
+        shop.setCreationDate(Utils.getCurrentDateWithoutTime());
+        shop.setSummaryTooday(true);
+        mDataset.add(shop);
+        shop = new Shop();
+        shop.setName("Приморский парк");
+        shop.setCreationDate(Utils.getCurrentDateWithoutTime());
+        shop.setSummaryTooday(true);
+        mDataset.add(shop);
+        shop = new Shop();
+        shop.setName("Цветочный рынок");
+        shop.setCreationDate(Utils.getCurrentDateWithoutTime());
+        shop.setSummaryTooday(false);
+        mDataset.add(shop);
+        shop = new Shop();
+        shop.setName("Таврия-В");
+        shop.setCreationDate(Utils.getCurrentDateWithoutTime());
+        shop.setSummaryTooday(true);
+        mDataset.add(shop);
+        shop = new Shop();
+        shop.setName("Приморский парк");
+        shop.setCreationDate(Utils.getCurrentDateWithoutTime());
+        shop.setSummaryTooday(true);
+        mDataset.add(shop);
 
     }
 

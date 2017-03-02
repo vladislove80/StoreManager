@@ -50,6 +50,13 @@ public class Utils {
 
     }
 
+    public static String getCurrentDateWithoutTime() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("dd / MM / yyyy");
+        return mdformat.format(calendar.getTime());
+
+    }
+
     public static List<Summary> sortSummaryListByDate(List<Summary> summaryList) {
 
         return summaryList;
