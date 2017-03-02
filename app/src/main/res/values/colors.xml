@@ -11,5 +11,8 @@
     <color name="white">#ffffff</color>
 
     <!--TabLayout-->
-    <color name="indicatorColor">#7c6f81</color>
+    <color name="indicatorColor">@color/colorAccentTest</color>
+
+    <!--NoData layout-->
+    <color name="noDataColor">#2d043d</color>
 </resources>

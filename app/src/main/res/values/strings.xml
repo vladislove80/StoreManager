@@ -51,6 +51,7 @@
     <string name="filter_today">today</string>
     <string name="filter_tomorrow">tomorrow:</string>
     <string name="filter_all">all</string>
+    <string name="no_data">Нет данных..</string>
 
     <string-array name="filter">
         <item>Сегодня</item>
