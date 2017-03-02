@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class ShopsFragment extends Fragment {
     public final static int REQ_CODE = 1;
 
     private List<Shop> mDataset;
+    private RelativeLayout noDataLayout;
 
     private Button addButtn;
     private RecyclerView mRecyclerView;
@@ -90,13 +92,15 @@ public class ShopsFragment extends Fragment {
         mAdapter = new ShopsAdapter(mDataset);
         mRecyclerView.setAdapter(mAdapter);
 
-        view.findViewById(R.id.no_data_layout).setVisibility(View.GONE);
+        noDataLayout = (RelativeLayout) view.findViewById(R.id.no_data_layout);
+        noDataLayout.setVisibility(View.GONE);
         return view;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && requestCode == REQ_CODE) {
+            //noDataLayout.setVisibility(View.GONE);
             Shop shop = new Shop();
             shop.setName(data.getExtras().get(AddShopActivity.TAG).toString());
             shop.setCreationDate(Utils.getCurrentDateWithoutTime());
