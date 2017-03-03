@@ -16,15 +16,41 @@ import storemanager.com.app.R;
 import storemanager.com.app.activity.ShopActivity;
 import storemanager.com.app.models.Shop;
 
-public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ViewHolder> {
+public class ShopsFragmentAdapter extends RecyclerView.Adapter<ShopsFragmentAdapter.ViewHolder> {
 
     private static Context context;
     private List<Shop> mDataset;
 
+    public ShopsFragmentAdapter(Context context, List<Shop> myDataset) {
+        this.context = context;
+        mDataset = myDataset;
+    }
+
+    @Override
+    public ShopsFragmentAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.shop_card, parent, false);
+        ViewHolder vh = new ViewHolder(v);
+        return vh;
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Shop shop = mDataset.get(position);
+        String shopName = shop.getName();
+        holder.setItem(shopName);
+        //holder.mNameTextView.setText(shopName);
+        holder.mDateTextView.setText(shop.getCreationDate());
+        holder.mIndicatorImageView.setImageResource((shop.isSummaryTooday())? R.drawable.ic_check_box_black_48dp : R.drawable.ic_indeterminate_check_box_black_48dp);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mDataset.size();
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private String mShopName;
-
         public TextView mNameTextView;
         public TextView mDateTextView;
         public ImageView mIndicatorImageView;
@@ -50,45 +76,6 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopsAdapter.ViewHolder> 
             this.mShopName = mShopName;
             mNameTextView.setText(mShopName);
         }
-    }
-
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public ShopsAdapter(Context context, List<Shop> myDataset) {
-        this.context = context;
-        mDataset = myDataset;
-    }
-
-    // Create new views (invoked by the layout manager)
-    @Override
-    public ShopsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
-        // create a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.shop, parent, false);
-        // set the view's size, margins, paddings and layout parameters
-
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
-    }
-
-    // Replace the contents of a view (invoked by the layout manager)
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        Shop shop = mDataset.get(position);
-        String shopName = shop.getName();
-        holder.setItem(shopName);
-        //holder.mNameTextView.setText(shopName);
-        holder.mDateTextView.setText(shop.getCreationDate());
-        holder.mIndicatorImageView.setImageResource((shop.isSummaryTooday())? R.drawable.ic_check_box_black_48dp : R.drawable.ic_indeterminate_check_box_black_48dp);
-
-    }
-
-    // Return the size of your dataset (invoked by the layout manager)
-    @Override
-    public int getItemCount() {
-        return mDataset.size();
     }
 
 }
