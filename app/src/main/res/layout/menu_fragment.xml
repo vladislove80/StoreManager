@@ -4,6 +4,54 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/no_data_layout"/>
+    <TextView
+        android:id="@+id/menu_fragment_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Создавайте и редактируйте Меню"
+        android:layout_margin="15dp"
+        android:textSize="18sp"
+        android:gravity="center_horizontal"
+        android:layout_alignParentTop="true" />
+
+    <LinearLayout
+        android:id="@+id/menu_buttons_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/menu_fragment_label">
+
+        <Button
+            android:id="@+id/add_menu_item_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Добавить"
+            android:theme="@style/ThemeOverlay.MyDarkButton"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Редактировать"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/white"
+            android:theme="@style/ThemeOverlay.MyDarkButton"/>
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/no_menu_data_layout"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/menu_buttons_layout"
+        layout="@layout/no_data_layout"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/menu_recycler_view"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/shops_buttons_layout"/>
 
 </RelativeLayout>
