@@ -13,7 +13,8 @@
         <EditText
             android:id="@+id/edit_name_shop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:inputType="textCapSentences"/>
 
     </LinearLayout>
 
