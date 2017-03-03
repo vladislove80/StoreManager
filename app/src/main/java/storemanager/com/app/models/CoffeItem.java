@@ -1,12 +1,14 @@
 package storemanager.com.app.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class CoffeItem implements Serializable{
 
     private boolean oneSize;
 
     private String name;
+    private List<Ingredient> consist;
     private int size;
     private int price;
 
@@ -43,6 +45,14 @@ public class CoffeItem implements Serializable{
 
     public void setOneSize(boolean oneSize) {
         this.oneSize = oneSize;
+    }
+
+    public List<Ingredient> getConsist() {
+        return consist;
+    }
+
+    public void setConsist(List<Ingredient> consist) {
+        this.consist = consist;
     }
 
     @Override
