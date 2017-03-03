@@ -43,6 +43,9 @@
     <!--AddShopActivity-->
     <string name="label_add_shop">Добавить торговую точку</string>
 
+    <!--ShopActivity-->
+    <string name="label_shop">Торговая точка</string>
+
     <!--SummaryViewerActivity-->
     <string name="label_view_data">View</string>
     <string name="viewer_label">Отчеты:</string>

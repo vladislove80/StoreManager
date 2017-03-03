@@ -58,6 +58,11 @@
             android:name=".activity.FilterPreferenceActivity"
             android:label="@string/label_filter_pref"/>
 
+        <activity
+            android:name=".activity.ShopActivity"
+            android:label="@string/label_shop"
+            android:parentActivityName=".activity.MainActivity"/>
+
     </application>
 
 

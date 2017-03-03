@@ -89,7 +89,7 @@ public class ShopsFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new ShopsAdapter(mDataset);
+        mAdapter = new ShopsAdapter(getContext(), mDataset);
         mRecyclerView.setAdapter(mAdapter);
 
         noDataLayout = (RelativeLayout) view.findViewById(R.id.no_data_layout);
