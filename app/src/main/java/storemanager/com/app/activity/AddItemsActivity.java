@@ -42,7 +42,7 @@ public class AddItemsActivity extends AppCompatActivity {
         Log.v(Utils.LOG_TAG, "AddItemsActivity");
         setContentView(R.layout.add_items_activity);
 
-        buttonAdd = (Button) findViewById(R.id.add_button);
+        buttonAdd = (Button) findViewById(R.id.add_shop_button);
         buttonCancel = (Button) findViewById(R.id.cancel_button);
 
         itemsSpiner = (Spinner) findViewById(R.id.item_spinner);

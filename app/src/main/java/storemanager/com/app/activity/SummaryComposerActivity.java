@@ -75,7 +75,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         mShopTextView = (TextView) findViewById(R.id.shop);
         mDateTextView.setText(date);
         mShopTextView.setText("\"" + shop + "\"");
-        mAddItemButton = (Button) findViewById(R.id.add_button);
+        mAddItemButton = (Button) findViewById(R.id.add_shop_button);
         mSaveToDatabaseButton = (Button) findViewById(R.id.send_button);
         summuryListView = (ListView) findViewById(R.id.summury);
         total = (TextView) findViewById(R.id.total);
@@ -129,7 +129,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.add_button) {
+        if (i == R.id.add_shop_button) {
             Intent intent = new Intent(SummaryComposerActivity.this, AddItemsActivity.class);
             intent.putStringArrayListExtra(MENU_TAG, coffeItemNames);
             startActivityForResult(intent, REQ_CODE_CHILD);

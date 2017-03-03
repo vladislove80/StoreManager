@@ -47,7 +47,7 @@
         android:layout_marginRight="@dimen/button_ll_margin_right">
 
         <Button
-            android:id="@+id/add_button"
+            android:id="@+id/add_shop_button"
             android:text="Add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

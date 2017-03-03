@@ -17,7 +17,7 @@ import java.util.List;
 
 import storemanager.com.app.R;
 import storemanager.com.app.activity.AddShopActivity;
-import storemanager.com.app.adapter.ShopsAdapter;
+import storemanager.com.app.adapter.ShopsFragmentAdapter;
 import storemanager.com.app.models.Shop;
 import storemanager.com.app.utils.Utils;
 
@@ -35,17 +35,17 @@ public class ShopsFragment extends Fragment {
     private int mPage;
 
     public static ShopsFragment newInstance(int page) {
-        Bundle args = new Bundle();
-        args.putInt(TAG, page);
+        /*Bundle args = new Bundle();
+        args.putInt(TAG, page);*/
         ShopsFragment fragment = new ShopsFragment();
-        fragment.setArguments(args);
+        /*fragment.setArguments(args);*/
         return fragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPage = getArguments().getInt(TAG);
+        //mPage = getArguments().getInt(TAG);
         mDataset = new ArrayList<>();
         Shop shop = new Shop();
         shop.setName("Цветочный рынок");
@@ -69,7 +69,7 @@ public class ShopsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.shops_fragment, container, false);
 
-        addButtn = (Button) view.findViewById(R.id.add_button);
+        addButtn = (Button) view.findViewById(R.id.add_shop_button);
         addButtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,10 +89,10 @@ public class ShopsFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new ShopsAdapter(getContext(), mDataset);
+        mAdapter = new ShopsFragmentAdapter(getContext(), mDataset);
         mRecyclerView.setAdapter(mAdapter);
 
-        noDataLayout = (RelativeLayout) view.findViewById(R.id.no_data_layout);
+        noDataLayout = (RelativeLayout) view.findViewById(R.id.no_shop_data_layout);
         noDataLayout.setVisibility(View.GONE);
         return view;
     }
