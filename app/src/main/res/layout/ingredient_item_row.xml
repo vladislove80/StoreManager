@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <TextView
+        android:id="@+id/ingredient_number_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/top_table_row_text_size"
+        android:layout_alignParentLeft="true"/>
+
+    <TextView
+        android:id="@+id/ingredient_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/top_table_row_text_size"
+        android:paddingLeft="20dp"
+        android:layout_toRightOf="@id/ingredient_number_row"/>
+
+    <TextView
+        android:id="@+id/ingredient_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/top_table_row_text_size"
+        android:paddingLeft="20dp"
+        android:layout_toRightOf="@id/ingredient_name"/>
+
+    <TextView
+        android:id="@+id/ingredient_measure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/top_table_row_text_size"
+        android:paddingLeft="20dp"
+        android:layout_toRightOf="@id/ingredient_size"/>
+
+</RelativeLayout>

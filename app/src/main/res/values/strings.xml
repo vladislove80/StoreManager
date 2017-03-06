@@ -42,6 +42,10 @@
 
     <!--AddShopActivity-->
     <string name="label_add_shop">Добавить торговую точку</string>
+    <!--AddMenuItemActivity-->
+    <string name="label_add_menu_item">Добавить пункт меню</string>
+    <!--AddBaseIngredientActivity-->
+    <string name="label_add_base_ingredient_item">Добавить пункт меню</string>
 
     <!--ShopActivity-->
     <string name="label_shop">Торговая точка</string>

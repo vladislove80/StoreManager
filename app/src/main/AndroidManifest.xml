@@ -63,6 +63,15 @@
             android:label="@string/label_shop"
             android:parentActivityName=".activity.MainActivity"/>
 
+        <activity
+            android:name=".activity.AddMenuItemActivity"
+            android:label="@string/label_add_menu_item"
+            android:parentActivityName=".activity.MainActivity"/>
+
+        <activity
+            android:name=".activity.AddBaseIngredientActivity"
+            android:label="@string/label_add_base_ingredient_item"
+            android:parentActivityName=".activity.AddMenuItemActivity"/>
     </application>
 
 
