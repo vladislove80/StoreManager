@@ -28,7 +28,7 @@ public class ShopsFragment extends Fragment {
     private List<Shop> mDataset;
     private RelativeLayout noDataLayout;
 
-    private Button addButtn;
+    private Button addButton;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -69,8 +69,8 @@ public class ShopsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.shops_fragment, container, false);
 
-        addButtn = (Button) view.findViewById(R.id.add_shop_button);
-        addButtn.setOnClickListener(new View.OnClickListener() {
+        addButton = (Button) view.findViewById(R.id.add_shop_button);
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddShopActivity.class);
