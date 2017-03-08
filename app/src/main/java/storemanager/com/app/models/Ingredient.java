@@ -1,9 +1,11 @@
 package storemanager.com.app.models;
 
-public class Ingredient {
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
     private String name;
     private int size;
-    private Measure measure;
+    private String measure;
 
     public String getName() {
         return name;
@@ -21,11 +23,21 @@ public class Ingredient {
         this.size = size;
     }
 
-    public Measure getMeasure() {
+    public String getMeasure() {
         return measure;
     }
 
-    public void setMeasure(Measure measure) {
+    public void setMeasure(String measure) {
         this.measure = measure;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean same = false;
+        Ingredient ingredient = (Ingredient) obj;
+        if (obj != null && obj instanceof Ingredient) {
+            same = this.name.equals(ingredient.getName());
+        }
+        return same;
     }
 }

@@ -3,7 +3,7 @@ package storemanager.com.app.models;
 import java.io.Serializable;
 import java.util.List;
 
-public class CoffeItem implements Serializable{
+public class CoffeItem implements Serializable {
 
     private boolean oneSize;
 

@@ -95,7 +95,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(android.view.MenuItem item) {
-                        Log.v(Utils.LOG_TAG, "AddItemsActivity->DELETE");
+                        Log.v(Utils.LOG_TAG, "AddISummaryItemsActivity->DELETE");
                         totalPrice = totalPrice - summaryList.get(position).getItem().getPrice() * summaryList.get(position).getAmount();
                         summaryList.remove(position);
                         adapter.notifyDataSetChanged();
@@ -130,7 +130,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.add_shop_button) {
-            Intent intent = new Intent(SummaryComposerActivity.this, AddItemsActivity.class);
+            Intent intent = new Intent(SummaryComposerActivity.this, AddISummaryItemsActivity.class);
             intent.putStringArrayListExtra(MENU_TAG, coffeItemNames);
             startActivityForResult(intent, REQ_CODE_CHILD);
         } else if (i == R.id.send_button) {
@@ -175,7 +175,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && requestCode == REQ_CODE_CHILD) {
-            CoffeItemInSummary item = (CoffeItemInSummary) data.getExtras().getSerializable(AddItemsActivity.TAG);
+            CoffeItemInSummary item = (CoffeItemInSummary) data.getExtras().getSerializable(AddISummaryItemsActivity.TAG);
             item = setPrice(menu, item);
             if (!isItemInSummary(summaryList, item)) {
                 summaryList.add(item);

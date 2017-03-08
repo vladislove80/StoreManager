@@ -1,6 +1,7 @@
 package storemanager.com.app.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,8 +14,6 @@ import storemanager.com.app.adapter.CoffeInFragmentPagerAdapter;
 import storemanager.com.app.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
-
-
     ViewPager mViewPager;
 
     @Override
@@ -40,5 +39,10 @@ public class MainActivity extends AppCompatActivity {
         for (Fragment fragment : getSupportFragmentManager().getFragments()) {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

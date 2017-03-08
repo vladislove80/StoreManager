@@ -1,6 +1,7 @@
 package storemanager.com.app.fragment;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -51,6 +52,11 @@ public class MenuFragment extends Fragment {
         super.onCreate(savedInstanceState);
         //mPage = getArguments().getInt(TAG);
         mDataset = new ArrayList<>();
+        CoffeItem testItem = new CoffeItem();
+        testItem.setName("Test Name");
+        testItem.setPrice(50);
+        testItem.setSize(250);
+        mDataset.add(testItem);
     }
 
     @Nullable
@@ -73,10 +79,7 @@ public class MenuFragment extends Fragment {
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.menu_recycler_view);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new MenuFragmentAdapter(getContext(), mDataset);
-        mRecyclerView.setAdapter(mAdapter);
+        initRecycler();
 
         /*noDataLayout = (RelativeLayout) view.findViewById(R.id.no_menu_data_layout);
         noDataLayout.setVisibility(View.GONE);*/
@@ -93,11 +96,26 @@ public class MenuFragment extends Fragment {
         return view;
     }
 
+    private void initRecycler() {
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new MenuFragmentAdapter(getContext(), mDataset);
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && requestCode == REQ_CODE_ADD_ITEM) {
-            /*mDataset.add();
-            mAdapter.notifyDataSetChanged();*/
+            CoffeItem menuItem = (CoffeItem) data.getExtras().getSerializable(AddMenuItemActivity.TAG);
+            mDataset.add(menuItem);
+            mAdapter.notifyDataSetChanged();
         }
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        initRecycler();
+    }
+
 }

@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/base_ingredient_item"
-        android:layout_width="match_parent"
+        android:id="@+id/ingredient_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18dp"/>
+        android:textSize="24dp"
+        android:layout_alignParentLeft="true"/>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/base_ingredient_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:paddingLeft="20dp"
+        android:layout_toLeftOf="@+id/base_ingredient_measure"/>
+
+    <TextView
+        android:id="@+id/base_ingredient_measure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24dp"
+        android:paddingLeft="20dp"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>

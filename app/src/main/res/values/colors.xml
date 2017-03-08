@@ -15,4 +15,7 @@
 
     <!--NoData layout-->
     <color name="noDataColor">#2d043d</color>
+
+    <!--NotActiveButtonBackground-->
+    <color name="notActive">#a6a7a7</color>
 </resources>

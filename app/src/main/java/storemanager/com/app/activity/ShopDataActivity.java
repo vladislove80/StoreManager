@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import storemanager.com.app.R;
 
-public class ShopActivity extends AppCompatActivity {
-    public final static String TAG = ShopActivity.class.getSimpleName();
+public class ShopDataActivity extends AppCompatActivity {
+    public final static String TAG = ShopDataActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -47,7 +47,7 @@
     <!--AddBaseIngredientActivity-->
     <string name="label_add_base_ingredient_item">Добавить пункт меню</string>
 
-    <!--ShopActivity-->
+    <!--ShopDataActivity-->
     <string name="label_shop">Торговая точка</string>
 
     <!--SummaryViewerActivity-->

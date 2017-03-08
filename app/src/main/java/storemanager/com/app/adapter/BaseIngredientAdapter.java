@@ -34,7 +34,7 @@ public class BaseIngredientAdapter extends ArrayAdapter<String> {
         if (convertView == null) {
             convertView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.base_ingredient_item_row, null);
             viewHolder = new ViewHolder();
-            viewHolder.baseIngredient = (TextView) convertView.findViewById(R.id.base_ingredient_item);
+            viewHolder.baseIngredient = (TextView) convertView.findViewById(R.id.ingredient_name);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();

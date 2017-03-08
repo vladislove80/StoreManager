@@ -20,7 +20,7 @@ import storemanager.com.app.models.CoffeItem;
 import storemanager.com.app.models.CoffeItemInSummary;
 import storemanager.com.app.utils.Utils;
 
-public class AddItemsActivity extends AppCompatActivity {
+public class AddISummaryItemsActivity extends AppCompatActivity {
 
     public static final String TAG = "add_atems";
 
@@ -39,7 +39,7 @@ public class AddItemsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v(Utils.LOG_TAG, "AddItemsActivity");
+        Log.v(Utils.LOG_TAG, "AddISummaryItemsActivity");
         setContentView(R.layout.add_items_activity);
 
         buttonAdd = (Button) findViewById(R.id.add_shop_button);
@@ -57,7 +57,7 @@ public class AddItemsActivity extends AppCompatActivity {
 
         cofeItem = new CoffeItem();
 
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this, R.layout.items_spinner, coffeItemNames);
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this, R.layout.summary_item_spinner, coffeItemNames);
 
         itemsSpiner.setAdapter(itemsAdapter);
         itemsSpiner.setPrompt(Utils.coffeItems.get(0));
@@ -79,7 +79,7 @@ public class AddItemsActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<Integer> sizeAdapter = new ArrayAdapter<>(this, R.layout.items_spinner, Utils.coffeSizes);
+        ArrayAdapter<Integer> sizeAdapter = new ArrayAdapter<>(this, R.layout.summary_item_spinner, Utils.coffeSizes);
 
         sizeSpiner.setAdapter(sizeAdapter);
         sizeSpiner.setPrompt(Utils.coffeSizes.get(0).toString());
@@ -99,7 +99,7 @@ public class AddItemsActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<Integer> numAdapter = new ArrayAdapter<>(this, R.layout.items_spinner, Utils.coffeNumber);
+        ArrayAdapter<Integer> numAdapter = new ArrayAdapter<>(this, R.layout.summary_item_spinner, Utils.coffeNumber);
 
         amountSpiner.setAdapter(numAdapter);
         amountSpiner.setPrompt(Utils.coffeNumber.get(0).toString());

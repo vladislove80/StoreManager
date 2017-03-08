@@ -9,8 +9,10 @@
         android:icon="@mipmap/espresso_machine"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-        <activity android:name="storemanager.com.app.activity.MainActivity" >
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="storemanager.com.app.activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,7 +40,7 @@
 
 
         <activity
-            android:name=".activity.AddItemsActivity"
+            android:name=".activity.AddISummaryItemsActivity"
             android:label="@string/label_add_item"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.Light.Dialog"
@@ -59,14 +61,15 @@
             android:label="@string/label_filter_pref"/>
 
         <activity
-            android:name=".activity.ShopActivity"
+            android:name=".activity.ShopDataActivity"
             android:label="@string/label_shop"
             android:parentActivityName=".activity.MainActivity"/>
 
         <activity
             android:name=".activity.AddMenuItemActivity"
             android:label="@string/label_add_menu_item"
-            android:parentActivityName=".activity.MainActivity"/>
+            android:parentActivityName=".activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <activity
             android:name=".activity.AddBaseIngredientActivity"
