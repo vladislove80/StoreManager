@@ -14,11 +14,11 @@ import java.util.List;
 import storemanager.com.app.R;
 import storemanager.com.app.models.Ingredient;
 
-public class MenuIngredientAdapter extends ArrayAdapter<Ingredient> {
+public class MenuItemIngredientsAdapter extends ArrayAdapter<Ingredient> {
     private Context context;
     private List<Ingredient> ingredientList;
 
-    public MenuIngredientAdapter(Context context, List<Ingredient> ingredientList) {
+    public MenuItemIngredientsAdapter(Context context, List<Ingredient> ingredientList) {
         super(context, R.layout.base_ingredient_item_row, ingredientList);
         this.context = context;
         this.ingredientList = ingredientList;

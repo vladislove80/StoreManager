@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,35 +14,42 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import storemanager.com.app.R;
-import storemanager.com.app.adapter.MenuIngredientAdapter;
+import storemanager.com.app.adapter.MenuItemIngredientsAdapter;
 import storemanager.com.app.models.CoffeItem;
 import storemanager.com.app.models.Ingredient;
 
 public class AddMenuItemActivity extends AppCompatActivity {
     public static final String TAG = "add_menu_item";
-    private String[] mesuareArray = {"мл", "гр", "кг", "л", "шт", "упак"};
+
+    private MenuItemIngredientsAdapter ingridientAdapter;
 
     private ListView ingredientListView;
-    private MenuIngredientAdapter ingridientAdapter;
     private List<Ingredient> ingredientList;
+    private ArrayList<String> ingredientNamesList;
+    private ArrayList<String> ingredientMeasureList;
+    private ArrayList<Integer> ingredientSizeList;
+    private ArrayList<String> menuItemNamesList;
+    private ArrayList<String> itemSizeList;
+
     private Button addIngredientButton;
     private Button addMenuItemButton;
-    private Spinner ingredientsSpiner;
-    private Spinner ingredientsMeasureSpiner;
+
+    private Spinner ingredientsSpinner;
+    private Spinner ingredientsMeasureSpinner;
     private Spinner ingredientSizeSpinner;
-    private ArrayList<String> ingredientNames;
-    private String ingredientNameFromSpinner;
+    private Spinner itemNamesSpinner;
+    private Spinner itemSizeSpinner;
+
     private Integer ingredientSizeFromSpinner;
+    private String ingredientNameFromSpinner;
+    private String itemNameFromSpinner;
+    private String itemSizeFromSpinner;
     private String ingredientMeasureFromSpinner;
 
-    private EditText menuItemNameEditText;
-    private EditText menuItemCategoryEditText;
     private EditText menuItemPriceEditText;
-    private EditText menuItemMeasureEditText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,12 +61,12 @@ public class AddMenuItemActivity extends AppCompatActivity {
         addMenuItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isAllDataSet(menuItemNameEditText, menuItemCategoryEditText, menuItemPriceEditText, menuItemMeasureEditText, ingredientList)) {
+                if (isAllDataSet(menuItemPriceEditText, ingredientList)) {
                     CoffeItem coffeItem = new CoffeItem();
-                    coffeItem.setName(menuItemNameEditText.getText().toString());
+                    coffeItem.setName(itemNameFromSpinner);
                     //coffeItem.setOneSize();
                     coffeItem.setPrice(Integer.parseInt(menuItemPriceEditText.getText().toString()));
-                    coffeItem.setSize(Integer.parseInt(menuItemMeasureEditText.getText().toString()));
+                    coffeItem.setSize(Integer.parseInt(itemSizeFromSpinner));
                     coffeItem.setConsist(ingredientList);
 
                     int resultCode = 101;
@@ -74,13 +80,10 @@ public class AddMenuItemActivity extends AppCompatActivity {
             }
         });
 
-        menuItemNameEditText = (EditText)findViewById(R.id.menu_item_name_et);
-        menuItemCategoryEditText = (EditText)findViewById(R.id.menu_item_category_et);
         menuItemPriceEditText = (EditText)findViewById(R.id.menu_item_price_et);
-        menuItemMeasureEditText = (EditText)findViewById(R.id.menu_item_measure_et);
         ingredientListView = (ListView) findViewById(R.id.ingridient_list);
 
-        ingridientAdapter = new MenuIngredientAdapter(getBaseContext(), ingredientList);
+        ingridientAdapter = new MenuItemIngredientsAdapter(getBaseContext(), ingredientList);
         ingredientListView.setAdapter(ingridientAdapter);
 
         addIngredientButton = (Button) findViewById(R.id.add_ingredient_item_button);
@@ -100,64 +103,66 @@ public class AddMenuItemActivity extends AppCompatActivity {
             }
         });
 
-        ingredientNames = new ArrayList<>();
-        ingredientNames.add("Кофе");
-        ingredientNames.add("Молоко");
-        ingredientNames.add("Корица");
-        ingredientNames.add("Сироп");
+        ingredientNamesList = new ArrayList<>();
+        ingredientNamesList.add("Кофе");
+        ingredientNamesList.add("Молоко");
+        ingredientNamesList.add("Корица");
+        ingredientNamesList.add("Сироп");
 
-        ingredientsSpiner = (Spinner) findViewById(R.id.ingredients_spinner);
-        ArrayAdapter<String> ingredientsSpinnerAdapter = new ArrayAdapter<>(this, R.layout.ingredient_item_spinner, ingredientNames);
-        ingredientsSpiner.setAdapter(ingredientsSpinnerAdapter);
-        ingredientsSpiner.setPrompt("Выбрать ингридиент");
-        ingredientsSpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        ingredientsSpinner = (Spinner) findViewById(R.id.ingredients_spinner);
+        ArrayAdapter<String> ingredientsSpinnerAdapter = new ArrayAdapter<>(this, R.layout.add_menu_item_activity_spinner, ingredientNamesList);
+        ingredientsSpinner.setAdapter(ingredientsSpinnerAdapter);
+        ingredientsSpinner.setPrompt("Выбрать ингридиент");
+        ingredientsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ingredientNameFromSpinner = ingredientNames.get(position);
-                ingredientsSpiner.setPrompt(ingredientNameFromSpinner);
+                ingredientNameFromSpinner = ingredientNamesList.get(position);
+                ingredientsSpinner.setPrompt(ingredientNameFromSpinner);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
+        ingredientSizeList = new ArrayList<>();
+        ingredientSizeList.add(5);
+        ingredientSizeList.add(10);
+        ingredientSizeList.add(15);
+        ingredientSizeList.add(20);
+        ingredientSizeList.add(25);
+        ingredientSizeList.add(30);
+        ingredientSizeList.add(50);
+        ingredientSizeList.add(100);
+        ingredientSizeList.add(150);
+        ingredientSizeList.add(200);
         ingredientSizeSpinner = (Spinner) findViewById(R.id.ingredient_size_spinner);
-        Integer[] iArray = {5, 10, 15, 20, 25, 30, 50, 100, 150, 200};
-        final ArrayList<Integer> intList = new ArrayList<>();
-        intList.add(5);
-        intList.add(10);
-        intList.add(15);
-        intList.add(20);
-        intList.add(25);
-        intList.add(30);
-        intList.add(50);
-        intList.add(100);
-        intList.add(150);
-        intList.add(200);
-        final ArrayAdapter<Integer> ingredientsSizeSpinnerAdapter = new ArrayAdapter<>(this, R.layout.ingredient_size_item_spinner, intList);
+        ArrayAdapter<Integer> ingredientsSizeSpinnerAdapter = new ArrayAdapter<>(this, R.layout.add_menu_item_activity_spinner, ingredientSizeList);
         ingredientSizeSpinner.setAdapter(ingredientsSizeSpinnerAdapter);
         ingredientSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ingredientSizeFromSpinner = intList.get(position);
-                //ingredientSizeSpinner.setPrompt();
+                ingredientSizeFromSpinner = ingredientSizeList.get(position);
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        ingredientsMeasureSpiner = (Spinner) findViewById(R.id.ingredient_measure_spinner);
-        ArrayAdapter<String> ingredientsMeasureSpinnerAdapter = new ArrayAdapter<>(this, R.layout.ingredient_measure_item_spinner, Arrays.asList(mesuareArray));
-        ingredientsMeasureSpiner.setAdapter(ingredientsMeasureSpinnerAdapter);
-        ingredientsMeasureSpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*private String[] mesuareArray = {"мл", "гр", "кг", "л", "шт", "упак"};*/
+        ingredientMeasureList = new ArrayList<>();
+        ingredientMeasureList.add("мл");
+        ingredientMeasureList.add("гр");
+        ingredientMeasureList.add("кг");
+        ingredientMeasureList.add("л");
+        ingredientMeasureList.add("шт");
+        ingredientMeasureList.add("упак");
+        ingredientsMeasureSpinner = (Spinner) findViewById(R.id.ingredient_measure_spinner);
+        ArrayAdapter<String> ingredientsMeasureSpinnerAdapter = new ArrayAdapter<>(this, R.layout.add_menu_item_activity_spinner, ingredientMeasureList);
+        ingredientsMeasureSpinner.setAdapter(ingredientsMeasureSpinnerAdapter);
+        ingredientsMeasureSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ingredientMeasureFromSpinner = mesuareArray[position];
+                ingredientMeasureFromSpinner = ingredientMeasureList.get(position);
             }
 
             @Override
@@ -165,15 +170,47 @@ public class AddMenuItemActivity extends AppCompatActivity {
 
             }
         });
+
+        menuItemNamesList = new ArrayList<>();
+        menuItemNamesList.add("Еспрессо");
+        menuItemNamesList.add("Лате");
+        menuItemNamesList.add("Американо");
+        menuItemNamesList.add("Американо с молоком");
+        menuItemNamesList.add("Макиято");
+
+        itemNamesSpinner = (Spinner) findViewById(R.id.menu_item_names_spinner);
+        ArrayAdapter<String> itemNamesAdapter = new ArrayAdapter<>(this, R.layout.add_menu_item_activity_spinner, menuItemNamesList);
+        itemNamesSpinner.setAdapter(itemNamesAdapter);
+        itemNamesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                itemNameFromSpinner = menuItemNamesList.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        itemSizeList = new ArrayList<>();
+        itemSizeList.add("250");
+        itemSizeList.add("350");
+        itemSizeList.add("450");
+        itemSizeSpinner = (Spinner) findViewById(R.id.menu_item_size_spinner);
+        ArrayAdapter<String> itemSizeAdapter = new ArrayAdapter<String>(this, R.layout.add_menu_item_measure_spinner, itemSizeList);
+        itemSizeSpinner.setAdapter(itemSizeAdapter);
+        itemSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                itemSizeFromSpinner = itemSizeList.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
     }
 
-    private boolean isAllDataSet(EditText menuItemNameEditText, EditText menuItemCategoryEditText, EditText menuItemPriceEditText, EditText menuItemMeasureEditText, List<Ingredient> ingredientList) {
-        if (!TextUtils.isEmpty(menuItemNameEditText.getText())
-                && !TextUtils.isEmpty(menuItemCategoryEditText.getText())
-                && !TextUtils.isEmpty(menuItemPriceEditText.getText())
-                && !TextUtils.isEmpty(menuItemMeasureEditText.getText())
-                && ingredientList.size() > 0) {
-            return true;
-        } else return false;
+    private boolean isAllDataSet(EditText menuItemPriceEditText, List<Ingredient> ingredientList) {
+        return true;
     }
 }
