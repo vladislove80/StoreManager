@@ -13,6 +13,7 @@ import java.util.List;
 
 import storemanager.com.app.R;
 import storemanager.com.app.models.CoffeItem;
+import storemanager.com.app.models.Ingredient;
 
 public class MenuFragmentAdapter extends RecyclerView.Adapter<MenuFragmentAdapter.ViewHolder> {
 
@@ -37,8 +38,15 @@ public class MenuFragmentAdapter extends RecyclerView.Adapter<MenuFragmentAdapte
         holder.itemNameTextView.setText(coffeItem.getName());
         holder.itemSizeTextView.setText("Объем: " + Integer.toString(coffeItem.getSize()));
         holder.itemPriceTextView.setText("Цена: " + Integer.toString(coffeItem.getPrice()));
-        /*String ingr =
-        holder.itemIngredientLabelTextView.setText(coffeItem.getConsist().);*/
+        String allIngredients = "";
+        for (Ingredient ingredientItem : coffeItem.getConsist()) {
+            allIngredients = allIngredients
+                    + ingredientItem.getName() + " "
+                    + ingredientItem.getSize() + " "
+                    + ingredientItem.getMeasure() + "\n";
+        }
+        allIngredients = allIngredients.trim();
+        holder.itemIngredientsTextView.setText(allIngredients);
 
     }
 
@@ -55,6 +63,7 @@ public class MenuFragmentAdapter extends RecyclerView.Adapter<MenuFragmentAdapte
         public TextView itemPriceTextView;
         private CardView cardView;
         public TextView itemIngredientLabelTextView;
+        public TextView itemIngredientsTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -63,7 +72,8 @@ public class MenuFragmentAdapter extends RecyclerView.Adapter<MenuFragmentAdapte
             itemNameTextView = (TextView) itemView.findViewById(R.id.menu_item_name);
             itemSizeTextView = (TextView) itemView.findViewById(R.id.menu_item_size);
             itemPriceTextView = (TextView) itemView.findViewById(R.id.menu_item_price);
-            itemIngredientLabelTextView = (TextView) itemView.findViewById(R.id.menu_itemIngredient_label);
+            itemIngredientLabelTextView = (TextView) itemView.findViewById(R.id.menu_item_ingredient_label);
+            itemIngredientsTextView = (TextView) itemView.findViewById(R.id.menu_item_ingredients);
         }
 
         @Override

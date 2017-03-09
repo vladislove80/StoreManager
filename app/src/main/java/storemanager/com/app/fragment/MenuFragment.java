@@ -22,6 +22,7 @@ import storemanager.com.app.activity.AddBaseIngredientActivity;
 import storemanager.com.app.activity.AddMenuItemActivity;
 import storemanager.com.app.adapter.MenuFragmentAdapter;
 import storemanager.com.app.models.CoffeItem;
+import storemanager.com.app.models.Ingredient;
 
 public class MenuFragment extends Fragment {
     public static final String TAG = MenuFragment.class.getSimpleName();
@@ -52,10 +53,33 @@ public class MenuFragment extends Fragment {
         super.onCreate(savedInstanceState);
         //mPage = getArguments().getInt(TAG);
         mDataset = new ArrayList<>();
+
         CoffeItem testItem = new CoffeItem();
-        testItem.setName("Test Name");
+        testItem.setName("Тестовое Латте");
         testItem.setPrice(50);
         testItem.setSize(250);
+
+        ArrayList<Ingredient> testIngredients = new ArrayList<>();
+        Ingredient testIngredient = new Ingredient();
+
+        testIngredient.setName("Кофе");
+        testIngredient.setSize(5);
+        testIngredient.setMeasure("мг");
+        testIngredients.add(testIngredient);
+
+        testIngredient = new Ingredient();
+        testIngredient.setName("Молоко");
+        testIngredient.setSize(15);
+        testIngredient.setMeasure("мг");
+        testIngredients.add(testIngredient);
+
+        testIngredient = new Ingredient();
+        testIngredient.setName("Корица");
+        testIngredient.setSize(5);
+        testIngredient.setMeasure("мг");
+        testIngredients.add(testIngredient);
+
+        testItem.setConsist(testIngredients);
         mDataset.add(testItem);
     }
 
