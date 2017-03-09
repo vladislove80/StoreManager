@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="18sp"
+    android:textSize="@dimen/add_menu_item_measure_spinner_text_size"
     android:gravity="left"
     android:textColor="#000000"
-    android:padding="5dip"/>
+    android:padding="@dimen/add_menu_item_measure_spinner_padding"/>

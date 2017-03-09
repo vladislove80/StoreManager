@@ -42,8 +42,9 @@
 
     <!--AddShopActivity-->
     <string name="label_add_shop">Добавить торговую точку</string>
-    <!--AddMenuItemActivity-->
-    <string name="label_add_menu_item">Добавить пункт меню</string>
+
+
+
     <!--AddBaseIngredientActivity-->
     <string name="label_add_base_ingredient_item">Добавить пункт меню</string>
 
@@ -62,6 +63,15 @@
     <string name="filter_tomorrow">tomorrow:</string>
     <string name="filter_all">all</string>
     <string name="no_data">Нет данных..</string>
+
+    <!--AddMenuItemActivity-->
+    <string name="label_add_menu_item">Добавить пункт меню</string>
+    <string name="add_menu_item_layout_button">ГОТОВО !</string>
+    <string name="add_menu_item_layout_name">Наименование</string>
+    <string name="add_menu_item_layout_price">Цена</string>
+    <string name="add_menu_item_layout_size">Объем</string>
+    <string name="add_menu_item_layout_ingredients">Ингридиенты</string>
+    <string name="add_menu_item_layout_ingredient_button">Добавить</string>
 
     <string-array name="filter">
         <item>Сегодня</item>

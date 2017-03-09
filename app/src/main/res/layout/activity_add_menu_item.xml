@@ -3,21 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp">
+    android:layout_marginLeft="@dimen/add_menu_item_layout_margin_left"
+    android:layout_marginRight="@dimen/add_menu_item_layout_margin_right">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Формируйте пункты меню"
-        android:layout_margin="15dp"
+        android:layout_margin="@dimen/add_menu_item_layout_label_margin"
         android:gravity="center"/>
 
     <Button
         android:id="@+id/add_menu_item_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ГОТОВО !"
+        android:text="@string/add_menu_item_layout_button"
         android:theme="@style/ThemeOverlay.MyBigDarkButton"/>
 
     <LinearLayout
@@ -29,8 +29,8 @@
             android:id="@+id/menu_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Наименование"
-            android:textSize="18sp"/>
+            android:text="@string/add_menu_item_layout_name"
+            android:textSize="@dimen/add_menu_item_layout_name_text_size"/>
 
         <Spinner
             android:id="@+id/menu_item_names_spinner"
@@ -48,15 +48,15 @@
             android:id="@+id/menu_item_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Цена"
-            android:textSize="18sp"
+            android:text="@string/add_menu_item_layout_price"
+            android:textSize="@dimen/add_menu_item_layout_price_text_size"
             />
 
         <EditText
             android:id="@+id/menu_item_price_et"
-            android:layout_width="60dp"
+            android:layout_width="@dimen/add_menu_item_layout_price_edittext_width"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/add_menu_item_layout_price_edittext_margin_left"
             android:inputType="number"/>
     </LinearLayout>
 
@@ -69,8 +69,8 @@
             android:id="@+id/menu_item_measure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Объем"
-            android:textSize="18sp"/>
+            android:text="@string/add_menu_item_layout_size"
+            android:textSize="@dimen/add_menu_item_layout_itemsize_text_size"/>
 
         <Spinner
             android:id="@+id/menu_item_size_spinner"
@@ -88,8 +88,8 @@
             android:id="@+id/ingredient_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ингридиенты"
-            android:textSize="18sp"
+            android:text="@string/add_menu_item_layout_ingredients"
+            android:textSize="@dimen/add_menu_item_layout_ingredients_text_size"
             android:layout_alignParentLeft="true"/>
 
         <LinearLayout
@@ -102,8 +102,8 @@
                 android:id="@+id/ingredients_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="@dimen/add_menu_item_layout_ingredient_spinner_margin_left"
+                android:layout_marginRight="@dimen/add_menu_item_layout_ingredient_spinner_margin_right"
                 android:layout_weight="3">
 
             </Spinner>
@@ -112,8 +112,8 @@
                 android:id="@+id/ingredient_size_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="@dimen/add_menu_item_layout_ingredient_size_spinner_margin_left"
+                android:layout_marginRight="@dimen/add_menu_item_layout_ingredient_size_spinner_margin_right"
                 android:layout_weight="2">
 
             </Spinner>
@@ -122,8 +122,8 @@
                 android:id="@+id/ingredient_measure_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="@dimen/add_menu_item_layout_ingredient_measure_spinner_margin_left"
+                android:layout_marginRight="@dimen/add_menu_item_layout_ingredient_measure_spinner_margin_right"
                 android:layout_weight="1"/>
 
         </LinearLayout>
@@ -132,8 +132,8 @@
             android:id="@+id/add_ingredient_item_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Добавить"
-            android:layout_marginLeft="5dp"
+            android:text="@string/add_menu_item_layout_ingredient_button"
+            android:layout_marginLeft="@dimen/add_menu_item_layout_ingredient_button_margin_left"
             android:layout_alignParentRight="true"
             android:theme="@style/ThemeOverlay.MyDarkButton"/>
     </RelativeLayout>

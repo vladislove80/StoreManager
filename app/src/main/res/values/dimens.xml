@@ -47,4 +47,35 @@
     <dimen name="ic_no_data_margin_top">10dp</dimen>
     <dimen name="no_data_text_syze">16sp</dimen>
 
+    <!--MenuFragment-->
+    <dimen name="menu_card_margin">10dp</dimen>
+    <dimen name="layout_margin">5dp</dimen>
+    <dimen name="layout_margin_left">15dp</dimen>
+    <dimen name="layout_margin_right">15dp</dimen>
+
+    <!--AddMenuItemActivity-->
+        <!--spinners-->
+    <dimen name="add_menu_item_spinner_text_size">18sp</dimen>
+    <dimen name="add_menu_item_spinner_padding">10dp</dimen>
+    <dimen name="add_menu_item_measure_spinner_text_size">18sp</dimen>
+    <dimen name="add_menu_item_measure_spinner_padding">10dp</dimen>
+
+    <dimen name="add_menu_item_layout_margin_left">5dp</dimen>
+    <dimen name="add_menu_item_layout_margin_right">5dp</dimen>
+    <dimen name="add_menu_item_layout_label_margin">15dp</dimen>
+    <dimen name="add_menu_item_layout_name_text_size">18sp</dimen>
+    <dimen name="add_menu_item_layout_price_text_size">18sp</dimen>
+    <dimen name="add_menu_item_layout_price_edittext_width">60dp</dimen>
+    <dimen name="add_menu_item_layout_price_edittext_margin_left">10dp</dimen>
+    <dimen name="add_menu_item_layout_itemsize_text_size">18sp</dimen>
+    <dimen name="add_menu_item_layout_ingredients_text_size">18sp</dimen>
+    <dimen name="add_menu_item_layout_ingredient_spinner_margin_left">10dp</dimen>
+    <dimen name="add_menu_item_layout_ingredient_spinner_margin_right">10dp</dimen>
+    <dimen name="add_menu_item_layout_ingredient_size_spinner_margin_left">10dp</dimen>
+    <dimen name="add_menu_item_layout_ingredient_size_spinner_margin_right">10dp</dimen>
+    <dimen name="add_menu_item_layout_ingredient_measure_spinner_margin_left">10dp</dimen>
+    <dimen name="add_menu_item_layout_ingredient_measure_spinner_margin_right">10dp</dimen>
+    <dimen name="add_menu_item_layout_ingredient_button_margin_left">5dp</dimen>
+
+
 </resources>
