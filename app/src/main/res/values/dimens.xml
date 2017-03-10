@@ -76,6 +76,9 @@
     <dimen name="add_menu_item_layout_ingredient_measure_spinner_margin_left">10dp</dimen>
     <dimen name="add_menu_item_layout_ingredient_measure_spinner_margin_right">10dp</dimen>
     <dimen name="add_menu_item_layout_ingredient_button_margin_left">5dp</dimen>
+    <dimen name="add_menu_item_layout_ingredient_list_label_text_size">18sp</dimen>
+    <dimen name="add_menu_item_layout_ingredient_listview_margin_left">10dp</dimen>
+    <dimen name="add_menu_item_layout_ingredient_listview_margin_right">10dp</dimen>
 
 
 </resources>

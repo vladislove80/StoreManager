@@ -67,7 +67,7 @@ public class ShopsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.shops_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_shops, container, false);
 
         addButton = (Button) view.findViewById(R.id.add_shop_button);
         addButton.setOnClickListener(new View.OnClickListener() {

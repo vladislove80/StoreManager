@@ -18,7 +18,7 @@ public class BaseIngredientAdapter extends ArrayAdapter<String> {
     private List<String> ingredientBaseList;
 
     public BaseIngredientAdapter(Context context, List<String> ingredientBaseList) {
-        super(context, R.layout.base_ingredient_item_row, ingredientBaseList);
+        super(context, R.layout.layout_base_ingredient_item_row, ingredientBaseList);
         this.context = context;
         this.ingredientBaseList = ingredientBaseList;
     }
@@ -32,7 +32,7 @@ public class BaseIngredientAdapter extends ArrayAdapter<String> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.base_ingredient_item_row, null);
+            convertView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_base_ingredient_item_row, null);
             viewHolder = new ViewHolder();
             viewHolder.baseIngredient = (TextView) convertView.findViewById(R.id.ingredient_name);
             convertView.setTag(viewHolder);

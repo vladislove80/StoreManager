@@ -40,7 +40,7 @@ public class AddISummaryItemsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.v(Utils.LOG_TAG, "AddISummaryItemsActivity");
-        setContentView(R.layout.add_items_activity);
+        setContentView(R.layout.activity_add_items);
 
         buttonAdd = (Button) findViewById(R.id.add_shop_button);
         buttonCancel = (Button) findViewById(R.id.cancel_button);
@@ -57,7 +57,7 @@ public class AddISummaryItemsActivity extends AppCompatActivity {
 
         cofeItem = new CoffeItem();
 
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this, R.layout.summary_item_spinner, coffeItemNames);
+        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this, R.layout.layout_summary_item_spinner, coffeItemNames);
 
         itemsSpiner.setAdapter(itemsAdapter);
         itemsSpiner.setPrompt(Utils.coffeItems.get(0));
@@ -79,7 +79,7 @@ public class AddISummaryItemsActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<Integer> sizeAdapter = new ArrayAdapter<>(this, R.layout.summary_item_spinner, Utils.coffeSizes);
+        ArrayAdapter<Integer> sizeAdapter = new ArrayAdapter<>(this, R.layout.layout_summary_item_spinner, Utils.coffeSizes);
 
         sizeSpiner.setAdapter(sizeAdapter);
         sizeSpiner.setPrompt(Utils.coffeSizes.get(0).toString());
@@ -99,7 +99,7 @@ public class AddISummaryItemsActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<Integer> numAdapter = new ArrayAdapter<>(this, R.layout.summary_item_spinner, Utils.coffeNumber);
+        ArrayAdapter<Integer> numAdapter = new ArrayAdapter<>(this, R.layout.layout_summary_item_spinner, Utils.coffeNumber);
 
         amountSpiner.setAdapter(numAdapter);
         amountSpiner.setPrompt(Utils.coffeNumber.get(0).toString());

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,55 +19,105 @@ import java.util.List;
 
 import storemanager.com.app.R;
 import storemanager.com.app.adapter.MenuItemIngredientsAdapter;
+import storemanager.com.app.fragment.AllDataLists;
+import storemanager.com.app.fragment.MenuFragment;
 import storemanager.com.app.models.CoffeItem;
 import storemanager.com.app.models.Ingredient;
 
 public class AddMenuItemActivity extends AppCompatActivity {
-    public static final String TAG = "add_menu_item";
+    public static final String TAG = "activity_add_menu_item";
 
     private MenuItemIngredientsAdapter ingridientAdapter;
+    private AllDataLists allDataLists;
 
-    private ListView ingredientListView;
-    private List<Ingredient> ingredientList;
-    private ArrayList<String> ingredientNamesList;
-    private ArrayList<String> ingredientMeasureList;
-    private ArrayList<Integer> ingredientSizeList;
     private ArrayList<String> menuItemNamesList;
     private ArrayList<String> itemSizeList;
-
+    private List<Ingredient> ingredientList;
+    private ArrayList<String> ingredientNamesList;
+    private ArrayList<Integer> ingredientSizeList;
+    private ArrayList<String> ingredientMeasureList;
     private Button addIngredientButton;
-    private Button addMenuItemButton;
 
+    private Button addMenuItemButton;
     private Spinner ingredientsSpinner;
+    private ListView ingredientListView;
     private Spinner ingredientsMeasureSpinner;
     private Spinner ingredientSizeSpinner;
     private Spinner itemNamesSpinner;
     private Spinner itemSizeSpinner;
-
-    private Integer ingredientSizeFromSpinner;
-    private String ingredientNameFromSpinner;
-    private String itemNameFromSpinner;
-    private String itemSizeFromSpinner;
-    private String ingredientMeasureFromSpinner;
-
     private EditText menuItemPriceEditText;
+
+    private String menuItemNameFromSpinner = "";
+    private String menuItemSizeFromSpinner = "";
+    private Integer ingredientSizeFromSpinner = 0;
+    private String ingredientNameFromSpinner = "";
+    private String ingredientMeasureFromSpinner = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_menu_item);
+        setContentView(R.layout.activity_add_menu_item);
+
+        ingredientNamesList = new ArrayList<>();
+        ingredientNamesList.add("Кофе");
+        ingredientNamesList.add("Молоко");
+        ingredientNamesList.add("Корица");
+        ingredientNamesList.add("Сироп");
+
+        ingredientSizeList = new ArrayList<>();
+        ingredientSizeList.add(5);
+        ingredientSizeList.add(10);
+        ingredientSizeList.add(15);
+        ingredientSizeList.add(20);
+        ingredientSizeList.add(25);
+        ingredientSizeList.add(30);
+        ingredientSizeList.add(50);
+        ingredientSizeList.add(100);
+        ingredientSizeList.add(150);
+        ingredientSizeList.add(200);
+
+        ingredientMeasureList = new ArrayList<>();
+        ingredientMeasureList.add("мл");
+        ingredientMeasureList.add("гр");
+        ingredientMeasureList.add("кг");
+        ingredientMeasureList.add("л");
+        ingredientMeasureList.add("шт");
+        ingredientMeasureList.add("упак");
+
+        menuItemNamesList = new ArrayList<>();
+        menuItemNamesList.add("Еспрессо");
+        menuItemNamesList.add("Лате");
+        menuItemNamesList.add("Американо");
+        menuItemNamesList.add("Американо с молоком");
+        menuItemNamesList.add("Макиято");
+
+        itemSizeList = new ArrayList<>();
+        itemSizeList.add("250");
+        itemSizeList.add("350");
+        itemSizeList.add("450");
+
+        Intent intent = getIntent();
+        allDataLists = (AllDataLists) intent.getSerializableExtra(MenuFragment.TAG);
 
         ingredientList = new ArrayList<>();
         addMenuItemButton = (Button) findViewById(R.id.add_menu_item_button);
         addMenuItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isAllDataSet(menuItemPriceEditText, ingredientList)) {
+                if (isAllDataSet(
+                        menuItemNameFromSpinner,
+                        menuItemSizeFromSpinner,
+                        ingredientSizeFromSpinner,
+                        ingredientNameFromSpinner,
+                        ingredientMeasureFromSpinner,
+                        menuItemPriceEditText,
+                        ingredientList)
+                        ) {
                     CoffeItem coffeItem = new CoffeItem();
-                    coffeItem.setName(itemNameFromSpinner);
+                    coffeItem.setName(menuItemNameFromSpinner);
                     //coffeItem.setOneSize();
                     coffeItem.setPrice(Integer.parseInt(menuItemPriceEditText.getText().toString()));
-                    coffeItem.setSize(Integer.parseInt(itemSizeFromSpinner));
+                    coffeItem.setSize(Integer.parseInt(menuItemSizeFromSpinner));
                     coffeItem.setConsist(ingredientList);
 
                     int resultCode = 101;
@@ -82,10 +133,8 @@ public class AddMenuItemActivity extends AppCompatActivity {
 
         menuItemPriceEditText = (EditText)findViewById(R.id.menu_item_price_et);
         ingredientListView = (ListView) findViewById(R.id.ingridient_list);
-
         ingridientAdapter = new MenuItemIngredientsAdapter(getBaseContext(), ingredientList);
         ingredientListView.setAdapter(ingridientAdapter);
-
         addIngredientButton = (Button) findViewById(R.id.add_ingredient_item_button);
         addIngredientButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,14 +152,8 @@ public class AddMenuItemActivity extends AppCompatActivity {
             }
         });
 
-        ingredientNamesList = new ArrayList<>();
-        ingredientNamesList.add("Кофе");
-        ingredientNamesList.add("Молоко");
-        ingredientNamesList.add("Корица");
-        ingredientNamesList.add("Сироп");
-
         ingredientsSpinner = (Spinner) findViewById(R.id.ingredients_spinner);
-        ArrayAdapter<String> ingredientsSpinnerAdapter = new ArrayAdapter<>(this, R.layout.add_menu_item_activity_spinner, ingredientNamesList);
+        ArrayAdapter<String> ingredientsSpinnerAdapter = new ArrayAdapter<>(this, R.layout.layout_add_menu_item_activity_spinner, ingredientNamesList);
         ingredientsSpinner.setAdapter(ingredientsSpinnerAdapter);
         ingredientsSpinner.setPrompt("Выбрать ингридиент");
         ingredientsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -124,19 +167,8 @@ public class AddMenuItemActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        ingredientSizeList = new ArrayList<>();
-        ingredientSizeList.add(5);
-        ingredientSizeList.add(10);
-        ingredientSizeList.add(15);
-        ingredientSizeList.add(20);
-        ingredientSizeList.add(25);
-        ingredientSizeList.add(30);
-        ingredientSizeList.add(50);
-        ingredientSizeList.add(100);
-        ingredientSizeList.add(150);
-        ingredientSizeList.add(200);
         ingredientSizeSpinner = (Spinner) findViewById(R.id.ingredient_size_spinner);
-        ArrayAdapter<Integer> ingredientsSizeSpinnerAdapter = new ArrayAdapter<>(this, R.layout.add_menu_item_activity_spinner, ingredientSizeList);
+        ArrayAdapter<Integer> ingredientsSizeSpinnerAdapter = new ArrayAdapter<>(this, R.layout.layout_add_menu_item_activity_spinner, ingredientSizeList);
         ingredientSizeSpinner.setAdapter(ingredientsSizeSpinnerAdapter);
         ingredientSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -148,16 +180,8 @@ public class AddMenuItemActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        /*private String[] mesuareArray = {"мл", "гр", "кг", "л", "шт", "упак"};*/
-        ingredientMeasureList = new ArrayList<>();
-        ingredientMeasureList.add("мл");
-        ingredientMeasureList.add("гр");
-        ingredientMeasureList.add("кг");
-        ingredientMeasureList.add("л");
-        ingredientMeasureList.add("шт");
-        ingredientMeasureList.add("упак");
         ingredientsMeasureSpinner = (Spinner) findViewById(R.id.ingredient_measure_spinner);
-        ArrayAdapter<String> ingredientsMeasureSpinnerAdapter = new ArrayAdapter<>(this, R.layout.add_menu_item_activity_spinner, ingredientMeasureList);
+        ArrayAdapter<String> ingredientsMeasureSpinnerAdapter = new ArrayAdapter<>(this, R.layout.layout_add_menu_item_activity_spinner, ingredientMeasureList);
         ingredientsMeasureSpinner.setAdapter(ingredientsMeasureSpinnerAdapter);
         ingredientsMeasureSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -171,37 +195,26 @@ public class AddMenuItemActivity extends AppCompatActivity {
             }
         });
 
-        menuItemNamesList = new ArrayList<>();
-        menuItemNamesList.add("Еспрессо");
-        menuItemNamesList.add("Лате");
-        menuItemNamesList.add("Американо");
-        menuItemNamesList.add("Американо с молоком");
-        menuItemNamesList.add("Макиято");
-
         itemNamesSpinner = (Spinner) findViewById(R.id.menu_item_names_spinner);
-        ArrayAdapter<String> itemNamesAdapter = new ArrayAdapter<>(this, R.layout.add_menu_item_activity_spinner, menuItemNamesList);
+        ArrayAdapter<String> itemNamesAdapter = new ArrayAdapter<>(this, R.layout.layout_add_menu_item_activity_spinner, menuItemNamesList);
         itemNamesSpinner.setAdapter(itemNamesAdapter);
         itemNamesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                itemNameFromSpinner = menuItemNamesList.get(position);
+                menuItemNameFromSpinner = menuItemNamesList.get(position);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        itemSizeList = new ArrayList<>();
-        itemSizeList.add("250");
-        itemSizeList.add("350");
-        itemSizeList.add("450");
         itemSizeSpinner = (Spinner) findViewById(R.id.menu_item_size_spinner);
-        ArrayAdapter<String> itemSizeAdapter = new ArrayAdapter<String>(this, R.layout.add_menu_item_measure_spinner, itemSizeList);
+        ArrayAdapter<String> itemSizeAdapter = new ArrayAdapter<String>(this, R.layout.layout_add_menu_item_measure_spinner, itemSizeList);
         itemSizeSpinner.setAdapter(itemSizeAdapter);
         itemSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                itemSizeFromSpinner = itemSizeList.get(position);
+                menuItemSizeFromSpinner = itemSizeList.get(position);
             }
 
             @Override
@@ -210,7 +223,25 @@ public class AddMenuItemActivity extends AppCompatActivity {
 
     }
 
-    private boolean isAllDataSet(EditText menuItemPriceEditText, List<Ingredient> ingredientList) {
-        return true;
+    private boolean isAllDataSet(
+            String menuItemNameFromSpinner,
+            String menuItemSizeFromSpinner,
+            Integer ingredientSizeFromSpinner,
+            String ingredientNameFromSpinner,
+            String ingredientMeasureFromSpinner,
+            EditText menuItemPriceEditText,
+            List<Ingredient> ingredientList) {
+
+        if (!TextUtils.isEmpty(menuItemNameFromSpinner)
+                && !TextUtils.isEmpty(menuItemSizeFromSpinner)
+                && ingredientSizeFromSpinner != 0
+                && !TextUtils.isEmpty(ingredientNameFromSpinner)
+                && !TextUtils.isEmpty(ingredientMeasureFromSpinner)
+                && !TextUtils.isEmpty(menuItemPriceEditText.getText().toString())
+                && ingredientList.size() > 0 ) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

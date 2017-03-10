@@ -26,7 +26,7 @@ public class AddBaseIngredientActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_ingredient_activity);
+        setContentView(R.layout.activity_add_ingredient);
 
         ingredientList = new ArrayList<>();
         addIngredientEditText = (EditText) findViewById(R.id.add_ingredient_edittext);

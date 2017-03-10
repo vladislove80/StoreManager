@@ -72,6 +72,7 @@
     <string name="add_menu_item_layout_size">Объем</string>
     <string name="add_menu_item_layout_ingredients">Ингридиенты</string>
     <string name="add_menu_item_layout_ingredient_button">Добавить</string>
+    <string name="add_menu_item_layout_ingredient_list_label">Список ингридиентов:</string>
 
     <string-array name="filter">
         <item>Сегодня</item>

@@ -141,13 +141,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Список ингридиентов:"
-        android:textSize="18sp"/>
+        android:text="@string/add_menu_item_layout_ingredient_list_label"
+        android:textSize="@dimen/add_menu_item_layout_ingredient_list_label_text_size"/>
 
     <ListView
         android:id="@+id/ingridient_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginLeft="@dimen/add_menu_item_layout_ingredient_listview_margin_left"
+        android:layout_marginRight="@dimen/add_menu_item_layout_ingredient_listview_margin_right"/>
 </LinearLayout>

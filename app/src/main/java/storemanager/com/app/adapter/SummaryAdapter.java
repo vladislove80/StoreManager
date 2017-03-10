@@ -1,4 +1,4 @@
-package storemanager.com.app.activity;
+package storemanager.com.app.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,7 +18,7 @@ public class SummaryAdapter extends ArrayAdapter<CoffeItemInSummary> {
     private List<CoffeItemInSummary> coffeItem;
 
     public SummaryAdapter(Context context, List<CoffeItemInSummary> coffeItem) {
-        super(context, R.layout.items_row, coffeItem);
+        super(context, R.layout.layout_items_row, coffeItem);
         this.context = context;
         this.coffeItem = coffeItem;
     }
@@ -35,7 +35,7 @@ public class SummaryAdapter extends ArrayAdapter<CoffeItemInSummary> {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.items_row, null);
+            convertView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_items_row, null);
             viewHolder = new ViewHolder();
             viewHolder.itemNum = (TextView) convertView.findViewById(R.id.item_number_row);
             viewHolder.itemName = (TextView) convertView.findViewById(R.id.item_name);

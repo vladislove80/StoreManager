@@ -29,7 +29,8 @@ public class MenuFragment extends Fragment {
     public final static int REQ_CODE_ADD_ITEM = 2;
     public final static int REQ_CODE_ADD_INGREDIENT = 3;
 
-    private int mPage;
+    private AllDataLists allDataLists;
+
     private RelativeLayout noDataLayout;
     private Button addMenuButton;
     private Button addIngredientsButton;
@@ -41,18 +42,15 @@ public class MenuFragment extends Fragment {
     private List<CoffeItem> mDataset;
 
     public static MenuFragment newInstance(int page) {
-        /*Bundle args = new Bundle();
-        args.putInt(TAG, page);*/
         MenuFragment fragment = new MenuFragment();
-        //fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //mPage = getArguments().getInt(TAG);
         mDataset = new ArrayList<>();
+        allDataLists = new AllDataLists();
 
         CoffeItem testItem = new CoffeItem();
         testItem.setName("Тестовое Латте");
@@ -86,7 +84,7 @@ public class MenuFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.menu_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_menu, container, false);
 
         addMenuButton = (Button) view.findViewById(R.id.add_menu_item_button);
         addIngredientsButton = (Button) view.findViewById(R.id.add_ingredients_button);
@@ -97,6 +95,7 @@ public class MenuFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddMenuItemActivity.class);
+                intent.putExtra(TAG, allDataLists);
                 startActivityForResult(intent, REQ_CODE_ADD_ITEM);
             }
         });
@@ -112,6 +111,7 @@ public class MenuFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddBaseIngredientActivity.class);
+                intent.putExtra(TAG, allDataLists);
                 startActivityForResult(intent, REQ_CODE_ADD_INGREDIENT);
                 //Toast.makeText(getContext(), "Ингридиенты", Toast.LENGTH_SHORT).show();
             }

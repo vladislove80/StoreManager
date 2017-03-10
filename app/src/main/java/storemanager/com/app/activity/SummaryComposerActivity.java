@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import storemanager.com.app.R;
+import storemanager.com.app.adapter.SummaryAdapter;
 import storemanager.com.app.models.CoffeItem;
 import storemanager.com.app.models.CoffeItemInSummary;
 import storemanager.com.app.models.Summary;

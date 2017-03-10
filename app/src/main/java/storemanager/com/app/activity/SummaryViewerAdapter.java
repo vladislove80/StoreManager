@@ -37,7 +37,7 @@ public class SummaryViewerAdapter extends ArrayAdapter<Summary> implements View.
     }
 
     public SummaryViewerAdapter(Context context, List<Summary> summaryList) {
-        super(context, R.layout.summary_viewer_item, summaryList);
+        super(context, R.layout.layout_summary_viewer_item, summaryList);
         this.context = context;
         this.summaryList = summaryList;
     }
@@ -53,7 +53,7 @@ public class SummaryViewerAdapter extends ArrayAdapter<Summary> implements View.
                 List<CoffeItemInSummary> itemInSummary = summary.getItemInSummary();
                 int i = 1;
                 for (CoffeItemInSummary item : itemInSummary) {
-                    final TableRow tableRow = (TableRow) inflate(context, R.layout.summary_viewer_row, null);
+                    final TableRow tableRow = (TableRow) inflate(context, R.layout.layout_summary_viewer_row, null);
                     TextView tv;
                     TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
                             ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -89,7 +89,7 @@ public class SummaryViewerAdapter extends ArrayAdapter<Summary> implements View.
         SummaryViewerAdapter.ViewHolder viewHolder;
         Summary summary = summaryList.get(position);
         if (convertView == null) {
-            convertView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.summary_viewer_item, null);
+            convertView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_summary_viewer_item, null);
             viewHolder = new SummaryViewerAdapter.ViewHolder();
             viewHolder.shopTextView = (TextView) convertView.findViewById(R.id.viewer_shop);
             viewHolder.nameTextView = (TextView) convertView.findViewById(R.id.viewer_name);

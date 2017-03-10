@@ -19,7 +19,7 @@ public class MenuItemIngredientsAdapter extends ArrayAdapter<Ingredient> {
     private List<Ingredient> ingredientList;
 
     public MenuItemIngredientsAdapter(Context context, List<Ingredient> ingredientList) {
-        super(context, R.layout.base_ingredient_item_row, ingredientList);
+        super(context, R.layout.layout_base_ingredient_item_row, ingredientList);
         this.context = context;
         this.ingredientList = ingredientList;
     }
@@ -35,7 +35,7 @@ public class MenuItemIngredientsAdapter extends ArrayAdapter<Ingredient> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.base_ingredient_item_row, null);
+            convertView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_base_ingredient_item_row, null);
             viewHolder = new ViewHolder();
             viewHolder.ingredientName = (TextView) convertView.findViewById(R.id.ingredient_name);
             viewHolder.ingredientSize = (TextView) convertView.findViewById(R.id.base_ingredient_size);
