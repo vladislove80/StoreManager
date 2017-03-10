@@ -20,6 +20,8 @@ import java.util.List;
 import storemanager.com.app.R;
 import storemanager.com.app.activity.AddBaseIngredientActivity;
 import storemanager.com.app.activity.AddMenuItemActivity;
+import storemanager.com.app.activity.ListOfListActivity;
+import storemanager.com.app.activity.PopActivity;
 import storemanager.com.app.adapter.MenuFragmentAdapter;
 import storemanager.com.app.models.CoffeItem;
 import storemanager.com.app.models.Ingredient;
@@ -110,9 +112,13 @@ public class MenuFragment extends Fragment {
         addIngredientsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddBaseIngredientActivity.class);
+                Intent intent = new Intent(getActivity(), ListOfListActivity.class);
+                startActivity(intent);
+                /*Intent intent = new Intent(getActivity(), PopActivity.class);
+                startActivity(intent);*/
+                /*Intent intent = new Intent(getActivity(), AddBaseIngredientActivity.class);
                 intent.putExtra(TAG, allDataLists);
-                startActivityForResult(intent, REQ_CODE_ADD_INGREDIENT);
+                startActivityForResult(intent, REQ_CODE_ADD_INGREDIENT);*/
                 //Toast.makeText(getContext(), "Ингридиенты", Toast.LENGTH_SHORT).show();
             }
         });

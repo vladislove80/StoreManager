@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp">
+
+    <TextView
+        android:id="@+id/lists_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lists_label"
+        android:layout_margin="@dimen/lists_label_margin"
+        android:gravity="center"
+        android:textSize="@dimen/label_text_size"/>
+
+    <RelativeLayout
+        android:id="@+id/item_names_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/item_edit_layout_margin_right"
+        android:layout_marginTop="@dimen/lists_edit_layout_margin_top"
+        android:layout_marginBottom="@dimen/lists_edit_layout_margin_bottom">
+
+        <TextView
+            android:id="@+id/lists_names_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lists_item_names"
+            android:layout_toLeftOf="@+id/lists_names_edit_button"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/item_edit_layout_margin_right"
+            android:textSize="@dimen/lists_text_size"/>
+
+        <Button
+            android:id="@+id/lists_names_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lists_item_edit_button"
+            android:layout_alignParentRight="true"
+            style="ThemeOverlay.MyDarkButton"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/item_sizes_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/item_edit_layout_margin_right"
+        android:layout_marginTop="@dimen/lists_edit_layout_margin_top"
+        android:layout_marginBottom="@dimen/lists_edit_layout_margin_bottom">
+
+        <TextView
+            android:id="@+id/lists_sizes_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lists_item_size"
+            android:layout_toLeftOf="@+id/lists_size_edit_button"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/item_edit_layout_margin_right"
+            android:textSize="@dimen/lists_text_size"/>
+
+        <Button
+            android:id="@+id/lists_size_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lists_item_edit_button"
+            android:layout_alignParentRight="true"
+            style="ThemeOverlay.MyDarkButton"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/item_ingredient_names_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/item_edit_layout_margin_right"
+        android:layout_marginTop="@dimen/lists_edit_layout_margin_top"
+        android:layout_marginBottom="@dimen/lists_edit_layout_margin_bottom">
+
+        <TextView
+            android:id="@+id/lists_ingredient_names_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lists_item_ingredient_name"
+            android:layout_toLeftOf="@+id/lists_ingredient_names_edit_button"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/item_edit_layout_margin_right"
+            android:textSize="@dimen/lists_text_size"/>
+        <Button
+            android:id="@+id/lists_ingredient_names_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lists_item_edit_button"
+            android:layout_alignParentRight="true"
+            style="ThemeOverlay.MyDarkButton"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/item_ingredient_sizes_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/item_edit_layout_margin_right"
+        android:layout_marginTop="@dimen/lists_edit_layout_margin_top"
+        android:layout_marginBottom="@dimen/lists_edit_layout_margin_bottom">
+
+        <TextView
+            android:id="@+id/lists_ingredient_sizes_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lists_item_ingredient_sizes"
+            android:layout_toLeftOf="@+id/lists_ingredient_sizes_edit_button"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/item_edit_layout_margin_right"
+            android:textSize="@dimen/lists_text_size"/>
+        <Button
+            android:id="@+id/lists_ingredient_sizes_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lists_item_edit_button"
+            android:layout_alignParentRight="true"
+            style="ThemeOverlay.MyDarkButton"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/item_ingredient_measure_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/item_edit_layout_margin_right"
+        android:layout_marginTop="@dimen/lists_edit_layout_margin_top"
+        android:layout_marginBottom="@dimen/lists_edit_layout_margin_bottom">
+
+        <TextView
+            android:id="@+id/lists_ingredient_measure_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lists_item_ingredient_measures"
+            android:layout_toLeftOf="@+id/lists_ingredient_measures_edit_button"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/item_edit_layout_margin_right"
+            android:textSize="@dimen/lists_text_size"/>
+        <Button
+            android:id="@+id/lists_ingredient_measures_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lists_item_edit_button"
+            android:layout_alignParentRight="true"
+            style="ThemeOverlay.MyDarkButton"/>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -58,6 +58,9 @@
         <item name="android:textSize">18sp</item>
         <item name="tabSelectedTextColor">?android:textColorPrimary</item>
     </style>
-
+    <style name="AppTheme.PopWindow">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
 
 </resources>

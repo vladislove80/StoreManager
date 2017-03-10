@@ -48,33 +48,41 @@
 
         <activity
             android:name=".activity.AddShopActivity"
-            android:label="@string/label_add_shop"
+            android:label="@string/manifest_label_add_shop"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.Light.Dialog"/>
 
         <activity
             android:name=".activity.SummaryViewerActivity"
-            android:label="@string/label_view_data"/>
+            android:label="@string/manifest_label_view_data"/>
 
         <activity
             android:name=".activity.FilterPreferenceActivity"
-            android:label="@string/label_filter_pref"/>
+            android:label="@string/manifest_label_filter_pref"/>
 
         <activity
             android:name=".activity.ShopDataActivity"
-            android:label="@string/label_shop"
+            android:label="@string/manifest_label_shop"
             android:parentActivityName=".activity.MainActivity"/>
 
         <activity
             android:name=".activity.AddMenuItemActivity"
-            android:label="@string/label_add_menu_item"
+            android:label="@string/manifest_label_add_menu_item"
             android:parentActivityName=".activity.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <activity
             android:name=".activity.AddBaseIngredientActivity"
-            android:label="@string/label_add_base_ingredient_item"
+            android:label="@string/manifest_label_add_base_ingredient_item"
             android:parentActivityName=".activity.AddMenuItemActivity"/>
+
+        <activity
+            android:name=".activity.PopActivity"
+            android:theme="@style/AppTheme.PopWindow"/>
+
+        <activity
+            android:name=".activity.ListOfListActivity"
+            android:label="@string/manifest_label_lists"/>
     </application>
 
 

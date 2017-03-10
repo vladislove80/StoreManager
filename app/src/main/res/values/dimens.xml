@@ -80,5 +80,13 @@
     <dimen name="add_menu_item_layout_ingredient_listview_margin_left">10dp</dimen>
     <dimen name="add_menu_item_layout_ingredient_listview_margin_right">10dp</dimen>
 
+    <!--ListOfListActivity-->
+    <dimen name="lists_label_margin">20dp</dimen>
+    <dimen name="item_edit_layout_margin_right">10dp</dimen>
+    <dimen name="lists_text_size">18sp</dimen>
+    <dimen name="label_text_size">22sp</dimen>
+    <dimen name="lists_edit_layout_margin_top">15dp</dimen>
+    <dimen name="lists_edit_layout_margin_bottom">15dp</dimen>
+
 
 </resources>

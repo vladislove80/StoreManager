@@ -41,31 +41,31 @@
     <string name="label_add_item">Add item</string>
 
     <!--AddShopActivity-->
-    <string name="label_add_shop">Добавить торговую точку</string>
+    <string name="manifest_label_add_shop">Добавить торговую точку</string>
 
 
 
     <!--AddBaseIngredientActivity-->
-    <string name="label_add_base_ingredient_item">Добавить пункт меню</string>
+    <string name="manifest_label_add_base_ingredient_item">Добавить пункт меню</string>
 
     <!--ShopDataActivity-->
-    <string name="label_shop">Торговая точка</string>
+    <string name="manifest_label_shop">Торговая точка</string>
 
     <!--SummaryViewerActivity-->
-    <string name="label_view_data">View</string>
+    <string name="manifest_label_view_data">View</string>
     <string name="viewer_label">Отчеты:</string>
 
     <!--Settings-->
     <string name="filter">Отчеты</string>
     <string name="export_xls">"Экспорт в Excel</string>
-    <string name="label_filter_pref">SETTINGS</string>
+    <string name="manifest_label_filter_pref">SETTINGS</string>
     <string name="filter_today">today</string>
     <string name="filter_tomorrow">tomorrow:</string>
     <string name="filter_all">all</string>
     <string name="no_data">Нет данных..</string>
 
     <!--AddMenuItemActivity-->
-    <string name="label_add_menu_item">Добавить пункт меню</string>
+    <string name="manifest_label_add_menu_item">Добавить пункт меню</string>
     <string name="add_menu_item_layout_button">ГОТОВО !</string>
     <string name="add_menu_item_layout_name">Наименование</string>
     <string name="add_menu_item_layout_price">Цена</string>
@@ -73,6 +73,16 @@
     <string name="add_menu_item_layout_ingredients">Ингридиенты</string>
     <string name="add_menu_item_layout_ingredient_button">Добавить</string>
     <string name="add_menu_item_layout_ingredient_list_label">Список ингридиентов:</string>
+
+    <!--ListOfListActivity-->
+    <string name="manifest_label_lists">Списки</string>
+    <string name="lists_label">Редактируйте списки для компановки пунктов меню</string>
+    <string name="lists_item_names">Наименования</string>
+    <string name="lists_item_edit_button">Редактировать</string>
+    <string name="lists_item_size">Объемы</string>
+    <string name="lists_item_ingredient_name">Игридиенты</string>
+    <string name="lists_item_ingredient_sizes">Обьемы ингридиентов</string>
+    <string name="lists_item_ingredient_measures">Меры</string>
 
     <string-array name="filter">
         <item>Сегодня</item>
