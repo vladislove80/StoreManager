@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="storemanager.com.app.activity.MainActivity"
+            android:name="storemanager.com.app.activity.GoogleSignInActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,19 +20,17 @@
             </intent-filter>
         </activity>
 
-        <!--<activity android:name=".activity.MainActivity"
+        <!--<activity
+            android:name=".activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Main"/>-->
 
-        <activity
+        <!--<activity
             android:name="storemanager.com.app.activity.GoogleSignInActivity"
-            android:label="@string/label_google_sign_in" />
+            android:label="@string/label_google_sign_in" />-->
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-
-        <activity
-            android:name="storemanager.com.app.activity.FacebookActivity"
-            android:label="@string/label_facebook_login"/>
 
         <activity
             android:name=".activity.SummaryComposerActivity"

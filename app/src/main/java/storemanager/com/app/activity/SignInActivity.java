@@ -15,18 +15,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import storemanager.com.app.R;
-import storemanager.com.app.models.CoffeItem;
-import storemanager.com.app.utils.CoffeMenu;
 import storemanager.com.app.utils.Utils;
 
 public class SignInActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private static final Class[] CLASSES = new Class[]{
             GoogleSignInActivity.class,
-            FacebookActivity.class,
     };
 
     private static final int[] DESCRIPTION_IDS = new int[] {
