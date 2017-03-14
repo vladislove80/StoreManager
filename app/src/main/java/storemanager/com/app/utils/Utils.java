@@ -12,6 +12,8 @@ import storemanager.com.app.models.Summary;
 public class Utils {
     public static final String LOG_TAG = "debug";
 
+    public static final String userStatus[] = {"Администратор", "Реализатор"};
+
     public static final String[] cItems = {
             "Эспрессо", "Эспрессо 2x", "Американо", "Кофе с молоком", "Кофе по Ирландски", "Кофе по Французски",  "Кофе Choco Mocco",
             "Кофе IRISH",  "Мокко",  "Капучино Nuts",  "Латте",  "Латте BANANA'S",  "Латте TIRAMISU", "Сливочный кулкам",  "Карамельный мокиато",

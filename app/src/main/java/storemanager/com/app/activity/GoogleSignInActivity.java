@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,9 +35,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import storemanager.com.app.R;
 import storemanager.com.app.models.User;
 import storemanager.com.app.utils.Utils;
@@ -60,10 +58,9 @@ public class GoogleSignInActivity extends BaseActivity implements
     private Button mViewDataButton;
 
     private String userEmail;
-    private String userEmailFromDatabase;
-    private String userStatusFromDatabase;
     private String userName;
     private String userId;
+    private String userStatus = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,12 +98,9 @@ public class GoogleSignInActivity extends BaseActivity implements
                 Log.d(TAG, "onAuthStateChanged: user = " + user);
                 if (user != null) {
                     userEmail = user.getEmail();
+                    Log.d(TAG, "userEmail = " + userEmail);
                     userName = user.getDisplayName();
                     userId = user.getUid();
-                    boolean isUserInDB = isUserInDatabase(userEmail);
-                    if (isUserInDB) {
-
-                    }
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -214,19 +208,18 @@ public class GoogleSignInActivity extends BaseActivity implements
             userEmail = user.getEmail();
             userName = user.getDisplayName();
             userId = user.getUid();
+
+            isUserInDatabase(userEmail);
             mStatusTextView.setText(getString(R.string.google_status_fmt, userEmail));
             mDetailTextView.setText(getString(R.string.firebase_status_fmt, userName));
 
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
 
-            /*User userNew = new User();
-            userNew.setId(userId);
-            userNew.setName(userName);
-            userNew.setEmail(userEmail);
-            userNew.setStatus("user");
-            mDatabase.child("User").setValue(userNew);
-*/
+            /*if (!isUserInDatabase(userEmail)) {
+                Log.d(TAG, "isUserInDatabase for " + userEmail + " = " + isUserInDatabase(userEmail));
+                addNewUserInDatabase();
+            }*/
             /*mAddDataButton.setVisibility(View.VISIBLE);
             mAddDataButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -292,8 +285,38 @@ public class GoogleSignInActivity extends BaseActivity implements
         alert.show();
     }
 
-    private void dialogUser() {
+    private void addNewUserInDatabase() {
+        AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
+        alt_bld.setCancelable(false);
+        alt_bld.setTitle("Выберите роль: ");
+        alt_bld.setSingleChoiceItems(Utils.userStatus, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                userStatus = Utils.userStatus[which];
+                Toast.makeText(getApplicationContext(), "Выбран статус: " + userStatus, Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        alt_bld.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                if (!TextUtils.isEmpty(userStatus)) {
+                    if(!TextUtils.isEmpty(userEmail)
+                            &&!TextUtils.isEmpty(userId)
+                            &&!TextUtils.isEmpty(userName)
+                            ) {
+                        addUserToDatabase(userEmail, userId, userName, userStatus);
+                    }
+                    Log.d(TAG, "In addNewUserInDatabase userStatus = " + userStatus);
+                    dialog.dismiss();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Выберите статус!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        AlertDialog alert = alt_bld.create();
+        alert.show();
     }
 
     @Override
@@ -315,27 +338,37 @@ public class GoogleSignInActivity extends BaseActivity implements
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 
-    private void addUserToDatabase() {
-        User user = new User();
-        user.setId(userId);
-        user.setName(userName);
-        user.setEmail(userEmail);
+    private void addUserToDatabase(String email, String id, String name, String userStatus) {
+        mDatabase = FirebaseDatabase.getInstance().getReference("users");
+            User userNew = new User();
+            userNew.setEmail(email);
+            userNew.setId(id);
+            userNew.setName(name);
+            userNew.setStatus(userStatus);
+            mDatabase.push().child("user").setValue(userNew);
     }
 
-    private boolean isUserInDatabase(String email) {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+    private void isUserInDatabase(String email) {
+        Log.d(TAG, "isUserInDatabase");
 
-        ValueEventListener postListener = new ValueEventListener() {
+        final String e_mail = email;
+        mDatabase = FirebaseDatabase.getInstance().getReference("users");
+        Query query = mDatabase.orderByChild("user/email").equalTo(email);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<User> users = new ArrayList<>();
+                User user = null;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    if (postSnapshot.hasChild("User")) {
-                        User user = postSnapshot.child("User").getValue(User.class);
-                        users.add(user);
-                        Log.d(TAG, "User:" + user.getName());
+                    user = postSnapshot.child("user").getValue(User.class);
+                    if (user.getEmail().equals(e_mail)) {
+                        Log.d(TAG, "userIsInDatabase: " + true);
+                    } else {
+                        addNewUserInDatabase();
+                        Log.d(TAG, "user = " + null);
                     }
-
+                }
+                if (user == null) {
+                    addNewUserInDatabase();
                 }
             }
 
@@ -343,16 +376,7 @@ public class GoogleSignInActivity extends BaseActivity implements
             public void onCancelled(DatabaseError databaseError) {
                 // Getting Post failed, log a message
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // ...
             }
-        };
-        mDatabase.addListenerForSingleValueEvent(postListener);
-        //mDatabase.removeEventListener(postListener);
-
-        if (userEmailFromDatabase == null) {
-            return false;
-        } else {
-            return true;
-        }
+        });
     }
 }
