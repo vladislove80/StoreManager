@@ -323,57 +323,20 @@ public class GoogleSignInActivity extends BaseActivity implements
     }
 
     private boolean isUserInDatabase(String email) {
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("User");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<User> users = new ArrayList<>();
-                int i = 0;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    users.add((User) postSnapshot.getValue());
-                    Log.d(TAG, "User admin:" + users.get(i));
-                    i++;
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        };
-        /*Query adminQuery = mDatabase.orderByChild("status").equalTo("admin");
-        adminQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<User> users = new ArrayList<>();
-                int i = 0;
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    users.add((User) postSnapshot.getValue());
-                    Log.d(TAG, "User admin:" + users.get(i));
-                    i++;
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
-
-       /* ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    User user = postSnapshot.child("User").getValue(User.class);
-                    if (user != null) {
-                        userEmailFromDatabase = user.getEmail();
-                        userStatusFromDatabase = user.getStatus();
+                    if (postSnapshot.hasChild("User")) {
+                        User user = postSnapshot.child("User").getValue(User.class);
+                        users.add(user);
+                        Log.d(TAG, "User:" + user.getName());
                     }
-                }
 
+                }
             }
 
             @Override
@@ -383,7 +346,6 @@ public class GoogleSignInActivity extends BaseActivity implements
                 // ...
             }
         };
-*/
         mDatabase.addListenerForSingleValueEvent(postListener);
         //mDatabase.removeEventListener(postListener);
 
