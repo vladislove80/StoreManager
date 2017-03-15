@@ -44,7 +44,6 @@ public class GoogleSignInActivity extends BaseActivity implements
         View.OnClickListener{
 
     private static final String TAG = "GoogleActivity";
-    private static final String ADMIN_EMAIL = "evgeniyvakulich@gmail.com";
     private static final int RC_SIGN_IN = 9001;
 
     private FirebaseAuth mAuth;
@@ -67,8 +66,6 @@ public class GoogleSignInActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google);
         Log.v(Utils.LOG_TAG, "GoogleSignInActivity");
-
-        //mDatabase = FirebaseDatabase.getInstance().getReference().push();
 
         mStatusTextView = (TextView) findViewById(R.id.status);
         mDetailTextView = (TextView) findViewById(R.id.detail);
@@ -98,7 +95,6 @@ public class GoogleSignInActivity extends BaseActivity implements
                 Log.d(TAG, "onAuthStateChanged: user = " + user);
                 if (user != null) {
                     userEmail = user.getEmail();
-                    Log.d(TAG, "userEmail = " + userEmail);
                     userName = user.getDisplayName();
                     userId = user.getUid();
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
@@ -131,12 +127,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         Log.d(TAG, "onActivityResult: requestCode = " + requestCode);
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            Log.d(TAG, "firebaseAuthWithGoogle: data = " + data);
-            Log.d(TAG, "firebaseAuthWithGoogle: data.toString() = " + data.toString());
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            Log.d(TAG, "firebaseAuthWithGoogle: result = " + result);
-            Log.d(TAG, "firebaseAuthWithGoogle: result.getStatus = " + result.getStatus());
-            Log.d(TAG, "firebaseAuthWithGoogle: result.isSuccess = " + result.isSuccess());
             if (result.isSuccess()) {
                 Log.d(TAG, "firebaseAuthWithGoogle: result.isSuccess");
                 GoogleSignInAccount account = result.getSignInAccount();
@@ -216,27 +207,23 @@ public class GoogleSignInActivity extends BaseActivity implements
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
 
-            /*if (!isUserInDatabase(userEmail)) {
-                Log.d(TAG, "isUserInDatabase for " + userEmail + " = " + isUserInDatabase(userEmail));
-                addNewUserInDatabase();
-            }*/
-            /*mAddDataButton.setVisibility(View.VISIBLE);
+            mAddDataButton.setVisibility(View.VISIBLE);
             mAddDataButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dialogShops(user);
                 }
             });
-            if (userEmail.equals(ADMIN_EMAIL) || userEmail.equals("vladislove.n.u@gmail.com")) {
-                mViewDataButton.setVisibility(View.VISIBLE);
-                mViewDataButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(GoogleSignInActivity.this, SummaryViewerActivity.class);
-                        startActivity(intent);
-                    }
-                });
-            }*/
+
+            mViewDataButton.setVisibility(View.VISIBLE);
+            mViewDataButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(GoogleSignInActivity.this, SummaryViewerActivity.class);
+                    startActivity(intent);
+                }
+            });
+
         } else {
             mAddDataButton.setVisibility(View.GONE);
             mViewDataButton.setVisibility(View.GONE);
