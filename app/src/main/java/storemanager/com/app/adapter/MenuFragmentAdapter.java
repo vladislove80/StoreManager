@@ -12,15 +12,15 @@ import android.widget.Toast;
 import java.util.List;
 
 import storemanager.com.app.R;
-import storemanager.com.app.models.CoffeItem;
+import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.Ingredient;
 
 public class MenuFragmentAdapter extends RecyclerView.Adapter<MenuFragmentAdapter.ViewHolder> {
 
     private Context context;
-    private List<CoffeItem> mDataset;
+    private List<MenuItem> mDataset;
 
-    public MenuFragmentAdapter(Context context, List<CoffeItem> myDataset) {
+    public MenuFragmentAdapter(Context context, List<MenuItem> myDataset) {
         this.context = context;
         mDataset = myDataset;
     }
@@ -34,12 +34,12 @@ public class MenuFragmentAdapter extends RecyclerView.Adapter<MenuFragmentAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.setItem(position);
-        CoffeItem coffeItem = mDataset.get(position);
-        holder.itemNameTextView.setText(coffeItem.getName());
-        holder.itemSizeTextView.setText("Объем: " + Integer.toString(coffeItem.getSize()));
-        holder.itemPriceTextView.setText("Цена: " + Integer.toString(coffeItem.getPrice()));
+        MenuItem menuItem = mDataset.get(position);
+        holder.itemNameTextView.setText(menuItem.getName());
+        holder.itemSizeTextView.setText("Объем: " + Integer.toString(menuItem.getSize()));
+        holder.itemPriceTextView.setText("Цена: " + Integer.toString(menuItem.getPrice()));
         String allIngredients = "";
-        for (Ingredient ingredientItem : coffeItem.getConsist()) {
+        for (Ingredient ingredientItem : menuItem.getConsist()) {
             allIngredients = allIngredients
                     + ingredientItem.getName() + " "
                     + ingredientItem.getSize() + " "

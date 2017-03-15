@@ -24,7 +24,7 @@ import java.util.List;
 
 import storemanager.com.app.R;
 import storemanager.com.app.adapter.SummaryAdapter;
-import storemanager.com.app.models.CoffeItem;
+import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.CoffeItemInSummary;
 import storemanager.com.app.models.Summary;
 import storemanager.com.app.models.User;
@@ -55,7 +55,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     public final static String MENU_TAG = "names";
 
     private CoffeMenu priceList;
-    private List<CoffeItem> menu;
+    private List<MenuItem> menu;
     private ArrayList<String> coffeItemNames;
 
 
@@ -119,7 +119,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         priceList = new CoffeMenu();
         menu = priceList.getMenu();
         coffeItemNames = new ArrayList<>();
-        for (CoffeItem item : menu) {
+        for (MenuItem item : menu) {
             String itemName = item.getName();
             if (!coffeItemNames.contains(itemName)) {
                 coffeItemNames.add(itemName);
@@ -190,9 +190,9 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         }
     }
 
-    private CoffeItemInSummary setPrice(List<CoffeItem> menu, CoffeItemInSummary item) {
-        CoffeItem itemWithoutPrice = item.getItem();
-        for (CoffeItem menuItem : menu) {
+    private CoffeItemInSummary setPrice(List<MenuItem> menu, CoffeItemInSummary item) {
+        MenuItem itemWithoutPrice = item.getItem();
+        for (MenuItem menuItem : menu) {
             if (menuItem.getName().equals(itemWithoutPrice.getName())) {
                 if (menuItem.isOneSize()) {
                     itemWithoutPrice.setOneSize(true);

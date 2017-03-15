@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import storemanager.com.app.R;
-import storemanager.com.app.models.CoffeItem;
+import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.CoffeItemInSummary;
 import storemanager.com.app.utils.Utils;
 
@@ -25,7 +25,7 @@ public class AddISummaryItemsActivity extends AppCompatActivity {
     public static final String TAG = "add_atems";
 
     private CoffeItemInSummary cofeItemsToAdd;
-    private CoffeItem cofeItem;
+    private MenuItem cofeItem;
     private int coffeItemAmount = 1;
     private Button buttonAdd;
     private Button buttonCancel;
@@ -55,7 +55,7 @@ public class AddISummaryItemsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         coffeItemNames = intent.getStringArrayListExtra(SummaryComposerActivity.MENU_TAG);
 
-        cofeItem = new CoffeItem();
+        cofeItem = new MenuItem();
 
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<>(this, R.layout.layout_summary_item_spinner, coffeItemNames);
 

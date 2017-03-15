@@ -21,7 +21,7 @@ import storemanager.com.app.R;
 import storemanager.com.app.adapter.MenuItemIngredientsAdapter;
 import storemanager.com.app.fragment.AllDataLists;
 import storemanager.com.app.fragment.MenuFragment;
-import storemanager.com.app.models.CoffeItem;
+import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.Ingredient;
 
 public class AddMenuItemActivity extends AppCompatActivity {
@@ -113,16 +113,16 @@ public class AddMenuItemActivity extends AppCompatActivity {
                         menuItemPriceEditText,
                         ingredientList)
                         ) {
-                    CoffeItem coffeItem = new CoffeItem();
-                    coffeItem.setName(menuItemNameFromSpinner);
-                    //coffeItem.setOneSize();
-                    coffeItem.setPrice(Integer.parseInt(menuItemPriceEditText.getText().toString()));
-                    coffeItem.setSize(Integer.parseInt(menuItemSizeFromSpinner));
-                    coffeItem.setConsist(ingredientList);
+                    MenuItem menuItem = new MenuItem();
+                    menuItem.setName(menuItemNameFromSpinner);
+                    //menuItem.setOneSize();
+                    menuItem.setPrice(Integer.parseInt(menuItemPriceEditText.getText().toString()));
+                    menuItem.setSize(Integer.parseInt(menuItemSizeFromSpinner));
+                    menuItem.setConsist(ingredientList);
 
                     int resultCode = 101;
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra(TAG, coffeItem);
+                    resultIntent.putExtra(TAG, menuItem);
                     setResult(resultCode, resultIntent);
                     finish();
                 } else {

@@ -3,22 +3,22 @@ package storemanager.com.app.models;
 import java.io.Serializable;
 
 public class CoffeItemInSummary implements Serializable {
-    private CoffeItem item;
+    private MenuItem item;
     private int amount;
     private int itemsPrice;
 
     public CoffeItemInSummary() {}
 
-    public CoffeItemInSummary(CoffeItem item, int amount) {
+    public CoffeItemInSummary(MenuItem item, int amount) {
         this.item = item;
         this.amount = amount;
     }
 
-    public CoffeItem getItem() {
+    public MenuItem getItem() {
         return item;
     }
 
-    public void setItem(CoffeItem item) {
+    public void setItem(MenuItem item) {
         this.item = item;
     }
 

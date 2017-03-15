@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import storemanager.com.app.R;
-import storemanager.com.app.models.CoffeItem;
+import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.CoffeItemInSummary;
 import storemanager.com.app.models.Summary;
 
@@ -58,18 +58,18 @@ public class SummaryViewerAdapter extends ArrayAdapter<Summary> implements View.
                     TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
                             ViewGroup.LayoutParams.WRAP_CONTENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT);
-                    CoffeItem coffeItem = item.getItem();
+                    MenuItem menuItem = item.getItem();
                     tv = (TextView) tableRow.findViewById(R.id.viewer_number_row);
                     tv.setText(String.valueOf(i));
                     tv.setLayoutParams(layoutParams);
                     tv = (TextView) tableRow.findViewById(R.id.viewer_item_name);
-                    tv.setText(coffeItem.getName());
+                    tv.setText(menuItem.getName());
                     tv.setLayoutParams(layoutParams);
                     tv = (TextView) tableRow.findViewById(R.id.viewer_item_amount);
                     tv.setText(String.valueOf(item.getAmount()));
                     tv.setLayoutParams(layoutParams);
                     tv = (TextView) tableRow.findViewById(R.id.viewer_item_size);
-                    tv.setText(String.valueOf(coffeItem.getSize()));
+                    tv.setText(String.valueOf(menuItem.getSize()));
                     tv.setLayoutParams(layoutParams);
                     tv = (TextView) tableRow.findViewById(R.id.viewer_item_price);
                     tv.setText(String.valueOf(item.getItemsPrice()));

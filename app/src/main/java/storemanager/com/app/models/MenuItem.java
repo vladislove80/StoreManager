@@ -3,7 +3,7 @@ package storemanager.com.app.models;
 import java.io.Serializable;
 import java.util.List;
 
-public class CoffeItem implements Serializable {
+public class MenuItem implements Serializable {
 
     private boolean oneSize;
 
@@ -12,7 +12,7 @@ public class CoffeItem implements Serializable {
     private int size;
     private int price;
 
-    public CoffeItem() {
+    public MenuItem() {
     }
 
     public String getName() {
@@ -60,7 +60,7 @@ public class CoffeItem implements Serializable {
         if (this == obj) return true;
         if (this == null) return false;
         if (this.getClass() != obj.getClass()) return false;
-        CoffeItem item = (CoffeItem) obj;
+        MenuItem item = (MenuItem) obj;
         return this.name.equals(item.getName()) && this.size == item.getSize();
     }
 }

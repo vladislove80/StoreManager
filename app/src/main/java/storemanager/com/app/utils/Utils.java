@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-import storemanager.com.app.models.CoffeItem;
 import storemanager.com.app.models.Summary;
 
 public class Utils {

@@ -14,16 +14,17 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import storemanager.com.app.R;
-import storemanager.com.app.activity.AddBaseIngredientActivity;
 import storemanager.com.app.activity.AddMenuItemActivity;
 import storemanager.com.app.activity.ListOfListActivity;
-import storemanager.com.app.activity.PopActivity;
 import storemanager.com.app.adapter.MenuFragmentAdapter;
-import storemanager.com.app.models.CoffeItem;
+import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.Ingredient;
 
 public class MenuFragment extends Fragment {
@@ -33,6 +34,8 @@ public class MenuFragment extends Fragment {
 
     private AllDataLists allDataLists;
 
+    private DatabaseReference mDatabase;
+
     private RelativeLayout noDataLayout;
     private Button addMenuButton;
     private Button addIngredientsButton;
@@ -41,7 +44,7 @@ public class MenuFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private TextView menuLabel;
 
-    private List<CoffeItem> mDataset;
+    private List<MenuItem> mDataset;
 
     public static MenuFragment newInstance(int page) {
         MenuFragment fragment = new MenuFragment();
@@ -54,7 +57,7 @@ public class MenuFragment extends Fragment {
         mDataset = new ArrayList<>();
         allDataLists = new AllDataLists();
 
-        CoffeItem testItem = new CoffeItem();
+        MenuItem testItem = new MenuItem();
         testItem.setName("Тестовое Латте");
         testItem.setPrice(50);
         testItem.setSize(250);
@@ -136,9 +139,10 @@ public class MenuFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && requestCode == REQ_CODE_ADD_ITEM) {
-            CoffeItem menuItem = (CoffeItem) data.getExtras().getSerializable(AddMenuItemActivity.TAG);
+            MenuItem menuItem = (MenuItem) data.getExtras().getSerializable(AddMenuItemActivity.TAG);
             mDataset.add(menuItem);
             mAdapter.notifyDataSetChanged();
+            addMenuItemToDatabase(menuItem);
         }
     }
 
@@ -148,4 +152,8 @@ public class MenuFragment extends Fragment {
         initRecycler();
     }
 
+    private void addMenuItemToDatabase(MenuItem menuItem) {
+        mDatabase = FirebaseDatabase.getInstance().getReference("menus");
+        mDatabase.push().child("menu").setValue(menuItem);
+    }
 }
