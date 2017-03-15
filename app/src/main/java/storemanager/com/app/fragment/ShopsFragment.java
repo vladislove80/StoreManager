@@ -46,37 +46,15 @@ public class ShopsFragment extends Fragment {
     private ProgressBar progressBar;
 
     public static ShopsFragment newInstance(int page) {
-        /*Bundle args = new Bundle();
-        args.putInt(TAG, page);*/
         ShopsFragment fragment = new ShopsFragment();
-        /*fragment.setArguments(args);*/
         return fragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //mPage = getArguments().getInt(TAG);
         shopList = new ArrayList<>();
         getShopListFromDatabase();
-        /*Shop shop = new Shop();
-        shop.setName("Цветочный рынок");
-        shop.setCreationDate(Utils.getCurrentDateWithoutTime());
-        shop.setSummaryToday(false);
-        shopList.add(shop);
-        addShopToDatabase(shop);
-        shop = new Shop();
-        shop.setName("Таврия-В");
-        shop.setCreationDate(Utils.getCurrentDateWithoutTime());
-        shop.setSummaryToday(true);
-        shopList.add(shop);
-        addShopToDatabase(shop);
-        shop = new Shop();
-        shop.setName("Приморский парк");
-        shop.setCreationDate(Utils.getCurrentDateWithoutTime());
-        shop.setSummaryToday(true);
-        shopList.add(shop);
-        addShopToDatabase(shop);*/
     }
 
     @Nullable
