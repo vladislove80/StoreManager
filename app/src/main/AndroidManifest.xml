@@ -20,10 +20,10 @@
             </intent-filter>
         </activity>
 
-        <!--<activity
+        <activity
             android:name=".activity.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="Main"/>-->
+            android:label="Main"/>
 
         <!--<activity
             android:name="storemanager.com.app.activity.GoogleSignInActivity"

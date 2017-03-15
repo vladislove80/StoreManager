@@ -31,7 +31,7 @@
             android:theme="@style/ThemeOverlay.MyTitleText" />
 
         <TextView
-            android:id="@+id/status"
+            android:id="@+id/user_email"
             style="@style/ThemeOverlay.MyTextDetail"
             android:text="@string/signed_out" />
 
@@ -39,6 +39,11 @@
             android:id="@+id/detail"
             style="@style/ThemeOverlay.MyTextDetail"
             tools:text="Firebase User ID: 123456789abc" />
+
+        <TextView
+            android:id="@+id/user_status"
+            style="@style/ThemeOverlay.MyTextDetail"
+            android:text="@string/user_status" />
 
         <Button
             android:id="@+id/start_sales_activity"
@@ -52,7 +57,7 @@
             android:id="@+id/start_viewer_activity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/button_view"
+            android:text="@string/button_admin"
             android:visibility="invisible"
             android:theme="@style/ThemeOverlay.MyDarkButton" />
 

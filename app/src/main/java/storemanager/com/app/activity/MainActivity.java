@@ -23,13 +23,13 @@ public class MainActivity extends AppCompatActivity {
         Log.v(Utils.LOG_TAG, "MainActivity");
 
         // Get the ViewPager and set it's PagerAdapter so that it can display items
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setAdapter(new CoffeInFragmentPagerAdapter(getSupportFragmentManager(),
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager.setAdapter(new CoffeInFragmentPagerAdapter(getSupportFragmentManager(),
                 MainActivity.this));
 
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override
