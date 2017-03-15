@@ -28,7 +28,7 @@ public class Shop {
         return isSummaryTooday;
     }
 
-    public void setSummaryTooday(boolean summaryTooday) {
+    public void setSummaryToday(boolean summaryTooday) {
         isSummaryTooday = summaryTooday;
     }
 }

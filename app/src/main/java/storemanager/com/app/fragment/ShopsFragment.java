@@ -6,11 +6,20 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,14 +34,16 @@ public class ShopsFragment extends Fragment {
     public static final String TAG = ShopsFragment.class.getSimpleName();
     public final static int REQ_CODE = 1;
 
-    private List<Shop> mDataset;
+    private List<Shop> shopList;
     private RelativeLayout noDataLayout;
 
     private Button addButton;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private int mPage;
+
+    private DatabaseReference mDatabase;
+    private ProgressBar progressBar;
 
     public static ShopsFragment newInstance(int page) {
         /*Bundle args = new Bundle();
@@ -46,28 +57,35 @@ public class ShopsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //mPage = getArguments().getInt(TAG);
-        mDataset = new ArrayList<>();
-        Shop shop = new Shop();
+        shopList = new ArrayList<>();
+        getShopListFromDatabase();
+        /*Shop shop = new Shop();
         shop.setName("Цветочный рынок");
         shop.setCreationDate(Utils.getCurrentDateWithoutTime());
-        shop.setSummaryTooday(false);
-        mDataset.add(shop);
+        shop.setSummaryToday(false);
+        shopList.add(shop);
+        addShopToDatabase(shop);
         shop = new Shop();
         shop.setName("Таврия-В");
         shop.setCreationDate(Utils.getCurrentDateWithoutTime());
-        shop.setSummaryTooday(true);
-        mDataset.add(shop);
+        shop.setSummaryToday(true);
+        shopList.add(shop);
+        addShopToDatabase(shop);
         shop = new Shop();
         shop.setName("Приморский парк");
         shop.setCreationDate(Utils.getCurrentDateWithoutTime());
-        shop.setSummaryTooday(true);
-        mDataset.add(shop);
+        shop.setSummaryToday(true);
+        shopList.add(shop);
+        addShopToDatabase(shop);*/
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shops, container, false);
+
+        progressBar = (ProgressBar) view.findViewById(R.id.shop_list_progress_bar);
+        if (shopList.size() != 0) {progressBar.setVisibility(View.VISIBLE);}
 
         addButton = (Button) view.findViewById(R.id.add_shop_button);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -89,12 +107,22 @@ public class ShopsFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new ShopsFragmentAdapter(getContext(), mDataset);
+        mAdapter = new ShopsFragmentAdapter(getContext(), shopList);
         mRecyclerView.setAdapter(mAdapter);
 
         noDataLayout = (RelativeLayout) view.findViewById(R.id.no_shop_data_layout);
         noDataLayout.setVisibility(View.GONE);
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (shopList.size() != 0) {
+            progressBar.setVisibility(View.GONE);
+        } else {
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -104,8 +132,41 @@ public class ShopsFragment extends Fragment {
             Shop shop = new Shop();
             shop.setName(data.getExtras().get(AddShopActivity.TAG).toString());
             shop.setCreationDate(Utils.getCurrentDateWithoutTime());
-            mDataset.add(shop);
+            shopList.add(shop);
             mAdapter.notifyDataSetChanged();
+            addShopToDatabase(shop);
         }
+    }
+
+    private void addShopToDatabase(Shop shop) {
+        mDatabase = FirebaseDatabase.getInstance().getReference("shops");
+        mDatabase.push().child("shop").setValue(shop);
+    }
+
+    private void getShopListFromDatabase() {
+        mDatabase = FirebaseDatabase.getInstance().getReference("shops");
+        Query query = mDatabase.orderByChild("shop");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
+                Shop shop;
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    shop = postSnapshot.child("shop").getValue(Shop.class);
+                    if (shop != null) {
+                        shopList.add(shop);
+                    }
+                }
+                if (shopList.size() != 0) {
+                    progressBar.setVisibility(View.GONE);
+                } else {
+                    noDataLayout.setVisibility(View.VISIBLE);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "getShopListFromDatabase -> onCancelled = " + databaseError.getMessage());
+            }
+        });
     }
 }
