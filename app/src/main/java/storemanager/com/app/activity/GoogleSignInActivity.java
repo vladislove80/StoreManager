@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +36,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import storemanager.com.app.R;
+import storemanager.com.app.models.Shop;
 import storemanager.com.app.models.User;
 import storemanager.com.app.utils.Utils;
 
@@ -62,6 +67,8 @@ public class GoogleSignInActivity extends BaseActivity implements
     private String userId;
     private String userStatus = "";
 
+    private ProgressBar statusProgressBar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +80,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         mDetailTextView = (TextView) findViewById(R.id.detail);
         mAddDataButton = (Button) findViewById(R.id.start_sales_activity);
         mViewDataButton = (Button) findViewById(R.id.start_viewer_activity);
+        statusProgressBar = (ProgressBar) findViewById(R.id.status_progress_bar);
 
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         findViewById(R.id.sign_out_button).setOnClickListener(this);
@@ -208,7 +216,9 @@ public class GoogleSignInActivity extends BaseActivity implements
 
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+            statusProgressBar.setVisibility(View.VISIBLE);
         } else {
+            mUserStatusTextView.setVisibility(View.GONE);
             mAddDataButton.setVisibility(View.GONE);
             mViewDataButton.setVisibility(View.GONE);
             mUserEmailTextView.setText(R.string.signed_out);
@@ -217,6 +227,12 @@ public class GoogleSignInActivity extends BaseActivity implements
             findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mUserStatusTextView.setVisibility(View.GONE);
     }
 
     private void setViewDataButton() {
@@ -240,22 +256,28 @@ public class GoogleSignInActivity extends BaseActivity implements
         });
     }
 
-    private void dialogShops(){
+    private void showShopsDialog(List<Shop> shopList){
+
         final String cShopItem[] = new String[1];
+        final String[] shopNamesArray = new String[shopList.size()];
+        int i = 0;
+        for (Shop shop : shopList) {
+            shopNamesArray[i] = shop.getName();
+            i++;
+        }
+
         AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
         alt_bld.setTitle("Выберите название торговой точки:");
-        alt_bld.setSingleChoiceItems(Utils.cShops, -1, new DialogInterface.OnClickListener() {
+        alt_bld.setSingleChoiceItems(shopNamesArray, -1, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
-                cShopItem[0] = Utils.cShops[item];
+                cShopItem[0] = shopNamesArray[item];
                 Toast.makeText(getApplicationContext(), "Торговая точка \"" + Utils.cShops[item] + "\"", Toast.LENGTH_SHORT).show();
             }
         });
+
         alt_bld.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
-                /*final String userEmail = user.getEmail();
-                final String userName = user.getDisplayName();
-                final String userId = user.getUid();*/
                 mUserEmailTextView.setText(getString(R.string.google_status_fmt, userEmail));
                 mDetailTextView.setText(getString(R.string.firebase_status_fmt, userName));
                 Intent intent = new Intent(GoogleSignInActivity.this, SummaryComposerActivity.class);
@@ -376,6 +398,7 @@ public class GoogleSignInActivity extends BaseActivity implements
     }
 
     private void showButtonDependOnStatus(String userStatus) {
+        statusProgressBar.setVisibility(View.GONE);
         if (userStatus.equals(Utils.userStatus[0])) {
             mUserStatusTextView.setText(Utils.userStatus[0]);
             setViewDataButton();
@@ -383,5 +406,28 @@ public class GoogleSignInActivity extends BaseActivity implements
             mUserStatusTextView.setText(Utils.userStatus[1]);
             setAddDataButton();
         }
+    }
+
+    private void dialogShops() {
+        final List<Shop> shopList = new ArrayList<>();
+        mDatabase = FirebaseDatabase.getInstance().getReference("shops");
+        Query query = mDatabase.orderByChild("shop");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Shop shop;
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    shop = postSnapshot.child("shop").getValue(Shop.class);
+                    if (shop != null) {shopList.add(shop);
+                    }
+                }
+                showShopsDialog(shopList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
