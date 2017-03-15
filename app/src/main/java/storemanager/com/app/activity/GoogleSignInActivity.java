@@ -423,11 +423,8 @@ public class GoogleSignInActivity extends BaseActivity implements
                 }
                 showShopsDialog(shopList);
             }
-
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
     }
 }
