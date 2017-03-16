@@ -9,9 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+
+import java.util.List;
+
 import storemanager.com.app.R;
 
 public class ListOfListActivity extends AppCompatActivity {
+    public static final String TAG = ListOfListActivity.class.getSimpleName();
 
     private TextView itemNamesTextView;
     private TextView itemSizesTextView;
@@ -24,6 +29,10 @@ public class ListOfListActivity extends AppCompatActivity {
     private Button itemIngredientNamesButton;
     private Button itemIngredientSizesButton;
     private Button itemIngredientMeasuresButton;
+    private List<String> namesList;
+
+    private DatabaseReference mDatabase;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,5 +57,42 @@ public class ListOfListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        itemNamesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBaseListActivity("item names");
+            }
+        });
+        itemSizesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBaseListActivity("item sizes");
+            }
+        });
+        itemIngredientNamesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBaseListActivity("item ingredient names");
+            }
+        });
+        itemIngredientSizesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBaseListActivity("item ingredient sizes");
+            }
+        });
+        itemIngredientMeasuresButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBaseListActivity("item ingredient measure");
+            }
+        });
+    }
+
+    private void showBaseListActivity(String name) {
+        Intent intent = new Intent(getApplicationContext(), AddBaseListsActivity.class);
+        intent.putExtra(TAG, name);
+        startActivity(intent);
     }
 }

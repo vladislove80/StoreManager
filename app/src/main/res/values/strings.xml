@@ -96,4 +96,11 @@
         <item>@string/filter_tomorrow</item>
         <item>@string/filter_all</item>
     </string-array>
+
+    <!--LisyOfListActivity constant-->
+    <string name="item_names">item names</string>
+    <string name="item_sizes">item sizes</string>
+    <string name="item_ingredient_names">item ingredient names</string>
+    <string name="item_ingredient_sizes">item ingredient sizes</string>
+    <string name="item_ingredient_measure">item ingredient measure</string>
 </resources>

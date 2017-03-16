@@ -2,13 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Добавляйте ингридиенты"
-        android:gravity="center"/>
+        android:text="Редактируйте список"
+        android:gravity="center"
+        android:layout_margin="20dp"/>
+
+    <Button
+        android:id="@+id/add_to_database_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Готово!"
+        android:theme="@style/ThemeOverlay.MyBigDarkButton"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,15 +29,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/add_ingredient_button"
-            android:layout_alignParentLeft="true"/>
+            android:layout_alignParentLeft="true"
+            android:inputType="textCapWords"/>
 
         <Button
             android:id="@+id/add_ingredient_button"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Добавить"/>
+            android:text="Добавить"
+            android:theme="@style/ThemeOverlay.MyDarkButton"/>
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/add_list_data_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
     <ListView
         android:id="@+id/ingridients_list"
