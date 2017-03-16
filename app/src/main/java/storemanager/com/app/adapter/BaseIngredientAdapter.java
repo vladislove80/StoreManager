@@ -15,9 +15,9 @@ import storemanager.com.app.R;
 
 public class BaseIngredientAdapter extends ArrayAdapter<String> {
     private Context context;
-    private List<String> ingredientBaseList;
+    private List ingredientBaseList;
 
-    public BaseIngredientAdapter(Context context, List<String> ingredientBaseList) {
+    public BaseIngredientAdapter(Context context, List ingredientBaseList) {
         super(context, R.layout.layout_base_ingredient_item_row, ingredientBaseList);
         this.context = context;
         this.ingredientBaseList = ingredientBaseList;
@@ -40,7 +40,7 @@ public class BaseIngredientAdapter extends ArrayAdapter<String> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.baseIngredient.setText(ingredientBaseList.get(position));
+        viewHolder.baseIngredient.setText(ingredientBaseList.get(position).toString());
         return convertView;
     }
 }

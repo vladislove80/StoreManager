@@ -119,7 +119,7 @@ public class MenuFragment extends Fragment {
                 startActivity(intent);
                 /*Intent intent = new Intent(getActivity(), PopActivity.class);
                 startActivity(intent);*/
-                /*Intent intent = new Intent(getActivity(), AddBaseIngredientActivity.class);
+                /*Intent intent = new Intent(getActivity(), AddBaseListsActivity.class);
                 intent.putExtra(TAG, allDataLists);
                 startActivityForResult(intent, REQ_CODE_ADD_INGREDIENT);*/
                 //Toast.makeText(getContext(), "Ингридиенты", Toast.LENGTH_SHORT).show();

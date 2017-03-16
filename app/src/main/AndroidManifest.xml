@@ -70,7 +70,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <activity
-            android:name=".activity.AddBaseIngredientActivity"
+            android:name=".activity.AddBaseListsActivity"
             android:label="@string/manifest_label_add_base_ingredient_item"
             android:parentActivityName=".activity.AddMenuItemActivity"/>
 
