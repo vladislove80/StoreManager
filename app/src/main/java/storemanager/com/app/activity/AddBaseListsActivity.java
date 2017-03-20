@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import storemanager.com.app.R;
@@ -83,6 +84,7 @@ public class AddBaseListsActivity extends AppCompatActivity {
                             case "Удалить":
                                 dataList.remove(position);
                                 baseIngredientAdapter.notifyDataSetChanged();
+                                Collections.sort(dataList);
                                 editBaseListsInDatabase();
                                 Toast.makeText(getBaseContext(), "Удалить", Toast.LENGTH_SHORT).show();
                                 break;
@@ -116,6 +118,7 @@ public class AddBaseListsActivity extends AppCompatActivity {
         addToDatabaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Collections.sort(dataList);
                 editBaseListsInDatabase();
                 finish();
             }
