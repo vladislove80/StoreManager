@@ -24,7 +24,7 @@ public class BaseIngredientAdapter extends ArrayAdapter<String> {
     }
 
     static class ViewHolder {
-        protected TextView baseIngredient;
+        TextView baseIngredient;
     }
 
     @NonNull
