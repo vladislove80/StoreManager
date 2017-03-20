@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +16,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -35,6 +35,7 @@ public class AddBaseListsActivity extends AppCompatActivity {
     private List dataList;
     private BaseIngredientAdapter baseIngredientAdapter;
     private ProgressBar progressBar;
+    private BaseItem baseItem;
 
     private String listName;
     private DatabaseReference mDatabase;
@@ -47,10 +48,13 @@ public class AddBaseListsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         listName = intent.getStringExtra(ListOfListActivity.TAG);
+        baseItem = new BaseItem();
+        dataList = new ArrayList<>();
 
         getDataListFromDatabse();
-        dataList = new ArrayList<>();
+
         addIngredientEditText = (EditText) findViewById(R.id.add_ingredient_edittext);
+        setEditText(listName);
         addIngredientButton = (Button) findViewById(R.id.add_ingredient_button);
         addToDatabaseButton = (Button) findViewById(R.id.add_to_database_button);
         ingredientListView = (ListView) findViewById(R.id.ingridients_list);
@@ -83,30 +87,17 @@ public class AddBaseListsActivity extends AppCompatActivity {
 
     private void getDataListFromDatabse() {
         mDatabase = FirebaseDatabase.getInstance().getReference("lists");
-        /*Query query = mDatabase.orderByKey().endAt(listName);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChildren()) {
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        //postSnapshot.child(listName).getValue();
-                        Log.d(TAG, "getDataListFromDatabse -> dataSnapshot.hasChildren()");
-                        progressBar.setVisibility(View.GONE);
-                    }
-            }
-
-        }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });*/
-
         mDatabase.child(listName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChildren()) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        //postSnapshot.child(listName).getValue();
+                        if (postSnapshot.getKey().equals("id")) {
+                            baseItem.setId(postSnapshot.getValue(String.class));
+                        } else if (postSnapshot.getKey().equals("itemData")) {
+                            baseItem.setItemData((List) postSnapshot.getValue());
+                            dataList.addAll(baseItem.getItemData());
+                        }
                         Log.d(TAG, "getDataListFromDatabse -> dataSnapshot.hasChildren()");
                     }
                     progressBar.setVisibility(View.GONE);
@@ -126,10 +117,21 @@ public class AddBaseListsActivity extends AppCompatActivity {
 
     private void addBaseListsInDatabase() {
         mDatabase = FirebaseDatabase.getInstance().getReference("lists");
-        BaseItem list;
-        list = new BaseItem();
-        list.setId(listName);
-        list.setItemData(dataList);
-        mDatabase.child(listName).setValue(list);
+        BaseItem item;
+        item = new BaseItem();
+        item.setId(listName);
+        item.setItemData(dataList);
+        mDatabase.child(listName).setValue(item);
+    }
+
+    private void setEditText(String listName) {
+        switch (listName) {
+            case "item sizes": addIngredientEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                break;
+            case "item ingredient sizes": addIngredientEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                break;
+            case "item ingredient measure":addIngredientEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+                break;
+        }
     }
 }
