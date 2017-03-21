@@ -5,7 +5,7 @@ import java.util.List;
 public class BaseItem {
     private String id;
 
-    public List<?> itemData;
+    public List<String> itemData;
 
     public BaseItem() {
     }
@@ -18,11 +18,11 @@ public class BaseItem {
         this.id = id;
     }
 
-    public List<?> getItemData() {
+    public List<String> getItemData() {
         return itemData;
     }
 
-    public void setItemData(List<?> itemData) {
+    public void setItemData(List<String> itemData) {
         this.itemData = itemData;
     }
 }

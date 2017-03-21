@@ -20,6 +20,11 @@
         android:text="@string/add_menu_item_layout_button"
         android:theme="@style/ThemeOverlay.MyBigDarkButton"/>
 
+    <ProgressBar
+        android:id="@+id/add_menu_item_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -81,8 +86,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/ingredient_label"
@@ -92,11 +96,20 @@
             android:textSize="@dimen/add_menu_item_layout_ingredients_text_size"
             android:layout_alignParentLeft="true"/>
 
+        <Button
+            android:id="@+id/add_ingredient_item_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_menu_item_layout_ingredient_button"
+            android:layout_marginLeft="@dimen/add_menu_item_layout_ingredient_button_margin_left"
+            android:layout_alignParentRight="true"
+            android:theme="@style/ThemeOverlay.MyDarkButton"/>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/add_ingredient_item_button"
-            android:layout_toRightOf="@+id/ingredient_label">
+            android:layout_below="@+id/add_ingredient_item_button"
+            android:orientation="horizontal">
 
             <Spinner
                 android:id="@+id/ingredients_spinner"
@@ -104,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/add_menu_item_layout_ingredient_spinner_margin_left"
                 android:layout_marginRight="@dimen/add_menu_item_layout_ingredient_spinner_margin_right"
-                android:layout_weight="3">
+                >
 
             </Spinner>
 
@@ -114,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/add_menu_item_layout_ingredient_size_spinner_margin_left"
                 android:layout_marginRight="@dimen/add_menu_item_layout_ingredient_size_spinner_margin_right"
-                android:layout_weight="2">
+                >
 
             </Spinner>
 
@@ -124,18 +137,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/add_menu_item_layout_ingredient_measure_spinner_margin_left"
                 android:layout_marginRight="@dimen/add_menu_item_layout_ingredient_measure_spinner_margin_right"
-                android:layout_weight="1"/>
+                />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/add_ingredient_item_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_menu_item_layout_ingredient_button"
-            android:layout_marginLeft="@dimen/add_menu_item_layout_ingredient_button_margin_left"
-            android:layout_alignParentRight="true"
-            android:theme="@style/ThemeOverlay.MyDarkButton"/>
     </RelativeLayout>
 
     <TextView

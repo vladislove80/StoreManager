@@ -27,17 +27,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Добавить пункт меню"
-            android:theme="@style/ThemeOverlay.MyDarkButton"/>
+            android:theme="@style/ThemeOverlay.MyDarkButton"
+            android:layout_weight="1"/>
 
         <Button
             android:id="@+id/add_ingredients_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Редактировать списки"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/white"
-            android:theme="@style/ThemeOverlay.MyDarkButton"/>
+            android:theme="@style/ThemeOverlay.MyDarkButton"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 

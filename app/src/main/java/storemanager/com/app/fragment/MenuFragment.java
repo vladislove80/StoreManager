@@ -32,8 +32,6 @@ public class MenuFragment extends Fragment {
     public final static int REQ_CODE_ADD_ITEM = 2;
     public final static int REQ_CODE_ADD_INGREDIENT = 3;
 
-    private AllDataLists allDataLists;
-
     private DatabaseReference mDatabase;
 
     private RelativeLayout noDataLayout;
@@ -55,7 +53,6 @@ public class MenuFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDataset = new ArrayList<>();
-        allDataLists = new AllDataLists();
 
         MenuItem testItem = new MenuItem();
         testItem.setName("Тестовое Латте");
@@ -100,7 +97,6 @@ public class MenuFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddMenuItemActivity.class);
-                intent.putExtra(TAG, allDataLists);
                 startActivityForResult(intent, REQ_CODE_ADD_ITEM);
             }
         });

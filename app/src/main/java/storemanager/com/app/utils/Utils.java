@@ -63,4 +63,6 @@ public class Utils {
         return summaryList;
     }
 
+    public static final String[] itemDataLists = {"item names", "item sizes", "item ingredient names", "item ingredient sizes", "item ingredient measure"};
+
 }
