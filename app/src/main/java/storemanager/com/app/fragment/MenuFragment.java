@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,6 +47,7 @@ public class MenuFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private TextView menuLabel;
     private ProgressBar progressBar;
+    private FloatingActionButton fab;
 
     private List<MenuItem> mDataset;
 
@@ -67,19 +69,9 @@ public class MenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
 
-        addMenuButton = (Button) view.findViewById(R.id.add_menu_item_button);
         editListsButton = (Button) view.findViewById(R.id.edit_lists_button);
         menuLabel = (TextView) view.findViewById(R.id.menu_fragment_label);
         progressBar = (ProgressBar) view.findViewById(R.id.menu_fragment_progressbar);
-
-
-        addMenuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddMenuItemActivity.class);
-                startActivityForResult(intent, REQ_CODE_ADD_ITEM);
-            }
-        });
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.menu_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -96,6 +88,14 @@ public class MenuFragment extends Fragment {
             }
         });
 
+        fab = (FloatingActionButton) view.findViewById(R.id.add_menu_item_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddMenuItemActivity.class);
+                startActivityForResult(intent, REQ_CODE_ADD_ITEM);
+            }
+        });
         return view;
     }
 
@@ -104,6 +104,15 @@ public class MenuFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new MenuFragmentAdapter(getContext(), mDataset);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy){
+                if (dy > 0)
+                    fab.hide();
+                else if (dy < 0)
+                    fab.show();
+            }
+        });
     }
 
     @Override

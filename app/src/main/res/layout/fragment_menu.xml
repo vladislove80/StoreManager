@@ -1,55 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordinatorLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
 
-    <TextView
-        android:id="@+id/menu_fragment_label"
+    <RelativeLayout
+        android:id="@+id/fragment_menu_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Создавайте и редактируйте Меню"
-        android:layout_margin="15dp"
-        android:textSize="18sp"
-        android:gravity="center_horizontal"
-        android:layout_alignParentTop="true"/>
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/menu_buttons_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
-        android:layout_below="@+id/menu_fragment_label">
+        <TextView
+            android:id="@+id/menu_fragment_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_margin="15dp"
+            android:gravity="center_horizontal"
+            android:text="Создавайте и редактируйте Меню"
+            android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/add_menu_item_button"
+        <LinearLayout
+            android:id="@+id/menu_buttons_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Добавить пункт меню"
-            android:theme="@style/ThemeOverlay.MyDarkButton"
-            android:layout_weight="1"/>
+            android:layout_below="@+id/menu_fragment_label"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/edit_lists_button"
+            <Button
+                android:id="@+id/edit_lists_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Редактировать списки"
+                android:theme="@style/ThemeOverlay.MyDarkButton" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/menu_fragment_progressbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Редактировать списки"
-            android:theme="@style/ThemeOverlay.MyDarkButton"
-            android:layout_weight="1"/>
+            android:layout_centerInParent="true" />
 
-    </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/menu_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/menu_buttons_layout"
+            android:scrollbars="vertical" />
+    </RelativeLayout>
 
-    <ProgressBar
-        android:id="@+id/menu_fragment_progressbar"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_menu_item_fab"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:layout_marginRight="25dp"
+        android:src="@drawable/ic_add_white_48dp"
+        app:fabSize="normal"
+        app:layout_anchor="@id/menu_recycler_view"
+        app:layout_anchorGravity="bottom|right|end"
+        app:rippleColor="#F06292"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/menu_recycler_view"
-        android:scrollbars="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/menu_buttons_layout"/>
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>
