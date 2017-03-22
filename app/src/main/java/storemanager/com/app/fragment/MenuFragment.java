@@ -7,15 +7,20 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +30,6 @@ import storemanager.com.app.activity.AddMenuItemActivity;
 import storemanager.com.app.activity.ListOfListActivity;
 import storemanager.com.app.adapter.MenuFragmentAdapter;
 import storemanager.com.app.models.MenuItem;
-import storemanager.com.app.models.Ingredient;
 
 public class MenuFragment extends Fragment {
     public static final String TAG = MenuFragment.class.getSimpleName();
@@ -36,11 +40,12 @@ public class MenuFragment extends Fragment {
 
     private RelativeLayout noDataLayout;
     private Button addMenuButton;
-    private Button addIngredientsButton;
+    private Button editListsButton;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private TextView menuLabel;
+    private ProgressBar progressBar;
 
     private List<MenuItem> mDataset;
 
@@ -54,33 +59,7 @@ public class MenuFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mDataset = new ArrayList<>();
 
-        MenuItem testItem = new MenuItem();
-        testItem.setName("Тестовое Латте");
-        testItem.setPrice(50);
-        testItem.setSize(250);
-
-        ArrayList<Ingredient> testIngredients = new ArrayList<>();
-        Ingredient testIngredient = new Ingredient();
-
-        testIngredient.setName("Кофе");
-        testIngredient.setSize(5);
-        testIngredient.setMeasure("мг");
-        testIngredients.add(testIngredient);
-
-        testIngredient = new Ingredient();
-        testIngredient.setName("Молоко");
-        testIngredient.setSize(15);
-        testIngredient.setMeasure("мг");
-        testIngredients.add(testIngredient);
-
-        testIngredient = new Ingredient();
-        testIngredient.setName("Корица");
-        testIngredient.setSize(5);
-        testIngredient.setMeasure("мг");
-        testIngredients.add(testIngredient);
-
-        testItem.setConsist(testIngredients);
-        mDataset.add(testItem);
+        getMenuItemListFromDB();
     }
 
     @Nullable
@@ -89,8 +68,9 @@ public class MenuFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
 
         addMenuButton = (Button) view.findViewById(R.id.add_menu_item_button);
-        addIngredientsButton = (Button) view.findViewById(R.id.add_ingredients_button);
+        editListsButton = (Button) view.findViewById(R.id.edit_lists_button);
         menuLabel = (TextView) view.findViewById(R.id.menu_fragment_label);
+        progressBar = (ProgressBar) view.findViewById(R.id.menu_fragment_progressbar);
 
 
         addMenuButton.setOnClickListener(new View.OnClickListener() {
@@ -108,17 +88,11 @@ public class MenuFragment extends Fragment {
         /*noDataLayout = (RelativeLayout) view.findViewById(R.id.no_menu_data_layout);
         noDataLayout.setVisibility(View.GONE);*/
 
-        addIngredientsButton.setOnClickListener(new View.OnClickListener() {
+        editListsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), ListOfListActivity.class);
                 startActivity(intent);
-                /*Intent intent = new Intent(getActivity(), PopActivity.class);
-                startActivity(intent);*/
-                /*Intent intent = new Intent(getActivity(), AddBaseListsActivity.class);
-                intent.putExtra(TAG, allDataLists);
-                startActivityForResult(intent, REQ_CODE_ADD_INGREDIENT);*/
-                //Toast.makeText(getContext(), "Ингридиенты", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -150,6 +124,33 @@ public class MenuFragment extends Fragment {
 
     private void addMenuItemToDatabase(MenuItem menuItem) {
         mDatabase = FirebaseDatabase.getInstance().getReference("menus");
-        mDatabase.push().child("menu").setValue(menuItem);
+        mDatabase.push().child("menu item").setValue(menuItem);
+    }
+
+    private void getMenuItemListFromDB() {
+        mDatabase = FirebaseDatabase.getInstance().getReference("menus");
+        mDatabase.orderByChild("menu item").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                MenuItem item;
+                if (dataSnapshot.hasChildren()) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        item = postSnapshot.child("menu item").getValue(MenuItem.class);
+                        if (item != null) {
+                            mDataset.add(item);
+                            mAdapter.notifyDataSetChanged();
+                        }
+                        Log.d(TAG, "getDataListFromDatabse -> dataSnapshot not hasChildren()");
+                    }
+                    progressBar.setVisibility(View.GONE);
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                    Log.d(TAG, "getDataListFromDatabse -> dataSnapshot not hasChildren()");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
     }
 }

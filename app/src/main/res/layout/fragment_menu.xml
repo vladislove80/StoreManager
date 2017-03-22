@@ -31,7 +31,7 @@
             android:layout_weight="1"/>
 
         <Button
-            android:id="@+id/add_ingredients_button"
+            android:id="@+id/edit_lists_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Редактировать списки"
@@ -39,6 +39,11 @@
             android:layout_weight="1"/>
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/menu_fragment_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/menu_recycler_view"
