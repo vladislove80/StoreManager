@@ -25,7 +25,7 @@ import java.util.List;
 import storemanager.com.app.R;
 import storemanager.com.app.adapter.SummaryAdapter;
 import storemanager.com.app.models.MenuItem;
-import storemanager.com.app.models.CoffeItemInSummary;
+import storemanager.com.app.models.MenuItemsInSummary;
 import storemanager.com.app.models.Summary;
 import storemanager.com.app.models.User;
 import storemanager.com.app.utils.CoffeMenu;
@@ -45,7 +45,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     private TextView total;
 
     private ListView summuryListView;
-    private List<CoffeItemInSummary> summaryList;
+    private List<MenuItemsInSummary> summaryList;
     private SummaryAdapter adapter;
 
     private int totalPrice = 0;
@@ -176,7 +176,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && requestCode == REQ_CODE_CHILD) {
-            CoffeItemInSummary item = (CoffeItemInSummary) data.getExtras().getSerializable(AddISummaryItemsActivity.TAG);
+            MenuItemsInSummary item = (MenuItemsInSummary) data.getExtras().getSerializable(AddISummaryItemsActivity.TAG);
             item = setPrice(menu, item);
             if (!isItemInSummary(summaryList, item)) {
                 summaryList.add(item);
@@ -190,7 +190,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         }
     }
 
-    private CoffeItemInSummary setPrice(List<MenuItem> menu, CoffeItemInSummary item) {
+    private MenuItemsInSummary setPrice(List<MenuItem> menu, MenuItemsInSummary item) {
         MenuItem itemWithoutPrice = item.getItem();
         for (MenuItem menuItem : menu) {
             if (menuItem.getName().equals(itemWithoutPrice.getName())) {
@@ -211,8 +211,8 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         return item;
     }
 
-    private boolean isItemInSummary(List<CoffeItemInSummary> summuryList, CoffeItemInSummary addedItem) {
-        for (CoffeItemInSummary summaryItem : summuryList) {
+    private boolean isItemInSummary(List<MenuItemsInSummary> summuryList, MenuItemsInSummary addedItem) {
+        for (MenuItemsInSummary summaryItem : summuryList) {
             if (summaryItem.equals(addedItem)) {
                 return true;
             }
@@ -220,8 +220,8 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         return false;
     }
 
-    private void changeItemsAmountInSummary(List<CoffeItemInSummary> summuryList, CoffeItemInSummary item) {
-        for (CoffeItemInSummary summaryItem : summuryList) {
+    private void changeItemsAmountInSummary(List<MenuItemsInSummary> summuryList, MenuItemsInSummary item) {
+        for (MenuItemsInSummary summaryItem : summuryList) {
             if (summaryItem.equals(item)) {
                 int newAmount = summaryItem.getAmount() + item.getAmount();
                 summaryItem.setAmount(newAmount);

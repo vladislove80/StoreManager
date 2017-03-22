@@ -17,14 +17,14 @@ import java.util.ArrayList;
 
 import storemanager.com.app.R;
 import storemanager.com.app.models.MenuItem;
-import storemanager.com.app.models.CoffeItemInSummary;
+import storemanager.com.app.models.MenuItemsInSummary;
 import storemanager.com.app.utils.Utils;
 
 public class AddISummaryItemsActivity extends AppCompatActivity {
 
     public static final String TAG = "add_atems";
 
-    private CoffeItemInSummary cofeItemsToAdd;
+    private MenuItemsInSummary cofeItemsToAdd;
     private MenuItem cofeItem;
     private int coffeItemAmount = 1;
     private Button buttonAdd;
@@ -123,7 +123,7 @@ public class AddISummaryItemsActivity extends AppCompatActivity {
     View.OnClickListener buttonAddClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            CoffeItemInSummary listToAddInSummary = new CoffeItemInSummary(cofeItem, coffeItemAmount);
+            MenuItemsInSummary listToAddInSummary = new MenuItemsInSummary(cofeItem, coffeItemAmount);
             int resultCode = 101;
             Intent resultIntent = new Intent();
             resultIntent.putExtra(TAG, listToAddInSummary);

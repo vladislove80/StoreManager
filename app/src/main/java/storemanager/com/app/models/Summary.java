@@ -7,7 +7,7 @@ public class Summary {
     private User user;
     private String date;
     private String shop;
-    private List<CoffeItemInSummary> itemInSummary;
+    private List<MenuItemsInSummary> itemInSummary;
 
     public Summary() {}
 
@@ -27,11 +27,11 @@ public class Summary {
         this.date = date;
     }
 
-    public List<CoffeItemInSummary> getItemInSummary() {
+    public List<MenuItemsInSummary> getItemInSummary() {
         return itemInSummary;
     }
 
-    public void setItemInSummary(List<CoffeItemInSummary> itemInSummary) {
+    public void setItemInSummary(List<MenuItemsInSummary> itemInSummary) {
         this.itemInSummary = itemInSummary;
     }
 

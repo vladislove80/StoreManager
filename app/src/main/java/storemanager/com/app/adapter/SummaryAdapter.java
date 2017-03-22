@@ -10,14 +10,14 @@ import android.widget.TextView;
 import java.util.List;
 
 import storemanager.com.app.R;
-import storemanager.com.app.models.CoffeItemInSummary;
+import storemanager.com.app.models.MenuItemsInSummary;
 
-public class SummaryAdapter extends ArrayAdapter<CoffeItemInSummary> {
+public class SummaryAdapter extends ArrayAdapter<MenuItemsInSummary> {
 
     private Context context;
-    private List<CoffeItemInSummary> coffeItem;
+    private List<MenuItemsInSummary> coffeItem;
 
-    public SummaryAdapter(Context context, List<CoffeItemInSummary> coffeItem) {
+    public SummaryAdapter(Context context, List<MenuItemsInSummary> coffeItem) {
         super(context, R.layout.layout_items_row, coffeItem);
         this.context = context;
         this.coffeItem = coffeItem;

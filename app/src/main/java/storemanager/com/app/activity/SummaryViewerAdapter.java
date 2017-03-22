@@ -14,7 +14,7 @@ import java.util.List;
 
 import storemanager.com.app.R;
 import storemanager.com.app.models.MenuItem;
-import storemanager.com.app.models.CoffeItemInSummary;
+import storemanager.com.app.models.MenuItemsInSummary;
 import storemanager.com.app.models.Summary;
 
 import static android.view.View.inflate;
@@ -50,9 +50,9 @@ public class SummaryViewerAdapter extends ArrayAdapter<Summary> implements View.
             table.setVisibility(View.VISIBLE);
             if (table.getChildAt(0) == null) {
                 Summary summary = summaryList.get(position);
-                List<CoffeItemInSummary> itemInSummary = summary.getItemInSummary();
+                List<MenuItemsInSummary> itemInSummary = summary.getItemInSummary();
                 int i = 1;
-                for (CoffeItemInSummary item : itemInSummary) {
+                for (MenuItemsInSummary item : itemInSummary) {
                     final TableRow tableRow = (TableRow) inflate(context, R.layout.layout_summary_viewer_row, null);
                     TextView tv;
                     TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
