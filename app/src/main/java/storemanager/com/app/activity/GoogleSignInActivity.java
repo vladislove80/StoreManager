@@ -271,7 +271,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         alt_bld.setSingleChoiceItems(shopNamesArray, -1, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 cShopItem[0] = shopNamesArray[item];
-                Toast.makeText(getApplicationContext(), "Торговая точка \"" + Utils.cShops[item] + "\"", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Торговая точка \"" + cShopItem[0] + "\"", Toast.LENGTH_SHORT).show();
             }
         });
 
