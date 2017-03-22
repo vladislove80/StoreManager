@@ -53,6 +53,7 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/menu_buttons_layout"
             android:scrollbars="vertical" />
+
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -64,7 +65,7 @@
         android:src="@drawable/ic_add_white_48dp"
         app:fabSize="normal"
         app:layout_anchor="@id/menu_recycler_view"
-        app:layout_anchorGravity="bottom|right|end"
+        app:layout_anchorGravity="bottom|center"
         app:rippleColor="#F06292"/>
 
 </android.support.design.widget.CoordinatorLayout>
