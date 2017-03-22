@@ -16,14 +16,19 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import storemanager.com.app.R;
 import storemanager.com.app.adapter.SummaryAdapter;
+import storemanager.com.app.models.BaseItem;
 import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.MenuItemsInSummary;
 import storemanager.com.app.models.Summary;
@@ -32,6 +37,7 @@ import storemanager.com.app.utils.CoffeMenu;
 import storemanager.com.app.utils.Utils;
 
 public class SummaryComposerActivity extends AppCompatActivity implements View.OnClickListener{
+    public static final String TAG =SummaryComposerActivity.class.getSimpleName();
 
     private String userEmail;
     private String userName;
@@ -57,6 +63,8 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     private CoffeMenu priceList;
     private List<MenuItem> menu;
     private ArrayList<String> coffeItemNames;
+    private DatabaseReference mDatabase;
+    private List<BaseItem> allDataListLists;
 
 
     @Override
@@ -83,6 +91,9 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         total.setText("0");
 
         summaryList = new ArrayList<>();
+        allDataListLists = new ArrayList<>();
+        getDataListsFromDB();
+
         adapter = new SummaryAdapter(getBaseContext(), summaryList);
         summuryListView.setAdapter(adapter);
         summuryListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -251,5 +262,35 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         } else {
             super.onBackPressed();
         }
+    }
+
+    private void getDataListsFromDB() {
+        mDatabase = FirebaseDatabase.getInstance().getReference("lists");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChildren()) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                        Log.d(TAG, "getDataListFromDatabse -> dataSnapshot.hasChildren()");
+                        Map map = (Map) postSnapshot.getValue();
+                        BaseItem item = new BaseItem();
+                        item.setId((String) map.get("id"));
+                        item.setItemData((List<String>) map.get("itemData"));
+                        allDataListLists.add(item);
+                    }
+                    //addDataListsToSpinners(allDataListLists);
+                    //progressBar.setVisibility(View.GONE);
+                } else {
+                    //progressBar.setVisibility(View.GONE);
+                    Log.d(TAG, "getDataListFromDatabse -> dataSnapshot not hasChildren()");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }
