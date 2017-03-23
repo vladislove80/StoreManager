@@ -88,7 +88,7 @@ public class MenuFragment extends Fragment {
             }
         });
 
-        fab = (FloatingActionButton) view.findViewById(R.id.add_menu_item_fab);
+        fab = (FloatingActionButton) view.findViewById(R.id.summary_composer_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +121,7 @@ public class MenuFragment extends Fragment {
             MenuItem menuItem = (MenuItem) data.getExtras().getSerializable(AddMenuItemActivity.TAG);
             mDataset.add(menuItem);
             mAdapter.notifyDataSetChanged();
-            addMenuItemToDatabase(menuItem);
+            //addMenuItemToDatabase(menuItem);
         }
     }
 

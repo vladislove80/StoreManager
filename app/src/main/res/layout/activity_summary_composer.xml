@@ -1,138 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordinatorLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-
-    <TextView
-        android:id="@+id/shop_fragment_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/label_padding_top"
-        android:text="@string/check_label"
-        android:textSize="@dimen/label_size"
-        android:textAlignment="center"/>
-
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/date_padding_top"
-        android:textSize="@dimen/date_size"
-        android:textAlignment="center"/>
-
-    <TextView
-        android:id="@+id/shop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/date_padding_top"
-        android:textSize="@dimen/date_size"
-        android:textAlignment="center"/>
+    tools:context=".activity.SummaryComposerActivity">
 
     <LinearLayout
+        android:id="@+id/summary_composer_ll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/add_shop_button"
-            android:text="Add item"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/shop_fragment_label"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.MyDarkButton"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/add_buton_margin_bottom"
-            android:layout_marginTop="@dimen/add_buton_margin_top"
-            android:layout_weight="10"/>
+            android:paddingTop="@dimen/label_padding_top"
+            android:text="@string/check_label"
+            android:textSize="@dimen/label_size"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/date_padding_top"
+            android:textSize="@dimen/date_size"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:id="@+id/shop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/date_padding_top"
+            android:textSize="@dimen/date_size"
+            android:textAlignment="center"/>
 
         <Button
             android:text="Send"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/send_button"
-            android:layout_gravity="center"
-            android:theme="@style/ThemeOverlay.MyDarkButton"
-            android:layout_marginBottom="@dimen/send_buton_margin_bottom"
-            android:layout_marginTop="@dimen/send_buton_margin_top"
-            android:layout_marginLeft="@dimen/send_buton_margin_left"
-            android:layout_weight="1"/>
+            android:theme="@style/ThemeOverlay.MyBigDarkButton" />
 
+        <RelativeLayout
+            android:id="@+id/top_table_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/top_table_row_conteiner_padding_left"
+            android:paddingRight="@dimen/top_table_row_conteiner_padding_right">
+
+            <TextView
+                android:id="@+id/item_number_row"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/table_number"
+                android:textSize="@dimen/top_table_row_text_size"
+                android:layout_alignParentLeft="true"/>
+            <TextView
+                android:id="@+id/item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textSize="@dimen/top_table_row_text_size"
+                android:paddingLeft="20dp"
+                android:layout_toRightOf="@id/item_number_row"/>
+            <TextView
+                android:id="@+id/item_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/price"
+                android:textSize="@dimen/top_table_row_text_size"
+                android:layout_alignParentRight="true"/>
+            <TextView
+                android:id="@+id/item_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/num"
+                android:textSize="@dimen/top_table_row_text_size"
+                android:paddingRight="25dp"
+                android:layout_toLeftOf="@id/item_price"/>
+            <TextView
+                android:id="@+id/item_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/size"
+                android:textSize="@dimen/top_table_row_text_size"
+                android:paddingRight="40dp"
+                android:layout_toLeftOf="@id/item_amount"/>
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/summury"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/table_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/top_table_row_conteiner_padding_left"
+            android:paddingRight="@dimen/top_table_row_conteiner_padding_right">
+
+            <TextView
+                android:id="@+id/total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/top_table_row_text_size"
+                android:layout_alignParentRight="true"/>
+
+            <TextView
+                android:id="@+id/total_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/table_bottom_total_text"
+                android:textSize="@dimen/top_table_row_text_size"
+                android:paddingRight="@dimen/top_table_total_padding_right"
+                android:layout_toLeftOf="@id/total"/>
+        </RelativeLayout>
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/top_table_row"
-        android:layout_width="match_parent"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/summary_composer_fab"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/top_table_row_conteiner_padding_left"
-        android:paddingRight="@dimen/top_table_row_conteiner_padding_right">
+        android:layout_marginBottom="45dp"
+        android:layout_marginRight="45dp"
+        android:src="@drawable/ic_add_white_48dp"
+        app:fabSize="normal"
+        app:layout_anchor="@id/summary_composer_ll"
+        app:layout_anchorGravity="bottom|right|end"
+        app:rippleColor="#F06292"/>
 
-        <TextView
-            android:id="@+id/item_number_row"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/table_number"
-            android:textSize="@dimen/top_table_row_text_size"
-            android:layout_alignParentLeft="true"/>
-        <TextView
-            android:id="@+id/item_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name"
-            android:textSize="@dimen/top_table_row_text_size"
-            android:paddingLeft="20dp"
-            android:layout_toRightOf="@id/item_number_row"/>
-        <TextView
-            android:id="@+id/item_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/price"
-            android:textSize="@dimen/top_table_row_text_size"
-            android:layout_alignParentRight="true"/>
-        <TextView
-            android:id="@+id/item_amount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/num"
-            android:textSize="@dimen/top_table_row_text_size"
-            android:paddingRight="25dp"
-            android:layout_toLeftOf="@id/item_price"/>
-        <TextView
-            android:id="@+id/item_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/size"
-            android:textSize="@dimen/top_table_row_text_size"
-            android:paddingRight="40dp"
-            android:layout_toLeftOf="@id/item_amount"/>
-    </RelativeLayout>
-
-    <ListView
-        android:id="@+id/summury"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <RelativeLayout
-        android:id="@+id/table_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/top_table_row_conteiner_padding_left"
-        android:paddingRight="@dimen/top_table_row_conteiner_padding_right">
-
-        <TextView
-            android:id="@+id/total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/top_table_row_text_size"
-            android:layout_alignParentRight="true"/>
-
-        <TextView
-            android:id="@+id/total_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/table_bottom_total_text"
-            android:textSize="@dimen/top_table_row_text_size"
-            android:paddingRight="@dimen/top_table_total_padding_right"
-            android:layout_toLeftOf="@id/total"/>
-    </RelativeLayout>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

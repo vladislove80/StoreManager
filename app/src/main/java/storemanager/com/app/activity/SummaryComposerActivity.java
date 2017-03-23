@@ -5,11 +5,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -44,7 +46,6 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     private String userId;
     private String shop;
 
-    private Button mAddItemButton;
     private Button mSaveToDatabaseButton;
     private TextView mDateTextView;
     private TextView mShopTextView;
@@ -65,6 +66,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     private ArrayList<String> coffeItemNames;
     private DatabaseReference mDatabase;
     private List<BaseItem> allDataListLists;
+    private FloatingActionButton fab;
 
 
     @Override
@@ -72,6 +74,10 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary_composer);
         Log.v(Utils.LOG_TAG, "SummaryComposerActivity");
+
+        summaryList = new ArrayList<>();
+        allDataListLists = new ArrayList<>();
+        getDataListsFromDB();
 
         Intent intent = getIntent();
         userEmail = intent.getStringExtra(Utils.EXTRA_TAG_MAIL);
@@ -84,15 +90,10 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         mShopTextView = (TextView) findViewById(R.id.shop);
         mDateTextView.setText(date);
         mShopTextView.setText("\"" + shop + "\"");
-        mAddItemButton = (Button) findViewById(R.id.add_shop_button);
         mSaveToDatabaseButton = (Button) findViewById(R.id.send_button);
         summuryListView = (ListView) findViewById(R.id.summury);
         total = (TextView) findViewById(R.id.total);
         total.setText("0");
-
-        summaryList = new ArrayList<>();
-        allDataListLists = new ArrayList<>();
-        getDataListsFromDB();
 
         adapter = new SummaryAdapter(getBaseContext(), summaryList);
         summuryListView.setAdapter(adapter);
@@ -119,8 +120,25 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                 return false;
             }
         });
+        summuryListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                int btn_initPosY = fab.getScrollY();
+                if (scrollState == SCROLL_STATE_TOUCH_SCROLL) {
+                    fab.animate().cancel();
+                    fab.animate().translationYBy(150);
+                } else {
+                    fab.animate().cancel();
+                    fab.animate().translationY(btn_initPosY);
+                }
+            }
 
-        mAddItemButton.setOnClickListener(this);
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
+
         mSaveToDatabaseButton.setOnClickListener(this);
 
         Log.d(Utils.LOG_TAG, "email = " + userEmail);
@@ -136,19 +154,26 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                 coffeItemNames.add(itemName);
             }
         }
+
+        fab = (FloatingActionButton) findViewById(R.id.summary_composer_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (allDataListLists.size() != 0) {
+                    Intent intent = new Intent(SummaryComposerActivity.this, AddISummaryItemsActivity.class);
+                    intent.putStringArrayListExtra(MENU_TAG, coffeItemNames);
+                    startActivityForResult(intent, REQ_CODE_CHILD);
+                }
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.add_shop_button) {
-            Intent intent = new Intent(SummaryComposerActivity.this, AddISummaryItemsActivity.class);
-            intent.putStringArrayListExtra(MENU_TAG, coffeItemNames);
-            startActivityForResult(intent, REQ_CODE_CHILD);
-        } else if (i == R.id.send_button) {
+        if (i == R.id.send_button) {
             if (summaryList.size() != 0) {
                 sendSummaryToDatabase(userId, userName, userEmail);
-                mAddItemButton.setVisibility(View.GONE);
                 mSaveToDatabaseButton.setVisibility(View.GONE);
             } else {
                 AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
@@ -280,9 +305,8 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                         allDataListLists.add(item);
                     }
                     //addDataListsToSpinners(allDataListLists);
-                    //progressBar.setVisibility(View.GONE);
+                    Log.d(TAG, "getDataListFromDatabse -> allDataListLists");
                 } else {
-                    //progressBar.setVisibility(View.GONE);
                     Log.d(TAG, "getDataListFromDatabse -> dataSnapshot not hasChildren()");
                 }
             }

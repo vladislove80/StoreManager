@@ -1,8 +1,9 @@
 package storemanager.com.app.models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class BaseItem {
+public class BaseItem implements Serializable {
     private String id;
 
     public List<String> itemData;
