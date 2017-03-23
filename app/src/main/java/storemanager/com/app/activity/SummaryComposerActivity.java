@@ -62,7 +62,6 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     public final static String MENU_NAMES_TAG = "item names";
     public final static String MENU_SIZES_TAG = "item sizes";
 
-    private CoffeMenu priceList;
     private List<MenuItem> menu;
     private ArrayList<String> coffeItemNames;
     private ArrayList<String> coffeItemSizes;
@@ -124,6 +123,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                 return false;
             }
         });
+
         summuryListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -149,10 +149,8 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         Log.d(Utils.LOG_TAG, "id = " + userId);
         Log.d(Utils.LOG_TAG, "date = " + date);
 
-        priceList = new CoffeMenu();
         coffeItemNames = new ArrayList<>();
         coffeItemSizes = new ArrayList<>();
-
 
         fab = (FloatingActionButton) findViewById(R.id.summary_composer_fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +212,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         if(data != null && requestCode == REQ_CODE_CHILD) {
             MenuItemsInSummary item = (MenuItemsInSummary) data.getExtras().getSerializable(AddSummaryItemsActivity.TAG);
             if (menu.size() != 0 && item != null) {
-                item = setItemDataFromMenu(menu, item);
+                item = setDataFromMenuToAddedItem(menu, item);
             }
             if (!isItemInSummary(summaryList, item)) {
                 summaryList.add(item);
@@ -228,7 +226,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         }
     }
 
-    private MenuItemsInSummary setItemDataFromMenu(List<MenuItem> menu, MenuItemsInSummary item) {
+    private MenuItemsInSummary setDataFromMenuToAddedItem(List<MenuItem> menu, MenuItemsInSummary item) {
         MenuItem itemWithoutPrice = item.getItem();
         for (MenuItem menuItem : menu) {
             if (menuItem.getName().equals(itemWithoutPrice.getName())) {
@@ -247,7 +245,6 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                 }
             }
         }
-
         return item;
     }
 
@@ -340,14 +337,10 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                         item = postSnapshot.child("menu item").getValue(MenuItem.class);
                         if (item != null) {
                             menu.add(item);
-                            //mDataset.add(item);
-                            //mAdapter.notifyDataSetChanged();
                         }
                         Log.d(TAG, "getDataListFromDatabse -> dataSnapshot not hasChildren()");
                     }
-                    //progressBar.setVisibility(View.GONE);
                 } else {
-                    //progressBar.setVisibility(View.GONE);
                     Log.d(TAG, "getDataListFromDatabse -> dataSnapshot not hasChildren()");
                 }
             }
