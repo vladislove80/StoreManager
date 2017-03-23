@@ -38,7 +38,7 @@
 
 
         <activity
-            android:name=".activity.AddISummaryItemsActivity"
+            android:name=".activity.AddSummaryItemsActivity"
             android:label="@string/label_add_item"
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat.Light.Dialog"

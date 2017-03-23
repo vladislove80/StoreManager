@@ -20,9 +20,9 @@ import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.MenuItemsInSummary;
 import storemanager.com.app.utils.Utils;
 
-public class AddISummaryItemsActivity extends AppCompatActivity {
+public class AddSummaryItemsActivity extends AppCompatActivity {
 
-    public static final String TAG = "add_atems";
+    public static final String TAG = "add_items";
 
     private MenuItemsInSummary cofeItemsToAdd;
     private MenuItem cofeItem;
@@ -35,11 +35,12 @@ public class AddISummaryItemsActivity extends AppCompatActivity {
     private Spinner amountSpiner;
 
     private ArrayList<String> coffeItemNames;
+    private ArrayList<String> coffeItemSizes;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.v(Utils.LOG_TAG, "AddISummaryItemsActivity");
+        Log.v(Utils.LOG_TAG, "AddSummaryItemsActivity");
         setContentView(R.layout.activity_add_items);
 
         buttonAdd = (Button) findViewById(R.id.add_shop_button);
@@ -53,7 +54,8 @@ public class AddISummaryItemsActivity extends AppCompatActivity {
         buttonCancel.setOnClickListener(buttonCancelClickListener);
 
         Intent intent = getIntent();
-        coffeItemNames = intent.getStringArrayListExtra(SummaryComposerActivity.MENU_TAG);
+        coffeItemNames = intent.getStringArrayListExtra(SummaryComposerActivity.MENU_NAMES_TAG);
+        coffeItemSizes = intent.getStringArrayListExtra(SummaryComposerActivity.MENU_SIZES_TAG);
 
         cofeItem = new MenuItem();
 
@@ -79,17 +81,18 @@ public class AddISummaryItemsActivity extends AppCompatActivity {
             }
         });
 
-        ArrayAdapter<Integer> sizeAdapter = new ArrayAdapter<>(this, R.layout.layout_summary_item_spinner, Utils.coffeSizes);
+        ArrayAdapter<String> sizeAdapter = new ArrayAdapter<>(this, R.layout.layout_summary_item_spinner, coffeItemSizes);
 
         sizeSpiner.setAdapter(sizeAdapter);
-        sizeSpiner.setPrompt(Utils.coffeSizes.get(0).toString());
+        sizeSpiner.setPrompt(coffeItemSizes.get(0).toString());
         sizeSpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
                 ((TextView) parent.getChildAt(0)).setTextSize(20);
-                Integer size = Utils.coffeSizes.get(position);
-                sizeSpiner.setPrompt(size.toString());
+                String selectedSizeString = coffeItemSizes.get(position);
+                Integer size = Integer.parseInt(selectedSizeString);
+                sizeSpiner.setPrompt(selectedSizeString);
                 cofeItem.setSize(size);
             }
 

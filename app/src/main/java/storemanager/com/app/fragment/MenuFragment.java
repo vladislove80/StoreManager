@@ -121,7 +121,7 @@ public class MenuFragment extends Fragment {
             MenuItem menuItem = (MenuItem) data.getExtras().getSerializable(AddMenuItemActivity.TAG);
             mDataset.add(menuItem);
             mAdapter.notifyDataSetChanged();
-            //addMenuItemToDatabase(menuItem);
+            addMenuItemToDatabase(menuItem);
         }
     }
 

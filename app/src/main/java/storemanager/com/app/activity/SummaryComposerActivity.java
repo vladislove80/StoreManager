@@ -59,11 +59,13 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     private String date;
 
     public final static int REQ_CODE_CHILD = 1;
-    public final static String MENU_TAG = "names";
+    public final static String MENU_NAMES_TAG = "item names";
+    public final static String MENU_SIZES_TAG = "item sizes";
 
     private CoffeMenu priceList;
     private List<MenuItem> menu;
     private ArrayList<String> coffeItemNames;
+    private ArrayList<String> coffeItemSizes;
     private DatabaseReference mDatabase;
     private List<BaseItem> allDataListLists;
     private FloatingActionButton fab;
@@ -108,7 +110,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(android.view.MenuItem item) {
-                        Log.v(Utils.LOG_TAG, "AddISummaryItemsActivity->DELETE");
+                        Log.v(Utils.LOG_TAG, "AddSummaryItemsActivity->DELETE");
                         totalPrice = totalPrice - summaryList.get(position).getItem().getPrice() * summaryList.get(position).getAmount();
                         summaryList.remove(position);
                         adapter.notifyDataSetChanged();
@@ -148,20 +150,22 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         priceList = new CoffeMenu();
         menu = priceList.getMenu();
         coffeItemNames = new ArrayList<>();
-        for (MenuItem item : menu) {
+        coffeItemSizes = new ArrayList<>();
+        /*for (MenuItem item : menu) {
             String itemName = item.getName();
             if (!coffeItemNames.contains(itemName)) {
                 coffeItemNames.add(itemName);
             }
-        }
+        }*/
 
         fab = (FloatingActionButton) findViewById(R.id.summary_composer_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (allDataListLists.size() != 0) {
-                    Intent intent = new Intent(SummaryComposerActivity.this, AddISummaryItemsActivity.class);
-                    intent.putStringArrayListExtra(MENU_TAG, coffeItemNames);
+                    Intent intent = new Intent(SummaryComposerActivity.this, AddSummaryItemsActivity.class);
+                    intent.putStringArrayListExtra(MENU_NAMES_TAG, coffeItemNames);
+                    intent.putStringArrayListExtra(MENU_SIZES_TAG, coffeItemSizes);
                     startActivityForResult(intent, REQ_CODE_CHILD);
                 }
             }
@@ -212,7 +216,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && requestCode == REQ_CODE_CHILD) {
-            MenuItemsInSummary item = (MenuItemsInSummary) data.getExtras().getSerializable(AddISummaryItemsActivity.TAG);
+            MenuItemsInSummary item = (MenuItemsInSummary) data.getExtras().getSerializable(AddSummaryItemsActivity.TAG);
             item = setPrice(menu, item);
             if (!isItemInSummary(summaryList, item)) {
                 summaryList.add(item);
@@ -302,9 +306,16 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                         BaseItem item = new BaseItem();
                         item.setId((String) map.get("id"));
                         item.setItemData((List<String>) map.get("itemData"));
+
+                        if (item.getId().equals("item names")){
+                            coffeItemNames.addAll(item.getItemData());
+                        }
+                        if (item.getId().equals("item sizes")){
+                            coffeItemSizes.addAll(item.getItemData());
+                        }
+                        // to delete ?
                         allDataListLists.add(item);
                     }
-                    //addDataListsToSpinners(allDataListLists);
                     Log.d(TAG, "getDataListFromDatabse -> allDataListLists");
                 } else {
                     Log.d(TAG, "getDataListFromDatabse -> dataSnapshot not hasChildren()");
