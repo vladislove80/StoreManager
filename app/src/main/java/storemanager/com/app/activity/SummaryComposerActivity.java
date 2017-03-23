@@ -79,7 +79,9 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
 
         summaryList = new ArrayList<>();
         allDataListLists = new ArrayList<>();
+        menu = new ArrayList<>();
         getDataListsFromDB();
+        getMenuFromBD();
 
         Intent intent = getIntent();
         userEmail = intent.getStringExtra(Utils.EXTRA_TAG_MAIL);
@@ -148,15 +150,9 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         Log.d(Utils.LOG_TAG, "date = " + date);
 
         priceList = new CoffeMenu();
-        menu = priceList.getMenu();
         coffeItemNames = new ArrayList<>();
         coffeItemSizes = new ArrayList<>();
-        /*for (MenuItem item : menu) {
-            String itemName = item.getName();
-            if (!coffeItemNames.contains(itemName)) {
-                coffeItemNames.add(itemName);
-            }
-        }*/
+
 
         fab = (FloatingActionButton) findViewById(R.id.summary_composer_fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -217,7 +213,9 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && requestCode == REQ_CODE_CHILD) {
             MenuItemsInSummary item = (MenuItemsInSummary) data.getExtras().getSerializable(AddSummaryItemsActivity.TAG);
-            item = setPrice(menu, item);
+            if (menu.size() != 0 && item != null) {
+                item = setItemDataFromMenu(menu, item);
+            }
             if (!isItemInSummary(summaryList, item)) {
                 summaryList.add(item);
             } else {
@@ -230,18 +228,20 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         }
     }
 
-    private MenuItemsInSummary setPrice(List<MenuItem> menu, MenuItemsInSummary item) {
+    private MenuItemsInSummary setItemDataFromMenu(List<MenuItem> menu, MenuItemsInSummary item) {
         MenuItem itemWithoutPrice = item.getItem();
         for (MenuItem menuItem : menu) {
             if (menuItem.getName().equals(itemWithoutPrice.getName())) {
                 if (menuItem.isOneSize()) {
                     itemWithoutPrice.setOneSize(true);
                     itemWithoutPrice.setSize(menuItem.getSize());
-                    item.getItem().setPrice(menuItem.getPrice());
+                    itemWithoutPrice.setConsist(menuItem.getConsist());
+                    itemWithoutPrice.setPrice(menuItem.getPrice());
                     return item;
                 } else {
                     if (menuItem.getSize() == itemWithoutPrice.getSize()) {
-                        item.getItem().setPrice(menuItem.getPrice());
+                        itemWithoutPrice.setPrice(menuItem.getPrice());
+                        itemWithoutPrice.setConsist(menuItem.getConsist());
                         return item;
                     }
                 }
@@ -326,6 +326,34 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
             public void onCancelled(DatabaseError databaseError) {
 
             }
+        });
+    }
+
+    private void getMenuFromBD() {
+        mDatabase = FirebaseDatabase.getInstance().getReference("menus");
+        mDatabase.orderByChild("menu item").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                MenuItem item;
+                if (dataSnapshot.hasChildren()) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        item = postSnapshot.child("menu item").getValue(MenuItem.class);
+                        if (item != null) {
+                            menu.add(item);
+                            //mDataset.add(item);
+                            //mAdapter.notifyDataSetChanged();
+                        }
+                        Log.d(TAG, "getDataListFromDatabse -> dataSnapshot not hasChildren()");
+                    }
+                    //progressBar.setVisibility(View.GONE);
+                } else {
+                    //progressBar.setVisibility(View.GONE);
+                    Log.d(TAG, "getDataListFromDatabse -> dataSnapshot not hasChildren()");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
         });
     }
 }
