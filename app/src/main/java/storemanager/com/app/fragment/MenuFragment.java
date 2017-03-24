@@ -28,6 +28,7 @@ import java.util.List;
 
 import storemanager.com.app.R;
 import storemanager.com.app.activity.AddMenuItemActivity;
+import storemanager.com.app.activity.AddMenuItemToSummaryActivity;
 import storemanager.com.app.activity.ListOfListActivity;
 import storemanager.com.app.adapter.MenuFragmentAdapter;
 import storemanager.com.app.models.MenuItem;
@@ -92,7 +93,7 @@ public class MenuFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddMenuItemActivity.class);
+                Intent intent = new Intent(getActivity(), AddMenuItemToSummaryActivity.class);
                 startActivityForResult(intent, REQ_CODE_ADD_ITEM);
             }
         });

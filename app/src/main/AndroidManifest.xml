@@ -78,6 +78,11 @@
         <activity
             android:name=".activity.ListOfListActivity"
             android:label="@string/manifest_label_lists"/>
+
+        <activity
+            android:name=".activity.AddMenuItemToSummaryActivity"
+            android:label="add menu item to Summary"
+            android:parentActivityName=".activity.SummaryComposerActivity"/>
     </application>
 
 

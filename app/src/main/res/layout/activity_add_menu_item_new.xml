@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/add_menu_item_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="15dp"
+        android:gravity="center_horizontal"
+        android:text="Выберите пункт меню и введите количество"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/add_menu_item_buttons_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/add_menu_item_label"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/add_menu_item_add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Добавить"
+            android:theme="@style/ThemeOverlay.MyDarkButton"
+            android:clickable="false"/>
+
+        <EditText
+            android:id="@+id/add_menu_item_edit"
+            android:layout_gravity="center"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:inputType="number"/>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/add_menu_item_activity_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/add_menu_item_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/add_menu_item_buttons_layout"
+        android:scrollbars="vertical" />
+
+</RelativeLayout>
