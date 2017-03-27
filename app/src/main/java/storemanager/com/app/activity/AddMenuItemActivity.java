@@ -2,6 +2,7 @@ package storemanager.com.app.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -39,7 +40,7 @@ public class AddMenuItemActivity extends AppCompatActivity {
 
     private ArrayList<String> menuItemNamesList;
     private ArrayList<String> itemSizeList;
-    private List<Ingredient> ingredientList;
+    private ArrayList<Ingredient> ingredientList;
     private ArrayList<String> ingredientNamesList;
     private ArrayList<String> ingredientSizeList;
     private ArrayList<String> ingredientMeasureList;
@@ -109,7 +110,7 @@ public class AddMenuItemActivity extends AppCompatActivity {
 
                     int resultCode = 101;
                     Intent resultIntent = new Intent();
-                    resultIntent.putExtra(TAG, menuItem);
+                    resultIntent.putExtra(TAG, (Parcelable) menuItem);
                     setResult(resultCode, resultIntent);
                     finish();
                 } else {

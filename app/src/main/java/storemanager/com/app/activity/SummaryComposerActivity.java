@@ -31,6 +31,7 @@ import java.util.Map;
 import storemanager.com.app.R;
 import storemanager.com.app.adapter.SummaryAdapter;
 import storemanager.com.app.models.BaseItem;
+import storemanager.com.app.models.Ingredient;
 import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.MenuItemsInSummary;
 import storemanager.com.app.models.Summary;
@@ -39,7 +40,7 @@ import storemanager.com.app.utils.CoffeMenu;
 import storemanager.com.app.utils.Utils;
 
 public class SummaryComposerActivity extends AppCompatActivity implements View.OnClickListener{
-    public static final String TAG =SummaryComposerActivity.class.getSimpleName();
+    public static final String TAG = SummaryComposerActivity.class.getSimpleName();
 
     private String userEmail;
     private String userName;
@@ -62,7 +63,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     public final static String MENU_NAMES_TAG = "item names";
     public final static String MENU_SIZES_TAG = "item sizes";
 
-    private List<MenuItem> menu;
+    private ArrayList<MenuItem> menu;
     private ArrayList<String> coffeItemNames;
     private ArrayList<String> coffeItemSizes;
     private DatabaseReference mDatabase;
@@ -156,10 +157,16 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (allDataListLists.size() != 0) {
+                /*if (allDataListLists.size() != 0) {
                     Intent intent = new Intent(SummaryComposerActivity.this, AddSummaryItemsActivity.class);
                     intent.putStringArrayListExtra(MENU_NAMES_TAG, coffeItemNames);
                     intent.putStringArrayListExtra(MENU_SIZES_TAG, coffeItemSizes);
+                    startActivityForResult(intent, REQ_CODE_CHILD);
+                }*/
+
+                if (menu.size() != 0) {
+                    Intent intent = new Intent(SummaryComposerActivity.this, AddMenuItemToSummaryActivity.class);
+                    intent.putParcelableArrayListExtra(TAG, menu);
                     startActivityForResult(intent, REQ_CODE_CHILD);
                 }
             }
@@ -233,13 +240,13 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                 if (menuItem.isOneSize()) {
                     itemWithoutPrice.setOneSize(true);
                     itemWithoutPrice.setSize(menuItem.getSize());
-                    itemWithoutPrice.setConsist(menuItem.getConsist());
+                    itemWithoutPrice.setConsist((ArrayList<Ingredient>) menuItem.getConsist());
                     itemWithoutPrice.setPrice(menuItem.getPrice());
                     return item;
                 } else {
                     if (menuItem.getSize() == itemWithoutPrice.getSize()) {
                         itemWithoutPrice.setPrice(menuItem.getPrice());
-                        itemWithoutPrice.setConsist(menuItem.getConsist());
+                        itemWithoutPrice.setConsist((ArrayList<Ingredient>) menuItem.getConsist());
                         return item;
                     }
                 }

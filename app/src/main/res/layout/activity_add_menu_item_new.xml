@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Добавить"
-            android:theme="@style/ThemeOverlay.MyDarkButton"
+            style="@style/ThemeOverlay.MyDarkButtonNotActive"
             android:clickable="false"/>
 
         <EditText

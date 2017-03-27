@@ -12,17 +12,25 @@ import android.widget.Toast;
 import java.util.List;
 
 import storemanager.com.app.R;
-import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.Ingredient;
+import storemanager.com.app.models.MenuItem;
+import storemanager.com.app.utils.RecyclerItemListener;
 
-public class MenuFragmentAdapter extends RecyclerView.Adapter<MenuFragmentAdapter.ViewHolder> {
+public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHolder> {
 
     private Context context;
     private List<MenuItem> mDataset;
+    private RecyclerItemListener listener;
 
-    public MenuFragmentAdapter(Context context, List<MenuItem> myDataset) {
+    public MenuListAdapter(Context context, List<MenuItem> myDataset) {
         this.context = context;
         mDataset = myDataset;
+    }
+
+    public MenuListAdapter(Context context, List<MenuItem> myDataset, RecyclerItemListener listener) {
+        this.context = context;
+        mDataset = myDataset;
+        this.listener = listener;
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -78,7 +86,11 @@ public class MenuFragmentAdapter extends RecyclerView.Adapter<MenuFragmentAdapte
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(context, "onClick in pos " + position, Toast.LENGTH_SHORT).show();
+            if (listener != null) {
+                listener.onRecyclerItemClick(position);
+            } else {
+                //Toast.makeText(context, "onRecyclerItemClick in pos " + position, Toast.LENGTH_SHORT).show();
+            }
         }
 
         public void setItem(int position) {

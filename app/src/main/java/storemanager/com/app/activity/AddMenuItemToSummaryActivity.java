@@ -1,5 +1,6 @@
 package storemanager.com.app.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,10 +23,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 
 import storemanager.com.app.R;
-import storemanager.com.app.adapter.MenuFragmentAdapter;
+import storemanager.com.app.adapter.MenuListAdapter;
 import storemanager.com.app.models.MenuItem;
+import storemanager.com.app.utils.RecyclerItemListener;
 
-public class AddMenuItemToSummaryActivity  extends AppCompatActivity {
+public class AddMenuItemToSummaryActivity  extends AppCompatActivity implements RecyclerItemListener {
     private static final String TAG = AddMenuItemToSummaryActivity.class.getSimpleName();
 
     private Button addMenuButton;
@@ -42,12 +45,17 @@ public class AddMenuItemToSummaryActivity  extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_menu_item_new);
-        getMenuItemListFromDB();
+        //getMenuItemListFromDB();
+
+        progressBar = (ProgressBar) findViewById(R.id.add_menu_item_activity_progressbar);
+        Intent intent = getIntent();
+        mDataset = intent.getParcelableArrayListExtra(SummaryComposerActivity.TAG);
+        progressBar.setVisibility(View.GONE);
+
 
         addMenuButton = (Button) findViewById(R.id.add_menu_item_add_button);
         addMenuButton.setOnClickListener(addItemListener);
         itemNumberEditText = (EditText) findViewById(R.id.add_menu_item_edit);
-        progressBar = (ProgressBar) findViewById(R.id.add_menu_item_progressbar);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.add_menu_item_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -64,7 +72,7 @@ public class AddMenuItemToSummaryActivity  extends AppCompatActivity {
     private void initRecycler() {
         mLayoutManager = new LinearLayoutManager(getBaseContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new MenuFragmentAdapter(getBaseContext(), mDataset);
+        mAdapter = new MenuListAdapter(getBaseContext(), mDataset, this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -94,4 +102,20 @@ public class AddMenuItemToSummaryActivity  extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {}
         });
     }
+
+    @Override
+    public void onRecyclerItemClick(int pos) {
+        MenuItem item = mDataset.get(pos);
+        mDataset.clear();
+        mDataset.add(item);
+        mAdapter.notifyDataSetChanged();
+        Toast.makeText(this, "It work !!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
 }
+

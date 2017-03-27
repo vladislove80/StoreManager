@@ -16,6 +16,13 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="ThemeOverlay.MyDarkButtonNotActive" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="colorButtonNormal">@color/notActive</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
     <style name="ThemeOverlay.MyBigDarkButton" parent="ThemeOverlay.AppCompat.Dark">
         <item name="colorButtonNormal">@color/colorAccentOther</item>
         <item name="android:layout_margin">10dp</item>

@@ -1,19 +1,44 @@
 package storemanager.com.app.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class MenuItem implements Serializable {
+public class MenuItem implements Parcelable, Serializable {
 
     private boolean oneSize;
 
     private String name;
-    private List<Ingredient> consist;
+    private ArrayList<Ingredient> consist;
     private int size;
     private int price;
 
     public MenuItem() {
     }
+
+    protected MenuItem(Parcel in) {
+        oneSize = in.readByte() != 0;
+        name = in.readString();
+        size = in.readInt();
+        price = in.readInt();
+        consist = new ArrayList<>();
+        in.readTypedList(consist, Ingredient.CREATOR);
+    }
+
+    public static final Creator<MenuItem> CREATOR = new Creator<MenuItem>() {
+        @Override
+        public MenuItem createFromParcel(Parcel in) {
+            return new MenuItem(in);
+        }
+
+        @Override
+        public MenuItem[] newArray(int size) {
+            return new MenuItem[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -51,7 +76,7 @@ public class MenuItem implements Serializable {
         return consist;
     }
 
-    public void setConsist(List<Ingredient> consist) {
+    public void setConsist(ArrayList<Ingredient> consist) {
         this.consist = consist;
     }
 
@@ -62,5 +87,19 @@ public class MenuItem implements Serializable {
         if (this.getClass() != obj.getClass()) return false;
         MenuItem item = (MenuItem) obj;
         return this.name.equals(item.getName()) && this.size == item.getSize();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeByte((byte) (oneSize ? 1 : 0));
+        dest.writeString(name);
+        dest.writeInt(size);
+        dest.writeInt(price);
+        dest.writeTypedList(consist);
     }
 }
