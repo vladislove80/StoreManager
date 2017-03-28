@@ -36,6 +36,7 @@ public class AddItemToSummaryActivity extends AppCompatActivity implements Recyc
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ProgressBar progressBar;
+    private TextView selectedItemTextView;
     private TextView menuLabel;
     private LinearLayout itemNamberChooserLinerLayout;
     private ImageView decreaseImageView;
@@ -43,6 +44,7 @@ public class AddItemToSummaryActivity extends AppCompatActivity implements Recyc
     private EditText itemNumberChooserEditView;
 
     private List<MenuItem> mDataset;
+    private MenuItem selectedItemFromMenu;
     private List<MenuItem> tempDataset;
 
     private int itemAmount = 0;
@@ -50,8 +52,9 @@ public class AddItemToSummaryActivity extends AppCompatActivity implements Recyc
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_menu_item_new);
+        setContentView(R.layout.activity_add_menu_item_to_summary);
 
+        selectedItemTextView = (TextView) findViewById(R.id.add_menu_item_selected_item);
         menuLabel = (TextView) findViewById(R.id.add_menu_item_label);
         progressBar = (ProgressBar) findViewById(R.id.add_menu_item_activity_progressbar);
 
@@ -117,7 +120,7 @@ public class AddItemToSummaryActivity extends AppCompatActivity implements Recyc
             itemAmount = getValueFromEditText(itemNumberChooserEditView);
             if (itemAmount > 0 && itemAmount < 100) {
                 // mDataset always has one ItemMenu to pass
-                MenuItemsInSummary listToAddInSummary = new MenuItemsInSummary(mDataset.get(0), itemAmount);
+                MenuItemsInSummary listToAddInSummary = new MenuItemsInSummary(selectedItemFromMenu, itemAmount);
                 int resultCode = 101;
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra(TAG, listToAddInSummary);
@@ -180,22 +183,11 @@ public class AddItemToSummaryActivity extends AppCompatActivity implements Recyc
 
     @Override
     public void onRecyclerItemClick(int pos) {
-        MenuItem item = mDataset.get(pos);
-        if (mDataset.size() != 1) {
-            mDataset.clear();
-            mDataset.add(item);
-            mLayoutManager.scrollToPosition(pos);
-            itemNamberChooserLinerLayout.setVisibility(View.VISIBLE);
-
-
-        } else {
-            mDataset.clear();
-            mDataset.addAll(tempDataset);
-            itemNamberChooserLinerLayout.setVisibility(View.GONE);
-            addMenuButton.setEnabled(false);
-        }
-        mAdapter.notifyDataSetChanged();
-        Toast.makeText(this, "It work !!", Toast.LENGTH_SHORT).show();
+        selectedItemFromMenu = mDataset.get(pos);
+        itemNamberChooserLinerLayout.setVisibility(View.VISIBLE);
+        selectedItemTextView.setVisibility(View.VISIBLE);
+        selectedItemTextView.setText(mDataset.get(pos).getName());
+        //Toast.makeText(this, mDataset.get(pos).getName(), Toast.LENGTH_SHORT).show();
     }
 
     /*    private void getMenuItemListFromDB() {

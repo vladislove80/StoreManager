@@ -30,8 +30,8 @@ import java.util.Map;
 import storemanager.com.app.R;
 import storemanager.com.app.adapter.MenuItemIngredientsAdapter;
 import storemanager.com.app.models.BaseItem;
-import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.Ingredient;
+import storemanager.com.app.models.MenuItem;
 
 public class AddItemToMenuActivity extends AppCompatActivity {
     public static final String TAG = "activity_add_menu_item";

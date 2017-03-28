@@ -1,6 +1,7 @@
 package storemanager.com.app.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
     private Context context;
     private List<MenuItem> mDataset;
     private RecyclerItemListener listener;
+    public static int selectedPos = 0;
 
     public MenuListAdapter(Context context, List<MenuItem> myDataset) {
         this.context = context;
@@ -32,6 +34,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
         mDataset = myDataset;
         this.listener = listener;
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_menu_card, parent, false);
@@ -55,7 +58,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
         }
         allIngredients = allIngredients.trim();
         holder.itemIngredientsTextView.setText(allIngredients);
-
+        holder.cardView.setSelected(selectedPos == position);
     }
 
     @Override
@@ -88,6 +91,9 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
         public void onClick(View v) {
             if (listener != null) {
                 listener.onRecyclerItemClick(position);
+                notifyItemChanged(position);
+                selectedPos = position;
+                notifyItemChanged(selectedPos);
             } else {
                 Toast.makeText(context, "onRecyclerItemClick in pos " + position, Toast.LENGTH_SHORT).show();
             }
