@@ -33,7 +33,7 @@ import storemanager.com.app.models.BaseItem;
 import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.Ingredient;
 
-public class AddMenuItemActivity extends AppCompatActivity {
+public class AddItemToMenuActivity extends AppCompatActivity {
     public static final String TAG = "activity_add_menu_item";
 
     private MenuItemIngredientsAdapter ingridientAdapter;
@@ -133,7 +133,7 @@ public class AddMenuItemActivity extends AppCompatActivity {
         });
 
         itemSizeSpinner = (Spinner) findViewById(R.id.menu_item_size_spinner);
-        itemSizeAdapter = new ArrayAdapter<String>(this, R.layout.layout_add_menu_item_measure_spinner, itemSizeList);
+        itemSizeAdapter = new ArrayAdapter<>(this, R.layout.layout_add_menu_item_measure_spinner, itemSizeList);
         itemSizeSpinner.setAdapter(itemSizeAdapter);
         itemSizeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

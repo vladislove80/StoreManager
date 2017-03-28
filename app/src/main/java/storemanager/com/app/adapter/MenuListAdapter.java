@@ -89,7 +89,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
             if (listener != null) {
                 listener.onRecyclerItemClick(position);
             } else {
-                //Toast.makeText(context, "onRecyclerItemClick in pos " + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "onRecyclerItemClick in pos " + position, Toast.LENGTH_SHORT).show();
             }
         }
 

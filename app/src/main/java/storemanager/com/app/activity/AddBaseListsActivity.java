@@ -79,7 +79,7 @@ public class AddBaseListsActivity extends AppCompatActivity {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(android.view.MenuItem item) {
-                        Log.v(Utils.LOG_TAG, "AddSummaryItemsActivity->DELETE");
+                        Log.v(Utils.LOG_TAG, "SummaryComposerActivity->DELETE");
                         switch (item.getTitle().toString()) {
                             case "Удалить":
                                 dataList.remove(position);

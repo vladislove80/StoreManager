@@ -28,16 +28,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Добавить"
-            style="@style/ThemeOverlay.MyDarkButtonNotActive"
-            android:clickable="false"/>
+            android:layout_gravity="center_horizontal"
+            android:theme="@style/ThemeOverlay.MyDarkButton"/>
 
-        <EditText
-            android:id="@+id/add_menu_item_edit"
-            android:layout_gravity="center"
-            android:layout_width="40dp"
+        <LinearLayout
+            android:id="@+id/number_chooser_layout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="false"
-            android:inputType="number"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/decrease_number_textview"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_remove_black_24dp"/>
+
+            <EditText
+                android:id="@+id/item_number_editview"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="0"
+                android:gravity="center"
+                android:textSize="26sp"
+                android:cursorVisible="false"
+                android:inputType="number"/>
+
+            <ImageView
+                android:id="@+id/increase_number_textview"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_add_black_24dp"/>
+        </LinearLayout>
     </LinearLayout>
 
     <ProgressBar

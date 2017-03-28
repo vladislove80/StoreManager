@@ -3,7 +3,9 @@ package storemanager.com.app.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Ingredient implements Parcelable {
+import java.io.Serializable;
+
+public class Ingredient implements Parcelable, Serializable {
     private String name;
     private int size;
     private String measure;

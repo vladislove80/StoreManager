@@ -34,13 +34,8 @@
 
         <activity
             android:name=".activity.SummaryComposerActivity"
-            android:label="@string/label_send_data"/>
-
-
-        <activity
-            android:name=".activity.AddSummaryItemsActivity"
-            android:label="@string/label_add_item"
-            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
+            android:label="@string/label_send_data"
+            android:parentActivityName=".activity.MainActivity"/>
 
         <activity
             android:name=".activity.AddShopActivity"
@@ -61,7 +56,7 @@
             android:parentActivityName=".activity.MainActivity"/>
 
         <activity
-            android:name=".activity.AddMenuItemActivity"
+            android:name=".activity.AddItemToMenuActivity"
             android:label="@string/manifest_label_add_menu_item"
             android:parentActivityName=".activity.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
@@ -69,7 +64,7 @@
         <activity
             android:name=".activity.AddBaseListsActivity"
             android:label="@string/manifest_label_add_base_ingredient_item"
-            android:parentActivityName=".activity.AddMenuItemActivity"/>
+            android:parentActivityName=".activity.AddItemToMenuActivity"/>
 
         <activity
             android:name=".activity.PopActivity"
@@ -80,8 +75,8 @@
             android:label="@string/manifest_label_lists"/>
 
         <activity
-            android:name=".activity.AddMenuItemToSummaryActivity"
-            android:label="add menu item to Summary"
+            android:name=".activity.AddItemToSummaryActivity"
+            android:label="Добавить в отчет"
             android:parentActivityName=".activity.SummaryComposerActivity"/>
     </application>
 

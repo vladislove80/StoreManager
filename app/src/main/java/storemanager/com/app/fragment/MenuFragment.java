@@ -27,8 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import storemanager.com.app.R;
-import storemanager.com.app.activity.AddMenuItemActivity;
-import storemanager.com.app.activity.AddMenuItemToSummaryActivity;
+import storemanager.com.app.activity.AddItemToMenuActivity;
 import storemanager.com.app.activity.ListOfListActivity;
 import storemanager.com.app.adapter.MenuListAdapter;
 import storemanager.com.app.models.MenuItem;
@@ -93,7 +92,7 @@ public class MenuFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddMenuItemToSummaryActivity.class);
+                Intent intent = new Intent(getActivity(), AddItemToMenuActivity.class);
                 startActivityForResult(intent, REQ_CODE_ADD_ITEM);
             }
         });
@@ -119,7 +118,7 @@ public class MenuFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && requestCode == REQ_CODE_ADD_ITEM) {
-            MenuItem menuItem = (MenuItem) data.getExtras().getSerializable(AddMenuItemActivity.TAG);
+            MenuItem menuItem = (MenuItem) data.getExtras().getSerializable(AddItemToMenuActivity.TAG);
             mDataset.add(menuItem);
             mAdapter.notifyDataSetChanged();
             addMenuItemToDatabase(menuItem);

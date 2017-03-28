@@ -36,7 +36,6 @@ import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.MenuItemsInSummary;
 import storemanager.com.app.models.Summary;
 import storemanager.com.app.models.User;
-import storemanager.com.app.utils.CoffeMenu;
 import storemanager.com.app.utils.Utils;
 
 public class SummaryComposerActivity extends AppCompatActivity implements View.OnClickListener{
@@ -112,7 +111,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(android.view.MenuItem item) {
-                        Log.v(Utils.LOG_TAG, "AddSummaryItemsActivity->DELETE");
+                        Log.v(Utils.LOG_TAG, "SummaryComposerActivity->DELETE");
                         totalPrice = totalPrice - summaryList.get(position).getItem().getPrice() * summaryList.get(position).getAmount();
                         summaryList.remove(position);
                         adapter.notifyDataSetChanged();
@@ -157,15 +156,8 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*if (allDataListLists.size() != 0) {
-                    Intent intent = new Intent(SummaryComposerActivity.this, AddSummaryItemsActivity.class);
-                    intent.putStringArrayListExtra(MENU_NAMES_TAG, coffeItemNames);
-                    intent.putStringArrayListExtra(MENU_SIZES_TAG, coffeItemSizes);
-                    startActivityForResult(intent, REQ_CODE_CHILD);
-                }*/
-
                 if (menu.size() != 0) {
-                    Intent intent = new Intent(SummaryComposerActivity.this, AddMenuItemToSummaryActivity.class);
+                    Intent intent = new Intent(SummaryComposerActivity.this, AddItemToSummaryActivity.class);
                     intent.putParcelableArrayListExtra(TAG, menu);
                     startActivityForResult(intent, REQ_CODE_CHILD);
                 }
@@ -217,7 +209,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && requestCode == REQ_CODE_CHILD) {
-            MenuItemsInSummary item = (MenuItemsInSummary) data.getExtras().getSerializable(AddSummaryItemsActivity.TAG);
+            MenuItemsInSummary item = (MenuItemsInSummary) data.getExtras().getSerializable(AddItemToSummaryActivity.TAG);
             if (menu.size() != 0 && item != null) {
                 item = setDataFromMenuToAddedItem(menu, item);
             }
