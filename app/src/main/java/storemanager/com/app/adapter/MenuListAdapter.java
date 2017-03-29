@@ -22,7 +22,8 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
     private Context context;
     private List<MenuItem> mDataset;
     private RecyclerItemListener listener;
-    public static int selectedPos = 0;
+    public static int selectedPos = -1;
+    private MenuItem menuItem;
 
     public MenuListAdapter(Context context, List<MenuItem> myDataset) {
         this.context = context;
@@ -45,7 +46,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.setItem(position);
-        MenuItem menuItem = mDataset.get(position);
+        menuItem = mDataset.get(position);
         holder.itemNameTextView.setText(menuItem.getName());
         holder.itemSizeTextView.setText("Объем: " + Integer.toString(menuItem.getSize()));
         holder.itemPriceTextView.setText("Цена: " + Integer.toString(menuItem.getPrice()));
@@ -58,7 +59,11 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
         }
         allIngredients = allIngredients.trim();
         holder.itemIngredientsTextView.setText(allIngredients);
-        holder.cardView.setSelected(selectedPos == position);
+        if(menuItem.isSelected()){
+            holder.cardView.setBackgroundColor(Color.GRAY);
+        }else{
+            holder.cardView.setBackgroundColor(Color.WHITE);
+        }
     }
 
     @Override
@@ -91,9 +96,14 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
         public void onClick(View v) {
             if (listener != null) {
                 listener.onRecyclerItemClick(position);
-                notifyItemChanged(position);
+                if (selectedPos != -1) {
+                    menuItem = mDataset.get(selectedPos);
+                    menuItem.setSelected(!menuItem.isSelected());
+                }
                 selectedPos = position;
-                notifyItemChanged(selectedPos);
+                menuItem = mDataset.get(position);
+                menuItem.setSelected(!menuItem.isSelected());
+                notifyDataSetChanged();
             } else {
                 Toast.makeText(context, "onRecyclerItemClick in pos " + position, Toast.LENGTH_SHORT).show();
             }

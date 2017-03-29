@@ -31,7 +31,7 @@ import storemanager.com.app.utils.RecyclerItemListener;
 public class AddItemToSummaryActivity extends AppCompatActivity implements RecyclerItemListener {
     public static final String TAG = AddItemToSummaryActivity.class.getSimpleName();
 
-    private Button addMenuButton;
+    private Button addMenuItemButton;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -63,9 +63,9 @@ public class AddItemToSummaryActivity extends AppCompatActivity implements Recyc
         tempDataset = new ArrayList<>(mDataset);
         progressBar.setVisibility(View.GONE);
 
-        addMenuButton = (Button) findViewById(R.id.add_menu_item_add_button);
-        addMenuButton.setEnabled(false);
-        addMenuButton.setOnClickListener(addItemListener);
+        addMenuItemButton = (Button) findViewById(R.id.add_menu_item_add_button);
+        addMenuItemButton.setEnabled(false);
+        addMenuItemButton.setOnClickListener(addMenuItemButtonListener);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.add_menu_item_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -114,7 +114,7 @@ public class AddItemToSummaryActivity extends AppCompatActivity implements Recyc
         }
     };
 
-    View.OnClickListener addItemListener = new View.OnClickListener() {
+    View.OnClickListener addMenuItemButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             itemAmount = getValueFromEditText(itemNumberChooserEditView);
@@ -126,6 +126,8 @@ public class AddItemToSummaryActivity extends AppCompatActivity implements Recyc
                 resultIntent.putExtra(TAG, listToAddInSummary);
                 setResult(resultCode, resultIntent);
                 hideEditKeyboard(itemNumberChooserEditView);
+                selectedItemFromMenu.setSelected(false);
+                MenuListAdapter.selectedPos = -1;
                 finish();
             }
         }
@@ -152,8 +154,8 @@ public class AddItemToSummaryActivity extends AppCompatActivity implements Recyc
             hideEditKeyboard(itemNumberChooserEditView);
             if (itemAmount < 100) {
                 itemNumberChooserEditView.setText(Integer.toString(++itemAmount));
-                if (!addMenuButton.isEnabled()) {
-                    addMenuButton.setEnabled(true);
+                if (!addMenuItemButton.isEnabled()) {
+                    addMenuItemButton.setEnabled(true);
                 }
             } else {
                 Toast.makeText(getBaseContext(), "Количество не должно превышать 100!", Toast.LENGTH_SHORT).show();

@@ -16,6 +16,8 @@ public class MenuItem implements Parcelable, Serializable {
     private int size;
     private int price;
 
+    private boolean isSelected;
+
     public MenuItem() {
     }
 
@@ -87,6 +89,14 @@ public class MenuItem implements Parcelable, Serializable {
         if (this.getClass() != obj.getClass()) return false;
         MenuItem item = (MenuItem) obj;
         return this.name.equals(item.getName()) && this.size == item.getSize();
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 
     @Override
