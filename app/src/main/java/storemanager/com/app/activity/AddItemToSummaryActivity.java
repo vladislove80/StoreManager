@@ -38,7 +38,6 @@ public class AddItemToSummaryActivity extends AppCompatActivity implements Recyc
     private ProgressBar progressBar;
     private TextView selectedItemTextView;
     private TextView menuLabel;
-    private LinearLayout itemNamberChooserLinerLayout;
     private ImageView decreaseImageView;
     private ImageView increaseImageView;
     private EditText itemNumberChooserEditView;
@@ -71,7 +70,6 @@ public class AddItemToSummaryActivity extends AppCompatActivity implements Recyc
         mRecyclerView.setHasFixedSize(true);
         initRecycler();
 
-        itemNamberChooserLinerLayout = (LinearLayout) findViewById(R.id.number_chooser_layout);
         decreaseImageView = (ImageView) findViewById(R.id.decrease_number_textview);
         decreaseImageView.setOnClickListener(decreaseListener);
         increaseImageView = (ImageView) findViewById(R.id.increase_number_textview);
@@ -80,32 +78,12 @@ public class AddItemToSummaryActivity extends AppCompatActivity implements Recyc
         itemNumberChooserEditView = (EditText) findViewById(R.id.item_number_editview);
         itemNumberChooserEditView.setInputType(InputType.TYPE_NULL);
         itemNumberChooserEditView.setOnClickListener(editTextClickListener);
-        /*itemNumberChooserEditView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (event != null&& (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    // NOTE: In the author's example, he uses an identifier
-                    // called searchBar. If setting this code on your EditText
-                    // then use v.getWindowToken() as a reference to your
-                    // EditText is passed into this callback as a TextView
-
-                    in.hideSoftInputFromWindow(itemNumberChooserEditView
-                                    .getApplicationWindowToken(),
-                            InputMethodManager.HIDE_NOT_ALWAYS);
-                    // Must return true here to consume event
-                    return true;
-                }
-                return false;
-            }
-        });*/
     }
 
     View.OnClickListener editTextClickListener = new View.OnClickListener()
     {
         public void onClick(View v)
         {
-            //itemNumberChooserEditView.setCursorVisible(true);
             itemNumberChooserEditView.setSelection(0, itemNumberChooserEditView.getText().toString().length());
             itemNumberChooserEditView.setInputType(InputType.TYPE_CLASS_NUMBER);
             itemNumberChooserEditView.requestFocus();
@@ -127,7 +105,6 @@ public class AddItemToSummaryActivity extends AppCompatActivity implements Recyc
                 setResult(resultCode, resultIntent);
                 hideEditKeyboard(itemNumberChooserEditView);
                 selectedItemFromMenu.setSelected(false);
-                MenuListAdapter.selectedPos = -1;
                 finish();
             }
         }
@@ -186,37 +163,14 @@ public class AddItemToSummaryActivity extends AppCompatActivity implements Recyc
     @Override
     public void onRecyclerItemClick(int pos) {
         selectedItemFromMenu = mDataset.get(pos);
-        itemNamberChooserLinerLayout.setVisibility(View.VISIBLE);
-        selectedItemTextView.setVisibility(View.VISIBLE);
         selectedItemTextView.setText(mDataset.get(pos).getName());
-        //Toast.makeText(this, mDataset.get(pos).getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, mDataset.get(pos).getName(), Toast.LENGTH_SHORT).show();
     }
 
-    /*    private void getMenuItemListFromDB() {
-        mDatabase = FirebaseDatabase.getInstance().getReference("menus");
-        mDatabase.orderByChild("menu item").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                MenuItem item;
-                if (dataSnapshot.hasChildren()) {
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        item = postSnapshot.child("menu item").getValue(MenuItem.class);
-                        if (item != null) {
-                            mDataset.add(item);
-                            mAdapter.notifyDataSetChanged();
-                        }
-                        Log.d(TAG, "getDataListFromDatabse -> dataSnapshot not hasChildren()");
-                    }
-                    progressBar.setVisibility(View.GONE);
-                } else {
-                    progressBar.setVisibility(View.GONE);
-                    Log.d(TAG, "getDataListFromDatabse -> dataSnapshot not hasChildren()");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
-    }*/
+    @Override
+    protected void onDestroy() {
+        MenuListAdapter.selectedPos = -1;
+        super.onDestroy();
+    }
 }
 

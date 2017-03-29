@@ -251,7 +251,9 @@ public class GoogleSignInActivity extends BaseActivity implements
         mAddDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mAddDataButton.setEnabled(false);
                 dialogShops();
+
             }
         });
     }
@@ -291,10 +293,11 @@ public class GoogleSignInActivity extends BaseActivity implements
         alt_bld.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-
+                        mAddDataButton.setEnabled(true);
                         dialog.dismiss();
                     }
                 });
+        alt_bld.setCancelable(false);
         AlertDialog alert = alt_bld.create();
         alert.show();
     }

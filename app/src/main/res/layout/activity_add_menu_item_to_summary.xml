@@ -37,8 +37,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:visibility="gone">
+            android:layout_marginBottom="10dp">
 
             <ImageView
                 android:id="@+id/decrease_number_textview"
@@ -70,7 +69,8 @@
         android:layout_height="35dp"
         android:textSize="18sp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/add_menu_item_buttons_layout"/>
+        android:layout_below="@+id/add_menu_item_buttons_layout"
+        android:text="Пункт меню"/>
 
     <ProgressBar
         android:id="@+id/add_menu_item_activity_progressbar"
