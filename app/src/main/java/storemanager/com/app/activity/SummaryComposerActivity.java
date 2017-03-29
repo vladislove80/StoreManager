@@ -170,6 +170,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         int i = v.getId();
         if (i == R.id.send_button) {
             if (summaryList.size() != 0) {
+                fab.setVisibility(View.GONE);
                 sendSummaryToDatabase(userId, userName, userEmail);
                 mSaveToDatabaseButton.setVisibility(View.GONE);
             } else {
@@ -200,10 +201,10 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         summary.setItemInSummary(summaryList);
 
         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference().push();
-        mDatabase.child(shop).setValue(user);
-        mDatabase.child(shop).setValue(date);
-        mDatabase.child(shop).setValue(summary);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("summaries");
+/*        mDatabase.child(shop).setValue(user);
+        mDatabase.child(shop).setValue(date);*/
+        mDatabase.push().child(shop).setValue(summary);
     }
 
     @Override

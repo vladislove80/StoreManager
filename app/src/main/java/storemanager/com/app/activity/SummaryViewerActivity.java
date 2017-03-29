@@ -72,7 +72,7 @@ public class SummaryViewerActivity extends AppCompatActivity {
                 for (String shop : Utils.cShops) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         if (postSnapshot.hasChild(shop)) {
-                            Summary summary = postSnapshot.child(shop).getValue(Summary.class);
+                            Summary summary = postSnapshot.child("summaries").child(shop).getValue(Summary.class);
                             if (summary != null) {
                                 summary.setShop(shop);
                                 summaryList.add(summary);
