@@ -233,9 +233,11 @@ public class GoogleSignInActivity extends BaseActivity implements
     protected void onResume() {
         super.onResume();
         mUserStatusTextView.setVisibility(View.GONE);
+        mAddDataButton.setEnabled(true);
     }
 
     private void setViewDataButton() {
+        mAddDataButton.setVisibility(View.GONE);
         mViewDataButton.setVisibility(View.VISIBLE);
         mViewDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,6 +249,7 @@ public class GoogleSignInActivity extends BaseActivity implements
     }
 
     private void setAddDataButton() {
+        mViewDataButton.setVisibility(View.GONE);
         mAddDataButton.setVisibility(View.VISIBLE);
         mAddDataButton.setOnClickListener(new View.OnClickListener() {
             @Override

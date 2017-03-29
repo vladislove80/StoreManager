@@ -57,7 +57,8 @@
             android:layout_height="wrap_content"
             android:text="@string/button_sales"
             android:visibility="invisible"
-            android:theme="@style/ThemeOverlay.MyDarkButton" />
+            android:theme="@style/ThemeOverlay.MyDarkButton"
+            android:cursorVisible="false"/>
 
         <Button
             android:id="@+id/start_viewer_activity"
@@ -65,7 +66,8 @@
             android:layout_height="wrap_content"
             android:text="@string/button_admin"
             android:visibility="invisible"
-            android:theme="@style/ThemeOverlay.MyDarkButton" />
+            android:theme="@style/ThemeOverlay.MyDarkButton"
+            android:cursorVisible="false"/>
 
     </LinearLayout>
 
