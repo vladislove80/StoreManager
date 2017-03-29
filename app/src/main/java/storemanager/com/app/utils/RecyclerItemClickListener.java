@@ -1,5 +1,5 @@
 package storemanager.com.app.utils;
 
-public interface RecyclerItemListener {
+public interface RecyclerItemClickListener {
     void onRecyclerItemClick(int pos);
 }

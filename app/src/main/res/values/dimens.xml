@@ -88,7 +88,7 @@
     <dimen name="lists_edit_layout_margin_top">15dp</dimen>
     <dimen name="lists_edit_layout_margin_bottom">15dp</dimen>
 
-    <!--AddItemToSummaryActivity-->
+    <!--AddItemClickToSummaryActivity-->
     <dimen name="add_menu_item_label_margin">15dp</dimen>
     <dimen name="add_menu_item_label_text_size">18sp</dimen>
     <dimen name="add_menu_item_buttons_layout_margin">10dp</dimen>

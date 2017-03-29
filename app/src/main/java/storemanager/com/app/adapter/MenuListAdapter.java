@@ -15,13 +15,13 @@ import java.util.List;
 import storemanager.com.app.R;
 import storemanager.com.app.models.Ingredient;
 import storemanager.com.app.models.MenuItem;
-import storemanager.com.app.utils.RecyclerItemListener;
+import storemanager.com.app.utils.RecyclerItemClickListener;
 
 public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHolder> {
 
     private Context context;
     private List<MenuItem> mDataset;
-    private RecyclerItemListener listener;
+    private RecyclerItemClickListener listener;
     public static int selectedPos = -1;
     private MenuItem menuItem;
 
@@ -30,7 +30,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
         mDataset = myDataset;
     }
 
-    public MenuListAdapter(Context context, List<MenuItem> myDataset, RecyclerItemListener listener) {
+    public MenuListAdapter(Context context, List<MenuItem> myDataset, RecyclerItemClickListener listener) {
         this.context = context;
         mDataset = myDataset;
         this.listener = listener;
@@ -60,7 +60,7 @@ public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHo
         allIngredients = allIngredients.trim();
         holder.itemIngredientsTextView.setText(allIngredients);
         if(menuItem.isSelected()){
-            holder.cardView.setBackgroundColor(Color.GRAY);
+            holder.cardView.setBackgroundColor(Color.LTGRAY);
         }else{
             holder.cardView.setBackgroundColor(Color.WHITE);
         }

@@ -104,7 +104,7 @@
     <string name="item_ingredient_sizes">item ingredient sizes</string>
     <string name="item_ingredient_measure">item ingredient measure</string>
 
-    <!--AddItemToSummaryActivity-->
+    <!--AddItemClickToSummaryActivity-->
     <string name="add_menu_item_label">Выберите пункт меню и введите количество</string>
     <string name="add_menu_item_add_button">Добавить</string>
     <string name="add_menu_item_selected_item">Пункт меню</string>

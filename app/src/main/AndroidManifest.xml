@@ -75,7 +75,7 @@
             android:label="@string/manifest_label_lists"/>
 
         <activity
-            android:name=".activity.AddItemToSummaryActivity"
+            android:name=".activity.AddItemClickToSummaryActivity"
             android:label="Добавить в отчет"
             android:parentActivityName=".activity.SummaryComposerActivity"/>
     </application>
