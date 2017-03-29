@@ -9,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_margin="15dp"
+        android:layout_margin="@dimen/add_menu_item_label_margin"
         android:gravity="center_horizontal"
-        android:text="Выберите пункт меню и введите количество"
-        android:textSize="18sp" />
+        android:text="@string/add_menu_item_label"
+        android:textSize="@dimen/add_menu_item_label_text_size" />
 
     <LinearLayout
         android:id="@+id/add_menu_item_buttons_layout"
@@ -20,45 +20,45 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/add_menu_item_label"
         android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/add_menu_item_buttons_layout_margin"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/add_menu_item_add_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Добавить"
+            android:text="@string/add_menu_item_add_button"
             android:layout_gravity="center_horizontal"
             android:theme="@style/ThemeOverlay.MyDarkButton"/>
 
         <LinearLayout
-            android:id="@+id/number_chooser_layout"
+            android:id="@+id/add_menu_item_number_chooser_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginTop="@dimen/add_menu_item_number_chooser_layout_margin_top"
+            android:layout_marginBottom="@dimen/add_menu_item_number_chooser_layout_margin_bottom">
 
             <ImageView
                 android:id="@+id/decrease_number_textview"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/decrease_number_textview_width"
+                android:layout_height="@dimen/decrease_number_textview_hight"
                 android:src="@drawable/ic_remove_black_24dp"/>
 
             <EditText
                 android:id="@+id/item_number_editview"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/item_number_editview_width"
+                android:layout_height="@dimen/item_number_editview_height"
                 android:text="0"
                 android:gravity="center"
-                android:textSize="26sp"
+                android:textSize="@dimen/item_number_editview_text_size"
                 android:cursorVisible="false"
                 android:inputType="number"/>
 
             <ImageView
                 android:id="@+id/increase_number_textview"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="@dimen/increase_number_textview_width"
+                android:layout_height="@dimen/increase_number_textview_height"
                 android:src="@drawable/ic_add_black_24dp"/>
         </LinearLayout>
     </LinearLayout>
@@ -66,11 +66,11 @@
     <TextView
         android:id="@+id/add_menu_item_selected_item"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="@dimen/add_menu_item_selected_item_height"
         android:textSize="18sp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/add_menu_item_buttons_layout"
-        android:text="Пункт меню"/>
+        android:text="@string/add_menu_item_selected_item"/>
 
     <ProgressBar
         android:id="@+id/add_menu_item_activity_progressbar"

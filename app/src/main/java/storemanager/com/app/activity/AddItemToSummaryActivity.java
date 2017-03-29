@@ -14,7 +14,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +50,7 @@ public class AddItemToSummaryActivity extends AppCompatActivity implements Recyc
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_menu_item_to_summary);
+        setContentView(R.layout.activity_add_item_to_summary);
 
         selectedItemTextView = (TextView) findViewById(R.id.add_menu_item_selected_item);
         menuLabel = (TextView) findViewById(R.id.add_menu_item_label);

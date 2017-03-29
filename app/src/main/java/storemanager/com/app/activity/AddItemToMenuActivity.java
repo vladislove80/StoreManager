@@ -75,7 +75,7 @@ public class AddItemToMenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_menu_item);
+        setContentView(R.layout.activity_add_item_to_menu);
 
         ingredientNamesList = new ArrayList<>();
         ingredientSizeList = new ArrayList<>();

@@ -88,5 +88,20 @@
     <dimen name="lists_edit_layout_margin_top">15dp</dimen>
     <dimen name="lists_edit_layout_margin_bottom">15dp</dimen>
 
+    <!--AddItemToSummaryActivity-->
+    <dimen name="add_menu_item_label_margin">15dp</dimen>
+    <dimen name="add_menu_item_label_text_size">18sp</dimen>
+    <dimen name="add_menu_item_buttons_layout_margin">10dp</dimen>
+    <dimen name="add_menu_item_number_chooser_layout_margin_top">10dp</dimen>
+    <dimen name="add_menu_item_number_chooser_layout_margin_bottom">10dp</dimen>
+    <dimen name="decrease_number_textview_width">60dp</dimen>
+    <dimen name="decrease_number_textview_hight">60dp</dimen>
+    <dimen name="item_number_editview_width">60dp</dimen>
+    <dimen name="item_number_editview_height">60dp</dimen>
+    <dimen name="item_number_editview_text_size">26sp</dimen>
+    <dimen name="increase_number_textview_width">60dp</dimen>
+    <dimen name="increase_number_textview_height">60dp</dimen>
+    <dimen name="add_menu_item_selected_item_height">35dp</dimen>
+
 
 </resources>
