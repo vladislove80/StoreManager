@@ -18,10 +18,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_margin="15dp"
+            android:layout_marginTop="@dimen/menu_fragment_label_margin_top"
+            android:layout_marginBottom="@dimen/menu_fragment_label_margin_bottom"
+            android:layout_marginLeft="@dimen/menu_fragment_label_margin_left"
+            android:layout_marginRight="@dimen/menu_fragment_label_margin_right"
             android:gravity="center_horizontal"
-            android:text="Создавайте и редактируйте Меню"
-            android:textSize="18sp" />
+            android:text="@string/menu_fragment_label"
+            android:textSize="@dimen/menu_fragment_label_text_size" />
 
         <LinearLayout
             android:id="@+id/menu_buttons_layout"
@@ -29,14 +32,14 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/menu_fragment_label"
             android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/menu_buttons_layout_margin"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/edit_lists_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Редактировать списки"
+                android:text="@string/edit_lists_button"
                 android:theme="@style/ThemeOverlay.MyDarkButton" />
 
         </LinearLayout>
@@ -60,12 +63,12 @@
         android:id="@+id/summary_composer_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginBottom="@dimen/summary_composer_fab_margin_bottom"
+        android:layout_marginRight="@dimen/summary_composer_fab_margin_right"
         android:src="@drawable/ic_add_white_48dp"
         app:fabSize="normal"
         app:layout_anchor="@id/menu_recycler_view"
         app:layout_anchorGravity="bottom|center"
-        app:rippleColor="#F06292"/>
+        app:rippleColor="@color/admin_panel_fab_color"/>
 
 </android.support.design.widget.CoordinatorLayout>

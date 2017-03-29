@@ -109,4 +109,9 @@
     <string name="add_menu_item_add_button">Добавить</string>
     <string name="add_menu_item_selected_item">Пункт меню</string>
 
+    <!--MenuFragment-->
+    <string name="menu_fragment_label">Создавайте и редактируйте Меню. Для удаления из списка - долгое нажатие</string>
+    <string name="edit_lists_button">Редактировать списки</string>
+
+
 </resources>

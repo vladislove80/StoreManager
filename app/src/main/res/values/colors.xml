@@ -18,4 +18,8 @@
 
     <!--NotActiveButtonBackground-->
     <color name="notActive">#a6a7a7</color>
+
+    <!--MenuFragment FabButton-->
+    <color name="admin_panel_fab_color">#F06292</color>
+
 </resources>

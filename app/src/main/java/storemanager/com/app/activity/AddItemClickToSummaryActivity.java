@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import storemanager.com.app.R;
-import storemanager.com.app.adapter.MenuListAdapter;
+import storemanager.com.app.adapter.ActivityMenuListAdapter;
 import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.MenuItemsInSummary;
 import storemanager.com.app.utils.RecyclerItemClickListener;
@@ -103,7 +103,7 @@ public class AddItemClickToSummaryActivity extends AppCompatActivity implements 
                 resultIntent.putExtra(TAG, listToAddInSummary);
                 setResult(resultCode, resultIntent);
                 hideEditKeyboard(itemNumberChooserEditView);
-                selectedItemFromMenu.setSelected(false);
+                selectedItemFromMenu.setSelectedInList(false);
                 finish();
             }
         }
@@ -155,7 +155,7 @@ public class AddItemClickToSummaryActivity extends AppCompatActivity implements 
     private void initRecycler() {
         mLayoutManager = new LinearLayoutManager(getBaseContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new MenuListAdapter(getBaseContext(), mDataset, this);
+        mAdapter = new ActivityMenuListAdapter(getBaseContext(), mDataset, this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -168,7 +168,7 @@ public class AddItemClickToSummaryActivity extends AppCompatActivity implements 
 
     @Override
     protected void onDestroy() {
-        MenuListAdapter.selectedPos = -1;
+        ActivityMenuListAdapter.selectedPos = -1;
         super.onDestroy();
     }
 }

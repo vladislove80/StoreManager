@@ -11,12 +11,13 @@ public class MenuItem implements Parcelable, Serializable {
 
     private boolean oneSize;
 
+    private String fireBaseKey;
     private String name;
     private ArrayList<Ingredient> consist;
     private int size;
     private int price;
 
-    private boolean isSelected;
+    private boolean isSelectedInList;
 
     public MenuItem() {
     }
@@ -82,6 +83,14 @@ public class MenuItem implements Parcelable, Serializable {
         this.consist = consist;
     }
 
+    public String getFireBaseKey() {
+        return fireBaseKey;
+    }
+
+    public void setFireBaseKey(String fireBaseKey) {
+        this.fireBaseKey = fireBaseKey;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -91,12 +100,12 @@ public class MenuItem implements Parcelable, Serializable {
         return this.name.equals(item.getName()) && this.size == item.getSize();
     }
 
-    public boolean isSelected() {
-        return isSelected;
+    public boolean isSelectedInList() {
+        return isSelectedInList;
     }
 
-    public void setSelected(boolean selected) {
-        isSelected = selected;
+    public void setSelectedInList(boolean selectedInList) {
+        isSelectedInList = selectedInList;
     }
 
     @Override

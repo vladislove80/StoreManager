@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,7 +30,7 @@ import java.util.List;
 import storemanager.com.app.R;
 import storemanager.com.app.activity.AddItemToMenuActivity;
 import storemanager.com.app.activity.ListOfListActivity;
-import storemanager.com.app.adapter.MenuListAdapter;
+import storemanager.com.app.adapter.FragmentMenuListAdapter;
 import storemanager.com.app.models.MenuItem;
 
 public class MenuFragment extends Fragment {
@@ -60,7 +61,7 @@ public class MenuFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDataset = new ArrayList<>();
-
+        mDatabase = FirebaseDatabase.getInstance().getReference("menus");
         getMenuItemListFromDB();
     }
 
@@ -102,7 +103,7 @@ public class MenuFragment extends Fragment {
     private void initRecycler() {
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new MenuListAdapter(getContext(), mDataset);
+        mAdapter = new FragmentMenuListAdapter(mDataset, onLongClickListener);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
@@ -132,12 +133,10 @@ public class MenuFragment extends Fragment {
     }
 
     private void addMenuItemToDatabase(MenuItem menuItem) {
-        mDatabase = FirebaseDatabase.getInstance().getReference("menus");
         mDatabase.push().child("menu item").setValue(menuItem);
     }
 
     private void getMenuItemListFromDB() {
-        mDatabase = FirebaseDatabase.getInstance().getReference("menus");
         mDatabase.orderByChild("menu item").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -145,6 +144,7 @@ public class MenuFragment extends Fragment {
                 if (dataSnapshot.hasChildren()) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         item = postSnapshot.child("menu item").getValue(MenuItem.class);
+                        item.setFireBaseKey(postSnapshot.getKey());
                         if (item != null) {
                             mDataset.add(item);
                             mAdapter.notifyDataSetChanged();
@@ -162,4 +162,20 @@ public class MenuFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         });
     }
+
+    private View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            MenuItem menuItem;
+            int pos = (int) v.getTag();
+            if (pos >= 0 && pos < mDataset.size()) {
+                menuItem = mDataset.get(pos);
+                mDataset.remove(pos);
+                mAdapter.notifyDataSetChanged();
+                mDatabase.child(menuItem.getFireBaseKey()).removeValue();
+                Toast.makeText(getContext(), "Key = " + menuItem.getFireBaseKey(), Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        }
+    };
 }
