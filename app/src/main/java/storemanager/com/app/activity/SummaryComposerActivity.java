@@ -157,7 +157,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
             @Override
             public void onClick(View v) {
                 if (menu.size() != 0) {
-                    Intent intent = new Intent(SummaryComposerActivity.this, AddItemClickToSummaryActivity.class);
+                    Intent intent = new Intent(SummaryComposerActivity.this, AddItemsToSummaryActivity.class);
                     intent.putParcelableArrayListExtra(TAG, menu);
                     startActivityForResult(intent, REQ_CODE_CHILD);
                 }
@@ -210,7 +210,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && requestCode == REQ_CODE_CHILD) {
-            MenuItemsInSummary item = (MenuItemsInSummary) data.getExtras().getSerializable(AddItemClickToSummaryActivity.TAG);
+            MenuItemsInSummary item = (MenuItemsInSummary) data.getExtras().getSerializable(AddItemsToSummaryActivity.TAG);
             if (menu.size() != 0 && item != null) {
                 item = setDataFromMenuToAddedItem(menu, item);
             }

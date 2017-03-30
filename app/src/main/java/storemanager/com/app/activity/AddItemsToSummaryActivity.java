@@ -27,8 +27,8 @@ import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.MenuItemsInSummary;
 import storemanager.com.app.utils.RecyclerItemClickListener;
 
-public class AddItemClickToSummaryActivity extends AppCompatActivity implements RecyclerItemClickListener {
-    public static final String TAG = AddItemClickToSummaryActivity.class.getSimpleName();
+public class AddItemsToSummaryActivity extends AppCompatActivity implements RecyclerItemClickListener {
+    public static final String TAG = AddItemsToSummaryActivity.class.getSimpleName();
 
     private Button addMenuItemButton;
     private RecyclerView mRecyclerView;
