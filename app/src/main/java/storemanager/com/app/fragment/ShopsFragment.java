@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,12 +23,15 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import storemanager.com.app.R;
 import storemanager.com.app.activity.AddShopActivity;
 import storemanager.com.app.adapter.ShopsFragmentAdapter;
 import storemanager.com.app.models.Shop;
+import storemanager.com.app.models.Summary;
 import storemanager.com.app.utils.Utils;
 
 public class ShopsFragment extends Fragment {
@@ -45,6 +49,8 @@ public class ShopsFragment extends Fragment {
     private DatabaseReference mDatabase;
     private ProgressBar progressBar;
 
+    private List<Summary> summaryList;
+
     public static ShopsFragment newInstance(int page) {
         ShopsFragment fragment = new ShopsFragment();
         return fragment;
@@ -54,8 +60,35 @@ public class ShopsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         shopList = new ArrayList<>();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         getShopListFromDatabase();
+
     }
+
+    ValueEventListener postListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    if (postSnapshot.getKey().equals("summaries")) {
+                        Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
+                        Summary summary = postSnapshot.child("summaries").child("summary").getValue(Summary.class);
+                        /*HashMap<String, Object> map = (HashMap<String, Object>) postSnapshot.getValue();
+                        for (String key : map.keySet()){
+                            HashMap<String, Object> mapSummary = (HashMap<String, Object>) map.get(key);
+                            for (String keyS : mapSummary.keySet()){
+                                Summary summary = (Summary) mapSummary.get(keyS);
+                            }
+                        }*/
+                        Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
+                    }
+                }
+            }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
 
     @Nullable
     @Override
@@ -101,6 +134,13 @@ public class ShopsFragment extends Fragment {
         } else {
             progressBar.setVisibility(View.VISIBLE);
         }
+        mDatabase.addValueEventListener(postListener);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mDatabase.removeEventListener(postListener);
     }
 
     @Override
@@ -122,8 +162,7 @@ public class ShopsFragment extends Fragment {
     }
 
     private void getShopListFromDatabase() {
-        mDatabase = FirebaseDatabase.getInstance().getReference("shops");
-        Query query = mDatabase.orderByChild("shop");
+        Query query = mDatabase.child("shops").orderByChild("shop");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -147,4 +186,6 @@ public class ShopsFragment extends Fragment {
             }
         });
     }
+
+
 }
