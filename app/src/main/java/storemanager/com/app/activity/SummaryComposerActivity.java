@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -173,6 +174,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                 fab.setVisibility(View.GONE);
                 sendSummaryToDatabase(userId, userName, userEmail);
                 mSaveToDatabaseButton.setVisibility(View.GONE);
+                Toast.makeText(getBaseContext(), "Отчет отослан!", Toast.LENGTH_LONG).show();
             } else {
                 AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
                 alt_bld.setTitle("Отчет пуст!");
