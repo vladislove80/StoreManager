@@ -95,7 +95,7 @@ public class AddItemClickToSummaryActivity extends AppCompatActivity implements 
         @Override
         public void onClick(View v) {
             itemAmount = getValueFromEditText(itemNumberChooserEditView);
-            if (itemAmount > 0 && itemAmount < 100) {
+            if (itemAmount > 0 && itemAmount < 100 && selectedItemFromMenu != null) {
                 // mDataset always has one ItemMenu to pass
                 MenuItemsInSummary listToAddInSummary = new MenuItemsInSummary(selectedItemFromMenu, itemAmount);
                 int resultCode = 101;
