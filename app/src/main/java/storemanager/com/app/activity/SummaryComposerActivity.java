@@ -268,7 +268,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
 
     @Override
     public void onBackPressed() {
-        if(summaryList.size() != 0) {
+        if(mSaveToDatabaseButton.getVisibility() == View.VISIBLE) {
             AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
             alt_bld.setTitle("Отчет не пуст. Выйти ?");
             alt_bld.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
