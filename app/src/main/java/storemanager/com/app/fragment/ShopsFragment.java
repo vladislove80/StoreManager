@@ -77,7 +77,17 @@ public class ShopsFragment extends Fragment {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
                     Summary summary = postSnapshot.child("summary").getValue(Summary.class);
-                    //isCurrentDate(summary.getDate());
+                    if (isCurrentDate(summary.getDate())) {
+                        shopList.contains(summary.getShop());
+                        if (shopList.size() != 0) {
+                            for (Shop shop : shopList) {
+                                if (shop.getName().equals(summary.getShop())) {
+                                    shop.setSummaryToday(true);
+                                    mAdapter.notifyDataSetChanged();
+                                }
+                            }
+                        }
+                    }
                     summaryList.add(summary);
                     Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
                 }
