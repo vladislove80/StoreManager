@@ -23,9 +23,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 import storemanager.com.app.R;
 import storemanager.com.app.activity.AddShopActivity;
@@ -50,6 +48,7 @@ public class ShopsFragment extends Fragment {
     private ProgressBar progressBar;
 
     private List<Summary> summaryList;
+    private Query query;
 
     public static ShopsFragment newInstance(int page) {
         ShopsFragment fragment = new ShopsFragment();
@@ -60,34 +59,29 @@ public class ShopsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         shopList = new ArrayList<>();
+        summaryList = new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         getShopListFromDatabase();
-
+        query = mDatabase.child("summaries").orderByChild("summary");
     }
 
-    ValueEventListener postListener = new ValueEventListener() {
+    ValueEventListener valueEventListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
+            if (dataSnapshot.hasChildren()) {
+                summaryList.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    if (postSnapshot.getKey().equals("summaries")) {
-                        Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
-                        Summary summary = postSnapshot.child("summaries").child("summary").getValue(Summary.class);
-                        /*HashMap<String, Object> map = (HashMap<String, Object>) postSnapshot.getValue();
-                        for (String key : map.keySet()){
-                            HashMap<String, Object> mapSummary = (HashMap<String, Object>) map.get(key);
-                            for (String keyS : mapSummary.keySet()){
-                                Summary summary = (Summary) mapSummary.get(keyS);
-                            }
-                        }*/
-                        Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
-                    }
+                    Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
+                    Summary summary = postSnapshot.child("summary").getValue(Summary.class);
+                    summaryList.add(summary);
+                    Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
                 }
+                Toast.makeText(getContext(), "Всего отчетов: " + summaryList.size(), Toast.LENGTH_SHORT).show();
             }
+        }
 
         @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
+        public void onCancelled(DatabaseError databaseError) {}
     };
 
     @Nullable
@@ -134,13 +128,13 @@ public class ShopsFragment extends Fragment {
         } else {
             progressBar.setVisibility(View.VISIBLE);
         }
-        mDatabase.addValueEventListener(postListener);
+        query.addValueEventListener(valueEventListener);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        mDatabase.removeEventListener(postListener);
+        query.removeEventListener(valueEventListener);
     }
 
     @Override
