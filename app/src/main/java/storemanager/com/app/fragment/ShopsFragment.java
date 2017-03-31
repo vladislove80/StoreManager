@@ -22,7 +22,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import storemanager.com.app.R;
@@ -73,16 +77,37 @@ public class ShopsFragment extends Fragment {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
                     Summary summary = postSnapshot.child("summary").getValue(Summary.class);
+                    //isCurrentDate(summary.getDate());
                     summaryList.add(summary);
                     Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
                 }
                 Toast.makeText(getContext(), "Всего отчетов: " + summaryList.size(), Toast.LENGTH_SHORT).show();
             }
         }
-
         @Override
         public void onCancelled(DatabaseError databaseError) {}
     };
+
+    private boolean isCurrentDate(String dateString){
+        Date date;
+        boolean isCurant = false;
+        SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm, dd / MM / yyyy");
+        Calendar currantDate = Calendar.getInstance();
+        try {
+            date = mdformat.parse(dateString);
+            Calendar dateFromString = Calendar.getInstance();
+            dateFromString.setTime(date);
+
+            isCurant = currantDate.get(Calendar.YEAR) == dateFromString.get(Calendar.YEAR) &&
+                    currantDate.get(Calendar.DAY_OF_YEAR) == dateFromString.get(Calendar.DAY_OF_YEAR);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+        return isCurant;
+    }
 
     @Nullable
     @Override
