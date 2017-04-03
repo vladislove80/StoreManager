@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-
-import storemanager.com.app.models.Summary;
 
 public class Utils {
     public static final String LOG_TAG = "debug";
