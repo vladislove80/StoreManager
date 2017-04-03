@@ -77,7 +77,7 @@ public class ShopsFragment extends Fragment {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
                     Summary summary = postSnapshot.child("summary").getValue(Summary.class);
-                    if (isCurrentDate(summary.getDate())) {
+                    if (Utils.isCurrentDate(summary.getDate())) {
                         shopList.contains(summary.getShop());
                         if (shopList.size() != 0) {
                             for (Shop shop : shopList) {
@@ -98,27 +98,6 @@ public class ShopsFragment extends Fragment {
         public void onCancelled(DatabaseError databaseError) {}
     };
 
-    private boolean isCurrentDate(String dateString){
-        Date date;
-        boolean isCurant = false;
-        SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm, dd / MM / yyyy");
-        Calendar currantDate = Calendar.getInstance();
-        try {
-            date = mdformat.parse(dateString);
-            Calendar dateFromString = Calendar.getInstance();
-            dateFromString.setTime(date);
-
-            isCurant = currantDate.get(Calendar.YEAR) == dateFromString.get(Calendar.YEAR) &&
-                    currantDate.get(Calendar.DAY_OF_YEAR) == dateFromString.get(Calendar.DAY_OF_YEAR);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-
-        return isCurant;
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -137,15 +116,12 @@ public class ShopsFragment extends Fragment {
         });
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.shops_recycler_view);
-
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
-
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-
         // specify an adapter (see also next example)
         mAdapter = new ShopsFragmentAdapter(getContext(), shopList);
         mRecyclerView.setAdapter(mAdapter);

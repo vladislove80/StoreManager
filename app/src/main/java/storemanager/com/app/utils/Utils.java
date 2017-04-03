@@ -1,9 +1,11 @@
 package storemanager.com.app.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import storemanager.com.app.models.Summary;
@@ -48,5 +50,23 @@ public class Utils {
     }
 
     public static final String[] itemDataLists = {"item names", "item sizes", "item ingredient names", "item ingredient sizes", "item ingredient measure"};
+
+    public static boolean isCurrentDate(String dateString){
+        Date date;
+        boolean isCurant = false;
+        SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm, dd / MM / yyyy");
+        Calendar currantDate = Calendar.getInstance();
+        try {
+            date = mdformat.parse(dateString);
+            Calendar dateFromString = Calendar.getInstance();
+            dateFromString.setTime(date);
+            isCurant = currantDate.get(Calendar.YEAR) == dateFromString.get(Calendar.YEAR) &&
+                    currantDate.get(Calendar.DAY_OF_YEAR) == dateFromString.get(Calendar.DAY_OF_YEAR);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return isCurant;
+    }
 
 }
