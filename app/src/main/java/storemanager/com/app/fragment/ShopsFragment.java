@@ -3,6 +3,7 @@ package storemanager.com.app.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,17 +42,16 @@ public class ShopsFragment extends Fragment {
     public final static int REQ_CODE = 1;
 
     private List<Shop> shopList;
-    private RelativeLayout noDataLayout;
+    private List<Summary> summaryList;
 
-    private Button addButton;
+    private RelativeLayout noDataLayout;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private ProgressBar progressBar;
+    private FloatingActionButton fab;
 
     private DatabaseReference mDatabase;
-    private ProgressBar progressBar;
-
-    private List<Summary> summaryList;
     private Query query;
 
     public static ShopsFragment newInstance(int page) {
@@ -106,8 +106,18 @@ public class ShopsFragment extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.shop_list_progress_bar);
         if (shopList.size() != 0) {progressBar.setVisibility(View.VISIBLE);}
 
-        addButton = (Button) view.findViewById(R.id.add_shop_button);
-        addButton.setOnClickListener(new View.OnClickListener() {
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.shops_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new ShopsFragmentAdapter(getContext(), shopList);
+        mRecyclerView.setAdapter(mAdapter);
+
+        noDataLayout = (RelativeLayout) view.findViewById(R.id.no_shop_data_layout);
+        noDataLayout.setVisibility(View.GONE);
+
+        fab = (FloatingActionButton) view.findViewById(R.id.shop_add_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddShopActivity.class);
@@ -115,19 +125,15 @@ public class ShopsFragment extends Fragment {
             }
         });
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.shops_recycler_view);
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        // specify an adapter (see also next example)
-        mAdapter = new ShopsFragmentAdapter(getContext(), shopList);
-        mRecyclerView.setAdapter(mAdapter);
-
-        noDataLayout = (RelativeLayout) view.findViewById(R.id.no_shop_data_layout);
-        noDataLayout.setVisibility(View.GONE);
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy){
+                if (dy > 0)
+                    fab.hide();
+                else if (dy < 0)
+                    fab.show();
+            }
+        });
         return view;
     }
 
