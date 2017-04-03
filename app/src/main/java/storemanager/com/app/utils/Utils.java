@@ -13,17 +13,10 @@ public class Utils {
 
     public static final String userStatus[] = {"Администратор", "Реализатор"};
 
-    public static final String[] cItems = {
+   /* public static final String[] cItems = {
             "Эспрессо", "Эспрессо 2x", "Американо", "Кофе с молоком", "Кофе по Ирландски", "Кофе по Французски",  "Кофе Choco Mocco",
             "Кофе IRISH",  "Мокко",  "Капучино Nuts",  "Латте",  "Латте BANANA'S",  "Латте TIRAMISU", "Сливочный кулкам",  "Карамельный мокиато",
-            "Горячий шоколад",  "Горячий шоколад BANANA'S",  "Горячий шоколад TIRAMISU",  "Горячий шоколад с зефиром",  "Какао",  "Какао с зефиром",  "Milk"};
-
-    public static final Integer[] cSizes = {250, 350, 450};
-    public static final Integer[] cNumber = {1, 2, 3, 4, 5};
-
-    public static final ArrayList<String> coffeItems = new ArrayList<>(Arrays.asList(cItems));
-    public static final ArrayList<Integer> coffeSizes = new ArrayList<>(Arrays.asList(cSizes));
-    public static final ArrayList<Integer> coffeNumber = new ArrayList<>(Arrays.asList(cNumber));
+            "Горячий шоколад",  "Горячий шоколад BANANA'S",  "Горячий шоколад TIRAMISU",  "Горячий шоколад с зефиром",  "Какао",  "Какао с зефиром",  "Milk"};*/
 
     public static final String[] cShops = {"Таврия-В", "Цветочный рынок", "Парк Приморский"};
     public static final ArrayList<String> coffeShops = new ArrayList<>(Arrays.asList(cShops));
@@ -34,10 +27,6 @@ public class Utils {
             "Кофе IRISH",  "Мокко",  "Капучино Nuts",  "Латте",  "Латте BANANA'S",  "Латте TIRAMISU", "Сливочный кулкам",  "Карамельный мокиато"};
     public static final String[] cItems3 = {
             "Горячий шоколад",  "Горячий шоколад BANANA'S",  "Горячий шоколад TIRAMISU",  "Горячий шоколад с зефиром",  "Какао",  "Какао с зефиром",  "Milk"};
-
-    public static int priceForOneSizeItems[] = {14, 19, 15, 19, 0, 30, 35};
-    public static int priceCoffeWithSize[] = {21,24,27,21,24,27,19,22,25,25,30,32,19,22,25,25,30,32,25,30,32,25,30,32,25,30,32};
-    public static int priceChocolateCocao[] = {20,24,27,25,30,32,25,30,32,22,27,32,17,20,22,20,24,27,14,19,22};
 
     public static final String EXTRA_TAG_MAIL = "email";
     public static final String EXTRA_TAG_NAME = "name";
@@ -56,11 +45,6 @@ public class Utils {
         SimpleDateFormat mdformat = new SimpleDateFormat("dd / MM / yyyy");
         return mdformat.format(calendar.getTime());
 
-    }
-
-    public static List<Summary> sortSummaryListByDate(List<Summary> summaryList) {
-
-        return summaryList;
     }
 
     public static final String[] itemDataLists = {"item names", "item sizes", "item ingredient names", "item ingredient sizes", "item ingredient measure"};
