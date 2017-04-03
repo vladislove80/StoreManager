@@ -133,7 +133,9 @@ public class MenuFragment extends Fragment {
     }
 
     private void addMenuItemToDatabase(MenuItem menuItem) {
-        mDatabase.push().child("menu item").setValue(menuItem);
+        String key = mDatabase.push().getKey();
+        menuItem.setFireBaseKey(key);
+        mDatabase.child(key).child("menu item").setValue(menuItem);
     }
 
     private void getMenuItemListFromDB() {
