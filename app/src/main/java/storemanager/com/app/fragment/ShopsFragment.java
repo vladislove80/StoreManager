@@ -66,7 +66,7 @@ public class ShopsFragment extends Fragment {
         summaryList = new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         getShopListFromDatabase();
-        query = mDatabase.child("summaries").orderByChild("summary");
+        query = mDatabase.child("summaries");
     }
 
     ValueEventListener valueEventListener = new ValueEventListener() {
@@ -76,8 +76,8 @@ public class ShopsFragment extends Fragment {
                 summaryList.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
-                    Summary summary = postSnapshot.child("summary").getValue(Summary.class);
-                    if (Utils.isCurrentDate(summary.getDate())) {
+                    Summary summary = postSnapshot.getValue(Summary.class);
+                    if (summary != null && Utils.isCurrentDate(summary.getDate())) {
                         shopList.contains(summary.getShop());
                         if (shopList.size() != 0) {
                             for (Shop shop : shopList) {

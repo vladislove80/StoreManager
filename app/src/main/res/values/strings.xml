@@ -49,12 +49,8 @@
     <!--AddBaseListsActivity-->
     <string name="manifest_label_add_base_ingredient_item">Добавить пункт меню</string>
 
-    <!--ShopDataActivity-->
+    <!--ShopSummariesActivity-->
     <string name="manifest_label_shop">Торговая точка</string>
-
-    <!--SummaryViewerActivity-->
-    <string name="manifest_label_view_data">View</string>
-    <string name="viewer_label">Отчеты:</string>
 
     <!--Settings-->
     <string name="filter">Отчеты</string>
