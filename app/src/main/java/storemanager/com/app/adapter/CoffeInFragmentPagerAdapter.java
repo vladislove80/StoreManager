@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import storemanager.com.app.fragment.MenuFragment;
 import storemanager.com.app.fragment.ShopsFragment;
-import storemanager.com.app.fragment.SummaryFragment;
+import storemanager.com.app.fragment.StoreFragment;
 
 public class CoffeInFragmentPagerAdapter extends FragmentPagerAdapter {
 
@@ -33,9 +33,9 @@ public class CoffeInFragmentPagerAdapter extends FragmentPagerAdapter {
                 break;
             case 1 : fragment = MenuFragment.newInstance(2);
                 break;
-            case 2 : fragment = SummaryFragment.newInstance(3);
+            case 2 : fragment = StoreFragment.newInstance(3);
                 break;
-            default: fragment = SummaryFragment.newInstance(4);
+            default: fragment = StoreFragment.newInstance(4);
         }
         return fragment;
     }

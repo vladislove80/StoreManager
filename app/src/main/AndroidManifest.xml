@@ -43,10 +43,6 @@
             android:theme="@style/Theme.AppCompat.Light.Dialog"/>
 
         <activity
-            android:name=".activity.FilterPreferenceActivity"
-            android:label="@string/manifest_label_filter_pref"/>
-
-        <activity
             android:name=".activity.ShopSummariesActivity"
             android:label="@string/manifest_label_shop"
             android:parentActivityName=".activity.MainActivity"/>

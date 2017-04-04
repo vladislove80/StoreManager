@@ -26,8 +26,8 @@ import storemanager.com.app.activity.SummaryViewerAdapter;
 import storemanager.com.app.models.Summary;
 import storemanager.com.app.utils.Utils;
 
-public class SummaryFragment extends Fragment {
-    public static final String TAG = SummaryFragment.class.getSimpleName();
+public class StoreFragment extends Fragment {
+    public static final String TAG = StoreFragment.class.getSimpleName();
 
     private int mPage;
 
@@ -39,10 +39,10 @@ public class SummaryFragment extends Fragment {
     private SummaryViewerAdapter adapter;
     private ProgressBar progressBar;
 
-    public static SummaryFragment newInstance(int page) {
+    public static StoreFragment newInstance(int page) {
         Bundle args = new Bundle();
         args.putInt(TAG, page);
-        SummaryFragment fragment = new SummaryFragment();
+        StoreFragment fragment = new StoreFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,13 +52,13 @@ public class SummaryFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(TAG);
 
-        Log.v(Utils.LOG_TAG, "SummaryFragment");
+        Log.v(Utils.LOG_TAG, "StoreFragment");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_summary, container, false);
+        View view = inflater.inflate(R.layout.fragment_store, container, false);
 
         mListView = (ListView) view.findViewById(R.id.full_summury);
         label = (TextView) view.findViewById(R.id.viewer_label);
