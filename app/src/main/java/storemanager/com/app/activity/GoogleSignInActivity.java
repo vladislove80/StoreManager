@@ -366,7 +366,7 @@ public class GoogleSignInActivity extends BaseActivity implements
             userNew.setId(id);
             userNew.setName(name);
             userNew.setStatus(userStatus);
-            mDatabase.push().child("user").setValue(userNew);
+            mDatabase.push().setValue(userNew);
     }
 
     private void isUserInDatabase(String email) {
@@ -374,13 +374,13 @@ public class GoogleSignInActivity extends BaseActivity implements
 
         final String e_mail = email;
         mDatabase = FirebaseDatabase.getInstance().getReference("users");
-        Query query = mDatabase.orderByChild("user/email").equalTo(email);
+        Query query = mDatabase.orderByChild("email").equalTo(email);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = null;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    user = postSnapshot.child("user").getValue(User.class);
+                    user = postSnapshot.getValue(User.class);
                     if (user.getEmail().equals(e_mail)) {
                         userStatus = user.getStatus();
                         showButtonDependOnStatus(userStatus);
