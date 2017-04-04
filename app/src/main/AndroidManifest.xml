@@ -43,7 +43,7 @@
             android:theme="@style/Theme.AppCompat.Light.Dialog"/>
 
         <activity
-            android:name=".activity.ShopSummariesActivity"
+            android:name=".activity.ShopDataActivity"
             android:label="@string/manifest_label_shop"
             android:parentActivityName=".activity.MainActivity"/>
 

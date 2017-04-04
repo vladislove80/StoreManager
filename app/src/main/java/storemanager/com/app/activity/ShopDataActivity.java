@@ -24,8 +24,8 @@ import java.util.List;
 import storemanager.com.app.R;
 import storemanager.com.app.models.Summary;
 
-public class ShopSummariesActivity extends AppCompatActivity {
-    public final static String TAG = ShopSummariesActivity.class.getSimpleName();
+public class ShopDataActivity extends AppCompatActivity {
+    public final static String TAG = ShopDataActivity.class.getSimpleName();
 
     private DatabaseReference mDatabase;
     private ListView mListView;
@@ -65,10 +65,10 @@ public class ShopSummariesActivity extends AppCompatActivity {
         public void onDataChange(DataSnapshot dataSnapshot) {
             if (dataSnapshot.hasChildren()) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Log.d(TAG, "ShopSummariesActivity -> onDataChange = ");
+                    Log.d(TAG, "ShopDataActivity -> onDataChange = ");
                     Summary summary = postSnapshot.getValue(Summary.class);
                     summaryList.add(summary);
-                    Log.d(TAG, "ShopSummariesActivity -> onDataChange = ");
+                    Log.d(TAG, "ShopDataActivity -> onDataChange = ");
                 }
                 progressBar.setVisibility(View.GONE);
                 adapter.notifyDataSetChanged();

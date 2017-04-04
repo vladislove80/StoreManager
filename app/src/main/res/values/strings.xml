@@ -49,7 +49,7 @@
     <!--AddBaseListsActivity-->
     <string name="manifest_label_add_base_ingredient_item">Добавить пункт меню</string>
 
-    <!--ShopSummariesActivity-->
+    <!--ShopDataActivity-->
     <string name="manifest_label_shop">Торговая точка</string>
 
     <!--Settings-->

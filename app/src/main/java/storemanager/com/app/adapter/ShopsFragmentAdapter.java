@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import storemanager.com.app.R;
-import storemanager.com.app.activity.ShopSummariesActivity;
+import storemanager.com.app.activity.ShopDataActivity;
 import storemanager.com.app.models.Shop;
 
 public class ShopsFragmentAdapter extends RecyclerView.Adapter<ShopsFragmentAdapter.ViewHolder> {
@@ -67,8 +67,8 @@ public class ShopsFragmentAdapter extends RecyclerView.Adapter<ShopsFragmentAdap
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(context, ShopSummariesActivity.class);
-            intent.putExtra(ShopSummariesActivity.TAG, mShopName);
+            Intent intent = new Intent(context, ShopDataActivity.class);
+            intent.putExtra(ShopDataActivity.TAG, mShopName);
             context.startActivity(intent);
         }
 
