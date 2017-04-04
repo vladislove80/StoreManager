@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import storemanager.com.app.R;
-import storemanager.com.app.adapter.CoffeInFragmentPagerAdapter;
+import storemanager.com.app.adapter.AdminPanelFragmentPagerAdapter;
 import storemanager.com.app.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mViewPager.setAdapter(new CoffeInFragmentPagerAdapter(getSupportFragmentManager(),
+        mViewPager.setAdapter(new AdminPanelFragmentPagerAdapter(getSupportFragmentManager(),
                 MainActivity.this));
 
         // Give the TabLayout the ViewPager

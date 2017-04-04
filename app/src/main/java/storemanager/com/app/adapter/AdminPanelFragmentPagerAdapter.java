@@ -9,13 +9,13 @@ import storemanager.com.app.fragment.MenuFragment;
 import storemanager.com.app.fragment.ShopsFragment;
 import storemanager.com.app.fragment.StoreFragment;
 
-public class CoffeInFragmentPagerAdapter extends FragmentPagerAdapter {
+public class AdminPanelFragmentPagerAdapter extends FragmentPagerAdapter {
 
     final int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[] { "Точки", "Меню", "Отчеты" };
+    private String tabTitles[] = new String[] { "Точки", "Меню", "Склад" };
     private Context context;
 
-    public CoffeInFragmentPagerAdapter(FragmentManager fm, Context context) {
+    public AdminPanelFragmentPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
     }
