@@ -285,12 +285,16 @@ public class GoogleSignInActivity extends BaseActivity implements
             public void onClick(DialogInterface dialog, int id) {
                 mUserEmailTextView.setText(getString(R.string.google_status_fmt, userEmail));
                 mDetailTextView.setText(getString(R.string.firebase_status_fmt, userName));
-                Intent intent = new Intent(GoogleSignInActivity.this, SummaryComposerActivity.class);
-                intent.putExtra(Utils.EXTRA_TAG_MAIL, userEmail);
-                intent.putExtra(Utils.EXTRA_TAG_NAME, userName);
-                intent.putExtra(Utils.EXTRA_TAG_ID, userId);
-                intent.putExtra(Utils.EXTRA_TAG_SHOP, cShopItem[0]);
-                startActivity(intent);
+                if (!TextUtils.isEmpty(cShopItem[0])) {
+                    Intent intent = new Intent(GoogleSignInActivity.this, SummaryComposerActivity.class);
+                    intent.putExtra(Utils.EXTRA_TAG_MAIL, userEmail);
+                    intent.putExtra(Utils.EXTRA_TAG_NAME, userName);
+                    intent.putExtra(Utils.EXTRA_TAG_ID, userId);
+                    intent.putExtra(Utils.EXTRA_TAG_SHOP, cShopItem[0]);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Торговые точки не созданы!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         alt_bld.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -417,13 +421,12 @@ public class GoogleSignInActivity extends BaseActivity implements
     private void dialogShops() {
         final List<Shop> shopList = new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance().getReference("shops");
-        Query query = mDatabase.orderByChild("shop");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Shop shop;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    shop = postSnapshot.child("shop").getValue(Shop.class);
+                    shop = postSnapshot.getValue(Shop.class);
                     if (shop != null) {shopList.add(shop);
                     }
                 }

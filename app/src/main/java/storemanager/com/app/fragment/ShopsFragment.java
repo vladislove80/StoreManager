@@ -157,6 +157,9 @@ public class ShopsFragment extends Fragment {
             shop.setName(data.getExtras().get(AddShopActivity.TAG).toString());
             shop.setCreationDate(Utils.getCurrentDateWithoutTime());
             shopList.add(shop);
+            if (shopList.size() == 1) {
+                noDataLayout.setVisibility(View.GONE);
+            }
             mAdapter.notifyDataSetChanged();
             addShopToDatabase(shop);
         }
@@ -164,25 +167,28 @@ public class ShopsFragment extends Fragment {
 
     private void addShopToDatabase(Shop shop) {
         mDatabase = FirebaseDatabase.getInstance().getReference("shops");
-        mDatabase.push().child("shop").setValue(shop);
+        mDatabase.push().setValue(shop);
     }
 
     private void getShopListFromDatabase() {
-        Query query = mDatabase.child("shops").orderByChild("shop");
+        Query query = mDatabase.child("shops");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
                 Shop shop;
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    shop = postSnapshot.child("shop").getValue(Shop.class);
+                    shop = postSnapshot.getValue(Shop.class);
+                    Log.d(TAG, "getShopListFromDatabase -> shop.getName() = " + shop.getName());
                     if (shop != null) {
                         shopList.add(shop);
                     }
                 }
+                Log.d(TAG, "getShopListFromDatabase -> shopList.size() = " + shopList.size());
                 if (shopList.size() != 0) {
                     progressBar.setVisibility(View.GONE);
                 } else {
+                    progressBar.setVisibility(View.GONE);
                     noDataLayout.setVisibility(View.VISIBLE);
                 }
             }
