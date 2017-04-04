@@ -61,7 +61,7 @@ public class MenuFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDataset = new ArrayList<>();
-        mDatabase = FirebaseDatabase.getInstance().getReference("menus");
+        mDatabase = FirebaseDatabase.getInstance().getReference("menu");
         getMenuItemListFromDB();
     }
 
@@ -135,17 +135,17 @@ public class MenuFragment extends Fragment {
     private void addMenuItemToDatabase(MenuItem menuItem) {
         String key = mDatabase.push().getKey();
         menuItem.setFireBaseKey(key);
-        mDatabase.child(key).child("menu item").setValue(menuItem);
+        mDatabase.child(key).setValue(menuItem);
     }
 
     private void getMenuItemListFromDB() {
-        mDatabase.orderByChild("menu item").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 MenuItem item;
                 if (dataSnapshot.hasChildren()) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        item = postSnapshot.child("menu item").getValue(MenuItem.class);
+                        item = postSnapshot.getValue(MenuItem.class);
                         item.setFireBaseKey(postSnapshot.getKey());
                         if (item != null) {
                             mDataset.add(item);

@@ -161,6 +161,8 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                     Intent intent = new Intent(SummaryComposerActivity.this, AddItemsToSummaryActivity.class);
                     intent.putParcelableArrayListExtra(TAG, menu);
                     startActivityForResult(intent, REQ_CODE_CHILD);
+                } else {
+                    Toast.makeText(getBaseContext(), "Меню не сформированно! Обратитесь к администратору или зайдите позже.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -329,14 +331,14 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     }
 
     private void getMenuFromBD() {
-        mDatabase = FirebaseDatabase.getInstance().getReference("menus");
-        mDatabase.orderByChild("menu item").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase = FirebaseDatabase.getInstance().getReference("menu");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 MenuItem item;
                 if (dataSnapshot.hasChildren()) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        item = postSnapshot.child("menu item").getValue(MenuItem.class);
+                        item = postSnapshot.getValue(MenuItem.class);
                         if (item != null) {
                             menu.add(item);
                         }
