@@ -309,7 +309,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         alert.show();
     }
 
-    private void addNewUserInDatabase() {
+    private void setNewUser() {
         AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
         alt_bld.setCancelable(false);
         alt_bld.setTitle("Выберите роль: ");
@@ -331,7 +331,7 @@ public class GoogleSignInActivity extends BaseActivity implements
                             ) {
                         addUserToDatabase(userEmail, userId, userName, userStatus);
                     }
-                    Log.d(TAG, "In addNewUserInDatabase userStatus = " + userStatus);
+                    Log.d(TAG, "In setNewUser userStatus = " + userStatus);
                     dialog.dismiss();
                     showButtonDependOnStatus(userStatus);
                 } else {
@@ -390,12 +390,12 @@ public class GoogleSignInActivity extends BaseActivity implements
                         showButtonDependOnStatus(userStatus);
                         Log.d(TAG, "userIsInDatabase: " + true);
                     } else {                                            // redundant ??
-                        addNewUserInDatabase();
+                        setNewUser();
                         Log.d(TAG, "user = " + null);
                     }
                 }
                 if (user == null) {
-                    addNewUserInDatabase();
+                    setNewUser();
                 }
             }
 
