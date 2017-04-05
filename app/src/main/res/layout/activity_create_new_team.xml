@@ -5,30 +5,36 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="162dp">
+        android:layout_centerVertical="true"
+>
 
         <TextView
+            android:id="@+id/new_team_main_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ведите имя Вашей команды"
-            android:gravity="center"/>
+            android:text="@string/new_team_label"
+            android:gravity="center"
+            android:textSize="@dimen/new_team_label_text_size"
+            android:layout_marginLeft="@dimen/new_team_label_margin_left"
+            android:layout_marginRight="@dimen/new_team_label_margin_right" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/new_team_textinputlayout_margin_left"
+            android:layout_marginRight="@dimen/new_team_textinputlayout_margin_right">
 
-            <AutoCompleteTextView
-                android:id="@+id/value_text"
+            <EditText
+                android:id="@+id/team_name_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:hint="Введите имя"
+                android:focusableInTouchMode="true"
+                android:hint="@string/new_team_edittext_hint"
                 android:maxLines="1"
+                android:textSize="@dimen/new_team_edittext_text_size"
                 android:singleLine="true" />
 
         </android.support.design.widget.TextInputLayout>
@@ -36,13 +42,19 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="или создайте свою"
-            android:gravity="center"/>
+            android:text="@string/new_team_textview_or"
+            android:textSize="@dimen/new_team_textview_or_text_size"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/new_team_textview_or_margin_top"
+            android:layout_marginBottom="@dimen/new_team_textview_or_margin_bottom"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Создать"/>
+            android:text="Создать"
+            android:textSize="@dimen/new_team_button_text_size"
+            android:layout_marginLeft="@dimen/new_team_button_margin_left"
+            android:layout_marginRight="@dimen/new_team_button_margin_right"/>
 
     </LinearLayout>
 

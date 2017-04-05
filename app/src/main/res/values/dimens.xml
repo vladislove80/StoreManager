@@ -113,4 +113,18 @@
     <dimen name="summary_composer_fab_margin_bottom">25dp</dimen>
     <dimen name="summary_composer_fab_margin_right">25dp</dimen>
 
+    CreateNewTeamActivity
+    <dimen name="new_team_label_text_size">26sp</dimen>
+    <dimen name="new_team_label_margin_left">40dp</dimen>
+    <dimen name="new_team_label_margin_right">40dp</dimen>
+    <dimen name="new_team_textinputlayout_margin_left">40dp</dimen>
+    <dimen name="new_team_textinputlayout_margin_right">40dp</dimen>
+    <dimen name="new_team_edittext_text_size">18sp</dimen>
+    <dimen name="new_team_textview_or_text_size">26sp</dimen>
+    <dimen name="new_team_textview_or_margin_top">30dp</dimen>
+    <dimen name="new_team_textview_or_margin_bottom">30dp</dimen>
+    <dimen name="new_team_button_text_size">18sp</dimen>
+    <dimen name="new_team_button_margin_left">40dp</dimen>
+    <dimen name="new_team_button_margin_right">40dp</dimen>
+
 </resources>
