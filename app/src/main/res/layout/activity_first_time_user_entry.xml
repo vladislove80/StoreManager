@@ -31,7 +31,6 @@
                 android:id="@+id/team_name_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusableInTouchMode="true"
                 android:hint="@string/new_team_edittext_hint"
                 android:maxLines="1"
                 android:textSize="@dimen/new_team_edittext_text_size"

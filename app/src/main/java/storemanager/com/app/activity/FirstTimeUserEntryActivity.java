@@ -21,7 +21,7 @@ public class FirstTimeUserEntryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_new_team);
+        setContentView(R.layout.activity_first_time_user_entry);
 
         teamNameEditText = (EditText) findViewById(R.id.team_name_textview);
         createButton = (Button) findViewById(R.id.create_button);
