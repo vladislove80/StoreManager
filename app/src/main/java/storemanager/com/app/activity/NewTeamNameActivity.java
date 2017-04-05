@@ -27,7 +27,7 @@ public class NewTeamNameActivity extends AppCompatActivity {
         buttonCancelTeamName = (Button) findViewById(R.id.cancel_team_name_button);
         buttonAddTeamName.setOnClickListener(buttonAddClickListener);
         buttonCancelTeamName.setOnClickListener(buttonCancelClickListener);
-        edittextTeamName = (EditText) findViewById(R.id.edit_name_shop);
+        edittextTeamName = (EditText) findViewById(R.id.team_name_edittext);
     }
 
     View.OnClickListener buttonAddClickListener = new View.OnClickListener() {
