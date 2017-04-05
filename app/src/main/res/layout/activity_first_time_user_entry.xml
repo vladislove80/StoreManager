@@ -25,10 +25,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/new_team_textinputlayout_margin_left"
-            android:layout_marginRight="@dimen/new_team_textinputlayout_margin_right">
+            android:layout_marginRight="@dimen/new_team_textinputlayout_margin_right"
+            android:focusableInTouchMode="true">
 
             <EditText
-                android:id="@+id/team_name_textview"
+                android:id="@+id/team_name_editview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/new_team_edittext_hint"

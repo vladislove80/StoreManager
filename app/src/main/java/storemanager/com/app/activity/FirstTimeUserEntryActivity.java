@@ -23,7 +23,7 @@ public class FirstTimeUserEntryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_time_user_entry);
 
-        teamNameEditText = (EditText) findViewById(R.id.team_name_textview);
+        teamNameEditText = (EditText) findViewById(R.id.team_name_editview);
         createButton = (Button) findViewById(R.id.create_button);
         createButton.setOnClickListener(createButtonListener);
 
@@ -32,7 +32,7 @@ public class FirstTimeUserEntryActivity extends AppCompatActivity {
     View.OnClickListener createButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(FirstTimeUserEntryActivity.this, CreateNewTeamActivity.class);
+            Intent intent = new Intent(FirstTimeUserEntryActivity.this, TeamActivity.class);
             startActivity(intent);
         }
     };
