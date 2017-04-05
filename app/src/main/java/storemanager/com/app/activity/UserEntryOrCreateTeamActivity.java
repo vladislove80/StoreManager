@@ -54,9 +54,9 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
         if(data != null && requestCode == REQ_CODE) {
             String newTeamName = data.getExtras().getString(NewTeamNameActivity.TAG);
 
-            Intent intent = new Intent(UserEntryOrCreateTeamActivity.this, MainActivity.class);
+            /*Intent intent = new Intent(UserEntryOrCreateTeamActivity.this, MainActivity.class);
             intent.putExtra(TAG, newTeamName);
-            startActivity(intent);
+            startActivity(intent);*/
         }
     }
 }

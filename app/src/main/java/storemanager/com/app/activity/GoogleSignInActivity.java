@@ -67,7 +67,7 @@ public class GoogleSignInActivity extends BaseActivity implements
     private String userId;
     private String userStatus = "";
 
-    private ProgressBar statusProgressBar;
+    //private ProgressBar statusProgressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,7 +80,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         mDetailTextView = (TextView) findViewById(R.id.detail);
         mAddDataButton = (Button) findViewById(R.id.start_sales_activity);
         mViewDataButton = (Button) findViewById(R.id.start_viewer_activity);
-        statusProgressBar = (ProgressBar) findViewById(R.id.status_progress_bar);
+        //statusProgressBar = (ProgressBar) findViewById(R.id.status_progress_bar);
 
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         findViewById(R.id.sign_out_button).setOnClickListener(this);
@@ -111,7 +111,7 @@ public class GoogleSignInActivity extends BaseActivity implements
                 } else {
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-                updateUI(user);
+                //updateUI(user);
             }
         };
     }
@@ -210,13 +210,16 @@ public class GoogleSignInActivity extends BaseActivity implements
             userName = user.getDisplayName();
             userId = user.getUid();
 
-            isUserInDatabase(userEmail);
+            //isUserInDatabase(userEmail);
             mUserEmailTextView.setText(getString(R.string.google_status_fmt, userEmail));
             mDetailTextView.setText(getString(R.string.firebase_status_fmt, userName));
 
             findViewById(R.id.sign_in_button).setVisibility(View.GONE);
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
-            statusProgressBar.setVisibility(View.VISIBLE);
+            //statusProgressBar.setVisibility(View.VISIBLE);
+
+            Intent intent = new Intent(GoogleSignInActivity.this, UserEntryOrCreateTeamActivity.class);
+            startActivity(intent);
         } else {
             mUserStatusTextView.setVisibility(View.GONE);
             mAddDataButton.setVisibility(View.GONE);
@@ -408,7 +411,7 @@ public class GoogleSignInActivity extends BaseActivity implements
     }
 
     private void showButtonDependOnStatus(String userStatus) {
-        statusProgressBar.setVisibility(View.GONE);
+        //statusProgressBar.setVisibility(View.GONE);
         if (userStatus.equals(Utils.userStatus[0])) {
             mUserStatusTextView.setText(Utils.userStatus[0]);
             setViewDataButton();
