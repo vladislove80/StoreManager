@@ -9,6 +9,7 @@ public class User {
     private String name;
     private String id;
     private String email;
+    private String registrationDate;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
@@ -44,5 +45,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(String registrationDate) {
+        this.registrationDate = registrationDate;
     }
 }
