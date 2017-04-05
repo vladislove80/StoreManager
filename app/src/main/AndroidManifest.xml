@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="storemanager.com.app.activity.GoogleSignInActivity"
+            android:name="storemanager.com.app.activity.UserEntryOrCreateTeamActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,6 +70,16 @@
             android:name=".activity.AddItemsToSummaryActivity"
             android:label="Добавить в отчет"
             android:parentActivityName=".activity.SummaryComposerActivity"/>
+
+        <activity
+            android:name=".activity.TeamActivity"
+            android:label="Команда"
+            android:parentActivityName=".activity.UserEntryOrCreateTeamActivity"/>
+
+        <activity
+            android:name=".activity.NewTeamNameActivity"
+            android:label="Команда"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
     </application>
 
 

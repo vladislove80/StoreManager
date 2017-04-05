@@ -12,8 +12,9 @@ import android.widget.EditText;
 
 import storemanager.com.app.R;
 
-public class FirstTimeUserEntryActivity extends AppCompatActivity {
-    public static final String TAG = FirstTimeUserEntryActivity.class.getSimpleName();
+public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
+    public static final String TAG = UserEntryOrCreateTeamActivity.class.getSimpleName();
+    public final static int REQ_CODE = 2;
 
     private EditText teamNameEditText;
     private Button createButton;
@@ -32,8 +33,8 @@ public class FirstTimeUserEntryActivity extends AppCompatActivity {
     View.OnClickListener createButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(FirstTimeUserEntryActivity.this, TeamActivity.class);
-            startActivity(intent);
+            Intent intent = new Intent(UserEntryOrCreateTeamActivity.this, NewTeamNameActivity.class);
+            startActivityForResult(intent, REQ_CODE);
         }
     };
 
@@ -46,5 +47,16 @@ public class FirstTimeUserEntryActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         hideEditKeyboard(teamNameEditText);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(data != null && requestCode == REQ_CODE) {
+            String newTeamName = data.getExtras().getString(NewTeamNameActivity.TAG);
+
+            Intent intent = new Intent(UserEntryOrCreateTeamActivity.this, MainActivity.class);
+            intent.putExtra(TAG, newTeamName);
+            startActivity(intent);
+        }
     }
 }

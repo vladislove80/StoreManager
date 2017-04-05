@@ -109,7 +109,7 @@
     <string name="menu_fragment_label">Создавайте и редактируйте Меню. Для удаления из списка - долгое нажатие</string>
     <string name="edit_lists_button">Редактировать списки</string>
 
-    <!--FirstTimeUserEntryActivity-->
+    <!--UserEntryOrCreateTeamActivity-->
     <string name="new_team_label">Найти команду</string>
     <string name="new_team_edittext_hint">Имя</string>
     <string name="new_team_textview_or">или</string>
