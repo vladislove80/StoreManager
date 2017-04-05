@@ -35,7 +35,7 @@
                 android:hint="@string/new_team_edittext_hint"
                 android:maxLines="1"
                 android:textSize="@dimen/new_team_edittext_text_size"
-                android:singleLine="true" />
+                android:inputType="text"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -49,12 +49,14 @@
             android:layout_marginBottom="@dimen/new_team_textview_or_margin_bottom"/>
 
         <Button
+            android:id="@+id/create_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Создать"
+            android:text="@string/new_team_button"
             android:textSize="@dimen/new_team_button_text_size"
             android:layout_marginLeft="@dimen/new_team_button_margin_left"
-            android:layout_marginRight="@dimen/new_team_button_margin_right"/>
+            android:layout_marginRight="@dimen/new_team_button_margin_right"
+            android:theme="@style/ThemeOverlay.MyDarkButton"/>
 
     </LinearLayout>
 
