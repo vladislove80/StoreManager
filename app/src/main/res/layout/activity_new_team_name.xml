@@ -20,7 +20,7 @@
             android:hint="Название"
             android:maxLines="1"
             android:textSize="18dp"
-            android:inputType="text"/>
+            android:inputType="textCapSentences"/>
 
     </android.support.design.widget.TextInputLayout>
 
