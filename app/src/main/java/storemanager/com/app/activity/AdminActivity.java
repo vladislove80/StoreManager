@@ -25,7 +25,7 @@ public class AdminActivity extends AppCompatActivity {
     ViewPager mViewPager;
     private String userName;
     private String userEmail;
-    private String teamName;
+    private static String teamName;
     private String userId;
     private DatabaseReference mDatabase;
 
@@ -75,7 +75,7 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     private void createTeamWithAdminInFireBase(final String name, final String email, final String id, final String userStatus, final String teamName) {
-        mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -85,7 +85,7 @@ public class AdminActivity extends AppCompatActivity {
                     userNew.setEmail(email);
                     userNew.setId(id);
                     userNew.setStatus(userStatus);
-                    mDatabase.child(teamName).setValue(userNew);
+                    mDatabase.child(teamName).child("users").push().setValue(userNew);
                 }
             }
 
@@ -94,5 +94,7 @@ public class AdminActivity extends AppCompatActivity {
         });
     }
 
-
+    public static String getTeamName() {
+        return teamName;
+    }
 }
