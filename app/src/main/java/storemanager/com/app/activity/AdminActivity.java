@@ -3,6 +3,7 @@ package storemanager.com.app.activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -48,16 +49,19 @@ public class AdminActivity extends AppCompatActivity {
                     && !TextUtils.isEmpty(teamName)) {
                 createTeamWithAdminInFireBase(userName, userEmail, userId, "Admin", teamName);
                 // Get the ViewPager and set it's PagerAdapter so that it can display items
-                mViewPager = (ViewPager) findViewById(R.id.viewpager);
-                mViewPager.setAdapter(new AdminPanelFragmentPagerAdapter(getSupportFragmentManager(),
-                        AdminActivity.this));
-
-                // Give the TabLayout the ViewPager
-                TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-                tabLayout.setupWithViewPager(mViewPager);
             } else {
             }
         }
+    }
+
+    private void setViewPager() {
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager.setAdapter(new AdminPanelFragmentPagerAdapter(getSupportFragmentManager(),
+                AdminActivity.this));
+
+        // Give the TabLayout the ViewPager
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(mViewPager);
     }
 
     @Override
@@ -84,8 +88,11 @@ public class AdminActivity extends AppCompatActivity {
                     userNew.setName(name);
                     userNew.setEmail(email);
                     userNew.setId(id);
+                    userNew.setRegistrationDate(Utils.getCurrentDate());
                     userNew.setStatus(userStatus);
                     mDatabase.child(teamName).child("users").push().setValue(userNew);
+
+                    setViewPager();
                 }
             }
 

@@ -76,11 +76,6 @@
             android:label="Трам пам пам"/>
 
         <activity
-            android:name=".activity.TeamActivity"
-            android:label="Команда"
-            android:parentActivityName=".activity.UserEntryOrCreateTeamActivity"/>
-
-        <activity
             android:name=".activity.NewTeamNameActivity"
             android:label="Команда"
             android:theme="@style/Theme.AppCompat.Light.Dialog"/>
