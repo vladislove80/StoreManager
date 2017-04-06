@@ -27,6 +27,7 @@ import java.util.List;
 
 import storemanager.com.app.R;
 import storemanager.com.app.activity.AddShopActivity;
+import storemanager.com.app.activity.AdminActivity;
 import storemanager.com.app.adapter.ShopsFragmentAdapter;
 import storemanager.com.app.models.Shop;
 import storemanager.com.app.models.Summary;
@@ -38,6 +39,7 @@ public class ShopsFragment extends Fragment {
 
     private List<Shop> shopList;
     private List<Summary> summaryList;
+    private String teamName;
 
     private RelativeLayout noDataLayout;
     private RecyclerView mRecyclerView;
@@ -59,9 +61,10 @@ public class ShopsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         shopList = new ArrayList<>();
         summaryList = new ArrayList<>();
+        teamName = AdminActivity.getTeamName();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         getShopListFromDatabase();
-        query = mDatabase.child("summaries");
+        //query = mDatabase.child(teamName).child("summaries");
     }
 
     ValueEventListener valueEventListener = new ValueEventListener() {
@@ -71,7 +74,7 @@ public class ShopsFragment extends Fragment {
                 summaryList.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
-                    Summary summary = postSnapshot.getValue(Summary.class);
+                    Summary summary = postSnapshot.child(teamName).getValue(Summary.class);
                     if (summary != null && Utils.isCurrentDate(summary.getDate())) {
                         shopList.contains(summary.getShop());
                         if (shopList.size() != 0) {
@@ -82,8 +85,8 @@ public class ShopsFragment extends Fragment {
                                 }
                             }
                         }
+                        summaryList.add(summary);
                     }
-                    summaryList.add(summary);
                     Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
                 }
                 Toast.makeText(getContext(), "Всего отчетов: " + summaryList.size(), Toast.LENGTH_SHORT).show();
@@ -140,13 +143,13 @@ public class ShopsFragment extends Fragment {
         } else {
             progressBar.setVisibility(View.VISIBLE);
         }
-        query.addValueEventListener(valueEventListener);
+        //query.addValueEventListener(valueEventListener);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        query.removeEventListener(valueEventListener);
+        //query.removeEventListener(valueEventListener);
     }
 
     @Override
@@ -166,12 +169,12 @@ public class ShopsFragment extends Fragment {
     }
 
     private void addShopToDatabase(Shop shop) {
-        mDatabase = FirebaseDatabase.getInstance().getReference("shops");
-        mDatabase.push().setValue(shop);
+        mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
+        mDatabase.child("shops").push().setValue(shop);
     }
 
     private void getShopListFromDatabase() {
-        Query query = mDatabase.child("shops");
+        Query query = mDatabase.child(teamName).child("shops");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -180,9 +183,7 @@ public class ShopsFragment extends Fragment {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     shop = postSnapshot.getValue(Shop.class);
                     Log.d(TAG, "getShopListFromDatabase -> shop.getName() = " + shop.getName());
-                    if (shop != null) {
-                        shopList.add(shop);
-                    }
+                    shopList.add(shop);
                 }
                 Log.d(TAG, "getShopListFromDatabase -> shopList.size() = " + shopList.size());
                 if (shopList.size() != 0) {
