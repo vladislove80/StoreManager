@@ -31,10 +31,10 @@ public class AdminPanelFragmentPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0 : fragment = ShopsFragment.newInstance(1);
                 break;
-            case 1 : fragment = MenuFragment.newInstance(2);
+           /* case 1 : fragment = MenuFragment.newInstance(2);
                 break;
             case 2 : fragment = StoreFragment.newInstance(3);
-                break;
+                break;*/
             default: fragment = StoreFragment.newInstance(4);
         }
         return fragment;
