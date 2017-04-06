@@ -84,7 +84,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         getMenuFromBD();
 
         Intent intent = getIntent();
-        userEmail = intent.getStringExtra(Utils.EXTRA_TAG_MAIL);
+        userEmail = intent.getStringExtra(Utils.EXTRA_TAG_EMAIL);
         userName = intent.getStringExtra(Utils.EXTRA_TAG_NAME);
         userId = intent.getStringExtra(Utils.EXTRA_TAG_ID);
         shop = intent.getStringExtra(Utils.EXTRA_TAG_SHOP);

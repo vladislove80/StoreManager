@@ -18,6 +18,7 @@ public class AdminActivity extends AppCompatActivity {
     private String userName;
     private String userEmail;
     private String teamName;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +27,10 @@ public class AdminActivity extends AppCompatActivity {
         Log.v(Utils.LOG_TAG, "AdminActivity");
 
         Intent intent = getIntent();
-        userName = intent.getExtras().get(UserEntryOrCreateTeamActivity.TAG_NAME).toString();
-        userEmail = intent.getExtras().get(UserEntryOrCreateTeamActivity.TAG_EMAIL).toString();
-        teamName = intent.getExtras().get(UserEntryOrCreateTeamActivity.TAG_TEAM).toString();
+        userName = intent.getExtras().get(Utils.EXTRA_TAG_NAME).toString();
+        userEmail = intent.getExtras().get(Utils.EXTRA_TAG_EMAIL).toString();
+        userId = intent.getExtras().get(Utils.EXTRA_TAG_ID).toString();
+        teamName = intent.getExtras().get(Utils.EXTRA_TAG_TEAM).toString();
 
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -52,5 +54,9 @@ public class AdminActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+    }
+
+    private void createTeamInFireBase() {
+
     }
 }

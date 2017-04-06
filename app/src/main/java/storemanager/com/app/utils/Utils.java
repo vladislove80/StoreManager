@@ -27,9 +27,10 @@ public class Utils {
     public static final String[] cItems3 = {
             "Горячий шоколад",  "Горячий шоколад BANANA'S",  "Горячий шоколад TIRAMISU",  "Горячий шоколад с зефиром",  "Какао",  "Какао с зефиром",  "Milk"};
 
-    public static final String EXTRA_TAG_MAIL = "email";
+    public static final String EXTRA_TAG_EMAIL = "email";
     public static final String EXTRA_TAG_NAME = "name";
     public static final String EXTRA_TAG_ID = "id";
+    public static final String EXTRA_TAG_TEAM = "team";
     public static final String EXTRA_TAG_SHOP = "shop";
 
     public static String getCurrentDate() {

@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import storemanager.com.app.R;
+import storemanager.com.app.utils.Utils;
 
 public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
     public static final String TAG = UserEntryOrCreateTeamActivity.class.getSimpleName();
@@ -23,6 +24,7 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
     private Button createButton;
     private String userEmail;
     private String userName;
+    private String userId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,8 +36,9 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
         createButton.setOnClickListener(createButtonListener);
 
         Intent intent = getIntent();
-        userName = intent.getExtras().get("name").toString();
-        userEmail = intent.getExtras().get("email").toString();
+        userName = intent.getExtras().get(Utils.EXTRA_TAG_NAME).toString();
+        userEmail = intent.getExtras().get(Utils.EXTRA_TAG_EMAIL).toString();
+        userId = intent.getExtras().get(Utils.EXTRA_TAG_ID).toString();
     }
 
     View.OnClickListener createButtonListener = new View.OnClickListener() {
@@ -62,9 +65,10 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
         if(data != null && requestCode == REQ_CODE) {
             String newTeamName = data.getExtras().getString(NewTeamNameActivity.TAG);
             Intent intent = new Intent(UserEntryOrCreateTeamActivity.this, AdminActivity.class);
-            intent.putExtra(UserEntryOrCreateTeamActivity.TAG_NAME, userName);
-            intent.putExtra(UserEntryOrCreateTeamActivity.TAG_EMAIL, userEmail);
-            intent.putExtra(TAG_TEAM, newTeamName);
+            intent.putExtra(Utils.EXTRA_TAG_NAME, userName);
+            intent.putExtra(Utils.EXTRA_TAG_EMAIL, userEmail);
+            intent.putExtra(Utils.EXTRA_TAG_ID, userId);
+            intent.putExtra(Utils.EXTRA_TAG_TEAM, newTeamName);
             startActivity(intent);
             finish();
         }

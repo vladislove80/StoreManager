@@ -107,8 +107,9 @@ public class GoogleSignInActivity extends BaseActivity implements
                     userName = user.getDisplayName();
                     userId = user.getUid();
                     Intent intent = new Intent(GoogleSignInActivity.this, UserEntryOrCreateTeamActivity.class);
-                    intent.putExtra(UserEntryOrCreateTeamActivity.TAG_NAME, userName);
-                    intent.putExtra(UserEntryOrCreateTeamActivity.TAG_EMAIL, userEmail);
+                    intent.putExtra(Utils.EXTRA_TAG_NAME, userName);
+                    intent.putExtra(Utils.EXTRA_TAG_EMAIL, userEmail);
+                    intent.putExtra(Utils.EXTRA_TAG_ID, userId);
                     startActivity(intent);
                     finish();
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
@@ -293,7 +294,7 @@ public class GoogleSignInActivity extends BaseActivity implements
                 mDetailTextView.setText(getString(R.string.firebase_status_fmt, userName));
                 if (!TextUtils.isEmpty(cShopItem[0])) {
                     Intent intent = new Intent(GoogleSignInActivity.this, SummaryComposerActivity.class);
-                    intent.putExtra(Utils.EXTRA_TAG_MAIL, userEmail);
+                    intent.putExtra(Utils.EXTRA_TAG_EMAIL, userEmail);
                     intent.putExtra(Utils.EXTRA_TAG_NAME, userName);
                     intent.putExtra(Utils.EXTRA_TAG_ID, userId);
                     intent.putExtra(Utils.EXTRA_TAG_SHOP, cShopItem[0]);

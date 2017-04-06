@@ -286,7 +286,7 @@ public class CopyGoogleSignInActivity extends BaseActivity implements
                 mDetailTextView.setText(getString(R.string.firebase_status_fmt, userName));
                 if (!TextUtils.isEmpty(cShopItem[0])) {
                     Intent intent = new Intent(CopyGoogleSignInActivity.this, SummaryComposerActivity.class);
-                    intent.putExtra(Utils.EXTRA_TAG_MAIL, userEmail);
+                    intent.putExtra(Utils.EXTRA_TAG_EMAIL, userEmail);
                     intent.putExtra(Utils.EXTRA_TAG_NAME, userName);
                     intent.putExtra(Utils.EXTRA_TAG_ID, userId);
                     intent.putExtra(Utils.EXTRA_TAG_SHOP, cShopItem[0]);
