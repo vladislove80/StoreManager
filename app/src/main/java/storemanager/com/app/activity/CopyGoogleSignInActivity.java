@@ -44,8 +44,6 @@ import storemanager.com.app.models.Shop;
 import storemanager.com.app.models.User;
 import storemanager.com.app.utils.Utils;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-
 public class CopyGoogleSignInActivity extends BaseActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener{
@@ -243,7 +241,7 @@ public class CopyGoogleSignInActivity extends BaseActivity implements
         mViewDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CopyGoogleSignInActivity.this, MainActivity.class);
+                Intent intent = new Intent(CopyGoogleSignInActivity.this, AdminActivity.class);
                 startActivity(intent);
             }
         });

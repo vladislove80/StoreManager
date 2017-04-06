@@ -21,7 +21,7 @@
         </activity>
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.AdminActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Main"/>
 
@@ -35,7 +35,7 @@
         <activity
             android:name=".activity.SummaryComposerActivity"
             android:label="@string/label_send_data"
-            android:parentActivityName=".activity.MainActivity"/>
+            android:parentActivityName=".activity.AdminActivity"/>
 
         <activity
             android:name=".activity.AddShopActivity"
@@ -45,12 +45,12 @@
         <activity
             android:name=".activity.ShopDataActivity"
             android:label="@string/manifest_label_shop"
-            android:parentActivityName=".activity.MainActivity"/>
+            android:parentActivityName=".activity.AdminActivity"/>
 
         <activity
             android:name=".activity.AddItemToMenuActivity"
             android:label="@string/manifest_label_add_menu_item"
-            android:parentActivityName=".activity.MainActivity"
+            android:parentActivityName=".activity.AdminActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
 
         <activity

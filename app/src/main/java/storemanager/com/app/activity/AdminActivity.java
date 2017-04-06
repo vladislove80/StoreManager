@@ -13,19 +13,27 @@ import storemanager.com.app.R;
 import storemanager.com.app.adapter.AdminPanelFragmentPagerAdapter;
 import storemanager.com.app.utils.Utils;
 
-public class MainActivity extends AppCompatActivity {
+public class AdminActivity extends AppCompatActivity {
     ViewPager mViewPager;
+    private String userName;
+    private String userEmail;
+    private String teamName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.v(Utils.LOG_TAG, "MainActivity");
+        Log.v(Utils.LOG_TAG, "AdminActivity");
+
+        Intent intent = getIntent();
+        userName = intent.getExtras().get(UserEntryOrCreateTeamActivity.TAG_NAME).toString();
+        userEmail = intent.getExtras().get(UserEntryOrCreateTeamActivity.TAG_EMAIL).toString();
+        teamName = intent.getExtras().get(UserEntryOrCreateTeamActivity.TAG_TEAM).toString();
 
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mViewPager.setAdapter(new AdminPanelFragmentPagerAdapter(getSupportFragmentManager(),
-                MainActivity.this));
+                AdminActivity.this));
 
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);

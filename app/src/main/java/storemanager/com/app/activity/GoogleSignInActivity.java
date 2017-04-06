@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -249,7 +248,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         mViewDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GoogleSignInActivity.this, MainActivity.class);
+                Intent intent = new Intent(GoogleSignInActivity.this, AdminActivity.class);
                 startActivity(intent);
             }
         });

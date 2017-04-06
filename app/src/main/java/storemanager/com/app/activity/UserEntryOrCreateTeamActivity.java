@@ -14,10 +14,15 @@ import storemanager.com.app.R;
 
 public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
     public static final String TAG = UserEntryOrCreateTeamActivity.class.getSimpleName();
+    public static final String TAG_NAME = "name";
+    public static final String TAG_EMAIL = "email";
+    public static final String TAG_TEAM = "team";
     public final static int REQ_CODE = 2;
 
     private EditText teamNameEditText;
     private Button createButton;
+    private String userEmail;
+    private String userName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,6 +33,9 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
         createButton = (Button) findViewById(R.id.create_button);
         createButton.setOnClickListener(createButtonListener);
 
+        Intent intent = getIntent();
+        userName = intent.getExtras().get("name").toString();
+        userEmail = intent.getExtras().get("email").toString();
     }
 
     View.OnClickListener createButtonListener = new View.OnClickListener() {
@@ -53,10 +61,12 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && requestCode == REQ_CODE) {
             String newTeamName = data.getExtras().getString(NewTeamNameActivity.TAG);
-
-            /*Intent intent = new Intent(UserEntryOrCreateTeamActivity.this, MainActivity.class);
-            intent.putExtra(TAG, newTeamName);
-            startActivity(intent);*/
+            Intent intent = new Intent(UserEntryOrCreateTeamActivity.this, AdminActivity.class);
+            intent.putExtra(UserEntryOrCreateTeamActivity.TAG_NAME, userName);
+            intent.putExtra(UserEntryOrCreateTeamActivity.TAG_EMAIL, userEmail);
+            intent.putExtra(TAG_TEAM, newTeamName);
+            startActivity(intent);
+            finish();
         }
     }
 }
