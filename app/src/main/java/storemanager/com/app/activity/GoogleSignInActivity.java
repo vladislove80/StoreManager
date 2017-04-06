@@ -107,11 +107,17 @@ public class GoogleSignInActivity extends BaseActivity implements
                     userEmail = user.getEmail();
                     userName = user.getDisplayName();
                     userId = user.getUid();
+                    Intent intent = new Intent(GoogleSignInActivity.this, UserEntryOrCreateTeamActivity.class);
+                    intent.putExtra(UserEntryOrCreateTeamActivity.TAG_NAME, userName);
+                    intent.putExtra(UserEntryOrCreateTeamActivity.TAG_EMAIL, userEmail);
+                    startActivity(intent);
+                    finish();
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
                 //updateUI(user);
+
             }
         };
     }
@@ -218,8 +224,6 @@ public class GoogleSignInActivity extends BaseActivity implements
             findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
             //statusProgressBar.setVisibility(View.VISIBLE);
 
-            Intent intent = new Intent(GoogleSignInActivity.this, UserEntryOrCreateTeamActivity.class);
-            startActivity(intent);
         } else {
             mUserStatusTextView.setVisibility(View.GONE);
             mAddDataButton.setVisibility(View.GONE);
