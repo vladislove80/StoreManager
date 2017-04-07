@@ -113,7 +113,7 @@
     <dimen name="summary_composer_fab_margin_bottom">25dp</dimen>
     <dimen name="summary_composer_fab_margin_right">25dp</dimen>
 
-    CreateNewTeamActivity
+    <!--CreateNewTeamActivity-->
     <dimen name="new_team_label_text_size">26sp</dimen>
     <dimen name="new_team_label_margin_left">40dp</dimen>
     <dimen name="new_team_label_margin_right">40dp</dimen>
@@ -126,5 +126,14 @@
     <dimen name="new_team_button_text_size">18sp</dimen>
     <dimen name="new_team_button_margin_left">40dp</dimen>
     <dimen name="new_team_button_margin_right">40dp</dimen>
+
+    <!--AddMemberActivity-->
+    <dimen name="add_member_label_text_size">18sp</dimen>
+    <dimen name="add_member_label_margin">10dp</dimen>
+    <dimen name="add_member_add_button_margin">10dp</dimen>
+    <dimen name="add_member_data_layout_margin_top">20dp</dimen>
+    <dimen name="add_member_data_layout_margin_left">10dp</dimen>
+    <dimen name="add_member_data_layout_margin_right">10dp</dimen>
+    <dimen name="add_member_image_margin">40dp</dimen>
 
 </resources>

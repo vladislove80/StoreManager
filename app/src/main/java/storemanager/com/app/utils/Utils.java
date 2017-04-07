@@ -33,6 +33,10 @@ public class Utils {
     public static final String EXTRA_TAG_TEAM = "team";
     public static final String EXTRA_TAG_SHOP = "shop";
 
+    public static final String EXTRA_TAG_ADD_NEW_MEMBER_NAME = "name";
+    public static final String EXTRA_TAG_ADD_NEW_MEMBER_EMAIL = "email";
+    public static final String EXTRA_TAG_ADD_NEW_MEMBER_STATUS = "status";
+
     public static String getCurrentDate() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm, dd / MM / yyyy");

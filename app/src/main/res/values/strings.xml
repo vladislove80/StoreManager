@@ -115,5 +115,12 @@
     <string name="new_team_textview_or">или</string>
     <string name="new_team_button">Создать</string>
 
+    <!--AddMemberActivity-->
+    <string name="add_member_label">Добавляйте людей в команду</string>
+    <string name="add_member_button">Добавить</string>
+    <string name="add_member_name_editview">Имя</string>
+    <string name="add_member_email_editview">Емейл</string>
+    <string name="add_member_status_editview">Статус</string>
+
 
 </resources>

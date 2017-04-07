@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp">
+
+    <TextView
+        android:id="@+id/add_member_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_member_label"
+        android:layout_alignParentTop="true"
+        android:textSize="@dimen/add_member_label_text_size"
+        android:gravity="center"
+        android:layout_margin="@dimen/add_member_label_margin"/>
+
+    <Button
+        android:layout_below="@+id/add_member_label"
+        android:id="@+id/add_new_member_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/add_member_add_button_margin"
+        android:text="@string/add_member_button"
+        android:theme="@style/ThemeOverlay.MyDarkButton"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/add_new_member_button"
+        android:layout_marginTop="@dimen/add_member_data_layout_margin_top"
+        android:layout_marginLeft="@dimen/add_member_data_layout_margin_left"
+        android:layout_marginRight="@dimen/add_member_data_layout_margin_right">
+
+        <ImageView
+            android:id="@+id/add_team_member_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_account_circle_black_24dp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/add_member_image_margin"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true">
+
+                <EditText
+                    android:id="@+id/member_name_editview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/add_member_name_editview"
+                    android:maxLines="1"
+                    android:textSize="@dimen/new_team_edittext_text_size"
+                    android:inputType="textCapSentences" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true">
+
+                <EditText
+                    android:id="@+id/member_email_editview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/add_member_email_editview"
+                    android:maxLines="1"
+                    android:textSize="@dimen/new_team_edittext_text_size"
+                    android:inputType="textCapSentences" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true">
+
+                <EditText
+                    android:id="@+id/member_status_editview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/add_member_status_editview"
+                    android:maxLines="1"
+                    android:textSize="@dimen/new_team_edittext_text_size"
+                    android:inputType="textCapSentences" />
+
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

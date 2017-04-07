@@ -1,5 +1,6 @@
 package storemanager.com.app.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -23,12 +24,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import storemanager.com.app.R;
+import storemanager.com.app.activity.AddMemberActivity;
 import storemanager.com.app.activity.AdminActivity;
 import storemanager.com.app.adapter.TeamFragmentAdapter;
 import storemanager.com.app.models.User;
+import storemanager.com.app.utils.Utils;
 
 public class TeamFragment  extends Fragment {
     public static final String TAG = TeamFragment.class.getSimpleName();
+    public final static int REQ_CODE = 3;
 
     private DatabaseReference mDatabase;
 
@@ -67,6 +71,7 @@ public class TeamFragment  extends Fragment {
         user.setRegistrationDate("Data test");
         usersList.add(user);
 
+        fab = (FloatingActionButton) view.findViewById(R.id.team_fragment_fab);
         teamNameTextView = (TextView) view.findViewById(R.id.team_name_textview);
         teamNameTextView.setText(teamName);
 
@@ -76,6 +81,23 @@ public class TeamFragment  extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new TeamFragmentAdapter(usersList);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy){
+                if (dy > 0)
+                    fab.hide();
+                else if (dy < 0)
+                    fab.show();
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddMemberActivity.class);
+                startActivityForResult(intent, REQ_CODE);
+            }
+        });
 
         getUsersFromBD();
 
@@ -101,23 +123,25 @@ public class TeamFragment  extends Fragment {
 
             }
         });
-        /*Query query = mDatabase.child("users").orderByKey();
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User user;
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    user = postSnapshot.getValue(User.class);
-                    usersList.add(user);
-                    Log.d(TAG, "user = " + null);
-                }
-                mAdapter.notifyDataSetChanged();
-            }
+    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(data != null && requestCode == REQ_CODE) {
+            User user = new User();
+            user.setName(data.getExtras().get(Utils.EXTRA_TAG_ADD_NEW_MEMBER_NAME).toString());
+            user.setEmail(data.getExtras().get(Utils.EXTRA_TAG_ADD_NEW_MEMBER_EMAIL).toString());
+            user.setStatus(data.getExtras().get(Utils.EXTRA_TAG_ADD_NEW_MEMBER_STATUS).toString());
 
-            }
-        });*/
+            usersList.add(user);
+            mAdapter.notifyDataSetChanged();
+            addNewUserInFireBase(user);
+        }
+    }
+
+    private void addNewUserInFireBase(User user) {
+        mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
+        user.setRegistrationDate(Utils.getCurrentDate());
+        mDatabase.child("users").push().setValue(user);
     }
 }

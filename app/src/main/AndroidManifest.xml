@@ -79,6 +79,10 @@
             android:name=".activity.NewTeamNameActivity"
             android:label="Команда"
             android:theme="@style/Theme.AppCompat.Light.Dialog"/>
+
+        <activity android:name=".activity.AddMemberActivity"
+            android:label="Сотрудник"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
     </application>
 
 
