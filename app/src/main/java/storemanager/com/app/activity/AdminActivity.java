@@ -42,15 +42,7 @@ public class AdminActivity extends AppCompatActivity {
             userEmail = intent.getExtras().get(Utils.EXTRA_TAG_EMAIL).toString();
             userId = intent.getExtras().get(Utils.EXTRA_TAG_ID).toString();
             teamName = intent.getExtras().get(Utils.EXTRA_TAG_TEAM).toString();
-
-            if (!TextUtils.isEmpty(userName)
-                    && !TextUtils.isEmpty(userEmail)
-                    && !TextUtils.isEmpty(userId)
-                    && !TextUtils.isEmpty(teamName)) {
-                createTeamWithAdminInFireBase(userName, userEmail, userId, "Admin", teamName);
-                // Get the ViewPager and set it's PagerAdapter so that it can display items
-            } else {
-            }
+            setViewPager();
         }
     }
 
@@ -76,29 +68,6 @@ public class AdminActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-    }
-
-    private void createTeamWithAdminInFireBase(final String name, final String email, final String id, final String userStatus, final String teamName) {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.hasChild(teamName)) {
-                    User userNew = new User();
-                    userNew.setName(name);
-                    userNew.setEmail(email);
-                    userNew.setId(id);
-                    userNew.setRegistrationDate(Utils.getCurrentDate());
-                    userNew.setStatus(userStatus);
-                    mDatabase.child(teamName).child("users").push().setValue(userNew);
-
-                    setViewPager();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
     }
 
     public static String getTeamName() {
