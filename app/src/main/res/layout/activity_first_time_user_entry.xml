@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/ll_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -59,5 +60,12 @@
             android:theme="@style/ThemeOverlay.MyDarkButton"/>
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/first_time_user_entry_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
 </RelativeLayout>

@@ -15,6 +15,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,7 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
     private EditText teamNameEditText;
     private Button createButton;
     private ProgressBar progressBar;
+    private LinearLayout ll;
     private String userEmail;
     private String userName;
     private String userId;
@@ -57,6 +59,7 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
         setContentView(R.layout.activity_first_time_user_entry);
 
         progressBar = (ProgressBar) findViewById(R.id.first_time_user_entry_progressbar);
+        ll = (LinearLayout) findViewById(R.id.ll_layout);
 
         teamNameEditText = (EditText) findViewById(R.id.team_name_editview);
         //teamNameEditText.setImeActionLabel("actionDone", KeyEvent.KEYCODE_ENTER);
@@ -69,6 +72,7 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
                     // Handle pressing "Enter" key here
                     teamName = v.getText().toString();
                     progressBar.setVisibility(View.VISIBLE);
+                    ll.setVisibility(View.GONE);
                     //Toast.makeText(getBaseContext(), teamName, Toast.LENGTH_SHORT).show();
                     handled = true;
                     checkUserInTeam(teamName);
@@ -92,14 +96,14 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChildren()) {
                     User user;
+                    hideEditKeyboard(teamNameEditText);
+                    progressBar.setVisibility(View.GONE);
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         user = postSnapshot.getValue(User.class);
                         if (userId.equals(user.getId())) {
                             if (user.getStatus().equals(Utils.userStatus[0])) {
-                                progressBar.setVisibility(View.GONE);
                                 startAdminActivity(teamName);
                             } else if (user.getStatus().equals(Utils.userStatus[1])) {
-                                progressBar.setVisibility(View.GONE);
                                 dialogShops();
                             }
                             Log.d(TAG, "user = ");
@@ -107,8 +111,9 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "Проверте имя!", Toast.LENGTH_SHORT).show();
+                    ll.setVisibility(View.VISIBLE);
                 }
-
+                progressBar.setVisibility(View.GONE);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
