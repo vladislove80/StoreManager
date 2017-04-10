@@ -139,7 +139,7 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity implements 
                         }
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "Проверьте имя!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Проверьте имя!", Toast.LENGTH_SHORT).show();
                     ll.setVisibility(View.VISIBLE);
                 }
                 progressBar.setVisibility(View.GONE);
@@ -230,6 +230,7 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity implements 
                     intent.putExtra(Utils.EXTRA_TAG_ID, userId);
                     intent.putExtra(Utils.EXTRA_TAG_SHOP, cShopItem[0]);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
