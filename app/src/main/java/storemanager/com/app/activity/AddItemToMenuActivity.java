@@ -12,8 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -55,6 +57,8 @@ public class AddItemToMenuActivity extends AppCompatActivity {
     private Spinner itemSizeSpinner;
     private EditText menuItemPriceEditText;
     private ProgressBar progressBar;
+    private RelativeLayout noDataLayout;
+    private LinearLayout dataLayout;
 
     private ArrayAdapter<String> itemNamesAdapter;
     private ArrayAdapter<String> itemSizeAdapter;
@@ -63,6 +67,7 @@ public class AddItemToMenuActivity extends AppCompatActivity {
     private ArrayAdapter<String> ingredientsMeasureSpinnerAdapter;
 
     private String listName;
+    private String teamName;
     private DatabaseReference mDatabase;
     private List<BaseItem> allDataListLists;
 
@@ -76,6 +81,7 @@ public class AddItemToMenuActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item_to_menu);
+        teamName = AdminActivity.getTeamName();
 
         ingredientNamesList = new ArrayList<>();
         ingredientSizeList = new ArrayList<>();
@@ -84,6 +90,8 @@ public class AddItemToMenuActivity extends AppCompatActivity {
         itemSizeList = new ArrayList<>();
         allDataListLists = new ArrayList<>();
         progressBar = (ProgressBar) findViewById(R.id.add_menu_item_progressbar);
+        noDataLayout = (RelativeLayout) findViewById(R.id.no_add_item_data_layout);
+        dataLayout = (LinearLayout) findViewById(R.id.add_item_to_menu_main_layout);
 
         getDataListsFromDB();
 
@@ -212,13 +220,14 @@ public class AddItemToMenuActivity extends AppCompatActivity {
     }
 
     private void getDataListsFromDB() {
-        mDatabase = FirebaseDatabase.getInstance().getReference("lists");
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
+        mDatabase.child("lists").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChildren()) {
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
+                        noDataLayout.setVisibility(View.GONE);
+                        dataLayout.setVisibility(View.VISIBLE);
                         Log.d(TAG, "getDataListFromDatabse -> dataSnapshot.hasChildren()");
                         Map map = (Map) postSnapshot.getValue();
                         BaseItem item = new BaseItem();
@@ -229,6 +238,7 @@ public class AddItemToMenuActivity extends AppCompatActivity {
                     addDataListsToSpinners(allDataListLists);
                     progressBar.setVisibility(View.GONE);
                 } else {
+                    Toast.makeText(getBaseContext(), "Обратитесь к администратору!", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                     Log.d(TAG, "getDataListFromDatabse -> dataSnapshot not hasChildren()");
                 }
@@ -265,29 +275,31 @@ public class AddItemToMenuActivity extends AppCompatActivity {
 
     private void addDataListsToSpinners(List<BaseItem> allDataListLists) {
 
-        for (BaseItem item : allDataListLists) {
-            String id = item.getId();
-            switch (id) {
-                case "item names":
-                    menuItemNamesList.addAll(item.getItemData());
-                    itemNamesAdapter.notifyDataSetChanged();
-                    break;
-                case "item sizes":
-                    itemSizeList.addAll(item.getItemData());
-                    itemSizeAdapter.notifyDataSetChanged();
-                    break;
-                case "item ingredient names":
-                    ingredientNamesList.addAll(item.getItemData());
-                    ingredientsSpinnerAdapter.notifyDataSetChanged();
-                    break;
-                case "item ingredient sizes":
-                    ingredientSizeList.addAll(item.getItemData());
-                    ingredientsSizeSpinnerAdapter.notifyDataSetChanged();
-                    break;
-                case "item ingredient measure":
-                    ingredientMeasureList.addAll(item.getItemData());
-                    ingredientsMeasureSpinnerAdapter.notifyDataSetChanged();
-                    break;
+        if (allDataListLists.get(0).getId() != null) {
+            for (BaseItem item : allDataListLists) {
+                String id = item.getId();
+                switch (id) {
+                    case "item names":
+                        menuItemNamesList.addAll(item.getItemData());
+                        itemNamesAdapter.notifyDataSetChanged();
+                        break;
+                    case "item sizes":
+                        itemSizeList.addAll(item.getItemData());
+                        itemSizeAdapter.notifyDataSetChanged();
+                        break;
+                    case "item ingredient names":
+                        ingredientNamesList.addAll(item.getItemData());
+                        ingredientsSpinnerAdapter.notifyDataSetChanged();
+                        break;
+                    case "item ingredient sizes":
+                        ingredientSizeList.addAll(item.getItemData());
+                        ingredientsSizeSpinnerAdapter.notifyDataSetChanged();
+                        break;
+                    case "item ingredient measure":
+                        ingredientMeasureList.addAll(item.getItemData());
+                        ingredientsMeasureSpinnerAdapter.notifyDataSetChanged();
+                        break;
+                }
             }
         }
     }

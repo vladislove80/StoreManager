@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import java.util.List;
 
 import storemanager.com.app.R;
 import storemanager.com.app.activity.AddItemToMenuActivity;
+import storemanager.com.app.activity.AdminActivity;
 import storemanager.com.app.activity.ListOfListActivity;
 import storemanager.com.app.adapter.FragmentMenuListAdapter;
 import storemanager.com.app.models.MenuItem;
@@ -51,6 +53,7 @@ public class MenuFragment extends Fragment {
     private FloatingActionButton fab;
 
     private List<MenuItem> mDataset;
+    private String teamName;
 
     public static MenuFragment newInstance(int page) {
         MenuFragment fragment = new MenuFragment();
@@ -61,7 +64,8 @@ public class MenuFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDataset = new ArrayList<>();
-        mDatabase = FirebaseDatabase.getInstance().getReference("menu");
+        teamName = AdminActivity.getTeamName();
+        mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
         getMenuItemListFromDB();
     }
 
@@ -133,13 +137,15 @@ public class MenuFragment extends Fragment {
     }
 
     private void addMenuItemToDatabase(MenuItem menuItem) {
-        String key = mDatabase.push().getKey();
+        /*String key = mDatabase.push().getKey();
         menuItem.setFireBaseKey(key);
-        mDatabase.child(key).setValue(menuItem);
+        mDatabase.child(key).setValue(menuItem);*/
+        mDatabase.child("menu").child("item").setValue(menuItem);
     }
 
     private void getMenuItemListFromDB() {
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query query = mDatabase.child(teamName).child("menu");
+        query.orderByChild("item").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 MenuItem item;
@@ -149,10 +155,10 @@ public class MenuFragment extends Fragment {
                         item.setFireBaseKey(postSnapshot.getKey());
                         if (item != null) {
                             mDataset.add(item);
-                            mAdapter.notifyDataSetChanged();
                         }
                         Log.d(TAG, "getDataListFromDatabse -> dataSnapshot not hasChildren()");
                     }
+                    mAdapter.notifyDataSetChanged();
                     progressBar.setVisibility(View.GONE);
                 } else {
                     progressBar.setVisibility(View.GONE);

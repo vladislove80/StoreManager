@@ -46,12 +46,14 @@ public class AddBaseListsActivity extends AppCompatActivity {
 
     private String listName;
     private DatabaseReference mDatabase;
+    private String teamName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "AddBaseListsActivity -> onCreate");
         setContentView(R.layout.activity_add_base_list);
+        teamName = AdminActivity.getTeamName();
 
         Intent intent = getIntent();
         listName = intent.getStringExtra(ListOfListActivity.TAG);
@@ -126,8 +128,8 @@ public class AddBaseListsActivity extends AppCompatActivity {
     }
 
     private void getDataListFromDatabse() {
-        mDatabase = FirebaseDatabase.getInstance().getReference("lists");
-        mDatabase.child(listName).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
+        mDatabase.child("lists").child(listName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChildren()) {
@@ -156,12 +158,12 @@ public class AddBaseListsActivity extends AppCompatActivity {
     }
 
     private void editBaseListsInDatabase() {
-        mDatabase = FirebaseDatabase.getInstance().getReference("lists");
+        mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
         BaseItem item;
         item = new BaseItem();
         item.setId(listName);
         item.setItemData(dataList);
-        mDatabase.child(listName).setValue(item);
+        mDatabase.child("lists").child(listName).setValue(item);
     }
 
     private void setEditText(String listName) {

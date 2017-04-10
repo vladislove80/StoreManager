@@ -34,9 +34,9 @@ public class AdminPanelFragmentPagerAdapter extends FragmentPagerAdapter {
                 break;
             case 1 : fragment = TeamFragment.newInstance();
                 break;
-            /*case 2 : fragment = MenuFragment.newInstance(2);
+            case 2 : fragment = MenuFragment.newInstance(2);
                 break;
-            case 3 : fragment = StoreFragment.newInstance(3);
+            /*case 3 : fragment = StoreFragment.newInstance(3);
                 break;*/
             default: fragment = StoreFragment.newInstance(4);
         }
