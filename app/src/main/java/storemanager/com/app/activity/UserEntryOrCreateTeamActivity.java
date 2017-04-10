@@ -80,10 +80,10 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity implements 
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_DONE)
                 {
-                    // Handle pressing "Enter" key here
                     teamName = v.getText().toString();
                     progressBar.setVisibility(View.VISIBLE);
                     ll.setVisibility(View.GONE);
+                    // Handle pressing "Enter" key here
                     //Toast.makeText(getBaseContext(), teamName, Toast.LENGTH_SHORT).show();
                     handled = true;
                     checkUserInTeam(teamName);
@@ -121,17 +121,25 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity implements 
                     progressBar.setVisibility(View.GONE);
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         user = postSnapshot.getValue(User.class);
-                        if (userId.equals(user.getId())) {
-                            if (user.getStatus().equals(Utils.userStatus[0])) {
-                                startAdminActivity(teamName);
-                            } else if (user.getStatus().equals(Utils.userStatus[1])) {
-                                dialogShops();
+                        if (userEmail.equals(user.getEmail())) {
+                            if (user.getId() == null) {
+                                user.setId(userId);
+                                mDatabase.child("users").child(postSnapshot.getKey()).setValue(user);
                             }
-                            Log.d(TAG, "user = ");
+                            if (userId.equals(user.getId())) {
+                                if (user.getStatus().equals(Utils.userStatus[0])) {
+                                    startAdminActivity(teamName);
+                                } else if (user.getStatus().equals(Utils.userStatus[1])) {
+                                    dialogShops();
+                                }
+                                Log.d(TAG, "user = ");
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Обратитесь к администратору!", Toast.LENGTH_LONG).show();
+                            }
                         }
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "Проверте имя!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Проверьте имя!", Toast.LENGTH_LONG).show();
                     ll.setVisibility(View.VISIBLE);
                 }
                 progressBar.setVisibility(View.GONE);
@@ -180,7 +188,13 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity implements 
                     if (shop != null) {shopList.add(shop);
                     }
                 }
-                showShopsDialog(shopList);
+                if (shopList.size() != 0) {
+                    showShopsDialog(shopList);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Торговые точи не созданы! Обратитесь к администратору.", Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.GONE);
+                    ll.setVisibility(View.VISIBLE);
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
@@ -209,8 +223,6 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity implements 
         alt_bld.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
-                //mUserEmailTextView.setText(getString(R.string.google_status_fmt, userEmail));
-                //mDetailTextView.setText(getString(R.string.firebase_status_fmt, userName));
                 if (!TextUtils.isEmpty(cShopItem[0])) {
                     Intent intent = new Intent(UserEntryOrCreateTeamActivity.this, SummaryComposerActivity.class);
                     intent.putExtra(Utils.EXTRA_TAG_EMAIL, userEmail);
@@ -218,15 +230,12 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity implements 
                     intent.putExtra(Utils.EXTRA_TAG_ID, userId);
                     intent.putExtra(Utils.EXTRA_TAG_SHOP, cShopItem[0]);
                     startActivity(intent);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Торговые точки не созданы!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
         alt_bld.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
-                //mAddDataButton.setEnabled(true);
                 dialog.dismiss();
             }
         });
