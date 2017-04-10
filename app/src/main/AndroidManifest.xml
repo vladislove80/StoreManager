@@ -73,7 +73,7 @@
 
         <activity
             android:name=".activity.UserEntryOrCreateTeamActivity"
-            android:label="Трам пам пам"/>
+            android:label="Добро пожаловать!"/>
 
         <activity
             android:name=".activity.NewTeamNameActivity"

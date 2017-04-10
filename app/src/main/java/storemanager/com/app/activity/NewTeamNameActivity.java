@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import storemanager.com.app.R;
 
 public class NewTeamNameActivity extends AppCompatActivity {
@@ -51,7 +49,6 @@ public class NewTeamNameActivity extends AppCompatActivity {
     View.OnClickListener buttonCancelClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            FirebaseAuth.getInstance().signOut();
             finish();
         }
     };

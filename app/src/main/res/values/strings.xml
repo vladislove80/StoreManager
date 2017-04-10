@@ -3,7 +3,7 @@
 
     <string name="loading">Loading…</string>
 
-    <string name="sign_out">Sign Out</string>
+    <string name="sign_out">Выйти</string>
     <string name="signed_out">Signed Out</string>
     <string name="user_status">Статус</string>
     <string name="disconnect">Disconnect</string>
