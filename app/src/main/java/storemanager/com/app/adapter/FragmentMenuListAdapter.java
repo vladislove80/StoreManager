@@ -38,18 +38,20 @@ public class FragmentMenuListAdapter extends RecyclerView.Adapter<FragmentMenuLi
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.cardView.setTag(position);
         menuItem = mDataset.get(position);
-        holder.itemNameTextView.setText(menuItem.getName());
-        holder.itemSizeTextView.setText("Объем: " + Integer.toString(menuItem.getSize()));
-        holder.itemPriceTextView.setText("Цена: " + Integer.toString(menuItem.getPrice()));
-        String allIngredients = "";
-        for (Ingredient ingredientItem : menuItem.getConsist()) {
-            allIngredients = allIngredients
-                    + ingredientItem.getName() + " "
-                    + ingredientItem.getSize() + " "
-                    + ingredientItem.getMeasure() + "\n";
+        if (menuItem != null && menuItem.getConsist() != null) {
+            holder.itemNameTextView.setText(menuItem.getName());
+            holder.itemSizeTextView.setText("Объем: " + Integer.toString(menuItem.getSize()));
+            holder.itemPriceTextView.setText("Цена: " + Integer.toString(menuItem.getPrice()));
+            String allIngredients = "";
+            for (Ingredient ingredientItem : menuItem.getConsist()) {
+                allIngredients = allIngredients
+                        + ingredientItem.getName() + " "
+                        + ingredientItem.getSize() + " "
+                        + ingredientItem.getMeasure() + "\n";
+            }
+            allIngredients = allIngredients.trim();
+            holder.itemIngredientsTextView.setText(allIngredients);
         }
-        allIngredients = allIngredients.trim();
-        holder.itemIngredientsTextView.setText(allIngredients);
     }
 
     @Override

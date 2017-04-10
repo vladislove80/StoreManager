@@ -45,8 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:layout_below="@id/team_list_ll_layout"
-            android:background="@color/colorPrimary"/>
+            android:layout_below="@id/team_list_ll_layout"/>
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
