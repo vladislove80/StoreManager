@@ -15,6 +15,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
 
     private EditText teamNameEditText;
     private Button createButton;
+    private ProgressBar progressBar;
     private String userEmail;
     private String userName;
     private String userId;
@@ -54,6 +56,8 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_time_user_entry);
 
+        progressBar = (ProgressBar) findViewById(R.id.first_time_user_entry_progressbar);
+
         teamNameEditText = (EditText) findViewById(R.id.team_name_editview);
         //teamNameEditText.setImeActionLabel("actionDone", KeyEvent.KEYCODE_ENTER);
         teamNameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -64,6 +68,7 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
                 {
                     // Handle pressing "Enter" key here
                     teamName = v.getText().toString();
+                    progressBar.setVisibility(View.VISIBLE);
                     //Toast.makeText(getBaseContext(), teamName, Toast.LENGTH_SHORT).show();
                     handled = true;
                     checkUserInTeam(teamName);
@@ -91,13 +96,13 @@ public class UserEntryOrCreateTeamActivity extends AppCompatActivity {
                         user = postSnapshot.getValue(User.class);
                         if (userId.equals(user.getId())) {
                             if (user.getStatus().equals(Utils.userStatus[0])) {
+                                progressBar.setVisibility(View.GONE);
                                 startAdminActivity(teamName);
                             } else if (user.getStatus().equals(Utils.userStatus[1])) {
+                                progressBar.setVisibility(View.GONE);
                                 dialogShops();
                             }
                             Log.d(TAG, "user = ");
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Вы не зарегистрированны в этой команде. Проверте имя или обратитесь к администратору!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 } else {
