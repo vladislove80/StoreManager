@@ -141,7 +141,7 @@ public class ShopsFragment extends Fragment {
         if (shopList.size() != 0) {
             progressBar.setVisibility(View.GONE);
         } else {
-            progressBar.setVisibility(View.VISIBLE);
+            noDataLayout.setVisibility(View.VISIBLE);
         }
         //query.addValueEventListener(valueEventListener);
     }
@@ -179,15 +179,19 @@ public class ShopsFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
-                Shop shop;
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    shop = postSnapshot.getValue(Shop.class);
-                    Log.d(TAG, "getShopListFromDatabase -> shop.getName() = " + shop.getName());
-                    shopList.add(shop);
+                if (dataSnapshot.hasChildren()) {
+                    Shop shop;
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        shop = postSnapshot.getValue(Shop.class);
+                        Log.d(TAG, "getShopListFromDatabase -> shop.getName() = " + shop.getName());
+                        shopList.add(shop);
+                    }
+                    mAdapter.notifyDataSetChanged();
+                    Log.d(TAG, "getShopListFromDatabase -> shopList.size() = " + shopList.size());
                 }
-                Log.d(TAG, "getShopListFromDatabase -> shopList.size() = " + shopList.size());
                 if (shopList.size() != 0) {
                     progressBar.setVisibility(View.GONE);
+                    noDataLayout.setVisibility(View.GONE);
                 } else {
                     progressBar.setVisibility(View.GONE);
                     noDataLayout.setVisibility(View.VISIBLE);

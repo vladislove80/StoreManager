@@ -73,7 +73,7 @@
         android:src="@drawable/ic_add_white_48dp"
         app:fabSize="normal"
         app:layout_anchor="@id/shops_recycler_view"
-        app:layout_anchorGravity="bottom|center"
+        app:layout_anchorGravity="bottom|center_horizontal"
         app:rippleColor="@color/admin_panel_fab_color"/>
 
 </android.support.design.widget.CoordinatorLayout>
