@@ -137,15 +137,14 @@ public class MenuFragment extends Fragment {
     }
 
     private void addMenuItemToDatabase(MenuItem menuItem) {
-        /*String key = mDatabase.push().getKey();
+        String key = mDatabase.push().getKey();
         menuItem.setFireBaseKey(key);
-        mDatabase.child(key).setValue(menuItem);*/
-        mDatabase.child("menu").child("item").setValue(menuItem);
+        mDatabase.child("menu").child(key).setValue(menuItem);
     }
 
     private void getMenuItemListFromDB() {
-        Query query = mDatabase.child(teamName).child("menu");
-        query.orderByChild("item").addListenerForSingleValueEvent(new ValueEventListener() {
+        Query query = mDatabase.child("menu");
+        query.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 MenuItem item;
