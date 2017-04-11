@@ -83,15 +83,13 @@
                 android:layout_height="wrap_content"
                 android:focusableInTouchMode="true">
 
-                <EditText
-                    android:id="@+id/member_status_editview"
+                <Spinner
+                    android:id="@+id/member_status_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/add_member_status_editview"
-                    android:maxLines="1"
-                    android:textSize="@dimen/new_team_edittext_text_size"
-                    android:inputType="textCapSentences" />
+                    android:textSize="@dimen/new_team_edittext_text_size">
 
+                </Spinner>
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
     </LinearLayout>

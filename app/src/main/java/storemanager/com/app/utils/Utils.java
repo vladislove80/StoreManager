@@ -12,20 +12,8 @@ public class Utils {
 
     public static final String userStatus[] = {"Администратор", "Реализатор"};
 
-   /* public static final String[] cItems = {
-            "Эспрессо", "Эспрессо 2x", "Американо", "Кофе с молоком", "Кофе по Ирландски", "Кофе по Французски",  "Кофе Choco Mocco",
-            "Кофе IRISH",  "Мокко",  "Капучино Nuts",  "Латте",  "Латте BANANA'S",  "Латте TIRAMISU", "Сливочный кулкам",  "Карамельный мокиато",
-            "Горячий шоколад",  "Горячий шоколад BANANA'S",  "Горячий шоколад TIRAMISU",  "Горячий шоколад с зефиром",  "Какао",  "Какао с зефиром",  "Milk"};*/
-
     public static final String[] cShops = {"Таврия-В", "Цветочный рынок", "Парк Приморский"};
     public static final ArrayList<String> coffeShops = new ArrayList<>(Arrays.asList(cShops));
-
-    public static final String[] cItems1 = {
-            "Эспрессо", "Эспрессо 2x", "Американо", "Кофе с молоком", "Кофе по Ирландски", "Кофе по Французски",  "Кофе Choco Mocco"};
-    public static final String[] cItems2 = {
-            "Кофе IRISH",  "Мокко",  "Капучино Nuts",  "Латте",  "Латте BANANA'S",  "Латте TIRAMISU", "Сливочный кулкам",  "Карамельный мокиато"};
-    public static final String[] cItems3 = {
-            "Горячий шоколад",  "Горячий шоколад BANANA'S",  "Горячий шоколад TIRAMISU",  "Горячий шоколад с зефиром",  "Какао",  "Какао с зефиром",  "Milk"};
 
     public static final String EXTRA_TAG_EMAIL = "email";
     public static final String EXTRA_TAG_NAME = "name";
@@ -41,14 +29,12 @@ public class Utils {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm, dd / MM / yyyy");
         return mdformat.format(calendar.getTime());
-
     }
 
     public static String getCurrentDateWithoutTime() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat mdformat = new SimpleDateFormat("dd / MM / yyyy");
         return mdformat.format(calendar.getTime());
-
     }
 
     public static final String[] itemDataLists = {"item names", "item sizes", "item ingredient names", "item ingredient sizes", "item ingredient measure"};
