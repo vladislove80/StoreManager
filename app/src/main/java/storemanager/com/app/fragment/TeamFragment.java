@@ -64,12 +64,12 @@ public class TeamFragment  extends Fragment {
         teamName = AdminActivity.getTeamName();
         usersList = new ArrayList<>();
 
-        User user = new User();
+        /*User user = new User();
         user.setName("Test");
         user.setEmail("Emale test");
         user.setStatus("Admin");
         user.setRegistrationDate("Data test");
-        usersList.add(user);
+        usersList.add(user);*/
 
         fab = (FloatingActionButton) view.findViewById(R.id.team_fragment_fab);
         teamNameTextView = (TextView) view.findViewById(R.id.team_name_textview);
