@@ -5,9 +5,10 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/signin_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/status_progress_bar"
+        android:layout_above="@+id/signin_ll_layout"
         android:layout_centerHorizontal="true"
         android:text="Добро пожаловать!!"
         android:layout_margin="25dp"
@@ -22,6 +23,7 @@
         android:visibility="gone"/>
 
     <LinearLayout
+        android:id="@+id/signin_ll_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

@@ -56,8 +56,10 @@ public class GoogleSignInActivity extends BaseActivity implements
     private String userName;
     private String userId;
 
+    private String teamName;
     private String newTeamName;
     private List<String> allProjectsEmails;
+    boolean userInTeam;
 
     //private ProgressBar progressBar;
 
@@ -67,6 +69,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         setContentView(R.layout.activity_google);
         Log.v(Utils.LOG_TAG, "GoogleSignInActivity");
         allProjectsEmails = new ArrayList<>();
+        findViewById(R.id.signin_label).setOnClickListener(this);
 
         //statusProgressBar = (ProgressBar) findViewById(R.id.status_progress_bar);
 
@@ -93,9 +96,7 @@ public class GoogleSignInActivity extends BaseActivity implements
                     userName = user.getDisplayName();
                     userId = user.getUid();
 
-                    //revokeAccess();
-                    createTeam();
-                    //checkUserInBD("tst@test.ua");
+                    checkUserInBD(userEmail);
                     /*Intent intent = new Intent(GoogleSignInActivity.this, UserEntryOrCreateTeamActivity.class);
                     intent.putExtra(Utils.EXTRA_TAG_NAME, userName);
                     intent.putExtra(Utils.EXTRA_TAG_EMAIL, userEmail);
@@ -108,7 +109,6 @@ public class GoogleSignInActivity extends BaseActivity implements
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
                 //updateUI(user);
-
             }
         };
     }
@@ -169,14 +169,46 @@ public class GoogleSignInActivity extends BaseActivity implements
                 }
                 break;
             case REQ_CODE:
-                newTeamName = data.getExtras().getString(NewTeamNameActivity.TAG);
-                createTeamInFireBase(userName, userEmail, userId, Utils.userStatus[0], newTeamName);
+                if (data != null) {
+                    newTeamName = data.getExtras().getString(NewTeamNameActivity.TAG);
+                    createTeamInFireBase(userName, userEmail, userId, Utils.userStatus[0], newTeamName);
+                }
                 break;
 
         }
     }
 
     private void checkUserInBD(final String email) {
+        userInTeam = false;
+        mDatabase = FirebaseDatabase.getInstance().getReference("projects");
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<String> userProjects = new ArrayList<>();
+                if (dataSnapshot.hasChildren()) {
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                        allProjectsEmails = (List<String>) postSnapshot.getValue();
+                        if (allProjectsEmails.contains(email)){
+                            teamName = postSnapshot.getKey();
+                            userProjects.add(teamName);
+                            userInTeam = true;
+                        }
+                    }
+                    if (userProjects.size() == 1){
+                        checkUserInTeam(userProjects.get(0));
+                    } else {
+                        //ToDo There more than one project for this email. Need dialog with project choice
+                        Toast.makeText(getApplicationContext(), "Много проэктов!!", Toast.LENGTH_SHORT).show();
+                    }
+                    if (userInTeam == false){
+                        createTeam();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
     }
 
     private void createTeam() {
@@ -192,6 +224,7 @@ public class GoogleSignInActivity extends BaseActivity implements
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChildren()) {
                     allProjectsEmails = (List<String>) dataSnapshot.getValue();
+                    Log.d(TAG, "createTeamInFireBase");
                 }
                 if (!allProjectsEmails.contains(email)) {
                     allProjectsEmails.add(email);
@@ -233,12 +266,50 @@ public class GoogleSignInActivity extends BaseActivity implements
         finish();
     }
 
+    private void checkUserInTeam(final String teamName) {
+        mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
+        mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChildren()) {
+                    User user;
+                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                        user = postSnapshot.getValue(User.class);
+                        if (userEmail.equals(user.getEmail())) {
+                            if (user.getId() == null) {
+                                user.setId(userId);
+                                mDatabase.child("users").child(postSnapshot.getKey()).setValue(user);
+                            }
+                            if (userId.equals(user.getId())) {
+                                if (user.getStatus().equals(Utils.userStatus[0])) {
+                                    startAdminActivity(teamName);
+                                } else if (user.getStatus().equals(Utils.userStatus[1])) {
+                                    //dialogShops();
+                                }
+                                Log.d(TAG, "user = ");
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Обратитесь к администратору!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(), "Проверьте имя!", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
     @Override
     public void onClick(View v) {
         Log.d(TAG, "onClick");
         int i = v.getId();
         if (i == R.id.sign_in_button) {
             signIn();
+        }
+        if (i == R.id.signin_label) {
+            //revokeAccess();
         }
     }
 
