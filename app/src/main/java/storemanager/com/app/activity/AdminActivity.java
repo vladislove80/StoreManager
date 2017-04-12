@@ -38,6 +38,7 @@ public class AdminActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
+            //get throw NLP when first time entry with empty data
             userName = intent.getExtras().get(Utils.EXTRA_TAG_NAME).toString();
             userEmail = intent.getExtras().get(Utils.EXTRA_TAG_EMAIL).toString();
             userId = intent.getExtras().get(Utils.EXTRA_TAG_ID).toString();
