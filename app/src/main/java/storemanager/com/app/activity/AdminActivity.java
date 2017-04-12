@@ -42,15 +42,16 @@ public class AdminActivity extends AppCompatActivity implements GoogleApiClient.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.v(Utils.LOG_TAG, "AdminActivity");
-
-        Intent intent = getIntent();
-        if (intent != null) {
-            //get throw NLP when first time entry with empty data
-            userName = intent.getExtras().get(Utils.EXTRA_TAG_NAME).toString();
-            userEmail = intent.getExtras().get(Utils.EXTRA_TAG_EMAIL).toString();
-            userId = intent.getExtras().get(Utils.EXTRA_TAG_ID).toString();
-            teamName = intent.getExtras().get(Utils.EXTRA_TAG_TEAM).toString();
-            setViewPager();
+        if(savedInstanceState == null){
+            Intent intent = getIntent();
+            if (intent != null) {
+                //get throw NLP when first time entry with empty data
+                userName = intent.getExtras().get(Utils.EXTRA_TAG_NAME).toString();
+                userEmail = intent.getExtras().get(Utils.EXTRA_TAG_EMAIL).toString();
+                userId = intent.getExtras().get(Utils.EXTRA_TAG_ID).toString();
+                teamName = intent.getExtras().get(Utils.EXTRA_TAG_TEAM).toString();
+                setViewPager();
+            }
         }
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

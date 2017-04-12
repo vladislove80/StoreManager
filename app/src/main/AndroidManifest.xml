@@ -23,7 +23,8 @@
         <activity
             android:name=".activity.AdminActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="Main"/>
+            android:launchMode="singleTop"
+            android:label="Админ"/>
 
         <!--<activity
             android:name="storemanager.com.app.activity.GoogleSignInActivity"

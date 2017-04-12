@@ -38,7 +38,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import storemanager.com.app.R;
 import storemanager.com.app.adapter.SummaryAdapter;
@@ -73,9 +72,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
 
     private String date;
     public final static int REQ_CODE_CHILD = 1;
-    public final static String MENU_NAMES_TAG = "item names";
 
-    public final static String MENU_SIZES_TAG = "item sizes";
     private ArrayList<MenuItem> menu;
     private ArrayList<String> coffeItemNames;
     private ArrayList<String> coffeItemSizes;
@@ -94,8 +91,6 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         summaryList = new ArrayList<>();
         allDataListLists = new ArrayList<>();
         menu = new ArrayList<>();
-        //getDataListsFromDB();
-        getMenuFromBD();
 
         mainLinerLayout = (LinearLayout) findViewById(R.id.summary_composer_ll);
         mainLinerLayout.setVisibility(View.GONE);
@@ -105,13 +100,13 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         userName = intent.getStringExtra(Utils.EXTRA_TAG_NAME);
         userId = intent.getStringExtra(Utils.EXTRA_TAG_ID);
         teamName = intent.getStringExtra(Utils.EXTRA_TAG_TEAM);
+        getMenuFromBD();
         dialogShops();
 
         date = Utils.getCurrentDate();
         mDateTextView = (TextView) findViewById(R.id.date);
         mShopTextView = (TextView) findViewById(R.id.shop);
         mDateTextView.setText(date);
-        //mShopTextView.setText("\"" + shop + "\"");
         mSaveToDatabaseButton = (Button) findViewById(R.id.send_button);
         summuryListView = (ListView) findViewById(R.id.summury);
         total = (TextView) findViewById(R.id.total);
@@ -158,7 +153,6 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
             }
         });
 
@@ -238,18 +232,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
             }
         });
 
-        alt_bld.setPositiveButton("Ok", null);/*new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                if (!TextUtils.isEmpty(cShopItem[0])) {
-                    shop = cShopItem[0];
-                    mainLinerLayout.setVisibility(View.VISIBLE);
-                    mShopTextView.setText("\"" + shop + "\"");
-                } else {
-                    Toast.makeText(getApplicationContext(), "Сделайте выбор", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });*/
+        alt_bld.setPositiveButton("Ok", null);
         alt_bld.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
@@ -319,9 +302,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         summary.setItemInSummary(summaryList);
 
         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("summaries");
-/*        mDatabase.child(shop).setValue(user);
-        mDatabase.child(shop).setValue(date);*/
+        mDatabase = FirebaseDatabase.getInstance().getReference(teamName).child("summaries");
         mDatabase.push().setValue(summary);
     }
 
@@ -408,45 +389,9 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         }
     }
 
-    /*private void getDataListsFromDB() {
-        mDatabase = FirebaseDatabase.getInstance().getReference("lists");
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChildren()) {
-                    for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
-                        Log.d(TAG, "getDataListFromDatabse -> dataSnapshot.hasChildren()");
-                        Map map = (Map) postSnapshot.getValue();
-                        BaseItem item = new BaseItem();
-                        item.setId((String) map.get("id"));
-                        item.setItemData((List<String>) map.get("itemData"));
-
-                        if (item.getId().equals("item names")){
-                            coffeItemNames.addAll(item.getItemData());
-                        }
-                        if (item.getId().equals("item sizes")){
-                            coffeItemSizes.addAll(item.getItemData());
-                        }
-                        // to delete ?
-                        allDataListLists.add(item);
-                    }
-                    Log.d(TAG, "getDataListFromDatabse -> allDataListLists");
-                } else {
-                    Log.d(TAG, "getDataListFromDatabse -> dataSnapshot not hasChildren()");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }*/
-
     private void getMenuFromBD() {
-        mDatabase = FirebaseDatabase.getInstance().getReference("menu");
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
+        mDatabase.child("menu").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 MenuItem item;
@@ -483,7 +428,6 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                 return true;
             default : return super.onOptionsItemSelected(item);
         }
-
     }
 
     private void signout() {

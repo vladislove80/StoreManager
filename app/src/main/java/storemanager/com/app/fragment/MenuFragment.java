@@ -77,6 +77,9 @@ public class MenuFragment extends Fragment {
         editListsButton = (Button) view.findViewById(R.id.edit_lists_button);
         menuLabel = (TextView) view.findViewById(R.id.menu_fragment_label);
         progressBar = (ProgressBar) view.findViewById(R.id.menu_fragment_progressbar);
+        if (mDataset.size() > 0){
+            progressBar.setVisibility(View.GONE);
+        }
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.menu_recycler_view);
         mRecyclerView.setHasFixedSize(true);
