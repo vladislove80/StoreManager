@@ -1,16 +1,11 @@
 package storemanager.com.app.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -32,14 +27,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import storemanager.com.app.R;
-import storemanager.com.app.models.Shop;
 import storemanager.com.app.models.User;
 import storemanager.com.app.utils.Utils;
 
@@ -49,42 +44,33 @@ public class GoogleSignInActivity extends BaseActivity implements
 
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
+    public final static int REQ_CODE = 2;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
 
     private GoogleApiClient mGoogleApiClient;
-    private TextView mUserEmailTextView;
-    private TextView mUserStatusTextView;
-    private TextView mDetailTextView;
-    private Button mAddDataButton;
-    private Button mViewDataButton;
 
     private String userEmail;
     private String userName;
     private String userId;
-    private String userStatus = "";
 
-    //private ProgressBar statusProgressBar;
+    private String newTeamName;
+    private List<String> allProjectsEmails;
+
+    //private ProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google);
         Log.v(Utils.LOG_TAG, "GoogleSignInActivity");
+        allProjectsEmails = new ArrayList<>();
 
-        mUserEmailTextView = (TextView) findViewById(R.id.user_email);
-        mUserStatusTextView = (TextView) findViewById(R.id.user_status);
-        mDetailTextView = (TextView) findViewById(R.id.detail);
-        mAddDataButton = (Button) findViewById(R.id.start_sales_activity);
-        mViewDataButton = (Button) findViewById(R.id.start_viewer_activity);
         //statusProgressBar = (ProgressBar) findViewById(R.id.status_progress_bar);
 
         findViewById(R.id.sign_in_button).setOnClickListener(this);
-        findViewById(R.id.sign_out_button).setOnClickListener(this);
-        findViewById(R.id.disconnect_button).setOnClickListener(this);
-        findViewById(R.id.disconnect_button).setOnClickListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -106,12 +92,17 @@ public class GoogleSignInActivity extends BaseActivity implements
                     userEmail = user.getEmail();
                     userName = user.getDisplayName();
                     userId = user.getUid();
-                    Intent intent = new Intent(GoogleSignInActivity.this, UserEntryOrCreateTeamActivity.class);
+
+                    //revokeAccess();
+                    createTeam();
+                    //checkUserInBD("tst@test.ua");
+                    /*Intent intent = new Intent(GoogleSignInActivity.this, UserEntryOrCreateTeamActivity.class);
                     intent.putExtra(Utils.EXTRA_TAG_NAME, userName);
                     intent.putExtra(Utils.EXTRA_TAG_EMAIL, userEmail);
                     intent.putExtra(Utils.EXTRA_TAG_ID, userId);
                     startActivity(intent);
-                    finish();
+                    finish();*/
+                    Toast.makeText(getApplicationContext(), userEmail, Toast.LENGTH_LONG).show();
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -137,23 +128,6 @@ public class GoogleSignInActivity extends BaseActivity implements
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TAG, "onActivityResult: requestCode = " + requestCode);
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            if (result.isSuccess()) {
-                Log.d(TAG, "firebaseAuthWithGoogle: result.isSuccess");
-                GoogleSignInAccount account = result.getSignInAccount();
-                firebaseAuthWithGoogle(account);
-            } else {
-                updateUI(null);
-            }
-        }
-    }
-
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         showProgressDialog();
@@ -176,6 +150,102 @@ public class GoogleSignInActivity extends BaseActivity implements
                         hideProgressDialog();
                     }
                 });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        Log.d(TAG, "onActivityResult: requestCode = " + requestCode);
+        switch (requestCode){
+            case RC_SIGN_IN:
+                GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+                if (result.isSuccess()) {
+                    Log.d(TAG, "firebaseAuthWithGoogle: result.isSuccess");
+                    GoogleSignInAccount account = result.getSignInAccount();
+                    firebaseAuthWithGoogle(account);
+                } else {
+                    //updateUI(null);
+                }
+                break;
+            case REQ_CODE:
+                newTeamName = data.getExtras().getString(NewTeamNameActivity.TAG);
+                createTeamInFireBase(userName, userEmail, userId, Utils.userStatus[0], newTeamName);
+                break;
+
+        }
+    }
+
+    private void checkUserInBD(final String email) {
+    }
+
+    private void createTeam() {
+        Intent intent = new Intent(GoogleSignInActivity.this, NewTeamNameActivity.class);
+        startActivityForResult(intent, REQ_CODE);
+    }
+
+    private void createTeamInFireBase(final String name, final String email, final String id, final String userStatus, final String teamName) {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.child("projects").child(teamName).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChildren()) {
+                    allProjectsEmails = (List<String>) dataSnapshot.getValue();
+                }
+                if (!allProjectsEmails.contains(email)) {
+                    allProjectsEmails.add(email);
+                    mDatabase.child("projects").child(teamName).setValue(allProjectsEmails);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.hasChild(teamName)) {
+                    User userNew = new User();
+                    userNew.setName(name);
+                    userNew.setEmail(email);
+                    userNew.setId(id);
+                    userNew.setRegistrationDate(Utils.getCurrentDate());
+                    userNew.setStatus(userStatus);
+                    mDatabase.child(teamName).child("users").push().setValue(userNew);
+                    startAdminActivity(teamName);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
+    private void startAdminActivity(String teamName){
+        Intent intent = new Intent(GoogleSignInActivity.this, AdminActivity.class);
+        intent.putExtra(Utils.EXTRA_TAG_NAME, userName);
+        intent.putExtra(Utils.EXTRA_TAG_EMAIL, userEmail);
+        intent.putExtra(Utils.EXTRA_TAG_ID, userId);
+        intent.putExtra(Utils.EXTRA_TAG_TEAM, teamName);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onClick(View v) {
+        Log.d(TAG, "onClick");
+        int i = v.getId();
+        if (i == R.id.sign_in_button) {
+            signIn();
+        }
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+        Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 
     private void signIn() {
@@ -216,231 +286,8 @@ public class GoogleSignInActivity extends BaseActivity implements
             userName = user.getDisplayName();
             userId = user.getUid();
 
-            //isUserInDatabase(userEmail);
-            mUserEmailTextView.setText(getString(R.string.google_status_fmt, userEmail));
-            mDetailTextView.setText(getString(R.string.firebase_status_fmt, userName));
-
-            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
-            //statusProgressBar.setVisibility(View.VISIBLE);
-
         } else {
-            mUserStatusTextView.setVisibility(View.GONE);
-            mAddDataButton.setVisibility(View.GONE);
-            mViewDataButton.setVisibility(View.GONE);
-            mUserEmailTextView.setText(R.string.signed_out);
-            mDetailTextView.setText(null);
 
-            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
-            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mUserStatusTextView.setVisibility(View.GONE);
-        mAddDataButton.setEnabled(true);
-    }
-
-    private void setViewDataButton() {
-        mAddDataButton.setVisibility(View.GONE);
-        mViewDataButton.setVisibility(View.VISIBLE);
-        mViewDataButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(GoogleSignInActivity.this, AdminActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void setAddDataButton() {
-        mViewDataButton.setVisibility(View.GONE);
-        mAddDataButton.setVisibility(View.VISIBLE);
-        mAddDataButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAddDataButton.setEnabled(false);
-                dialogShops();
-
-            }
-        });
-    }
-
-    private void showShopsDialog(List<Shop> shopList){
-
-        final String cShopItem[] = new String[1];
-        final String[] shopNamesArray = new String[shopList.size()];
-        int i = 0;
-        for (Shop shop : shopList) {
-            shopNamesArray[i] = shop.getName();
-            i++;
-        }
-
-        AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
-        alt_bld.setTitle("Выберите название торговой точки:");
-        alt_bld.setSingleChoiceItems(shopNamesArray, -1, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-                cShopItem[0] = shopNamesArray[item];
-                Toast.makeText(getApplicationContext(), "Торговая точка \"" + cShopItem[0] + "\"", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        alt_bld.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                mUserEmailTextView.setText(getString(R.string.google_status_fmt, userEmail));
-                mDetailTextView.setText(getString(R.string.firebase_status_fmt, userName));
-                if (!TextUtils.isEmpty(cShopItem[0])) {
-                    Intent intent = new Intent(GoogleSignInActivity.this, SummaryComposerActivity.class);
-                    intent.putExtra(Utils.EXTRA_TAG_EMAIL, userEmail);
-                    intent.putExtra(Utils.EXTRA_TAG_NAME, userName);
-                    intent.putExtra(Utils.EXTRA_TAG_ID, userId);
-                    intent.putExtra(Utils.EXTRA_TAG_SHOP, cShopItem[0]);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Торговые точки не созданы!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        alt_bld.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        mAddDataButton.setEnabled(true);
-                        dialog.dismiss();
-                    }
-                });
-        alt_bld.setCancelable(false);
-        AlertDialog alert = alt_bld.create();
-        alert.show();
-    }
-
-    private void setNewUser() {
-        AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
-        alt_bld.setCancelable(false);
-        alt_bld.setTitle("Выберите роль: ");
-        alt_bld.setSingleChoiceItems(Utils.userStatus, -1, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                userStatus = Utils.userStatus[which];
-                Toast.makeText(getApplicationContext(), "Выбран статус: " + userStatus, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        alt_bld.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                if (!TextUtils.isEmpty(userStatus)) {
-                    if(!TextUtils.isEmpty(userEmail)
-                            &&!TextUtils.isEmpty(userId)
-                            &&!TextUtils.isEmpty(userName)
-                            ) {
-                        addUserToDatabase(userEmail, userId, userName, userStatus);
-                    }
-                    Log.d(TAG, "In setNewUser userStatus = " + userStatus);
-                    dialog.dismiss();
-                    showButtonDependOnStatus(userStatus);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Выберите статус!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        AlertDialog alert = alt_bld.create();
-        alert.show();
-    }
-
-    @Override
-    public void onClick(View v) {
-        Log.d(TAG, "onClick");
-        int i = v.getId();
-        if (i == R.id.sign_in_button) {
-            signIn();
-        } else if (i == R.id.sign_out_button) {
-            signOut();
-        } else if (i == R.id.disconnect_button) {
-            revokeAccess();
-        }
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.d(TAG, "onConnectionFailed:" + connectionResult);
-        Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
-    }
-
-    private void addUserToDatabase(String email, String id, String name, String userStatus) {
-        mDatabase = FirebaseDatabase.getInstance().getReference("users");
-            User userNew = new User();
-            userNew.setEmail(email);
-            userNew.setId(id);
-            userNew.setName(name);
-            userNew.setStatus(userStatus);
-            mDatabase.push().setValue(userNew);
-    }
-
-    private void isUserInDatabase(String email) {
-        Log.d(TAG, "isUserInDatabase");
-
-        final String e_mail = email;
-        mDatabase = FirebaseDatabase.getInstance().getReference("users");
-        Query query = mDatabase.orderByChild("email").equalTo(email);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = null;
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    user = postSnapshot.getValue(User.class);
-                    if (user.getEmail().equals(e_mail)) {
-                        userStatus = user.getStatus();
-                        showButtonDependOnStatus(userStatus);
-                        Log.d(TAG, "userIsInDatabase: " + true);
-                    } else {                                            // redundant ??
-                        setNewUser();
-                        Log.d(TAG, "user = " + null);
-                    }
-                }
-                if (user == null) {
-                    setNewUser();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-            }
-        });
-    }
-
-    private void showButtonDependOnStatus(String userStatus) {
-        //statusProgressBar.setVisibility(View.GONE);
-        if (userStatus.equals(Utils.userStatus[0])) {
-            mUserStatusTextView.setText(Utils.userStatus[0]);
-            setViewDataButton();
-        } else if (userStatus.equals(Utils.userStatus[1])) {
-            mUserStatusTextView.setText(Utils.userStatus[1]);
-            setAddDataButton();
-        }
-    }
-
-    private void dialogShops() {
-        final List<Shop> shopList = new ArrayList<>();
-        mDatabase = FirebaseDatabase.getInstance().getReference("shops");
-        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Shop shop;
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    shop = postSnapshot.getValue(Shop.class);
-                    if (shop != null) {shopList.add(shop);
-                    }
-                }
-                showShopsDialog(shopList);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
     }
 }

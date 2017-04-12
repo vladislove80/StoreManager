@@ -44,7 +44,7 @@ public class TeamFragment  extends Fragment {
     private TextView teamNameTextView;
     private String teamName;
     private List<User> usersList;
-
+    private List<String> allProjectsEmails;
 
     public static TeamFragment newInstance() {
         TeamFragment fragment = new TeamFragment();
@@ -63,6 +63,7 @@ public class TeamFragment  extends Fragment {
 
         teamName = AdminActivity.getTeamName();
         usersList = new ArrayList<>();
+        allProjectsEmails = new ArrayList<>();
 
         /*User user = new User();
         user.setName("Test");
@@ -139,7 +140,23 @@ public class TeamFragment  extends Fragment {
         }
     }
 
-    private void addNewUserInFireBase(User user) {
+    private void addNewUserInFireBase(final User user) {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("projects").child(teamName).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChildren()) {
+                    allProjectsEmails = (List<String>) dataSnapshot.getValue();
+                }
+                allProjectsEmails.add(user.getEmail());
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+                mDatabase.child("projects").child(teamName).setValue(allProjectsEmails);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
         mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
         user.setRegistrationDate(Utils.getCurrentDate());
         mDatabase.child("users").push().setValue(user);
