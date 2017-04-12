@@ -36,6 +36,7 @@ public class ShopDataActivity extends AppCompatActivity {
     private Query query;
     private RelativeLayout noDataLayout;
     private String shopName;
+    private String teamName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,11 +45,12 @@ public class ShopDataActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         shopName = intent.getStringExtra(TAG);
+        teamName = AdminActivity.getTeamName();
         TextView textView = (TextView) findViewById(R.id.shop_name);
         textView.setText(shopName);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("summaries");
-        query = mDatabase.orderByChild("shop").equalTo(shopName);
+        mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
+        query = mDatabase.child("summaries").orderByChild("shop").equalTo(shopName);
         query.addListenerForSingleValueEvent(valueEventListener);
 
         progressBar = (ProgressBar) findViewById(R.id.shop_summaries_progress_bar);
@@ -81,5 +83,4 @@ public class ShopDataActivity extends AppCompatActivity {
         @Override
         public void onCancelled(DatabaseError databaseError) {}
     };
-
 }

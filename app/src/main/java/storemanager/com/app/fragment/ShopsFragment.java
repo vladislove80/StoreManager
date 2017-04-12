@@ -64,7 +64,7 @@ public class ShopsFragment extends Fragment {
         teamName = AdminActivity.getTeamName();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         getShopListFromDatabase();
-        //query = mDatabase.child(teamName).child("summaries");
+        query = mDatabase.child(teamName).child("summaries");
     }
 
     ValueEventListener valueEventListener = new ValueEventListener() {
@@ -74,7 +74,7 @@ public class ShopsFragment extends Fragment {
                 summaryList.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Log.d(TAG, "getShopListFromDatabase -> onDataChange = ");
-                    Summary summary = postSnapshot.child(teamName).getValue(Summary.class);
+                    Summary summary = postSnapshot.getValue(Summary.class);
                     if (summary != null && Utils.isCurrentDate(summary.getDate())) {
                         shopList.contains(summary.getShop());
                         if (shopList.size() != 0) {
@@ -143,13 +143,13 @@ public class ShopsFragment extends Fragment {
         } else {
             noDataLayout.setVisibility(View.VISIBLE);
         }
-        //query.addValueEventListener(valueEventListener);
+        query.addValueEventListener(valueEventListener);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        //query.removeEventListener(valueEventListener);
+        query.removeEventListener(valueEventListener);
     }
 
     @Override
