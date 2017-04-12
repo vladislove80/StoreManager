@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -59,7 +60,9 @@ public class GoogleSignInActivity extends BaseActivity implements
     private String teamName;
     private String newTeamName;
     private List<String> allProjectsEmails;
-    boolean userInTeam;
+    private boolean userInTeam;
+
+    private Button sigInButton;
 
     //private ProgressBar progressBar;
 
@@ -73,7 +76,8 @@ public class GoogleSignInActivity extends BaseActivity implements
 
         //statusProgressBar = (ProgressBar) findViewById(R.id.status_progress_bar);
 
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
+        sigInButton = (Button) findViewById(R.id.sign_in_button);
+        sigInButton.setOnClickListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -95,7 +99,7 @@ public class GoogleSignInActivity extends BaseActivity implements
                     userEmail = user.getEmail();
                     userName = user.getDisplayName();
                     userId = user.getUid();
-
+                    sigInButton.setEnabled(false);
                     checkUserInBD(userEmail);
                     /*Intent intent = new Intent(GoogleSignInActivity.this, UserEntryOrCreateTeamActivity.class);
                     intent.putExtra(Utils.EXTRA_TAG_NAME, userName);
@@ -288,7 +292,13 @@ public class GoogleSignInActivity extends BaseActivity implements
                                 if (user.getStatus().equals(Utils.userStatus[0])) {
                                     startAdminActivity(teamName);
                                 } else if (user.getStatus().equals(Utils.userStatus[1])) {
-
+                                    Intent intent = new Intent(GoogleSignInActivity.this, SummaryComposerActivity.class);
+                                    intent.putExtra(Utils.EXTRA_TAG_EMAIL, userEmail);
+                                    intent.putExtra(Utils.EXTRA_TAG_NAME, userName);
+                                    intent.putExtra(Utils.EXTRA_TAG_ID, userId);
+                                    intent.putExtra(Utils.EXTRA_TAG_TEAM, teamName);
+                                    startActivity(intent);
+                                    finish();
                                 }
                                 Log.d(TAG, "user = ");
                             } else {

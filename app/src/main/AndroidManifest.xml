@@ -34,8 +34,7 @@
 
         <activity
             android:name=".activity.SummaryComposerActivity"
-            android:label="@string/label_send_data"
-            android:parentActivityName=".activity.AdminActivity"/>
+            android:label="@string/label_send_data" />
 
         <activity
             android:name=".activity.AddShopActivity"

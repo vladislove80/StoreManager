@@ -4,21 +4,32 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,17 +46,19 @@ import storemanager.com.app.models.BaseItem;
 import storemanager.com.app.models.Ingredient;
 import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.MenuItemsInSummary;
+import storemanager.com.app.models.Shop;
 import storemanager.com.app.models.Summary;
 import storemanager.com.app.models.User;
 import storemanager.com.app.utils.Utils;
 
-public class SummaryComposerActivity extends AppCompatActivity implements View.OnClickListener{
+public class SummaryComposerActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener{
     public static final String TAG = SummaryComposerActivity.class.getSimpleName();
 
     private String userEmail;
     private String userName;
     private String userId;
     private String shop;
+    private String teamName;
 
     private Button mSaveToDatabaseButton;
     private TextView mDateTextView;
@@ -54,21 +67,22 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
 
     private ListView summuryListView;
     private List<MenuItemsInSummary> summaryList;
+    private List<BaseItem> allDataListLists;
     private SummaryAdapter adapter;
-
     private int totalPrice = 0;
-    private String date;
 
+    private String date;
     public final static int REQ_CODE_CHILD = 1;
     public final static String MENU_NAMES_TAG = "item names";
-    public final static String MENU_SIZES_TAG = "item sizes";
 
+    public final static String MENU_SIZES_TAG = "item sizes";
     private ArrayList<MenuItem> menu;
     private ArrayList<String> coffeItemNames;
     private ArrayList<String> coffeItemSizes;
     private DatabaseReference mDatabase;
-    private List<BaseItem> allDataListLists;
+    private GoogleApiClient mGoogleApiClient;
     private FloatingActionButton fab;
+    private LinearLayout mainLinerLayout;
 
 
     @Override
@@ -80,20 +94,24 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         summaryList = new ArrayList<>();
         allDataListLists = new ArrayList<>();
         menu = new ArrayList<>();
-        getDataListsFromDB();
+        //getDataListsFromDB();
         getMenuFromBD();
+
+        mainLinerLayout = (LinearLayout) findViewById(R.id.summary_composer_ll);
+        mainLinerLayout.setVisibility(View.GONE);
 
         Intent intent = getIntent();
         userEmail = intent.getStringExtra(Utils.EXTRA_TAG_EMAIL);
         userName = intent.getStringExtra(Utils.EXTRA_TAG_NAME);
         userId = intent.getStringExtra(Utils.EXTRA_TAG_ID);
-        shop = intent.getStringExtra(Utils.EXTRA_TAG_SHOP);
+        teamName = intent.getStringExtra(Utils.EXTRA_TAG_TEAM);
+        dialogShops();
 
         date = Utils.getCurrentDate();
         mDateTextView = (TextView) findViewById(R.id.date);
         mShopTextView = (TextView) findViewById(R.id.shop);
         mDateTextView.setText(date);
-        mShopTextView.setText("\"" + shop + "\"");
+        //mShopTextView.setText("\"" + shop + "\"");
         mSaveToDatabaseButton = (Button) findViewById(R.id.send_button);
         summuryListView = (ListView) findViewById(R.id.summury);
         total = (TextView) findViewById(R.id.total);
@@ -166,6 +184,101 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                 }
             }
         });
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+    }
+
+    private void dialogShops() {
+        final List<Shop> shopList = new ArrayList<>();
+        mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
+        mDatabase.child("shops").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Shop shop;
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    shop = postSnapshot.getValue(Shop.class);
+                    if (shop != null) {shopList.add(shop);
+                    }
+                }
+                if (shopList.size() != 0) {
+                    showShopsDialog(shopList);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Торговые точи не созданы! Обратитесь к администратору.", Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
+    private void showShopsDialog(List<Shop> shopList){
+
+        final String cShopItem[] = new String[1];
+        final String[] shopNamesArray = new String[shopList.size()];
+        int i = 0;
+        for (Shop shop : shopList) {
+            shopNamesArray[i] = shop.getName();
+            i++;
+        }
+
+        AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
+        alt_bld.setTitle("Выберите название торговой точки:");
+        alt_bld.setSingleChoiceItems(shopNamesArray, -1, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                cShopItem[0] = shopNamesArray[item];
+                Toast.makeText(getApplicationContext(), "Торговая точка \"" + cShopItem[0] + "\"", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alt_bld.setPositiveButton("Ok", null);/*new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                if (!TextUtils.isEmpty(cShopItem[0])) {
+                    shop = cShopItem[0];
+                    mainLinerLayout.setVisibility(View.VISIBLE);
+                    mShopTextView.setText("\"" + shop + "\"");
+                } else {
+                    Toast.makeText(getApplicationContext(), "Сделайте выбор", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });*/
+        alt_bld.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        alt_bld.setCancelable(false);
+        final AlertDialog alert = alt_bld.create();
+        alert.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(final DialogInterface dialog) {
+                Button b = alert.getButton(AlertDialog.BUTTON_POSITIVE);
+                b.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        if (!TextUtils.isEmpty(cShopItem[0])) {
+                            shop = cShopItem[0];
+                            mainLinerLayout.setVisibility(View.VISIBLE);
+                            mShopTextView.setText("\"" + shop + "\"");
+                            dialog.dismiss();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Сделайте выбор", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+        alert.show();
     }
 
     @Override
@@ -184,6 +297,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
+                        //finish();
                     }
                 });
                 AlertDialog alert = alt_bld.create();
@@ -294,7 +408,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         }
     }
 
-    private void getDataListsFromDB() {
+    /*private void getDataListsFromDB() {
         mDatabase = FirebaseDatabase.getInstance().getReference("lists");
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -328,7 +442,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
 
             }
         });
-    }
+    }*/
 
     private void getMenuFromBD() {
         mDatabase = FirebaseDatabase.getInstance().getReference("menu");
@@ -352,5 +466,43 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_sign_out:
+                signout();
+                return true;
+            default : return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    private void signout() {
+        FirebaseAuth.getInstance().signOut();
+        Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        Toast.makeText(getBaseContext(), "Sign out.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        Intent intent = new Intent(this, GoogleSignInActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+        Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 }
