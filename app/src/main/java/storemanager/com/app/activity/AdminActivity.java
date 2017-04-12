@@ -3,31 +3,38 @@ package storemanager.com.app.activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import storemanager.com.app.R;
 import storemanager.com.app.adapter.AdminPanelFragmentPagerAdapter;
-import storemanager.com.app.models.User;
 import storemanager.com.app.utils.Utils;
 
-public class AdminActivity extends AppCompatActivity {
-    ViewPager mViewPager;
+public class AdminActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+    public static final String TAG = AdminActivity.class.getSimpleName();
+
+    private ViewPager mViewPager;
     private String userName;
     private String userEmail;
     private static String teamName;
     private String userId;
+    private GoogleApiClient mGoogleApiClient;
     private DatabaseReference mDatabase;
 
     @Override
@@ -45,6 +52,16 @@ public class AdminActivity extends AppCompatActivity {
             teamName = intent.getExtras().get(Utils.EXTRA_TAG_TEAM).toString();
             setViewPager();
         }
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
 
     private void setViewPager() {
@@ -71,7 +88,44 @@ public class AdminActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_sign_out:
+                signout();
+                return true;
+            default : return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void signout() {
+        FirebaseAuth.getInstance().signOut();
+        Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(@NonNull Status status) {
+                        Toast.makeText(getBaseContext(), "Sign out.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        Intent intent = new Intent(this, GoogleSignInActivity.class);
+        startActivity(intent);
+        finish();
+    }
     public static String getTeamName() {
         return teamName;
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+        Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
 }

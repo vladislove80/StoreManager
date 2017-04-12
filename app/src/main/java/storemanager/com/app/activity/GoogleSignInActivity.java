@@ -172,6 +172,8 @@ public class GoogleSignInActivity extends BaseActivity implements
                 if (data != null) {
                     newTeamName = data.getExtras().getString(NewTeamNameActivity.TAG);
                     createTeamInFireBase(userName, userEmail, userId, Utils.userStatus[0], newTeamName);
+                } else {
+                    revokeAccess();
                 }
                 break;
 
@@ -196,11 +198,13 @@ public class GoogleSignInActivity extends BaseActivity implements
                     }
                     if (userProjects.size() == 1){
                         checkUserInTeam(userProjects.get(0));
-                    } else {
+                    } else if (userProjects.size() == 0){
                         //ToDo There more than one project for this email. Need dialog with project choice
                         Toast.makeText(getApplicationContext(), "Много проэктов!!", Toast.LENGTH_SHORT).show();
                     }
                     if (userInTeam == false){
+                        //ToDo Current user is absent in any project
+                        Toast.makeText(getApplicationContext(), "Вы не добавленны!", Toast.LENGTH_SHORT).show();
                         createTeam();
                     }
                 }
@@ -284,7 +288,7 @@ public class GoogleSignInActivity extends BaseActivity implements
                                 if (user.getStatus().equals(Utils.userStatus[0])) {
                                     startAdminActivity(teamName);
                                 } else if (user.getStatus().equals(Utils.userStatus[1])) {
-                                    //dialogShops();
+
                                 }
                                 Log.d(TAG, "user = ");
                             } else {
@@ -309,7 +313,7 @@ public class GoogleSignInActivity extends BaseActivity implements
             signIn();
         }
         if (i == R.id.signin_label) {
-            //revokeAccess();
+            revokeAccess();
         }
     }
 
