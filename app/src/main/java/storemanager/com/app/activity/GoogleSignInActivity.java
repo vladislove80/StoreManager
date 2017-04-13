@@ -31,9 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import storemanager.com.app.R;
 import storemanager.com.app.models.User;
@@ -50,21 +48,17 @@ public class GoogleSignInActivity extends BaseActivity implements
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private DatabaseReference mDatabase;
-
     private GoogleApiClient mGoogleApiClient;
 
     private String userEmail;
     private String userName;
     private String userId;
-
     private String teamName;
     private String newTeamName;
     private List<String> allProjectsEmails;
     private boolean userInTeam;
 
     private Button sigInButton;
-
-    //private ProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,8 +67,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         Log.v(Utils.LOG_TAG, "GoogleSignInActivity");
         allProjectsEmails = new ArrayList<>();
         findViewById(R.id.signin_label).setOnClickListener(this);
-
-        //statusProgressBar = (ProgressBar) findViewById(R.id.status_progress_bar);
+        hideProgressDialog();
 
         sigInButton = (Button) findViewById(R.id.sign_in_button);
         sigInButton.setOnClickListener(this);
@@ -101,18 +94,11 @@ public class GoogleSignInActivity extends BaseActivity implements
                     userId = user.getUid();
                     sigInButton.setEnabled(false);
                     checkUserInBD(userEmail);
-                    /*Intent intent = new Intent(GoogleSignInActivity.this, UserEntryOrCreateTeamActivity.class);
-                    intent.putExtra(Utils.EXTRA_TAG_NAME, userName);
-                    intent.putExtra(Utils.EXTRA_TAG_EMAIL, userEmail);
-                    intent.putExtra(Utils.EXTRA_TAG_ID, userId);
-                    startActivity(intent);
-                    finish();*/
                     Toast.makeText(getApplicationContext(), userEmail, Toast.LENGTH_LONG).show();
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-                //updateUI(user);
             }
         };
     }
@@ -137,23 +123,19 @@ public class GoogleSignInActivity extends BaseActivity implements
         showProgressDialog();
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
-
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            Log.d(TAG, "signInWithCredential", task.getException());
-                            Toast.makeText(GoogleSignInActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        hideProgressDialog();
-                    }
-                });
+        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+                // If sign in fails, display a message to the user. If sign in succeeds
+                // the auth state listener will be notified and logic to handle the
+                // signed in user can be handled in the listener.
+                if (!task.isSuccessful()) {
+                    Log.d(TAG, "signInWithCredential", task.getException());
+                    Toast.makeText(GoogleSignInActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
@@ -168,8 +150,6 @@ public class GoogleSignInActivity extends BaseActivity implements
                     Log.d(TAG, "firebaseAuthWithGoogle: result.isSuccess");
                     GoogleSignInAccount account = result.getSignInAccount();
                     firebaseAuthWithGoogle(account);
-                } else {
-                    //updateUI(null);
                 }
                 break;
             case REQ_CODE:
@@ -180,7 +160,6 @@ public class GoogleSignInActivity extends BaseActivity implements
                     revokeAccess();
                 }
                 break;
-
         }
     }
 
@@ -320,10 +299,8 @@ public class GoogleSignInActivity extends BaseActivity implements
         Log.d(TAG, "onClick");
         int i = v.getId();
         if (i == R.id.sign_in_button) {
+            showProgressDialog();
             signIn();
-        }
-        if (i == R.id.signin_label) {
-            revokeAccess();
         }
     }
 
@@ -346,7 +323,6 @@ public class GoogleSignInActivity extends BaseActivity implements
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(@NonNull Status status) {
-                        updateUI(null);
                     }
                 });
     }
@@ -358,21 +334,7 @@ public class GoogleSignInActivity extends BaseActivity implements
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(@NonNull Status status) {
-                        updateUI(null);
                     }
                 });
-    }
-
-    private void updateUI(final FirebaseUser user) {
-        Log.d(TAG, "updateUI");
-        hideProgressDialog();
-        if (user != null) {
-            userEmail = user.getEmail();
-            userName = user.getDisplayName();
-            userId = user.getUid();
-
-        } else {
-
-        }
     }
 }

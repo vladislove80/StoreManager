@@ -26,16 +26,13 @@
             android:launchMode="singleTop"
             android:label="Админ"/>
 
-        <!--<activity
-            android:name="storemanager.com.app.activity.GoogleSignInActivity"
-            android:label="@string/label_google_sign_in" />-->
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
         <activity
             android:name=".activity.SummaryComposerActivity"
-            android:label="@string/label_send_data" />
+            android:label="@string/label_send_data"
+            android:launchMode="singleTop"/>
 
         <activity
             android:name=".activity.AddShopActivity"
@@ -64,16 +61,13 @@
 
         <activity
             android:name=".activity.ListOfListActivity"
-            android:label="@string/manifest_label_lists"/>
+            android:label="@string/manifest_label_lists"
+            android:parentActivityName=".activity.AdminActivity"/>
 
         <activity
             android:name=".activity.AddItemsToSummaryActivity"
             android:label="Добавить в отчет"
             android:parentActivityName=".activity.SummaryComposerActivity"/>
-
-        <activity
-            android:name=".activity.UserEntryOrCreateTeamActivity"
-            android:label="Добро пожаловать!"/>
 
         <activity
             android:name=".activity.NewTeamNameActivity"

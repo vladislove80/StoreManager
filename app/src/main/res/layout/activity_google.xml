@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,17 +9,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/signin_ll_layout"
         android:layout_centerHorizontal="true"
-        android:text="Добро пожаловать!!"
-        android:layout_margin="25dp"
-        android:textSize="22sp"/>
-
-    <ProgressBar
-        android:id="@+id/status_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"/>
+        android:text="@string/signin_activity_label"
+        android:layout_margin="@dimen/signin_activity_label_margin"
+        android:textSize="@dimen/signin_activity_label_text_size"/>
 
     <LinearLayout
         android:id="@+id/signin_ll_layout"
@@ -28,17 +19,14 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
-
         android:layout_centerInParent="true">
 
         <Button
             android:id="@+id/sign_in_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Войти"
-            android:layout_margin="25dp"
+            android:text="@string/signin_activity_button"
+            android:layout_margin="@dimen/signin_activity_buttom_margin"
             android:theme="@style/ThemeOverlay.MyDarkButton"/>
     </LinearLayout>
-
-
 </RelativeLayout>

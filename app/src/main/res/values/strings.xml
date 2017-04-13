@@ -1,30 +1,26 @@
 <resources>
     <string name="app_name">StoreManager</string>
-
     <string name="loading">Loading…</string>
-
     <string name="sign_out">Выйти</string>
     <string name="user_status">Статус</string>
     <string name="disconnect">Disconnect</string>
     <string name="desc_firebase_lockup">Firebase logo and name</string>
-
     <string name="label_google_sign_in">Firebase + Google Sign In</string>
     <string name="desc_google_sign_in">Use a Google Sign In credential to authenticate with Firebase.</string>
-
     <string name="label_facebook_login">Firebase + Facebook Login</string>
     <string name="desc_facebook_login">Use a Facebook Login credential to authenticate with Firebase.</string>
-
     <string name="google_status_fmt">Google User: %s</string>
-
     <string name="firebase_status_fmt">Firebase User: %s</string>
     <string name="firebase_user_management">Firebase User Management</string>
-
     <string name="facebook_status_fmt">Facebook User: %s</string>
     <string name="facebook_title_text">Facebook Login</string>
-
     <string name="facebook_app_id">165070403956965</string>
+
     <!--GoogleSignInActivity-->
-    <string name="button_sales">Войти</string>
+
+    <string name="signin_activity_label">Добро пожаловать!!</string>
+    <string name="signin_activity_button">Войти</string>
+
     <!--SummaryComposerActivity-->
     <string name="check_label">Check</string>
     <string name="label_send_data">Summary</string>
@@ -41,8 +37,6 @@
     <!--AddShopActivity-->
     <string name="manifest_label_add_shop">Добавить торговую точку</string>
 
-
-
     <!--AddBaseListsActivity-->
     <string name="manifest_label_add_base_ingredient_item">Добавить пункт меню</string>
 
@@ -58,7 +52,7 @@
     <string name="filter_all">all</string>
     <string name="no_data">Нет данных..</string>
 
-    <!--AddMenuItemActivity-->
+    <!--AddItemToMenuActivity-->
     <string name="manifest_label_add_menu_item">Добавить пункт меню</string>
     <string name="add_menu_item_layout_button">ГОТОВО !</string>
     <string name="add_menu_item_layout_name">Наименование</string>
@@ -78,18 +72,6 @@
     <string name="lists_item_ingredient_sizes">Обьемы ингридиентов</string>
     <string name="lists_item_ingredient_measures">Меры</string>
 
-    <string-array name="filter">
-        <item>Сегодня</item>
-        <item>Вчера и сегодня</item>
-        <item>Все</item>
-    </string-array>
-
-    <string-array name="filter_values">
-        <item>@string/filter_today</item>
-        <item>@string/filter_tomorrow</item>
-        <item>@string/filter_all</item>
-    </string-array>
-
     <!--LisyOfListActivity constant-->
     <string name="item_names">item names</string>
     <string name="item_sizes">item sizes</string>
@@ -97,7 +79,7 @@
     <string name="item_ingredient_sizes">item ingredient sizes</string>
     <string name="item_ingredient_measure">item ingredient measure</string>
 
-    <!--AddItemClickToSummaryActivity-->
+    <!--AddItemsToSummaryActivity???????????-->
     <string name="add_menu_item_label">Выберите пункт меню и введите количество</string>
     <string name="add_menu_item_add_button">Добавить</string>
     <string name="add_menu_item_selected_item">Пункт меню</string>
@@ -106,18 +88,11 @@
     <string name="menu_fragment_label">Создавайте и редактируйте Меню. Для удаления из списка - долгое нажатие</string>
     <string name="edit_lists_button">Редактировать списки</string>
 
-    <!--UserEntryOrCreateTeamActivity-->
-    <string name="new_team_label">Найти команду</string>
-    <string name="new_team_edittext_hint">Имя</string>
-    <string name="new_team_textview_or">или</string>
-    <string name="new_team_button">Создать</string>
-
     <!--AddMemberActivity-->
     <string name="add_member_label">Добавляйте людей в команду</string>
     <string name="add_member_button">Добавить</string>
     <string name="add_member_name_editview">Имя</string>
     <string name="add_member_email_editview">Емейл</string>
     <string name="add_member_status_editview">Статус</string>
-
 
 </resources>

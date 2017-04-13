@@ -135,4 +135,9 @@
     <dimen name="add_member_data_layout_margin_right">10dp</dimen>
     <dimen name="add_member_image_margin">40dp</dimen>
 
+    <!--GoogleSignInActivity-->
+    <dimen name="signin_activity_label_margin">25dp</dimen>
+    <dimen name="signin_activity_label_text_size">22sp</dimen>
+    <dimen name="signin_activity_buttom_margin">25dp</dimen>
+
 </resources>
