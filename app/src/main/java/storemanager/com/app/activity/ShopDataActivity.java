@@ -50,7 +50,7 @@ public class ShopDataActivity extends AppCompatActivity {
         textView.setText(shopName);
 
         mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
-        query = mDatabase.child("summaries").orderByChild("shop").equalTo(shopName);
+        query = mDatabase.child("summaries").orderByChild("shop").equalTo(shopName).limitToLast(1);
         query.addListenerForSingleValueEvent(valueEventListener);
 
         progressBar = (ProgressBar) findViewById(R.id.shop_summaries_progress_bar);
