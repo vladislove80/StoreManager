@@ -7,6 +7,7 @@
     <color name="colorAccentTest">#f2c7b214</color>
 
     <color name="white">#ffffff</color>
+    <color name="darkgreen">#004d05</color>
 
     <!--TabLayout-->
     <color name="indicatorColor">@color/colorAccentTest</color>
@@ -19,5 +20,13 @@
 
     <!--MenuFragment FabButton-->
     <color name="admin_panel_fab_color">#F06292</color>
+    
+    <!--ShopStore-->
+    <color name="storeItemConsumptionNum">#ff0400</color>
+    <color name="storeItemConsumptionStat">#ff0400</color>
+    <color name="storeItemIncomingNum">@color/darkgreen</color>
+    <color name="icAddBoxStoreItem">@color/darkgreen</color>
+    <color name="storeItemIncomingStat">@color/darkgreen</color>
+    <color name="storeItem">#000000</color>
 
 </resources>

@@ -140,4 +140,18 @@
     <dimen name="signin_activity_label_text_size">22sp</dimen>
     <dimen name="signin_activity_buttom_margin">25dp</dimen>
 
+    <!--ShopStoreItem-->
+    <dimen name="base_layout_margin">15dp</dimen>
+    <dimen name="store_item_base_info_layout_margin_top">10dp</dimen>
+    <dimen name="store_item_base_info_layout_padding">15dp</dimen>
+    <dimen name="store_item_balance_num_text_size">16sp</dimen>
+    <dimen name="store_item_consumption_num_text_size">16sp</dimen>
+    <dimen name="store_item_incoming_num_text_size">16sp</dimen>
+    <dimen name="store_item_name_margin_left">15dp</dimen>
+    <dimen name="store_item_name_text_size">17sp</dimen>
+    <dimen name="store_item_name_padding_left">3dp</dimen>
+    <dimen name="store_item_name_padding_right">3dp</dimen>
+    <dimen name="store_item_measure_text_size">17sp</dimen>
+
+
 </resources>

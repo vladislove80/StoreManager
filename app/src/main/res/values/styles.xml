@@ -16,6 +16,22 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <!-- Store Stat Incoming Buttons -->
+    <style name="ThemeOverlay.MyStoreStatIncomingButton" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="colorButtonNormal">@color/storeItemIncomingStat</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- Store Stat Consumption Buttons -->
+    <style name="ThemeOverlay.MyStoreStatConsumptionButton" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="colorButtonNormal">@color/storeItemConsumptionStat</item>
+        <item name="android:layout_marginRight">4dp</item>
+        <item name="android:layout_marginLeft">4dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
     <style name="ThemeOverlay.MyDarkButtonNotActive" parent="ThemeOverlay.AppCompat.Dark">
         <item name="colorButtonNormal">@color/notActive</item>
         <item name="android:layout_marginRight">4dp</item>
