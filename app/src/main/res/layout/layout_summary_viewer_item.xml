@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:layout_marginStart="@dimen/summary_data_item_margin_start"
+    android:layout_marginLeft="@dimen/summary_data_item_margin_start"
     android:id="@+id/ll_summary_container">
 
     <TextView

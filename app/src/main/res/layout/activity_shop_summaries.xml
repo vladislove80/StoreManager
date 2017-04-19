@@ -8,7 +8,6 @@
         android:id="@+id/no_shop_data_layout"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_below="@+id/shops_buttons_layout"
         layout="@layout/layout_no_data"
         android:visibility="gone"/>
 
@@ -18,21 +17,67 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"/>
+        android:layout_margin="20dp"
+        android:textSize="17sp"
+        android:text="Shop name"/>
 
-    <ListView
-        android:id="@+id/shop_summaries_listview"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/shop_name"/>
-    
-    <fragment
-        android:id="@+id/shop_store_fragment"
-        android:layout_below="@+id/shop_summaries_listview"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/summary_data_item_margin_start"
+        android:id="@+id/ll_summary_container"
+        android:layout_below="@+id/shop_name">
+
+        <TextView
+            android:id="@+id/viewer_shop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/shop_text_size"
+            android:textStyle="bold"
+            android:text="some text"/>
+
+        <TextView
+            android:id="@+id/viewer_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/date_text_size"
+            android:text="Summary date"/>
+
+
+        <TableLayout
+            android:id="@+id/summary_table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TableLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        class="storemanager.com.app.fragment.ShopStoreFragment"/>
+        android:orientation="vertical"
+        android:layout_below="@+id/ll_summary_container"
+        android:gravity="center">
 
+        <TextView
+            android:id="@+id/shop_store_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:textSize="17sp"
+            android:text="Склад"/>
+
+        <android.support.v7.widget.RecyclerView
+
+            android:id="@+id/shop_store_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:background="#ffffff"/>
+    </LinearLayout>
     <ProgressBar
         android:id="@+id/shop_summaries_progress_bar"
         android:layout_centerInParent="true"
