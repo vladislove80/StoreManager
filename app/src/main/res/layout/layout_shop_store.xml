@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/base_layout_margin">
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/base_layout_margin"
+    android:background="#ffffff">
 
     <RelativeLayout
         android:id="@+id/store_item_base_info_layout"
@@ -17,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/add_store_item">
+            android:layout_toLeftOf="@+id/change_store_item_amount_button">
 
             <TextView
                 android:id="@+id/store_item_balance"
@@ -50,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/store_item_label_layout"
-            android:layout_toLeftOf="@+id/add_store_item">
+            android:layout_toLeftOf="@+id/change_store_item_amount_button">
 
             <TextView
                 android:id="@+id/store_item_balance_num"
@@ -89,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/store_item_num_layout"
-            android:layout_toLeftOf="@+id/add_store_item">
+            android:layout_toLeftOf="@+id/change_store_item_amount_button">
 
             <TextView
                 android:id="@+id/store_item_balance_date"
@@ -123,7 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/store_item_date_layout"
-            android:layout_toLeftOf="@+id/add_store_item">
+            android:layout_toLeftOf="@+id/change_store_item_amount_button">
 
             <Button
                 android:id="@+id/store_item_balance_stat"
@@ -157,14 +158,13 @@
                 android:theme="@style/ThemeOverlay.MyStoreStatIncomingButton"/>
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/add_store_item"
+        <ImageButton
+            android:id="@+id/change_store_item_amount_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:contentDescription="Smth"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_add_box_black_24dp"/>
+            android:background="@drawable/ic_add_box_black_24dp"/>
     </RelativeLayout>
 
     <TextView

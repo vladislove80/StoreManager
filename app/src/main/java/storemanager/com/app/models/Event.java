@@ -4,6 +4,14 @@ public class Event {
     private String date;
     private int amount;
 
+    public Event() {
+    }
+
+    public Event(String date, int amount) {
+        this.date = date;
+        this.amount = amount;
+    }
+
     public String getDate() {
         return date;
     }

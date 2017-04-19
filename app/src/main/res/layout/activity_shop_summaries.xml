@@ -23,8 +23,15 @@
     <ListView
         android:id="@+id/shop_summaries_listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/shop_name"/>
+    
+    <fragment
+        android:id="@+id/shop_store_fragment"
+        android:layout_below="@+id/shop_summaries_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        class="storemanager.com.app.fragment.ShopStoreFragment"/>
 
     <ProgressBar
         android:id="@+id/shop_summaries_progress_bar"
