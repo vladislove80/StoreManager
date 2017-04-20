@@ -13,14 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import storemanager.com.app.R;
-import storemanager.com.app.activity.AddShopActivity;
 import storemanager.com.app.activity.AddStoreItemActivity;
 import storemanager.com.app.activity.AdminActivity;
 import storemanager.com.app.adapter.FragmentShopStoreAdapter;
@@ -59,10 +62,12 @@ public class GeneralStoreFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_store, container, false);
 
         teamName = AdminActivity.getTeamName();
-
+        mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
+        if (mDataset.size() == 0) {
+            getStoreItemsFromDatabase();
+        }
         progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.general_store_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -99,11 +104,31 @@ public class GeneralStoreFragment extends Fragment {
             StoreItem newStoreItem = new StoreItem(newStoreItemName, measure);
             mDataset.add(newStoreItem);
             mAdapter.notifyDataSetChanged();
+            addStoreItemToDatabase(mDataset);
         }
     }
 
-    private void addShopToDatabase() {
-        mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
-        mDatabase.child("").push().setValue("");
+    private void addStoreItemToDatabase(List<StoreItem> dataset) {
+        mDatabase.child("general store").setValue(dataset);
+    }
+
+    private void getStoreItemsFromDatabase(){
+        Query query = mDatabase.child("general store");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChildren()) {
+                    for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                        mDataset.add(postSnapshot.getValue(StoreItem.class));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "addStoreItemToDatabase -> onCancelled = " + databaseError.getMessage());
+            }
+        });
     }
 }
