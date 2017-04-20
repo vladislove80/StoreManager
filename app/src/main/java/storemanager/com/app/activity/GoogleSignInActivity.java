@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -58,7 +59,8 @@ public class GoogleSignInActivity extends BaseActivity implements
     private List<String> allProjectsEmails;
     private boolean userInTeam;
 
-    private Button sigInButton;
+    private Button signInButton;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,10 +69,12 @@ public class GoogleSignInActivity extends BaseActivity implements
         Log.v(Utils.LOG_TAG, "GoogleSignInActivity");
         allProjectsEmails = new ArrayList<>();
         findViewById(R.id.signin_label).setOnClickListener(this);
+        progressBar = (ProgressBar) findViewById(R.id.google_signin_progressbar);
+        progressBar.setVisibility(View.GONE);
         hideProgressDialog();
 
-        sigInButton = (Button) findViewById(R.id.sign_in_button);
-        sigInButton.setOnClickListener(this);
+        signInButton = (Button) findViewById(R.id.sign_in_button);
+        signInButton.setOnClickListener(this);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -92,9 +96,10 @@ public class GoogleSignInActivity extends BaseActivity implements
                     userEmail = user.getEmail();
                     userName = user.getDisplayName();
                     userId = user.getUid();
-                    sigInButton.setEnabled(false);
+                    signInButton.setEnabled(false);
                     checkUserInBD(userEmail);
                     Toast.makeText(getApplicationContext(), userEmail, Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.VISIBLE);
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 } else {
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -148,8 +153,11 @@ public class GoogleSignInActivity extends BaseActivity implements
                 GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
                 if (result.isSuccess()) {
                     Log.d(TAG, "firebaseAuthWithGoogle: result.isSuccess");
+                    showProgressDialog();
                     GoogleSignInAccount account = result.getSignInAccount();
                     firebaseAuthWithGoogle(account);
+                } else {
+                    signInButton.setEnabled(true);
                 }
                 break;
             case REQ_CODE:
@@ -299,7 +307,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         Log.d(TAG, "onClick");
         int i = v.getId();
         if (i == R.id.sign_in_button) {
-            showProgressDialog();
+            signInButton.setEnabled(false);
             signIn();
         }
     }
@@ -329,6 +337,7 @@ public class GoogleSignInActivity extends BaseActivity implements
 
     private void revokeAccess() {
         Log.d(TAG, "revokeAccess");
+        progressBar.setVisibility(View.GONE);
         mAuth.signOut();
         Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {

@@ -29,4 +29,11 @@
             android:layout_margin="@dimen/signin_activity_buttom_margin"
             android:theme="@style/ThemeOverlay.MyDarkButton"/>
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/google_signin_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signin_ll_layout"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>
