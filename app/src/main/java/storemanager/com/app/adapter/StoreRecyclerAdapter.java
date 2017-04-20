@@ -15,12 +15,14 @@ import storemanager.com.app.models.Event;
 import storemanager.com.app.models.StoreItem;
 import storemanager.com.app.utils.Utils;
 
-public class FragmentShopStoreAdapter extends RecyclerView.Adapter<FragmentShopStoreAdapter.ViewHolder>{
+public class StoreRecyclerAdapter extends RecyclerView.Adapter<StoreRecyclerAdapter.ViewHolder>{
 
     private List<StoreItem> mDataset;
+    private View.OnClickListener mItemListener;
 
-    public FragmentShopStoreAdapter(List<StoreItem> mDataset){
+    public StoreRecyclerAdapter(List<StoreItem> mDataset, View.OnClickListener itemListener){
         this.mDataset = mDataset;
+        this.mItemListener = itemListener;
     }
 
     @Override
@@ -32,8 +34,9 @@ public class FragmentShopStoreAdapter extends RecyclerView.Adapter<FragmentShopS
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.setPosition(position);
         StoreItem storeItem = mDataset.get(position);
-        holder.itemNameTextView.setText(storeItem.getName() + ", ");
+        holder.itemNameTextView.setText(storeItem.getName() + ",");
         holder.itemMeasureTextView.setText(storeItem.getMeasure());
         Event consumption = storeItem.getLastConsumption();
         holder.itemConsumptionNumTextView.setText(Integer.toString(consumption.getAmount()));
@@ -52,6 +55,7 @@ public class FragmentShopStoreAdapter extends RecyclerView.Adapter<FragmentShopS
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         public TextView itemNameTextView;
         public TextView itemMeasureTextView;
         public TextView itemBalanceNumTextView;
@@ -79,6 +83,17 @@ public class FragmentShopStoreAdapter extends RecyclerView.Adapter<FragmentShopS
             itemBalanceStatButton = (Button) itemView.findViewById(R.id.store_item_balance_stat);
             itemConsumptionStatButton = (Button) itemView.findViewById(R.id.store_item_consumption_num_stat);
             itemIncomingStatButton = (Button) itemView.findViewById(R.id.store_item_incoming_num_stat);
+            changeItemAmountImageButton.setOnClickListener(mItemListener);
+            itemBalanceStatButton.setOnClickListener(mItemListener);
+            itemIncomingStatButton.setOnClickListener(mItemListener);
+            itemConsumptionStatButton.setOnClickListener(mItemListener);
+        }
+
+        public void setPosition(int position) {
+            changeItemAmountImageButton.setTag(position);
+            itemBalanceStatButton.setTag(position);
+            itemIncomingStatButton.setTag(position);
+            itemConsumptionStatButton.setTag(position);
         }
     }
 }

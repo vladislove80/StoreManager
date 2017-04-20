@@ -1,13 +1,11 @@
 package storemanager.com.app.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -15,14 +13,14 @@ import storemanager.com.app.R;
 import storemanager.com.app.models.Ingredient;
 import storemanager.com.app.models.MenuItem;
 
-public class FragmentMenuListAdapter extends RecyclerView.Adapter<FragmentMenuListAdapter.ViewHolder> {
+public class MenuListAdapter extends RecyclerView.Adapter<MenuListAdapter.ViewHolder> {
 
     private List<MenuItem> mDataset;
     private MenuItem menuItem;
     private View.OnLongClickListener onLongClickListener;
 
 
-    public FragmentMenuListAdapter(List<MenuItem> mDataset, View.OnLongClickListener onLongClickListener) {
+    public MenuListAdapter(List<MenuItem> mDataset, View.OnLongClickListener onLongClickListener) {
         this.mDataset = mDataset;
         this.onLongClickListener = onLongClickListener;
     }

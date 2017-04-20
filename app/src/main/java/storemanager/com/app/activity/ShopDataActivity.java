@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import storemanager.com.app.R;
-import storemanager.com.app.adapter.FragmentShopStoreAdapter;
+import storemanager.com.app.adapter.StoreRecyclerAdapter;
 import storemanager.com.app.models.Event;
 import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.MenuItemsInSummary;
@@ -77,7 +78,7 @@ public class ShopDataActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new FragmentShopStoreAdapter(mDataset);
+        mAdapter = new StoreRecyclerAdapter(mDataset, itemListener);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -131,6 +132,28 @@ public class ShopDataActivity extends AppCompatActivity {
             i++;
         }
     }
+
+    private View.OnClickListener itemListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int pos = (int) v.getTag();
+            StoreItem selectedItem = mDataset.get(pos);
+            switch (v.getId()) {
+                case R.id.change_store_item_amount_button :
+                    Toast.makeText(getBaseContext(), selectedItem.getName() + ", Add" , Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.store_item_balance_stat :
+                    Toast.makeText(getBaseContext(), selectedItem.getName() + ", Balance" , Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.store_item_consumption_num_stat :
+                    Toast.makeText(getBaseContext(), selectedItem.getName() + ",Consumption" , Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.store_item_incoming_num_stat :
+                    Toast.makeText(getBaseContext(), selectedItem.getName() + ", Incoming" , Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
 
     private void setTestStoreData() {
         List<Event> listEvent = new ArrayList<>();

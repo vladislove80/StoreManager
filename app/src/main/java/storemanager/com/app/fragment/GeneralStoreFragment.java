@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,7 +27,7 @@ import java.util.List;
 import storemanager.com.app.R;
 import storemanager.com.app.activity.AddStoreItemActivity;
 import storemanager.com.app.activity.AdminActivity;
-import storemanager.com.app.adapter.FragmentShopStoreAdapter;
+import storemanager.com.app.adapter.StoreRecyclerAdapter;
 import storemanager.com.app.models.StoreItem;
 import storemanager.com.app.utils.Utils;
 
@@ -73,7 +74,7 @@ public class GeneralStoreFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new FragmentShopStoreAdapter(mDataset);
+        mAdapter = new StoreRecyclerAdapter(mDataset, itemListener);
         mRecyclerView.setAdapter(mAdapter);
 
         fab = (FloatingActionButton) view.findViewById(R.id.general_store_fab);
@@ -132,4 +133,26 @@ public class GeneralStoreFragment extends Fragment {
             }
         });
     }
+
+    private View.OnClickListener itemListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int pos = (int) v.getTag();
+            StoreItem selectedItem = mDataset.get(pos);
+            switch (v.getId()) {
+                case R.id.change_store_item_amount_button :
+                    Toast.makeText(getContext(), selectedItem.getName() + ", Добавить" , Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.store_item_balance_stat :
+                    Toast.makeText(getContext(), selectedItem.getName() + ", Баланс" , Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.store_item_consumption_num_stat :
+                    Toast.makeText(getContext(), selectedItem.getName() + ", Расход" , Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.store_item_incoming_num_stat :
+                    Toast.makeText(getContext(), selectedItem.getName() + ", Приход" , Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    };
 }

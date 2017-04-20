@@ -32,7 +32,7 @@ import storemanager.com.app.R;
 import storemanager.com.app.activity.AddItemToMenuActivity;
 import storemanager.com.app.activity.AdminActivity;
 import storemanager.com.app.activity.ListOfListActivity;
-import storemanager.com.app.adapter.FragmentMenuListAdapter;
+import storemanager.com.app.adapter.MenuListAdapter;
 import storemanager.com.app.models.MenuItem;
 
 public class MenuFragment extends Fragment {
@@ -110,7 +110,7 @@ public class MenuFragment extends Fragment {
     private void initRecycler() {
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new FragmentMenuListAdapter(mDataset, onLongClickListener);
+        mAdapter = new MenuListAdapter(mDataset, onLongClickListener);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
