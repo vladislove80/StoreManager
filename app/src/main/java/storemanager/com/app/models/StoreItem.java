@@ -2,6 +2,8 @@ package storemanager.com.app.models;
 
 import java.util.List;
 
+import storemanager.com.app.utils.Utils;
+
 public class StoreItem {
     private String name;
     private String Measure;
@@ -51,7 +53,7 @@ public class StoreItem {
             i--;
         }
         if (i < 0) {
-            lastComingIn.setDate("***");
+            lastComingIn.setDate(Utils.getCurrentDate());
         }
         this.lastComingIn = lastComingIn;
     }
@@ -71,7 +73,7 @@ public class StoreItem {
             i--;
         }
         if (i < 0) {
-            lastConsumption.setDate("***");
+            lastConsumption.setDate(Utils.getCurrentDate());
         }
         this.lastConsumption = lastConsumption;
     }

@@ -21,7 +21,7 @@ public class AddShopActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activitu_add_shop_activity);
+        setContentView(R.layout.activity_add_shop);
         buttonAddShop = (Button) findViewById(R.id.ok_add_shop_button);
         buttonCancelAddShop = (Button) findViewById(R.id.cancel_shop_button);
         buttonAddShop.setOnClickListener(buttonAddClickListener);

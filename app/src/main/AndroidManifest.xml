@@ -40,6 +40,11 @@
             android:theme="@style/Theme.AppCompat.Light.Dialog"/>
 
         <activity
+            android:name=".activity.AddStoreItemActivity"
+            android:label="Store"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
+
+        <activity
             android:name=".activity.ShopDataActivity"
             android:label="@string/manifest_label_shop"
             android:parentActivityName=".activity.AdminActivity"/>

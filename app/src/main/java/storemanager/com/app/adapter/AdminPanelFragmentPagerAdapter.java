@@ -12,7 +12,7 @@ import storemanager.com.app.fragment.TeamFragment;
 
 public class AdminPanelFragmentPagerAdapter extends FragmentPagerAdapter {
 
-    final int PAGE_COUNT = 3;
+    final int PAGE_COUNT = 4;
     private String tabTitles[] = new String[] { "Точки", "Команда", "Меню", "Склад" };
     private Context context;
 
