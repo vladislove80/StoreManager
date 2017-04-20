@@ -33,7 +33,7 @@ public class FragmentShopStoreAdapter extends RecyclerView.Adapter<FragmentShopS
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         StoreItem storeItem = mDataset.get(position);
-        holder.itemNameTextView.setText(storeItem.getName() + ",");
+        holder.itemNameTextView.setText(storeItem.getName() + ", ");
         holder.itemMeasureTextView.setText(storeItem.getMeasure());
         Event consumption = storeItem.getLastConsumption();
         holder.itemConsumptionNumTextView.setText(Integer.toString(consumption.getAmount()));

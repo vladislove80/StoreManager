@@ -28,8 +28,8 @@ import storemanager.com.app.models.BaseItem;
 
 public class AddStoreItemActivity extends AppCompatActivity {
     public static final String TAG = AddStoreItemActivity.class.getSimpleName();
-    public static final String TAG_NAME = AddStoreItemActivity.class.getSimpleName();
-    public static final String TAG_MEASURE = AddStoreItemActivity.class.getSimpleName();
+    public static final String TAG_NAME = "new item name";
+    public static final String TAG_MEASURE = "new item measure";
 
     private DatabaseReference mDatabase;
 

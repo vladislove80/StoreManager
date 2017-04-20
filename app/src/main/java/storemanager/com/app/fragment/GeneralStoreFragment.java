@@ -96,7 +96,9 @@ public class GeneralStoreFragment extends Fragment {
         if(data != null && requestCode == REQ_CODE) {
             String newStoreItemName = data.getExtras().get(AddStoreItemActivity.TAG_NAME).toString();
             String measure = data.getExtras().get(AddStoreItemActivity.TAG_MEASURE).toString();
-
+            StoreItem newStoreItem = new StoreItem(newStoreItemName, measure);
+            mDataset.add(newStoreItem);
+            mAdapter.notifyDataSetChanged();
         }
     }
 

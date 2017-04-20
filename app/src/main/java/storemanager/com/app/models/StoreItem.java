@@ -1,12 +1,13 @@
 package storemanager.com.app.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import storemanager.com.app.utils.Utils;
 
 public class StoreItem {
     private String name;
-    private String Measure;
+    private String measure;
     private List<Event> listEvents;
     private Event lastComingIn;
     private Event lastConsumption;
@@ -14,9 +15,19 @@ public class StoreItem {
     public StoreItem() {
     }
 
+    public StoreItem(String name, String measure) {
+        this.name = name;
+        this.measure = measure;
+        this.listEvents = new ArrayList<>();
+        this.lastComingIn = new Event(Utils.getCurrentDateWithoutTime(), 0);
+        this.lastConsumption = new Event(Utils.getCurrentDateWithoutTime(), 0);
+        listEvents.add(lastComingIn);
+        listEvents.add(lastConsumption);
+    }
+
     public StoreItem(String name, String measure, List<Event> listEvents) {
         this.name = name;
-        Measure = measure;
+        this.measure = measure;
         this.listEvents = listEvents;
         setLastConsumption();
         setLastComingIn();
@@ -53,7 +64,7 @@ public class StoreItem {
             i--;
         }
         if (i < 0) {
-            lastComingIn.setDate(Utils.getCurrentDate());
+            lastComingIn.setDate(Utils.getCurrentDateWithoutTime());
         }
         this.lastComingIn = lastComingIn;
     }
@@ -73,16 +84,16 @@ public class StoreItem {
             i--;
         }
         if (i < 0) {
-            lastConsumption.setDate(Utils.getCurrentDate());
+            lastConsumption.setDate(Utils.getCurrentDateWithoutTime());
         }
         this.lastConsumption = lastConsumption;
     }
 
     public String getMeasure() {
-        return Measure;
+        return measure;
     }
 
     public void setMeasure(String measure) {
-        Measure = measure;
+        this.measure = measure;
     }
 }
