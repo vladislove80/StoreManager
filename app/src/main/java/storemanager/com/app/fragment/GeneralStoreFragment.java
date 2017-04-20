@@ -122,6 +122,7 @@ public class GeneralStoreFragment extends Fragment {
                     for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                         mDataset.add(postSnapshot.getValue(StoreItem.class));
                     }
+                    mAdapter.notifyDataSetChanged();
                 }
             }
 
