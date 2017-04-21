@@ -14,6 +14,7 @@
         android:padding="@dimen/store_item_base_info_layout_padding">
 
         <TextView
+            android:id="@+id/store_item_incoming_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="500 uhy"
