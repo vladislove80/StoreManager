@@ -29,8 +29,8 @@ public class StoreItem {
         this.name = name;
         this.measure = measure;
         this.listEvents = listEvents;
-        setLastConsumption();
-        setLastComingIn();
+        setLastConsumptionFromList();
+        setLastComingInFromList();
     }
 
     public String getName() {
@@ -53,7 +53,7 @@ public class StoreItem {
         return lastComingIn;
     }
 
-    public void setLastComingIn() {
+    public void setLastComingInFromList() {
         Event lastComingIn = new Event();
         lastComingIn.setAmount(0);
         int i = listEvents.size() - 1;
@@ -73,7 +73,7 @@ public class StoreItem {
         return lastConsumption;
     }
 
-    public void setLastConsumption() {
+    public void setLastConsumptionFromList() {
         Event lastConsumption = new Event();
         lastConsumption.setAmount(0);
         int i = listEvents.size() - 1;
@@ -95,5 +95,16 @@ public class StoreItem {
 
     public void setMeasure(String measure) {
         this.measure = measure;
+    }
+
+
+    public void setLastComingIn(Event lastComingIn) {
+        listEvents.add(lastComingIn);
+        this.lastComingIn = lastComingIn;
+    }
+
+    public void setLastConsumption(Event lastConsumption) {
+        listEvents.add(lastConsumption);
+        this.lastConsumption = lastConsumption;
     }
 }

@@ -29,6 +29,7 @@ import storemanager.com.app.activity.AddItemToListActivity;
 import storemanager.com.app.activity.AddStoreItemActivity;
 import storemanager.com.app.activity.AdminActivity;
 import storemanager.com.app.adapter.StoreRecyclerAdapter;
+import storemanager.com.app.models.Event;
 import storemanager.com.app.models.StoreItem;
 import storemanager.com.app.utils.Utils;
 
@@ -38,14 +39,16 @@ public class GeneralStoreFragment extends Fragment {
     public final static int REQ_CODE_ADD_STORE_ITEM_AMAUNT = 8;
 
     private DatabaseReference mDatabase;
-    private List<StoreItem> mDataset;
     private String teamName;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
     private RecyclerView mRecyclerView;
+
     private FloatingActionButton fab;
     private ProgressBar progressBar;
+
+    private StoreItem selectedItem;
+    private List<StoreItem> mDataset;
 
     public static GeneralStoreFragment newInstance() {
         GeneralStoreFragment fragment = new GeneralStoreFragment();
@@ -101,13 +104,25 @@ public class GeneralStoreFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(data != null && requestCode == REQ_CODE_ADD_STORE_ITEM) {
-            String newStoreItemName = data.getExtras().get(AddStoreItemActivity.TAG_NAME).toString();
-            String measure = data.getExtras().get(AddStoreItemActivity.TAG_MEASURE).toString();
-            StoreItem newStoreItem = new StoreItem(newStoreItemName, measure);
-            mDataset.add(newStoreItem);
-            mAdapter.notifyDataSetChanged();
-            addStoreItemToDatabase(mDataset);
+        if(data != null) {
+            switch (requestCode) {
+                case REQ_CODE_ADD_STORE_ITEM:
+                    String newStoreItemName = data.getExtras().get(AddStoreItemActivity.TAG_NAME).toString();
+                    String measure = data.getExtras().get(AddStoreItemActivity.TAG_MEASURE).toString();
+                    StoreItem newStoreItem = new StoreItem(newStoreItemName, measure);
+                    mDataset.add(newStoreItem);
+                    mAdapter.notifyDataSetChanged();
+                    addStoreItemToDatabase(mDataset);
+                    break;
+                case REQ_CODE_ADD_STORE_ITEM_AMAUNT:
+                    String lastComingInAmount = data.getExtras().get(AddItemToListActivity.TAG).toString();
+                    Event event = new Event(Utils.getCurrentDateWithoutTime(), Integer.parseInt(lastComingInAmount));
+                    selectedItem.setLastComingIn(event);
+                    mAdapter.notifyDataSetChanged();
+                    addStoreItemToDatabase(mDataset);
+                    break;
+            }
+
         }
     }
 
@@ -140,7 +155,7 @@ public class GeneralStoreFragment extends Fragment {
         @Override
         public void onClick(View v) {
             int pos = (int) v.getTag();
-            StoreItem selectedItem = mDataset.get(pos);
+            selectedItem = mDataset.get(pos);
             switch (v.getId()) {
                 case R.id.change_store_item_amount_button :
                     Toast.makeText(getContext(), selectedItem.getName() + ", Добавить" , Toast.LENGTH_SHORT).show();
