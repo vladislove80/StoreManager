@@ -34,8 +34,9 @@
     <!--AddItemsActivity-->
     <string name="label_add_item">Add item</string>
 
-    <!--AddShopActivity-->
+    <!--AddItemToListActivity-->
     <string name="manifest_label_add_shop">Добавить торговую точку</string>
+    <string name="manifest_label_add_amount">Введите число</string>
 
     <!--AddBaseListsActivity-->
     <string name="manifest_label_add_base_ingredient_item">Добавить пункт меню</string>

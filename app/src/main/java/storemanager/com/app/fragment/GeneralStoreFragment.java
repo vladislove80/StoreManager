@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import storemanager.com.app.R;
+import storemanager.com.app.activity.AddItemToListActivity;
 import storemanager.com.app.activity.AddStoreItemActivity;
 import storemanager.com.app.activity.AdminActivity;
 import storemanager.com.app.adapter.StoreRecyclerAdapter;
@@ -33,7 +34,8 @@ import storemanager.com.app.utils.Utils;
 
 public class GeneralStoreFragment extends Fragment {
     public static final String TAG = GeneralStoreFragment.class.getSimpleName();
-    public final static int REQ_CODE = 7;
+    public final static int REQ_CODE_ADD_STORE_ITEM = 7;
+    public final static int REQ_CODE_ADD_STORE_ITEM_AMAUNT = 8;
 
     private DatabaseReference mDatabase;
     private List<StoreItem> mDataset;
@@ -82,7 +84,7 @@ public class GeneralStoreFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddStoreItemActivity.class);
-                startActivityForResult(intent, REQ_CODE);
+                startActivityForResult(intent, REQ_CODE_ADD_STORE_ITEM);
             }
         });
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
@@ -99,7 +101,7 @@ public class GeneralStoreFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(data != null && requestCode == REQ_CODE) {
+        if(data != null && requestCode == REQ_CODE_ADD_STORE_ITEM) {
             String newStoreItemName = data.getExtras().get(AddStoreItemActivity.TAG_NAME).toString();
             String measure = data.getExtras().get(AddStoreItemActivity.TAG_MEASURE).toString();
             StoreItem newStoreItem = new StoreItem(newStoreItemName, measure);
@@ -142,6 +144,9 @@ public class GeneralStoreFragment extends Fragment {
             switch (v.getId()) {
                 case R.id.change_store_item_amount_button :
                     Toast.makeText(getContext(), selectedItem.getName() + ", Добавить" , Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), AddItemToListActivity.class);
+                    intent.putExtra(AddItemToListActivity.TAG, "amount");
+                    startActivityForResult(intent, REQ_CODE_ADD_STORE_ITEM_AMAUNT);
                     break;
                 case R.id.store_item_balance_stat :
                     Toast.makeText(getContext(), selectedItem.getName() + ", Баланс" , Toast.LENGTH_SHORT).show();

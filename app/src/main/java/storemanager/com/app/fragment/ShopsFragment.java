@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import storemanager.com.app.R;
-import storemanager.com.app.activity.AddShopActivity;
+import storemanager.com.app.activity.AddItemToListActivity;
 import storemanager.com.app.activity.AdminActivity;
 import storemanager.com.app.adapter.ShopsFragmentAdapter;
 import storemanager.com.app.models.Shop;
@@ -118,7 +118,8 @@ public class ShopsFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddShopActivity.class);
+                Intent intent = new Intent(getActivity(), AddItemToListActivity.class);
+                intent.putExtra(AddItemToListActivity.TAG, "text");
                 startActivityForResult(intent, REQ_CODE);
             }
         });
@@ -157,7 +158,7 @@ public class ShopsFragment extends Fragment {
         if(data != null && requestCode == REQ_CODE) {
             //noDataLayout.setVisibility(View.GONE);
             Shop shop = new Shop();
-            shop.setName(data.getExtras().get(AddShopActivity.TAG).toString());
+            shop.setName(data.getExtras().get(AddItemToListActivity.TAG).toString());
             shop.setCreationDate(Utils.getCurrentDateWithoutTime());
             shopList.add(shop);
             if (shopList.size() == 1) {

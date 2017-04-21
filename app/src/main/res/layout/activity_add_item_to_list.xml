@@ -11,10 +11,9 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/edit_name_shop"
+            android:id="@+id/edit_name_item"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textCapSentences"/>
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
@@ -27,7 +26,7 @@
         android:layout_marginRight="@dimen/button_ll_margin_right">
 
         <Button
-            android:id="@+id/ok_add_shop_button"
+            android:id="@+id/ok_add_item_button"
             android:text="Add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +38,7 @@
             />
 
         <Button
-            android:id="@+id/cancel_shop_button"
+            android:id="@+id/cancel_item_button"
             android:text="Cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
