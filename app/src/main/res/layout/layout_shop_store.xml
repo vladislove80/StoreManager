@@ -9,7 +9,7 @@
         android:id="@+id/store_item_base_info_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@xml/store_item_border"
+        android:background="@drawable/store_item_border"
         android:layout_marginTop="@dimen/store_item_base_info_layout_margin_top"
         android:padding="@dimen/store_item_base_info_layout_padding">
 
