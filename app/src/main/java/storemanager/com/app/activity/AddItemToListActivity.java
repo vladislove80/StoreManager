@@ -13,7 +13,7 @@ import android.widget.Toast;
 import storemanager.com.app.R;
 
 public class AddItemToListActivity extends AppCompatActivity {
-    public static final String TAG = "add_shop";
+    public static final String TAG = AddItemToListActivity.class.getSimpleName();
 
     private Button buttonAddItem;
     private Button buttonCancelAddItem;
