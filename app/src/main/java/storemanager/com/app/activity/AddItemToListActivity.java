@@ -50,11 +50,11 @@ public class AddItemToListActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            String shopName = editItemName.getText().toString();
-            if (!shopName.equals("")) {
+            String itemName = editItemName.getText().toString();
+            if (!itemName.equals("")) {
                 int resultCode = 101;
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra(TAG, shopName);
+                resultIntent.putExtra(TAG, itemName);
                 setResult(resultCode, resultIntent);
                 finish();
             } else {
