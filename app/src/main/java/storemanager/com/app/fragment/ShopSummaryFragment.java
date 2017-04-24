@@ -25,6 +25,7 @@ import java.util.List;
 
 import storemanager.com.app.R;
 import storemanager.com.app.activity.AdminActivity;
+import storemanager.com.app.activity.ShopDataActivity;
 import storemanager.com.app.adapter.SummaryViewerAdapter;
 import storemanager.com.app.models.StoreItem;
 import storemanager.com.app.models.Summary;
@@ -45,6 +46,7 @@ public class ShopSummaryFragment extends Fragment {
     private List<Summary> summaryList;
     private SummaryViewerAdapter adapter;
     private String teamName;
+    private String shopName;
 
     public static ShopSummaryFragment newInstance(){
         ShopSummaryFragment fragment = new ShopSummaryFragment();
@@ -56,6 +58,7 @@ public class ShopSummaryFragment extends Fragment {
         super.onCreate(savedInstanceState);
         summaryList = new ArrayList<>();
         teamName = AdminActivity.getTeamName();
+        shopName = ShopDataActivity.getShopName();
     }
 
     @Nullable
@@ -68,9 +71,12 @@ public class ShopSummaryFragment extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.shop_summary_progress_bar);
 
         mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
+        query = mDatabase.child("summaries").orderByChild("shop").equalTo(shopName);
+        query.addListenerForSingleValueEvent(postListener);
         adapter = new SummaryViewerAdapter(getContext(), summaryList);
         mListView.setAdapter(adapter);
-
+        return view;
+    }
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -93,8 +99,5 @@ public class ShopSummaryFragment extends Fragment {
                 Toast.makeText(getContext(), "Failed to load post.", Toast.LENGTH_SHORT).show();
             }
         };
-        mDatabase.child("summaries").addListenerForSingleValueEvent(postListener);
 
-        return view;
-    }
 }

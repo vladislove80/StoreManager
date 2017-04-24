@@ -1,5 +1,6 @@
 package storemanager.com.app.activity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,12 +14,14 @@ import storemanager.com.app.adapter.ShopDataPanelFragmentPagerAdapter;
 public class ShopDataActivity extends AppCompatActivity {
     public final static String TAG = ShopDataActivity.class.getSimpleName();
 
+    private static String shopName;
     private ViewPager shopDataActivityViewPager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_data);
-
+        Intent intent = getIntent();
+        setShopName(intent.getStringExtra(TAG));
         setViewPager();
     }
 
@@ -35,5 +38,13 @@ public class ShopDataActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+    }
+
+    public static String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 }
