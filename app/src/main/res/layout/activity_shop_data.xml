@@ -1,79 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/no_shop_data_layout"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        layout="@layout/layout_no_data"
-        android:visibility="gone"/>
-
-    <TextView
-        android:id="@+id/shop_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        android:textSize="17sp"
-        android:text="Shop name"/>
-
-    <LinearLayout
+    <android.support.design.widget.TabLayout
+        android:id="@+id/sliding_tabs_shop_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginLeft="@dimen/summary_data_item_margin_start"
-        android:id="@+id/ll_summary_container"
-        android:layout_below="@+id/shop_name">
+        app:tabMode="fixed"
+        style="@style/TabLayoutStyle"/>
 
-        <TextView
-            android:id="@+id/shop_data_summary_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/date_text_size"
-            android:text="Summary date"/>
-
-
-        <TableLayout
-            android:id="@+id/summary_table"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </TableLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_shop_data"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/ll_summary_container"
-        android:gravity="center">
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:background="@android:color/white" />
 
-        <TextView
-            android:id="@+id/shop_store_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"
-            android:textSize="17sp"
-            android:text="Склад"/>
-
-        <android.support.v7.widget.RecyclerView
-
-            android:id="@+id/shop_store_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            android:background="#ffffff"/>
-    </LinearLayout>
-    <ProgressBar
-        android:id="@+id/shop_summaries_progress_bar"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-</RelativeLayout>
+</LinearLayout>
