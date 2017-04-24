@@ -1,11 +1,13 @@
 package storemanager.com.app.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,19 +15,29 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import storemanager.com.app.R;
+import storemanager.com.app.activity.AddItemToListActivity;
+import storemanager.com.app.activity.AddStoreItemActivity;
+import storemanager.com.app.activity.AdminActivity;
 import storemanager.com.app.adapter.StoreRecyclerAdapter;
 import storemanager.com.app.models.Event;
 import storemanager.com.app.models.StoreItem;
+import storemanager.com.app.utils.Utils;
 
 public class ShopStoreFragment extends Fragment {
     public static String TAG = ShopStoreFragment.class.getSimpleName();
+    public final static int REQ_CODE_ADD_STORE_ITEM = 9;
+    public final static int REQ_CODE_ADD_STORE_ITEM_AMAUNT = 10;
 
     private DatabaseReference mDatabase;
     private Query query;
@@ -38,6 +50,8 @@ public class ShopStoreFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
 
     private FloatingActionButton fab;
+    private StoreItem selectedItem;
+    private String teamName;
 
     public static ShopStoreFragment newInstance(){
         ShopStoreFragment fragment = new ShopStoreFragment();
@@ -48,13 +62,19 @@ public class ShopStoreFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDataset = new ArrayList<>();
-        setTestStoreData();
+        teamName = AdminActivity.getTeamName();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shop_store, container, false);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
+        if (mDataset.size() == 0) {
+            getStoreItemsFromDatabase();
+        }
+
         progressBar = (ProgressBar) view.findViewById(R.id.shop_store_progress_bar);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.shop_store_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -67,7 +87,8 @@ public class ShopStoreFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getActivity(), AddStoreItemActivity.class);
+                startActivityForResult(intent, REQ_CODE_ADD_STORE_ITEM);
             }
         });
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
@@ -87,10 +108,13 @@ public class ShopStoreFragment extends Fragment {
         @Override
         public void onClick(View v) {
             int pos = (int) v.getTag();
-            StoreItem selectedItem = mDataset.get(pos);
+            selectedItem = mDataset.get(pos);
             switch (v.getId()) {
                 case R.id.change_store_item_amount_button :
-                    Toast.makeText(getContext(), selectedItem.getName() + ", Add" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), selectedItem.getName() + ", Добавить" , Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), AddItemToListActivity.class);
+                    intent.putExtra(AddItemToListActivity.TAG, "amount");
+                    startActivityForResult(intent, REQ_CODE_ADD_STORE_ITEM_AMAUNT);
                     break;
                 case R.id.store_item_balance_stat :
                     Toast.makeText(getContext(), selectedItem.getName() + ", Balance" , Toast.LENGTH_SHORT).show();
@@ -105,87 +129,52 @@ public class ShopStoreFragment extends Fragment {
         }
     };
 
-    private void setTestStoreData() {
-        List<Event> listEvent = new ArrayList<>();
-        Event event = new Event("11.04.2017", 500);
-        listEvent.add(event);
-        event = new Event("11.04.2017", -25);
-        listEvent.add(event);
-        event = new Event("12.04.2017", -37);
-        listEvent.add(event);
-        event = new Event("13.04.2017", -45);
-        listEvent.add(event);
-        event = new Event("14.04.2017", 100);
-        listEvent.add(event);
-        event = new Event("14.04.2017", -74);
-        listEvent.add(event);
-        StoreItem item = new StoreItem("Кофе", "кг", listEvent);
-        mDataset.add(item);
-
-        listEvent = new ArrayList<>();
-        event = new Event("11.04.2017", 200);
-        listEvent.add(event);
-        event = new Event("11.04.2017", -7);
-        listEvent.add(event);
-        event = new Event("12.04.2017", -9);
-        listEvent.add(event);
-        event = new Event("13.04.2017", -8);
-        listEvent.add(event);
-        event = new Event("14.04.2017", 25);
-        listEvent.add(event);
-        event = new Event("14.04.2017", -11);
-        listEvent.add(event);
-        item = new StoreItem("Молоко", "л", listEvent);
-        mDataset.add(item);
-
-        listEvent = new ArrayList<>();
-        event = new Event("11.04.2017", 5);
-        listEvent.add(event);
-        event = new Event("11.04.2017", -1);
-        listEvent.add(event);
-        event = new Event("12.04.2017", -1);
-        listEvent.add(event);
-        event = new Event("13.04.2017", -1);
-        listEvent.add(event);
-        event = new Event("14.04.2017", -2);
-        listEvent.add(event);
-        event = new Event("14.04.2017", 3);
-        listEvent.add(event);
-        event = new Event("14.04.2017", -1);
-        listEvent.add(event);
-        item = new StoreItem("Какао", "кг", listEvent);
-        mDataset.add(item);
-
-        listEvent = new ArrayList<>();
-        event = new Event("11.04.2017", 120);
-        listEvent.add(event);
-        event = new Event("11.04.2017", -3);
-        listEvent.add(event);
-        event = new Event("12.04.2017", -4);
-        listEvent.add(event);
-        event = new Event("13.04.2017", 25);
-        listEvent.add(event);
-        event = new Event("14.04.2017", -5);
-        listEvent.add(event);
-        event = new Event("14.04.2017", -5);
-        listEvent.add(event);
-        item = new StoreItem("Сахар", "кг", listEvent);
-
-        mDataset.add(item);
-        listEvent = new ArrayList<>();
-        event = new Event("11.04.2017", 10);
-        listEvent.add(event);
-        event = new Event("11.04.2017", -1);
-        listEvent.add(event);
-        event = new Event("12.04.2017", -1);
-        listEvent.add(event);
-        event = new Event("13.04.2017", -1);
-        listEvent.add(event);
-        event = new Event("14.04.2017", -1);
-        listEvent.add(event);
-        event = new Event("14.04.2017", -1);
-        listEvent.add(event);
-        item = new StoreItem("Сироп", "л", listEvent);
-        mDataset.add(item);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(data != null) {
+            switch (requestCode) {
+                case REQ_CODE_ADD_STORE_ITEM:
+                    String newStoreItemName = data.getExtras().get(AddStoreItemActivity.TAG_NAME).toString();
+                    String measure = data.getExtras().get(AddStoreItemActivity.TAG_MEASURE).toString();
+                    StoreItem newStoreItem = new StoreItem(newStoreItemName, measure);
+                    mDataset.add(newStoreItem);
+                    mAdapter.notifyDataSetChanged();
+                    addStoreItemToDatabase(mDataset);
+                    break;
+                case REQ_CODE_ADD_STORE_ITEM_AMAUNT:
+                    String lastComingInAmount = data.getExtras().get(AddItemToListActivity.TAG).toString();
+                    Event event = new Event(Utils.getCurrentDateWithoutTime(), Integer.parseInt(lastComingInAmount));
+                    selectedItem.setLastComingIn(event);
+                    mAdapter.notifyDataSetChanged();
+                    addStoreItemToDatabase(mDataset);
+                    break;
+            }
+        }
     }
+
+    private void addStoreItemToDatabase(List<StoreItem> dataset) {
+        mDatabase.child("shop store").setValue(dataset);
+    }
+
+    private void getStoreItemsFromDatabase(){
+        Query query = mDatabase.child("shop store");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChildren()) {
+                    for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
+                        mDataset.add(postSnapshot.getValue(StoreItem.class));
+                    }
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d(TAG, "addStoreItemToDatabase -> onCancelled = " + databaseError.getMessage());
+            }
+        });
+    }
+
 }
