@@ -1,34 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordinatorLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/shop_store_ll">
+    android:layout_height="match_parent"
+    tools:context=".activity.ShopDataActivity">
 
-    <TextView
-        android:id="@+id/shop_store_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="10dp"
-        android:textSize="17sp"
-        android:text="Склад"/>
-
-    <android.support.v7.widget.RecyclerView
-
-        android:id="@+id/shop_store_recycler_view"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:background="#ffffff"
-        android:layout_below="@+id/shop_store_label"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/shop_store_ll">
 
-    <ProgressBar
-        android:id="@+id/shop_store_progress_bar"
-        android:layout_centerInParent="true"
+        <TextView
+            android:id="@+id/shop_store_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="10dp"
+            android:textSize="17sp"
+            android:text="Склад"/>
+
+        <android.support.v7.widget.RecyclerView
+
+            android:id="@+id/shop_store_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:background="#ffffff"
+            android:layout_below="@+id/shop_store_label"/>
+
+        <ProgressBar
+            android:id="@+id/shop_store_progress_bar"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/shop_store_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
-</RelativeLayout>
+        android:layout_marginBottom="25dp"
+        android:layout_marginRight="25dp"
+        android:src="@drawable/ic_add_white_48dp"
+        app:fabSize="normal"
+        app:layout_anchor="@id/shop_store_recycler_view"
+        app:layout_anchorGravity="bottom|center"
+        app:rippleColor="@color/admin_panel_fab_color"/>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -2,6 +2,7 @@ package storemanager.com.app.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,6 +37,8 @@ public class ShopStoreFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    private FloatingActionButton fab;
+
     public static ShopStoreFragment newInstance(){
         ShopStoreFragment fragment = new ShopStoreFragment();
         return fragment;
@@ -59,6 +62,23 @@ public class ShopStoreFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new StoreRecyclerAdapter(mDataset, itemListener);
         mRecyclerView.setAdapter(mAdapter);
+
+        fab = (FloatingActionButton) view.findViewById(R.id.shop_store_fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy){
+                if (dy > 0)
+                    fab.hide();
+                else if (dy < 0)
+                    fab.show();
+            }
+        });
         return view;
     }
 
