@@ -33,6 +33,7 @@ import storemanager.com.app.models.MenuItem;
 import storemanager.com.app.models.MenuItemsInSummary;
 import storemanager.com.app.models.StoreItem;
 import storemanager.com.app.models.Summary;
+import storemanager.com.app.utils.Utils;
 
 import static android.view.View.inflate;
 
@@ -46,6 +47,8 @@ public class ShopDataActivity extends AppCompatActivity {
     private String shopName;
     private String teamName;
 
+    private TextView summaryDateTextView;
+    private TextView shopNameTextView;
     private RecyclerView mRecyclerView;
     private ProgressBar progressBar;
     private RelativeLayout noDataLayout;
@@ -56,15 +59,17 @@ public class ShopDataActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop_summaries);
+        setContentView(R.layout.activity_shop_data);
         mDataset = new ArrayList<>();
         setTestStoreData();
 
         Intent intent = getIntent();
         shopName = intent.getStringExtra(TAG);
         teamName = AdminActivity.getTeamName();
-        TextView textView = (TextView) findViewById(R.id.shop_name);
-        textView.setText(shopName);
+        shopNameTextView = (TextView) findViewById(R.id.shop_name);
+        shopNameTextView.setText(shopName);
+        summaryDateTextView = (TextView) findViewById(R.id.shop_data_summary_date);
+        summaryDateTextView.setText("Дата: " + Utils.getCurrentDateWithoutTime());
 
         mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
         query = mDatabase.child("summaries").orderByChild("shop").equalTo(shopName).limitToLast(1);

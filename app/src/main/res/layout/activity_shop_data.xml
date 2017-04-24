@@ -30,15 +30,7 @@
         android:layout_below="@+id/shop_name">
 
         <TextView
-            android:id="@+id/viewer_shop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/shop_text_size"
-            android:textStyle="bold"
-            android:text="some text"/>
-
-        <TextView
-            android:id="@+id/viewer_date"
+            android:id="@+id/shop_data_summary_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/date_text_size"
