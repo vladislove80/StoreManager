@@ -1,4 +1,4 @@
-package storemanager.com.app.activity;
+package storemanager.com.app.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
