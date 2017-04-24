@@ -29,6 +29,7 @@ import storemanager.com.app.R;
 import storemanager.com.app.activity.AddItemToListActivity;
 import storemanager.com.app.activity.AddStoreItemActivity;
 import storemanager.com.app.activity.AdminActivity;
+import storemanager.com.app.activity.ShopDataActivity;
 import storemanager.com.app.adapter.StoreRecyclerAdapter;
 import storemanager.com.app.models.Event;
 import storemanager.com.app.models.StoreItem;
@@ -52,6 +53,7 @@ public class ShopStoreFragment extends Fragment {
     private FloatingActionButton fab;
     private StoreItem selectedItem;
     private String teamName;
+    private String shopName;
 
     public static ShopStoreFragment newInstance(){
         ShopStoreFragment fragment = new ShopStoreFragment();
@@ -63,6 +65,7 @@ public class ShopStoreFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mDataset = new ArrayList<>();
         teamName = AdminActivity.getTeamName();
+        shopName = ShopDataActivity.getShopName();
     }
 
     @Nullable
@@ -153,11 +156,11 @@ public class ShopStoreFragment extends Fragment {
     }
 
     private void addStoreItemToDatabase(List<StoreItem> dataset) {
-        mDatabase.child("shop store").setValue(dataset);
+        mDatabase.child("shop store").child(shopName).setValue(dataset);
     }
 
     private void getStoreItemsFromDatabase(){
-        Query query = mDatabase.child("shop store");
+        Query query = mDatabase.child("shop store").child(shopName);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
