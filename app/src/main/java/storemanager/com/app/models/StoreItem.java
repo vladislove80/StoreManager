@@ -151,4 +151,14 @@ public class StoreItem implements Parcelable {
         dest.writeValue(lastComingIn);
         dest.writeValue(lastConsumption);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean same = false;
+        StoreItem item = (StoreItem) obj;
+        if (obj != null && obj instanceof StoreItem) {
+            same = this.name.equals(item.getName());
+        }
+        return same;
+    }
 }

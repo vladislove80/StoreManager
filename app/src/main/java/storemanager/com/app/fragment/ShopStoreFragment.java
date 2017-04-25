@@ -23,6 +23,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import storemanager.com.app.R;
@@ -141,8 +142,13 @@ public class ShopStoreFragment extends Fragment {
             switch (requestCode) {
                 case REQ_CODE_ADD_STORE_ITEM:
                     mDatasetToAdd = data.getParcelableArrayListExtra(AddItemsToShopStoreActivity.TAG);
+                    //compare lists
+                    if (!Collections.disjoint(mDataset, mDatasetToAdd)) {
+                        mDatasetToAdd = removeCoincidence(mDataset, mDatasetToAdd);
+                    }
                     mDataset.addAll(mDatasetToAdd);
                     mAdapter.notifyDataSetChanged();
+                    addStoreItemToDatabase(mDataset);
                     Log.d(TAG, "ShopStoreFragment -> onActivityResult= ");
                     break;
                 case REQ_CODE_ADD_STORE_ITEM_AMAUNT:
@@ -154,6 +160,16 @@ public class ShopStoreFragment extends Fragment {
                     break;
             }
         }
+    }
+
+    private List<StoreItem> removeCoincidence(List<StoreItem> mDataset, List<StoreItem> mDatasetToAdd) {
+        List<StoreItem> clearList = new ArrayList<>();
+        for (StoreItem item : mDatasetToAdd){
+            if (!mDataset.contains(item)) {
+                clearList.add(item);
+            }
+        }
+        return clearList;
     }
 
     private void addStoreItemToDatabase(List<StoreItem> dataset) {
