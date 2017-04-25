@@ -36,12 +36,14 @@
 
         <activity
             android:name=".activity.AddItemToListActivity"
-            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
+            android:theme="@style/Theme.AppCompat.Light.Dialog"
+            android:launchMode="singleTop"/>
 
         <activity
             android:name=".activity.AddItemToStoreActivity"
             android:label="@string/add_item_to_store_activity"
-            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
+            android:theme="@style/Theme.AppCompat.Light.Dialog"
+            android:launchMode="singleTop"/>
 
         <activity
             android:name=".activity.ShopDataActivity"
@@ -75,16 +77,19 @@
         <activity
             android:name=".activity.NewTeamNameActivity"
             android:label="@string/new_team_name_activity"
-            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
+            android:theme="@style/Theme.AppCompat.Light.Dialog"
+            android:launchMode="singleTop"/>
 
         <activity android:name=".activity.AddMemberActivity"
             android:label="@string/add_member_activity"
-            android:theme="@style/Theme.AppCompat.Light.Dialog"/>
+            android:theme="@style/Theme.AppCompat.Light.Dialog"
+            android:launchMode="singleTop"/>
 
         <activity
             android:name=".activity.AddItemsToShopStoreActivity"
             android:label="@string/add_item_to_shop_store_activity"
-            android:theme="@style/AppTheme.PopWindow"/>
+            android:theme="@style/AppTheme.PopWindow"
+            android:launchMode="singleTop"/>
     </application>
 
 
