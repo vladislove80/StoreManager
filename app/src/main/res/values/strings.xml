@@ -21,6 +21,9 @@
     <string name="signin_activity_label">Добро пожаловать!!</string>
     <string name="signin_activity_button">Войти</string>
 
+    <!--AdminActivity-->
+    <string name="admin_activity_label">Админ панель</string>
+
     <!--SummaryComposerActivity-->
     <string name="check_label">Check</string>
     <string name="label_send_data">Summary</string>
@@ -40,18 +43,6 @@
 
     <!--AddBaseListsActivity-->
     <string name="manifest_label_add_base_ingredient_item">Добавить пункт меню</string>
-
-    <!--ShopDataActivity-->
-    <string name="manifest_label_shop">Торговая точка</string>
-
-    <!--Settings-->
-    <string name="filter">Отчеты</string>
-    <string name="export_xls">"Экспорт в Excel</string>
-    <string name="manifest_label_filter_pref">SETTINGS</string>
-    <string name="filter_today">today</string>
-    <string name="filter_tomorrow">tomorrow:</string>
-    <string name="filter_all">all</string>
-    <string name="no_data">Нет данных..</string>
 
     <!--AddItemToMenuActivity-->
     <string name="manifest_label_add_menu_item">Добавить пункт меню</string>
@@ -84,6 +75,7 @@
     <string name="add_menu_item_label">Выберите пункт меню и введите количество</string>
     <string name="add_menu_item_add_button">Добавить</string>
     <string name="add_menu_item_selected_item">Пункт меню</string>
+    <string name="add_item_to_summary_activity">Добавить в отчет</string>
 
     <!--MenuFragment-->
     <string name="menu_fragment_label">Создавайте и редактируйте Меню. Для удаления из списка - долгое нажатие</string>
@@ -95,8 +87,16 @@
     <string name="add_member_name_editview">Имя</string>
     <string name="add_member_email_editview">Емейл</string>
     <string name="add_member_status_editview">Статус</string>
+    <string name="add_member_activity">Сотрудник</string>
 
-    <!--ShopStoreItem-->
+    <!--AddItemToStoreActivity-->
+    <string name="add_item_to_store_activity">Склад</string>
+
+    <!--NewTeamNameActivity-->
+    <string name="new_team_name_activity">Команда</string>
+    <string name="add_item_to_shop_store_activity">Пополнить склад</string>
+
+    <!--AddItemsToShopStoreActivity-->
 
 
 </resources>

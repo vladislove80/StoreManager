@@ -24,7 +24,7 @@
             android:name=".activity.AdminActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
-            android:label="Админ"/>
+            android:label="@string/admin_activity_label"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
@@ -39,13 +39,12 @@
             android:theme="@style/Theme.AppCompat.Light.Dialog"/>
 
         <activity
-            android:name=".activity.AddStoreItemActivity"
-            android:label="Store"
+            android:name=".activity.AddItemToStoreActivity"
+            android:label="@string/add_item_to_store_activity"
             android:theme="@style/Theme.AppCompat.Light.Dialog"/>
 
         <activity
             android:name=".activity.ShopDataActivity"
-            android:label="@string/manifest_label_shop"
             android:parentActivityName=".activity.AdminActivity"/>
 
         <activity
@@ -70,17 +69,22 @@
 
         <activity
             android:name=".activity.AddItemsToSummaryActivity"
-            android:label="Добавить в отчет"
+            android:label="@string/add_item_to_summary_activity"
             android:parentActivityName=".activity.SummaryComposerActivity"/>
 
         <activity
             android:name=".activity.NewTeamNameActivity"
-            android:label="Команда"
+            android:label="@string/new_team_name_activity"
             android:theme="@style/Theme.AppCompat.Light.Dialog"/>
 
         <activity android:name=".activity.AddMemberActivity"
-            android:label="Сотрудник"
+            android:label="@string/add_member_activity"
             android:theme="@style/Theme.AppCompat.Light.Dialog"/>
+
+        <activity
+            android:name=".activity.AddItemsToShopStoreActivity"
+            android:label="@string/add_item_to_shop_store_activity"
+            android:theme="@style/AppTheme.PopWindow"/>
     </application>
 
 

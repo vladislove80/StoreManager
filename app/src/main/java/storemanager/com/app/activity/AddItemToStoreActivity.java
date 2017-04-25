@@ -26,8 +26,8 @@ import java.util.Map;
 import storemanager.com.app.R;
 import storemanager.com.app.models.BaseItem;
 
-public class AddStoreItemActivity extends AppCompatActivity {
-    public static final String TAG = AddStoreItemActivity.class.getSimpleName();
+public class AddItemToStoreActivity extends AppCompatActivity {
+    public static final String TAG = AddItemToStoreActivity.class.getSimpleName();
     public static final String TAG_NAME = "new item name";
     public static final String TAG_MEASURE = "new item measure";
 
