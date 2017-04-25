@@ -23,7 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import storemanager.com.app.R;
+import storemanager.com.app.models.Event;
 import storemanager.com.app.models.StoreItem;
+import storemanager.com.app.utils.Utils;
 
 public class AddItemsToShopStoreActivity extends AppCompatActivity {
     public static String TAG = AddItemsToShopStoreActivity.class.getSimpleName();
@@ -99,6 +101,9 @@ public class AddItemsToShopStoreActivity extends AppCompatActivity {
                 if (dataSnapshot.hasChildren()) {
                     for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                         StoreItem item = postSnapshot.getValue(StoreItem.class);
+                        item.setListEvents(new ArrayList<Event>());
+                        Event zeroEvent = new Event(Utils.getCurrentDateWithoutTime(), 0);
+                        item.addLastCommingIn(zeroEvent);
                         mDataset.add(item);
                     }
                     inflateCheckBoxList(mDataset);
