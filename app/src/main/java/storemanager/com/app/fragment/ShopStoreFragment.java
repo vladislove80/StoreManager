@@ -27,7 +27,7 @@ import java.util.List;
 
 import storemanager.com.app.R;
 import storemanager.com.app.activity.AddItemToListActivity;
-import storemanager.com.app.activity.AddStoreItemActivity;
+import storemanager.com.app.activity.AddItemsToShopStoreActivity;
 import storemanager.com.app.activity.AdminActivity;
 import storemanager.com.app.activity.ShopDataActivity;
 import storemanager.com.app.adapter.StoreRecyclerAdapter;
@@ -43,6 +43,7 @@ public class ShopStoreFragment extends Fragment {
     private DatabaseReference mDatabase;
     private Query query;
     private List<StoreItem> mDataset;
+    private List<StoreItem> mDatasetToAdd;
 
     private RecyclerView mRecyclerView;
     private ProgressBar progressBar;
@@ -63,7 +64,9 @@ public class ShopStoreFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "ShopStoreFragment -> onCreate = ");
         mDataset = new ArrayList<>();
+        mDatasetToAdd = new ArrayList<>();
         teamName = AdminActivity.getTeamName();
         shopName = ShopDataActivity.getShopName();
     }
@@ -90,7 +93,7 @@ public class ShopStoreFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddStoreItemActivity.class);
+                Intent intent = new Intent(getActivity(), AddItemsToShopStoreActivity.class);
                 startActivityForResult(intent, REQ_CODE_ADD_STORE_ITEM);
             }
         });
@@ -137,17 +140,15 @@ public class ShopStoreFragment extends Fragment {
         if(data != null) {
             switch (requestCode) {
                 case REQ_CODE_ADD_STORE_ITEM:
-                    String newStoreItemName = data.getExtras().get(AddStoreItemActivity.TAG_NAME).toString();
-                    String measure = data.getExtras().get(AddStoreItemActivity.TAG_MEASURE).toString();
-                    StoreItem newStoreItem = new StoreItem(newStoreItemName, measure);
-                    mDataset.add(newStoreItem);
+                    mDatasetToAdd = data.getParcelableArrayListExtra(AddItemsToShopStoreActivity.TAG);
+                    mDataset.addAll(mDatasetToAdd);
                     mAdapter.notifyDataSetChanged();
-                    addStoreItemToDatabase(mDataset);
+                    Log.d(TAG, "ShopStoreFragment -> onActivityResult= ");
                     break;
                 case REQ_CODE_ADD_STORE_ITEM_AMAUNT:
                     String lastComingInAmount = data.getExtras().get(AddItemToListActivity.TAG).toString();
                     Event event = new Event(Utils.getCurrentDateWithoutTime(), Integer.parseInt(lastComingInAmount));
-                    selectedItem.setLastComingIn(event);
+                    selectedItem.addLastCommingIn(event);
                     mAdapter.notifyDataSetChanged();
                     addStoreItemToDatabase(mDataset);
                     break;

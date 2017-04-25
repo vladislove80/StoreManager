@@ -157,4 +157,12 @@
     <dimen name="summary_data_item_margin_start">15dp</dimen>
     <dimen name="date_text_size">20sp</dimen>
 
+    <!--AddItemsToShopStoreActivity-->
+    <dimen name="add_item_to_shop_store_label_text_size">16sp</dimen>
+    <dimen name="add_item_to_shop_store_add_button_text_size">20sp</dimen>
+    <dimen name="add_item_to_shop_store_select_all_checkbox_margin">15dp</dimen>
+    <dimen name="add_item_to_shop_store_checkboxes_layout_margin_left">35dp</dimen>
+    <dimen name="add_item_to_shop_store_checkboxes_layout_margin_right">35dp</dimen>
+
+
 </resources>

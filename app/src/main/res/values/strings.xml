@@ -94,9 +94,15 @@
 
     <!--NewTeamNameActivity-->
     <string name="new_team_name_activity">Команда</string>
-    <string name="add_item_to_shop_store_activity">Пополнить склад</string>
+
+    <!--NoDataLayout-->
+    <string name="no_data">Нет данных..</string>
 
     <!--AddItemsToShopStoreActivity-->
+    <string name="add_item_to_shop_store_activity">Пополнить склад</string>
+    <string name="add_item_to_shop_store_label">Выберите необходимые товары со склада</string>
+    <string name="add_item_to_shop_store_add_button">Готово</string>
+    <string name="add_item_to_shop_store_select_all">Выбрать все</string>
 
 
 </resources>
