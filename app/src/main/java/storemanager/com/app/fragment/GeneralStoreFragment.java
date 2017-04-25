@@ -26,7 +26,7 @@ import java.util.List;
 
 import storemanager.com.app.R;
 import storemanager.com.app.activity.AddItemToListActivity;
-import storemanager.com.app.activity.AddStoreItemActivity;
+import storemanager.com.app.activity.AddItemToStoreActivity;
 import storemanager.com.app.activity.AdminActivity;
 import storemanager.com.app.adapter.StoreRecyclerAdapter;
 import storemanager.com.app.models.Event;
@@ -86,7 +86,7 @@ public class GeneralStoreFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AddStoreItemActivity.class);
+                Intent intent = new Intent(getActivity(), AddItemToStoreActivity.class);
                 startActivityForResult(intent, REQ_CODE_ADD_STORE_ITEM);
             }
         });
@@ -107,8 +107,8 @@ public class GeneralStoreFragment extends Fragment {
         if(data != null) {
             switch (requestCode) {
                 case REQ_CODE_ADD_STORE_ITEM:
-                    String newStoreItemName = data.getExtras().get(AddStoreItemActivity.TAG_NAME).toString();
-                    String measure = data.getExtras().get(AddStoreItemActivity.TAG_MEASURE).toString();
+                    String newStoreItemName = data.getExtras().get(AddItemToStoreActivity.TAG_NAME).toString();
+                    String measure = data.getExtras().get(AddItemToStoreActivity.TAG_MEASURE).toString();
                     StoreItem newStoreItem = new StoreItem(newStoreItemName, measure);
                     mDataset.add(newStoreItem);
                     mAdapter.notifyDataSetChanged();
