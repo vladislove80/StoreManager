@@ -13,11 +13,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginLeft="@dimen/summary_data_item_margin_start"
+        android:layout_marginTop="@dimen/summary_data_item_margin_start"
         android:id="@+id/ll_summary_container"
-        android:layout_below="@+id/shop_name">
+        android:layout_below="@+id/shop_name"
+        android:layout_marginLeft="@dimen/ll_summary_container_margin_left"
+        android:layout_marginRight="@dimen/ll_summary_container_margin_right">
 
         <TextView
             android:id="@+id/shop_data_summary_date"
