@@ -22,6 +22,7 @@ public class ShopDataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shop_data);
         Intent intent = getIntent();
         setShopName(intent.getStringExtra(TAG));
+        setTitle(shopName);
         setViewPager();
     }
 
