@@ -1,11 +1,14 @@
 package storemanager.com.app.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import storemanager.com.app.utils.Utils;
 
-public class StoreItem {
+public class StoreItem implements Parcelable {
     private String name;
     private String measure;
     private List<Event> listEvents;
@@ -18,11 +21,9 @@ public class StoreItem {
     public StoreItem(String name, String measure) {
         this.name = name;
         this.measure = measure;
-        this.listEvents = new ArrayList<>();
-        this.lastComingIn = new Event(Utils.getCurrentDateWithoutTime(), 0);
         this.lastConsumption = new Event(Utils.getCurrentDateWithoutTime(), 0);
-        listEvents.add(lastComingIn);
-        listEvents.add(lastConsumption);
+        this.lastComingIn = new Event(Utils.getCurrentDateWithoutTime(), 0);
+        this.listEvents = new ArrayList<>();
     }
 
     public StoreItem(String name, String measure, List<Event> listEvents) {
@@ -32,6 +33,27 @@ public class StoreItem {
         setLastConsumptionFromList();
         setLastComingInFromList();
     }
+
+    protected StoreItem(Parcel in) {
+        name = in.readString();
+        measure = in.readString();
+        listEvents = new ArrayList<Event>();
+        in.readTypedList(listEvents, Event.CREATOR);
+        lastComingIn = (Event) in.readValue(Event.class.getClassLoader());
+        lastConsumption = (Event) in.readValue(Event.class.getClassLoader());
+    }
+
+    public static final Creator<StoreItem> CREATOR = new Creator<StoreItem>() {
+        @Override
+        public StoreItem createFromParcel(Parcel in) {
+            return new StoreItem(in);
+        }
+
+        @Override
+        public StoreItem[] newArray(int size) {
+            return new StoreItem[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -99,12 +121,34 @@ public class StoreItem {
 
 
     public void setLastComingIn(Event lastComingIn) {
+        this.lastComingIn = lastComingIn;
+    }
+
+    public void addLastCommingIn(Event lastComingIn) {
         listEvents.add(lastComingIn);
         this.lastComingIn = lastComingIn;
     }
 
     public void setLastConsumption(Event lastConsumption) {
+        this.lastConsumption = lastConsumption;
+    }
+
+    public void addLastConsumption(Event lastComingIn) {
         listEvents.add(lastConsumption);
         this.lastConsumption = lastConsumption;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(measure);
+        dest.writeTypedList(listEvents);
+        dest.writeValue(lastComingIn);
+        dest.writeValue(lastConsumption);
     }
 }
