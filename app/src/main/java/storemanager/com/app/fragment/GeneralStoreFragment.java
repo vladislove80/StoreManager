@@ -59,7 +59,7 @@ public class GeneralStoreFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDataset = new ArrayList<>();
-        Log.v(Utils.LOG_TAG, "GeneralStoreFragment");
+        Log.v(Utils.LOG_TAG, "GeneralStoreFragment -> onCreate");
     }
 
     @Nullable
@@ -110,6 +110,8 @@ public class GeneralStoreFragment extends Fragment {
                     String newStoreItemName = data.getExtras().get(AddItemToStoreActivity.TAG_NAME).toString();
                     String measure = data.getExtras().get(AddItemToStoreActivity.TAG_MEASURE).toString();
                     StoreItem newStoreItem = new StoreItem(newStoreItemName, measure);
+                    Event zeroEvent = new Event(Utils.getCurrentDateWithoutTime(), 0);
+                    newStoreItem.addLastCommingIn(zeroEvent);
                     mDataset.add(newStoreItem);
                     mAdapter.notifyDataSetChanged();
                     addStoreItemToDatabase(mDataset);
@@ -117,7 +119,7 @@ public class GeneralStoreFragment extends Fragment {
                 case REQ_CODE_ADD_STORE_ITEM_AMAUNT:
                     String lastComingInAmount = data.getExtras().get(AddItemToListActivity.TAG).toString();
                     Event event = new Event(Utils.getCurrentDateWithoutTime(), Integer.parseInt(lastComingInAmount));
-                    selectedItem.setLastComingIn(event);
+                    selectedItem.addLastCommingIn(event);
                     mAdapter.notifyDataSetChanged();
                     addStoreItemToDatabase(mDataset);
                     break;
