@@ -133,7 +133,7 @@ public class StoreItem implements Parcelable {
         this.lastConsumption = lastConsumption;
     }
 
-    public void addLastConsumption(Event lastComingIn) {
+    public void addLastConsumption(Event lastConsumption) {
         listEvents.add(lastConsumption);
         this.lastConsumption = lastConsumption;
     }

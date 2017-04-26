@@ -15,9 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +35,6 @@ public class ShopStoreFragment extends Fragment implements GetShopStoreItemListF
     public final static int REQ_CODE_ADD_STORE_ITEM = 9;
     public final static int REQ_CODE_ADD_STORE_ITEM_AMAUNT = 10;
 
-    private DatabaseReference mDatabase;
-    private Query query;
     private List<StoreItem> mDataset;
     private List<StoreItem> mDatasetToAdd;
 
@@ -118,19 +113,19 @@ public class ShopStoreFragment extends Fragment implements GetShopStoreItemListF
             shopStoreManager.selectStoreItem(pos);
             switch (v.getId()) {
                 case R.id.change_store_item_amount_button :
-                    Toast.makeText(getContext(), shopStoreManager.getSelectedItem().getName() + ", Добавить" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), shopStoreManager.getSelectedShopItem().getName() + ", Добавить" , Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), AddItemToListActivity.class);
                     intent.putExtra(AddItemToListActivity.TAG, "amount");
                     startActivityForResult(intent, REQ_CODE_ADD_STORE_ITEM_AMAUNT);
                     break;
                 case R.id.store_item_balance_stat :
-                    Toast.makeText(getContext(), shopStoreManager.getSelectedItem().getName() + ", Balance" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), shopStoreManager.getSelectedShopItem().getName() + ", Balance" , Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.store_item_consumption_num_stat :
-                    Toast.makeText(getContext(), shopStoreManager.getSelectedItem().getName() + ",Consumption" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), shopStoreManager.getSelectedShopItem().getName() + ",Consumption" , Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.store_item_incoming_num_stat :
-                    Toast.makeText(getContext(), shopStoreManager.getSelectedItem().getName() + ", Incoming" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), shopStoreManager.getSelectedShopItem().getName() + ", Incoming" , Toast.LENGTH_SHORT).show();
                     break;
             }
         }

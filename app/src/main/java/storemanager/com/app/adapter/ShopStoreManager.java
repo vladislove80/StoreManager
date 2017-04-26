@@ -26,7 +26,7 @@ public class ShopStoreManager {
     private String shopName;
     private List<StoreItem> generalStoreItemList = new ArrayList<>();
     private List<StoreItem> shopStoreItemList = new ArrayList<>();
-    private StoreItem selectedItem;
+    private StoreItem selectedShopItem;
 
     private GetShopStoreItemListFromDataBase shopStoreItemListFromDataBaseCallback;
 
@@ -81,21 +81,34 @@ public class ShopStoreManager {
         return shopStoreItemList;
     }
 
-    public StoreItem getSelectedItem() {
-        return selectedItem;
+    public StoreItem getSelectedShopItem() {
+        return selectedShopItem;
     }
 
     public void selectStoreItem(int pos) {
-        this.selectedItem = shopStoreItemList.get(pos);
+        this.selectedShopItem = shopStoreItemList.get(pos);
     }
 
     public void addEventToStoreItemData(Event event){
         if (event.getAmount() > 0) {
-            selectedItem.addLastCommingIn(event);
+            selectedShopItem.addLastCommingIn(event);
         } else if (event.getAmount() < 0){
-            selectedItem.addLastConsumption(event);
+            selectedShopItem.addLastConsumption(event);
         }
         addItemListToShopStoreInDatabase(shopStoreItemList);
+        editGeneralStoreItem(selectedShopItem);
+    }
+
+    private void editGeneralStoreItem(StoreItem selectedShopItem){
+        for (StoreItem item : generalStoreItemList) {
+            if (item.equals(selectedShopItem)) {
+                //convert cominIn for shop to consumption for general store by add "-" to event
+                Event event = new Event(selectedShopItem.getLastComingIn().getDate(), - selectedShopItem.getLastComingIn().getAmount());
+                item.addLastConsumption(event);
+                break;
+            }
+        }
+        addItemListToGeneralStoreInDatabase(generalStoreItemList);
     }
 
     private void addItemListToShopStoreInDatabase(List<StoreItem> dataset) {
