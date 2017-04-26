@@ -5,5 +5,5 @@ import java.util.List;
 import storemanager.com.app.models.StoreItem;
 
 public interface GetShopStoreItemListFromDataBase {
-    void onDownLoaded(List<StoreItem> mDataset);
+    void onDownLoaded(List<StoreItem> dataset);
 }

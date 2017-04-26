@@ -26,17 +26,14 @@ public class ShopStoreManager {
     private String shopName;
     private List<StoreItem> generalStoreItemList = new ArrayList<>();
     private List<StoreItem> shopStoreItemList = new ArrayList<>();
-    private List<StoreItem> mDatasetToAdd;
     private StoreItem selectedItem;
 
-    private GetShopStoreItemListFromDataBase shopStoreItemListFromDataBase;
+    private GetShopStoreItemListFromDataBase shopStoreItemListFromDataBaseCallback;
 
     public ShopStoreManager(String shopName) {
         this.shopName = shopName;
         this.teamName = AdminActivity.getTeamName();
         this.mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
-        getShopStoreItemListFromDatabase();
-        getGeneralStoreItemListFromDatabase();
     }
 
     private void getShopStoreItemListFromDatabase(){
@@ -49,7 +46,7 @@ public class ShopStoreManager {
                     for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                         shopStoreItemList.add(postSnapshot.getValue(StoreItem.class));
                     }
-                    shopStoreItemListFromDataBase.onDownLoaded(shopStoreItemList);
+                    shopStoreItemListFromDataBaseCallback.onDownLoaded(shopStoreItemList);
                 }
             }
 
@@ -88,7 +85,7 @@ public class ShopStoreManager {
         return selectedItem;
     }
 
-    public void setSelectedItem(int pos) {
+    public void selectStoreItem(int pos) {
         this.selectedItem = shopStoreItemList.get(pos);
     }
 
@@ -96,7 +93,7 @@ public class ShopStoreManager {
         if (event.getAmount() > 0) {
             selectedItem.addLastCommingIn(event);
         } else if (event.getAmount() < 0){
-            selectedItem.setLastConsumption(event);
+            selectedItem.addLastConsumption(event);
         }
         addItemListToShopStoreInDatabase(shopStoreItemList);
     }
@@ -109,7 +106,7 @@ public class ShopStoreManager {
         mDatabase.child("general store").setValue(dataset);
     }
 
-    private void addNewItemsFromGeneralStoreToShopStore(List<StoreItem> datasetToAdd){
+    public void addNewItemsFromGeneralStoreToShopStore(List<StoreItem> datasetToAdd){
         if (!Collections.disjoint(shopStoreItemList, datasetToAdd)) {
             datasetToAdd = removeCoincidence(shopStoreItemList, datasetToAdd);
         }
@@ -125,5 +122,11 @@ public class ShopStoreManager {
             }
         }
         return clearList;
+    }
+
+    public void registerDownloadedStoreItemListCallBack(GetShopStoreItemListFromDataBase callback) {
+        this.shopStoreItemListFromDataBaseCallback =callback;
+        getShopStoreItemListFromDatabase();
+        getGeneralStoreItemListFromDatabase();
     }
 }
