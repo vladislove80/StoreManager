@@ -154,13 +154,14 @@ public class ShopStoreManager {
         return incomingInEventList;
     }
 
-    public List<Event> getShopStoreItemConsumptionList(StoreItem storeItem){
-        List<Event> consumptionEventList = new ArrayList<>();
+    public ArrayList<Event> getShopStoreItemConsumptionList(StoreItem storeItem){
+        ArrayList<Event> consumptionEventList = new ArrayList<>();
         for (Event event : storeItem.getListEvents()){
             if (event.getAmount() < 0){
                 consumptionEventList.add(event);
             }
         }
+        Collections.reverse(consumptionEventList);
         return consumptionEventList;
     }
 }

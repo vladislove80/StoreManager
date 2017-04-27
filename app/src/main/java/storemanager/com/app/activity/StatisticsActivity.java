@@ -12,15 +12,19 @@ import java.util.List;
 
 import storemanager.com.app.R;
 import storemanager.com.app.adapter.ShopStoreItemStatisticsAdapter;
+import storemanager.com.app.fragment.ShopStoreFragment;
 import storemanager.com.app.models.Event;
 
 public class StatisticsActivity extends AppCompatActivity{
     public static String TAG = StatisticsActivity.class.getSimpleName();
-    public static String TAG_INCOMING_LIST = "incoming list";
+    public static String INCOMING_LIST = "incoming list";
+    public static String CONSUMPTION_LIST = "consumption list";
+    public static String BALANCE_LIST = "balance list";
     public static String STATISTICS_TYPE = "statistics type";
 
     private List<Event> statisticsList;
     private String statisticsType;
+    private String storeItemName;
 
     private TextView shopName;
     private TextView storeItem;
@@ -46,20 +50,30 @@ public class StatisticsActivity extends AppCompatActivity{
         getWindow().setLayout((int) (width*.8),(int) (height*.8));
 
         statisticsType = getIntent().getStringExtra(STATISTICS_TYPE);
+        storeItemName = getIntent().getStringExtra(ShopStoreFragment.STORE_ITEM_NAME);
         switch (statisticsType) {
             case "incoming":
-                statisticsList = getIntent().getParcelableArrayListExtra(TAG_INCOMING_LIST);
+                statisticsList = getIntent().getParcelableArrayListExtra(INCOMING_LIST);
                 break;
             case "consumption":
+                statisticsList = getIntent().getParcelableArrayListExtra(CONSUMPTION_LIST);
+                break;
+            case "balance":
+                statisticsList = getIntent().getParcelableArrayListExtra(BALANCE_LIST);
                 break;
         }
 
+
         shopName = (TextView) findViewById(R.id.statistics_shop_name);
-        shopName = (TextView) findViewById(R.id.statistics_shop_store_item);
-        shopName = (TextView) findViewById(R.id.statistics_shop_store_item_balance);
+        shopName.setText(ShopDataActivity.getShopName());
+        storeItem = (TextView) findViewById(R.id.statistics_shop_store_item);
+        storeItem.setText(storeItemName);
+        storeItemBalanceForPeriod = (TextView) findViewById(R.id.statistics_shop_store_item_balance);
+
         checkBoxWeek = (RadioButton) findViewById(R.id.statistics_week);
         checkBoxMonth = (RadioButton) findViewById(R.id.statistics_week);
         checkBoxAll = (RadioButton) findViewById(R.id.statistics_week);
+
         listView = (ListView) findViewById(R.id.statistics_listview);
         statisticsAdapter = new ShopStoreItemStatisticsAdapter(getBaseContext(), statisticsList);
         listView.setAdapter(statisticsAdapter);
