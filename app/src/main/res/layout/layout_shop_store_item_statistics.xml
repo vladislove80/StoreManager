@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/store_item_statistics_date"
+        android:text="Дата"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/statistics_table_label_date_margin_right"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/store_item_statistics_amount"
+        android:text="Количество"
+        android:layout_marginLeft="@dimen/statistics_table_label_amount_margin_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="16sp"/>
+</LinearLayout>

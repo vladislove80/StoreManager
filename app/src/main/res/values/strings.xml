@@ -104,5 +104,11 @@
     <string name="add_item_to_shop_store_add_button">Готово</string>
     <string name="add_item_to_shop_store_select_all">Выбрать все</string>
 
+    <!--StatisticsActivity-->
+    <string name="statistics_week">Неделя</string>
+    <string name="statistics_month">Месяц</string>
+    <string name="statistics_all">Все</string>
+    <string name="statistics_activity">Статистика</string>
+
 
 </resources>

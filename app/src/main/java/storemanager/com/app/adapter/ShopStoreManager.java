@@ -143,8 +143,8 @@ public class ShopStoreManager {
         getGeneralStoreItemListFromDatabase();
     }
 
-    public List<Event> getItemComingInStatistic(StoreItem storeItem){
-        List<Event> incomingInEventList = new ArrayList<>();
+    public ArrayList<Event> getShopStoreItemComingInList(StoreItem storeItem){
+        ArrayList<Event> incomingInEventList = new ArrayList<>();
         for (Event event : storeItem.getListEvents()){
             if (event.getAmount() > 0){
                 incomingInEventList.add(event);
@@ -153,7 +153,7 @@ public class ShopStoreManager {
         return incomingInEventList;
     }
 
-    public List<Event> getItemConsumptionStatistic(StoreItem storeItem){
+    public List<Event> getShopStoreItemConsumptionList(StoreItem storeItem){
         List<Event> consumptionEventList = new ArrayList<>();
         for (Event event : storeItem.getListEvents()){
             if (event.getAmount() < 0){

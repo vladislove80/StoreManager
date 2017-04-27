@@ -90,6 +90,11 @@
             android:label="@string/add_item_to_shop_store_activity"
             android:theme="@style/AppTheme.PopWindow"
             android:launchMode="singleTop"/>
+        <activity
+            android:name=".activity.StatisticsActivity"
+            android:label="@string/statistics_activity"
+            android:theme="@style/AppTheme.PopWindow"
+            android:launchMode="singleTop"/>
     </application>
 
 

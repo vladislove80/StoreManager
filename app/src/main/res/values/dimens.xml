@@ -164,5 +164,21 @@
     <dimen name="add_item_to_shop_store_checkboxes_layout_margin_left">35dp</dimen>
     <dimen name="add_item_to_shop_store_checkboxes_layout_margin_right">35dp</dimen>
 
+    <!--StatisticsActivity-->
+    <dimen name="statistics_layout_padding">5dp</dimen>
+    <dimen name="statistics_shop_name_margin">5dp</dimen>
+    <dimen name="statistics_shop_stor_margin">5dp</dimen>
+    <dimen name="statistics_radiobuttons_layout_margin">5dp</dimen>
+    <dimen name="statistics_listview_margin_left">20dp</dimen>
+    <dimen name="statistics_listview_margin_right">20dp</dimen>
+    <dimen name="statistics_table_label_date_margin_right">20dp</dimen>
+    <dimen name="statistics_table_label_amount_margin_left">20dp</dimen>
+    <dimen name="statistics_table_label_date_text_size">18sp</dimen>
+    <dimen name="statistics_table_label_amount_text_size">18sp</dimen>
+    <dimen name="statistics_table_label_layout_margin_top">10dp</dimen>
+    <dimen name="statistics_table_label_layout_margin_bottom">10dp</dimen>
+    <dimen name="statistics_radiobutton_month_margin_left">15dp</dimen>
+    <dimen name="statistics_radiobutton_month_margin_right">15dp</dimen>
+
 
 </resources>

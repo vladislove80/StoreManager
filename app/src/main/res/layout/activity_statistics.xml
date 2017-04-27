@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#8099ddff"
+    android:padding="@dimen/statistics_layout_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#ffffff">
+
+        <TextView
+            android:id="@+id/statistics_shop_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ShopName"
+            android:gravity="center"
+            android:layout_margin="@dimen/statistics_shop_name_margin"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/statistics_shop_store_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="StoreItemName"
+                android:gravity="center"
+                android:layout_margin="@dimen/statistics_shop_stor_margin"/>
+            <TextView
+                android:id="@+id/statistics_shop_store_item_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500 kg"
+                android:gravity="center"
+                android:layout_margin="@dimen/statistics_shop_stor_margin"/>
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/statistics_chackboxes_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/statistics_radiobuttons_layout_margin">
+
+            <RadioButton
+                android:id="@+id/statistics_week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/statistics_week"
+                android:checked="true"
+                android:clickable="true"/>
+
+            <RadioButton
+                android:id="@+id/statistics_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/statistics_month"
+                android:clickable="true"
+                android:layout_marginLeft="@dimen/statistics_radiobutton_month_margin_left"
+                android:layout_marginRight="@dimen/statistics_radiobutton_month_margin_right"/>
+
+            <RadioButton
+                android:id="@+id/statistics_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/statistics_all"
+                android:clickable="true"/>
+
+        </RadioGroup>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/statistics_table_label_layout_margin_top"
+            android:layout_marginBottom="@dimen/statistics_table_label_layout_margin_bottom">
+
+            <TextView
+                android:text="Дата"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/statistics_table_label_date_margin_right"
+                android:textSize="@dimen/statistics_table_label_date_text_size"/>
+            <TextView
+                android:text="Количество"
+                android:layout_marginLeft="@dimen/statistics_table_label_amount_margin_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/statistics_table_label_amount_text_size"/>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/statistics_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/statistics_listview_margin_left"
+            android:layout_marginRight="@dimen/statistics_listview_margin_right">
+
+        </ListView>
+    </LinearLayout>
+
+</LinearLayout>

@@ -23,6 +23,7 @@ import storemanager.com.app.activity.AddItemToListActivity;
 import storemanager.com.app.activity.AddItemsToShopStoreActivity;
 import storemanager.com.app.activity.AdminActivity;
 import storemanager.com.app.activity.ShopDataActivity;
+import storemanager.com.app.activity.StatisticsActivity;
 import storemanager.com.app.adapter.ShopStoreManager;
 import storemanager.com.app.adapter.StoreRecyclerAdapter;
 import storemanager.com.app.models.Event;
@@ -126,6 +127,11 @@ public class ShopStoreFragment extends Fragment implements ShopStoreManagerNotif
                     break;
                 case R.id.store_item_incoming_num_stat :
                     Toast.makeText(getContext(), shopStoreManager.getSelectedShopItem().getName() + ", Incoming" , Toast.LENGTH_SHORT).show();
+                    intent = new Intent(getActivity(), StatisticsActivity.class);
+                    //intent.putExtra(AddItemToListActivity.TAG, "amount");
+                    intent.putExtra(StatisticsActivity.STATISTICS_TYPE, "incoming");
+                    intent.putParcelableArrayListExtra(StatisticsActivity.TAG_INCOMING_LIST, shopStoreManager.getShopStoreItemComingInList(shopStoreManager.getSelectedShopItem()));
+                    startActivity(intent);
                     break;
             }
         }
