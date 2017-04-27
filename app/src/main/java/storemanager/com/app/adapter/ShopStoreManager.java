@@ -150,6 +150,7 @@ public class ShopStoreManager {
                 incomingInEventList.add(event);
             }
         }
+        Collections.reverse(incomingInEventList);
         return incomingInEventList;
     }
 
