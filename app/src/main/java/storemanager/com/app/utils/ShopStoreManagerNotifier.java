@@ -4,6 +4,6 @@ import java.util.List;
 
 import storemanager.com.app.models.StoreItem;
 
-public interface GetShopStoreItemListFromDataBase {
+public interface ShopStoreManagerNotifier {
     void onDownLoaded(List<StoreItem> dataset);
 }

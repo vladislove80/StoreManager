@@ -16,7 +16,7 @@ import java.util.List;
 import storemanager.com.app.activity.AdminActivity;
 import storemanager.com.app.models.Event;
 import storemanager.com.app.models.StoreItem;
-import storemanager.com.app.utils.GetShopStoreItemListFromDataBase;
+import storemanager.com.app.utils.ShopStoreManagerNotifier;
 
 public class ShopStoreManager {
     public static String TAG = ShopStoreManager.class.getCanonicalName();
@@ -28,7 +28,7 @@ public class ShopStoreManager {
     private List<StoreItem> shopStoreItemList = new ArrayList<>();
     private StoreItem selectedShopItem;
 
-    private GetShopStoreItemListFromDataBase shopStoreItemListFromDataBaseCallback;
+    private ShopStoreManagerNotifier shopStoreItemListCallback;
 
     public ShopStoreManager(String shopName) {
         this.shopName = shopName;
@@ -46,7 +46,7 @@ public class ShopStoreManager {
                     for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                         shopStoreItemList.add(postSnapshot.getValue(StoreItem.class));
                     }
-                    shopStoreItemListFromDataBaseCallback.onDownLoaded(shopStoreItemList);
+                    shopStoreItemListCallback.onDownLoaded(shopStoreItemList);
                 }
             }
 
@@ -137,9 +137,29 @@ public class ShopStoreManager {
         return clearList;
     }
 
-    public void registerDownloadedStoreItemListCallBack(GetShopStoreItemListFromDataBase callback) {
-        this.shopStoreItemListFromDataBaseCallback =callback;
+    public void registerDownloadedStoreItemListCallBack(ShopStoreManagerNotifier callback) {
+        this.shopStoreItemListCallback = callback;
         getShopStoreItemListFromDatabase();
         getGeneralStoreItemListFromDatabase();
+    }
+
+    public List<Event> getItemComingInStatistic(StoreItem storeItem){
+        List<Event> incomingInEventList = new ArrayList<>();
+        for (Event event : storeItem.getListEvents()){
+            if (event.getAmount() > 0){
+                incomingInEventList.add(event);
+            }
+        }
+        return incomingInEventList;
+    }
+
+    public List<Event> getItemConsumptionStatistic(StoreItem storeItem){
+        List<Event> consumptionEventList = new ArrayList<>();
+        for (Event event : storeItem.getListEvents()){
+            if (event.getAmount() < 0){
+                consumptionEventList.add(event);
+            }
+        }
+        return consumptionEventList;
     }
 }

@@ -27,10 +27,10 @@ import storemanager.com.app.adapter.ShopStoreManager;
 import storemanager.com.app.adapter.StoreRecyclerAdapter;
 import storemanager.com.app.models.Event;
 import storemanager.com.app.models.StoreItem;
-import storemanager.com.app.utils.GetShopStoreItemListFromDataBase;
+import storemanager.com.app.utils.ShopStoreManagerNotifier;
 import storemanager.com.app.utils.Utils;
 
-public class ShopStoreFragment extends Fragment implements GetShopStoreItemListFromDataBase{
+public class ShopStoreFragment extends Fragment implements ShopStoreManagerNotifier {
     public static String TAG = ShopStoreFragment.class.getSimpleName();
     public final static int REQ_CODE_ADD_STORE_ITEM = 9;
     public final static int REQ_CODE_ADD_STORE_ITEM_AMAUNT = 10;
