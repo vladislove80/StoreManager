@@ -11,22 +11,27 @@ import storemanager.com.app.utils.Utils;
 public class StoreItem implements Parcelable {
     private String name;
     private String measure;
-    private List<Event> listEvents;
     private Event lastComingIn;
     private Event lastConsumption;
+    private List<Event> listEvents;
+    private ArrayList<Event> balanceListEvents = new ArrayList<>();
+    private Event balance = new Event(Utils.getCurrentDateWithoutTime(), 0);
 
     public StoreItem() {
     }
 
     public StoreItem(String name, String measure) {
+        setBalance(new Event(Utils.getCurrentDateWithoutTime(), 0));
         this.name = name;
         this.measure = measure;
         this.lastConsumption = new Event(Utils.getCurrentDateWithoutTime(), 0);
         this.lastComingIn = new Event(Utils.getCurrentDateWithoutTime(), 0);
         this.listEvents = new ArrayList<>();
+        this.balanceListEvents = new ArrayList<>();
     }
 
     public StoreItem(String name, String measure, List<Event> listEvents) {
+        this.balance = new Event(Utils.getCurrentDateWithoutTime(), 0);
         this.name = name;
         this.measure = measure;
         this.listEvents = listEvents;
@@ -41,6 +46,10 @@ public class StoreItem implements Parcelable {
         in.readTypedList(listEvents, Event.CREATOR);
         lastComingIn = (Event) in.readValue(Event.class.getClassLoader());
         lastConsumption = (Event) in.readValue(Event.class.getClassLoader());
+        balanceListEvents = new ArrayList<>();
+        in.readTypedList(balanceListEvents, Event.CREATOR);
+        balance = (Event) in.readValue(Event.class.getClassLoader());
+
     }
 
     public static final Creator<StoreItem> CREATOR = new Creator<StoreItem>() {
@@ -119,15 +128,18 @@ public class StoreItem implements Parcelable {
         this.measure = measure;
     }
 
-
     public void setLastComingIn(Event lastComingIn) {
         this.lastComingIn = lastComingIn;
     }
 
     public void addLastCommingIn(Event lastComingIn) {
         listEvents.add(lastComingIn);
+        setBalance(lastComingIn);
+        Event newBalanceEvent = new Event(balance.getDate(), balance.getAmount());
+        balanceListEvents.add(newBalanceEvent);
         this.lastComingIn = lastComingIn;
     }
+
 
     public void setLastConsumption(Event lastConsumption) {
         this.lastConsumption = lastConsumption;
@@ -135,6 +147,9 @@ public class StoreItem implements Parcelable {
 
     public void addLastConsumption(Event lastConsumption) {
         listEvents.add(lastConsumption);
+        setBalance(lastConsumption);
+        Event newBalanceEvent = new Event(balance.getDate(), balance.getAmount());
+        balanceListEvents.add(newBalanceEvent);
         this.lastConsumption = lastConsumption;
     }
 
@@ -150,6 +165,8 @@ public class StoreItem implements Parcelable {
         dest.writeTypedList(listEvents);
         dest.writeValue(lastComingIn);
         dest.writeValue(lastConsumption);
+        dest.writeTypedList(balanceListEvents);
+        dest.writeValue(balance);
     }
 
     @Override
@@ -160,5 +177,22 @@ public class StoreItem implements Parcelable {
             same = this.name.equals(item.getName());
         }
         return same;
+    }
+
+    public Event getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Event event) {
+        this.balance.setAmount(balance.getAmount() + event.getAmount());
+        this.balance.setDate(event.getDate());
+    }
+
+    public ArrayList<Event> getBalanceListEvents() {
+        return balanceListEvents;
+    }
+
+    public void setBalanceListEvents(ArrayList<Event> balanceListEvents) {
+        this.balanceListEvents = balanceListEvents;
     }
 }

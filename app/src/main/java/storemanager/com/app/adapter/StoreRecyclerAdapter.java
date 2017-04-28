@@ -44,9 +44,9 @@ public class StoreRecyclerAdapter extends RecyclerView.Adapter<StoreRecyclerAdap
         Event comingIn = storeItem.getLastComingIn();
         holder.itemIncomingNumTextView.setText(Integer.toString(comingIn.getAmount()));
         holder.itemIncomingDateView.setText(comingIn.getDate());
-        int sum = comingIn.getAmount() + consumption.getAmount();
-        holder.itemBalanceNumTextView.setText(Integer.toString(sum));
-        holder.itemBalanceDateTextView.setText(Utils.getCurrentDate());
+        Event balance = storeItem.getBalance();
+        holder.itemBalanceNumTextView.setText(Integer.toString(balance.getAmount()));
+        holder.itemBalanceDateTextView.setText(balance.getDate());
     }
 
     @Override

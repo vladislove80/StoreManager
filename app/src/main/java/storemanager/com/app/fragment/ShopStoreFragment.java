@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import storemanager.com.app.R;
@@ -125,7 +126,9 @@ public class ShopStoreFragment extends Fragment implements ShopStoreManagerNotif
                     intent = new Intent(getActivity(), StatisticsActivity.class);
                     intent.putExtra(StatisticsActivity.STATISTICS_TYPE, "balance");
                     intent.putExtra(STORE_ITEM_NAME, shopStoreManager.getSelectedShopItem().getName());
-                    intent.putParcelableArrayListExtra(StatisticsActivity.BALANCE_LIST, shopStoreManager.getSelectedShopItem().getBalanceListEvents());
+                    ArrayList<Event> balanceList = shopStoreManager.getSelectedShopItem().getBalanceListEvents();
+                    Collections.reverse(balanceList);
+                    intent.putParcelableArrayListExtra(StatisticsActivity.BALANCE_LIST, balanceList);
                     startActivity(intent);
                     break;
                 case R.id.store_item_consumption_num_stat :
