@@ -69,9 +69,7 @@ public class GeneralStoreFragment extends Fragment {
 
         teamName = AdminActivity.getTeamName();
         mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
-        if (mDataset.size() == 0) {
-            getStoreItemsFromDatabase();
-        }
+        getStoreItemsFromDatabase();
         progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
 
@@ -139,6 +137,7 @@ public class GeneralStoreFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChildren()) {
+                    mDataset.clear();
                     for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                         mDataset.add(postSnapshot.getValue(StoreItem.class));
                     }
