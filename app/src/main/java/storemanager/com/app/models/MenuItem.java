@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuItem implements Parcelable, Serializable {
+public class MenuItem implements Parcelable {
 
     private boolean oneSize;
 
@@ -94,7 +94,7 @@ public class MenuItem implements Parcelable, Serializable {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (this == null) return false;
+        //if (this == null) return false;
         if (this.getClass() != obj.getClass()) return false;
         MenuItem item = (MenuItem) obj;
         return this.name.equals(item.getName()) && this.size == item.getSize();
