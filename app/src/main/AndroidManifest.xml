@@ -47,32 +47,38 @@
 
         <activity
             android:name=".activity.ShopDataActivity"
-            android:parentActivityName=".activity.AdminActivity"/>
+            android:parentActivityName=".activity.AdminActivity"
+            android:launchMode="singleTop"/>
 
         <activity
             android:name=".activity.AddItemToMenuActivity"
             android:label="@string/manifest_label_add_menu_item"
             android:parentActivityName=".activity.AdminActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"/>
 
         <activity
             android:name=".activity.AddBaseListsActivity"
             android:label="@string/manifest_label_add_base_ingredient_item"
-            android:parentActivityName=".activity.AddItemToMenuActivity"/>
+            android:parentActivityName=".activity.AddItemToMenuActivity"
+            android:launchMode="singleTop"/>
 
         <activity
             android:name=".activity.PopActivity"
-            android:theme="@style/AppTheme.PopWindow"/>
+            android:theme="@style/AppTheme.PopWindow"
+            android:launchMode="singleTop"/>
 
         <activity
             android:name=".activity.ListOfListActivity"
             android:label="@string/manifest_label_lists"
-            android:parentActivityName=".activity.AdminActivity"/>
+            android:parentActivityName=".activity.AdminActivity"
+            android:launchMode="singleTop"/>
 
         <activity
             android:name=".activity.AddItemsToSummaryActivity"
             android:label="@string/add_item_to_summary_activity"
-            android:parentActivityName=".activity.SummaryComposerActivity"/>
+            android:parentActivityName=".activity.SummaryComposerActivity"
+            android:launchMode="singleTop"/>
 
         <activity
             android:name=".activity.NewTeamNameActivity"
