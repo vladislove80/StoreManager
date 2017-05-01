@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 
 import storemanager.com.app.R;
 import storemanager.com.app.adapter.AdminPanelFragmentPagerAdapter;
+import storemanager.com.app.adapter.SummaryHandler;
 import storemanager.com.app.utils.Utils;
 
 public class AdminActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
@@ -35,7 +36,7 @@ public class AdminActivity extends AppCompatActivity implements GoogleApiClient.
     private static String teamName;
     private String userId;
     private GoogleApiClient mGoogleApiClient;
-    private DatabaseReference mDatabase;
+    private SummaryHandler mSummaryHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class AdminActivity extends AppCompatActivity implements GoogleApiClient.
                 userEmail = intent.getExtras().get(Utils.EXTRA_TAG_EMAIL).toString();
                 userId = intent.getExtras().get(Utils.EXTRA_TAG_ID).toString();
                 teamName = intent.getExtras().get(Utils.EXTRA_TAG_TEAM).toString();
+                mSummaryHandler = new SummaryHandler(teamName);
                 setViewPager();
             }
         }
@@ -126,7 +128,19 @@ public class AdminActivity extends AppCompatActivity implements GoogleApiClient.
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+        Log.d(Utils.LOG_TAG, "onConnectionFailed:" + connectionResult);
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSummaryHandler.enableSummaryListener();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSummaryHandler.disableSummaryListener();
     }
 }
