@@ -40,7 +40,10 @@ public class ShopsFragmentAdapter extends RecyclerView.Adapter<ShopsFragmentAdap
         holder.setItem(shopName);
         //holder.mNameTextView.setText(shopName);
         holder.mDateTextView.setText(shop.getCreationDate());
-        holder.mIndicatorImageView.setImageResource((shop.isSummaryTooday())? R.drawable.ic_check_box_black_48dp : R.drawable.ic_indeterminate_check_box_black_48dp);
+        holder.mIndicatorImageView.setImageResource(
+                (shop.isSummaryTooday())?
+                        R.drawable.ic_check_box_black_48dp : R.drawable.ic_indeterminate_check_box_black_48dp
+        );
     }
 
     @Override
