@@ -39,13 +39,13 @@ public class StoreRecyclerAdapter extends RecyclerView.Adapter<StoreRecyclerAdap
         holder.itemNameTextView.setText(storeItem.getName() + ",");
         holder.itemMeasureTextView.setText(storeItem.getMeasure());
         Event consumption = storeItem.getLastConsumption();
-        holder.itemConsumptionNumTextView.setText(Integer.toString(consumption.getAmount()));
+        holder.itemConsumptionNumTextView.setText(String.valueOf(consumption.getAmount()));
         holder.itemConsumptionDateTextView.setText(consumption.getDate());
         Event comingIn = storeItem.getLastComingIn();
-        holder.itemIncomingNumTextView.setText(Integer.toString(comingIn.getAmount()));
+        holder.itemIncomingNumTextView.setText(String.valueOf(comingIn.getAmount()));
         holder.itemIncomingDateView.setText(comingIn.getDate());
         Event balance = storeItem.getBalance();
-        holder.itemBalanceNumTextView.setText(Integer.toString(balance.getAmount()));
+        holder.itemBalanceNumTextView.setText(String.valueOf(balance.getAmount()));
         holder.itemBalanceDateTextView.setText(balance.getDate());
     }
 

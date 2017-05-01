@@ -5,12 +5,12 @@ import android.os.Parcelable;
 
 public class Event implements Parcelable{
     private String date;
-    private int amount;
+    private float amount;
 
     public Event() {
     }
 
-    public Event(String date, int amount) {
+    public Event(String date, float amount) {
         this.date = date;
         this.amount = amount;
     }
@@ -40,11 +40,11 @@ public class Event implements Parcelable{
         this.date = date;
     }
 
-    public int getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 
@@ -56,6 +56,6 @@ public class Event implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(date);
-        dest.writeInt(amount);
+        dest.writeFloat(amount);
     }
 }
