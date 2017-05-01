@@ -89,7 +89,7 @@ public class ShopListFragment extends Fragment {
                         }
                         summaryList.add(summary);
                     }
-                    Log.d(Utils.LOG_TAG, "getShopListFromDatabase -> onDataChange = ");
+                    //Log.d(Utils.LOG_TAG, "getShopListFromDatabase -> onDataChange = ");
                 }
                 Toast.makeText(getContext(), "Всего отчетов: " + summaryList.size(), Toast.LENGTH_SHORT).show();
             }

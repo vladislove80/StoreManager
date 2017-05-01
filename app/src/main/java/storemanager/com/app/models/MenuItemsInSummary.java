@@ -3,8 +3,6 @@ package storemanager.com.app.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
 public class MenuItemsInSummary implements Parcelable {
     private MenuItem item;
     private int amount;
