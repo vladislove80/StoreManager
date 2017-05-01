@@ -72,7 +72,7 @@ public class ShopListFragment extends Fragment {
         public void onDataChange(DataSnapshot dataSnapshot) {
             if (dataSnapshot.hasChildren()) {
                 summaryList.clear();
-                Log.d(Utils.LOG_TAG, "getShopListFromDatabase -> onDataChange ");
+                //Log.d(Utils.LOG_TAG, "getShopListFromDatabase -> onDataChange ");
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Summary summary = postSnapshot.getValue(Summary.class);
                     if (summary != null && Utils.isCurrentDate(summary.getDate())) {
@@ -181,12 +181,12 @@ public class ShopListFragment extends Fragment {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d(Utils.LOG_TAG, "getShopListFromDatabase -> onDataChange = ");
+                //Log.d(Utils.LOG_TAG, "getShopListFromDatabase -> onDataChange = ");
                 if (dataSnapshot.hasChildren()) {
                     Shop shop;
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         shop = postSnapshot.getValue(Shop.class);
-                        Log.d(Utils.LOG_TAG, "getShopListFromDatabase -> shop.getName() = " + shop.getName());
+                        //Log.d(Utils.LOG_TAG, "getShopListFromDatabase -> shop.getName() = " + shop.getName());
                         shopList.add(shop);
                     }
                     mAdapter.notifyDataSetChanged();

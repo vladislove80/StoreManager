@@ -8,6 +8,7 @@ public class Summary {
     private String date;
     private String shop;
     private List<MenuItemsInSummary> itemInSummary;
+    private boolean isHandled;
 
     public Summary() {}
 
@@ -41,5 +42,13 @@ public class Summary {
 
     public void setShop(String shop) {
         this.shop = shop;
+    }
+
+    public boolean isHandled() {
+        return isHandled;
+    }
+
+    public void setHandled(boolean handled) {
+        isHandled = handled;
     }
 }
