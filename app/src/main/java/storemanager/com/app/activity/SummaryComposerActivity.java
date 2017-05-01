@@ -302,14 +302,14 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         summary.setItemInSummary(summaryList);
 
         DatabaseReference mDatabase;
-        mDatabase = FirebaseDatabase.getInstance().getReference(teamName).child("summaries");
+        mDatabase = FirebaseDatabase.getInstance().getReference(teamName).child("unhandled summaries");
         mDatabase.push().setValue(summary);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && requestCode == REQ_CODE_CHILD) {
-            MenuItemsInSummary item = (MenuItemsInSummary) data.getExtras().getSerializable(AddItemsToSummaryActivity.TAG);
+            MenuItemsInSummary item = data.getExtras().getParcelable(AddItemsToSummaryActivity.TAG);
             if (menu.size() != 0 && item != null) {
                 item = setDataFromMenuToAddedItem(menu, item);
             }
