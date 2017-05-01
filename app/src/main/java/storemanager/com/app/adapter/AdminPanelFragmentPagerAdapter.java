@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import storemanager.com.app.fragment.MenuFragment;
-import storemanager.com.app.fragment.ShopsFragment;
+import storemanager.com.app.fragment.ShopListFragment;
 import storemanager.com.app.fragment.GeneralStoreFragment;
 import storemanager.com.app.fragment.TeamFragment;
 
@@ -30,7 +30,7 @@ public class AdminPanelFragmentPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment;
         switch (position) {
-            case 0 : fragment = ShopsFragment.newInstance(1);
+            case 0 : fragment = ShopListFragment.newInstance(1);
                 break;
             case 1 : fragment = TeamFragment.newInstance();
                 break;

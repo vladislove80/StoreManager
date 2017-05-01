@@ -33,8 +33,8 @@ import storemanager.com.app.models.Shop;
 import storemanager.com.app.models.Summary;
 import storemanager.com.app.utils.Utils;
 
-public class ShopsFragment extends Fragment {
-    public static final String TAG = ShopsFragment.class.getSimpleName();
+public class ShopListFragment extends Fragment {
+    public static final String TAG = ShopListFragment.class.getSimpleName();
     public final static int REQ_CODE = 1;
 
     private List<Shop> shopList;
@@ -51,8 +51,8 @@ public class ShopsFragment extends Fragment {
     private DatabaseReference mDatabase;
     private Query query;
 
-    public static ShopsFragment newInstance(int page) {
-        ShopsFragment fragment = new ShopsFragment();
+    public static ShopListFragment newInstance(int page) {
+        ShopListFragment fragment = new ShopListFragment();
         return fragment;
     }
 
