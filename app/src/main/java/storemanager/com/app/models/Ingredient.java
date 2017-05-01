@@ -5,9 +5,9 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
-public class Ingredient implements Parcelable, Serializable {
+public class Ingredient implements Parcelable {
     private String name;
-    private int size;
+    private float size;
     private String measure;
 
     public Ingredient() {
@@ -15,7 +15,7 @@ public class Ingredient implements Parcelable, Serializable {
 
     protected Ingredient(Parcel in) {
         name = in.readString();
-        size = in.readInt();
+        size = in.readFloat();
         measure = in.readString();
     }
 
@@ -39,7 +39,7 @@ public class Ingredient implements Parcelable, Serializable {
         this.name = name;
     }
 
-    public int getSize() {
+    public float getSize() {
         return size;
     }
 
@@ -73,7 +73,7 @@ public class Ingredient implements Parcelable, Serializable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
-        dest.writeInt(size);
+        dest.writeFloat(size);
         dest.writeString(measure);
     }
 }

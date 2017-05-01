@@ -46,7 +46,7 @@ public class MenuItemIngredientsAdapter extends ArrayAdapter<Ingredient> {
         }
 
         viewHolder.ingredientName.setText(ingredientList.get(position).getName());
-        viewHolder.ingredientSize.setText(Integer.toString(ingredientList.get(position).getSize()));
+        viewHolder.ingredientSize.setText(Float.toString(ingredientList.get(position).getSize()));
         viewHolder.ingredientMeasure.setText(ingredientList.get(position).getMeasure());
         return convertView;
     }
