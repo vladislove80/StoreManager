@@ -102,6 +102,8 @@ public class AddItemsToShopStoreActivity extends AppCompatActivity {
                     for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                         StoreItem tempItem = postSnapshot.getValue(StoreItem.class);
                         StoreItem item = new StoreItem(tempItem.getName(), tempItem.getMeasure());
+                        Event zeroEvent = new Event(Utils.getCurrentDateWithoutTime(), 0);
+                        item.addLastCommingIn(zeroEvent);
                         mDataset.add(item);
                     }
                     inflateCheckBoxList(mDataset);
