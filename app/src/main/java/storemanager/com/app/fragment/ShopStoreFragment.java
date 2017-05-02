@@ -165,7 +165,7 @@ public class ShopStoreFragment extends Fragment implements ShopStoreManagerNotif
                     break;
                 case REQ_CODE_ADD_STORE_ITEM_AMAUNT:
                     String lastComingInAmount = data.getExtras().get(AddItemToListActivity.TAG).toString();
-                    Event event = new Event(Utils.getCurrentDateWithoutTime(), Integer.parseInt(lastComingInAmount));
+                    Event event = new Event(Utils.getCurrentDateWithoutTime(), Float.parseFloat(lastComingInAmount));
                     shopStoreManager.addEventToStoreItemData(event);
                     mDataset = shopStoreManager.getShopStoreItemList();
                     mAdapter.notifyDataSetChanged();
