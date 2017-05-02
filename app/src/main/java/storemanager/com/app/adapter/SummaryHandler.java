@@ -12,7 +12,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import storemanager.com.app.models.Event;
 import storemanager.com.app.models.Ingredient;
@@ -30,6 +29,8 @@ public class SummaryHandler {
     private List<Summary> unhandledSummaryList;
     private HashMap<String, Float> summaryIngredientBalance;
     private List<StoreItem> shopStoreItemList = new ArrayList<>();
+    //TODO: delete this fild
+    private boolean flag = false;
 
     public SummaryHandler(String teamName) {
         this.teamName = teamName;
@@ -46,8 +47,10 @@ public class SummaryHandler {
                     Summary summary = postSnapshot.getValue(Summary.class);
                     unhandledSummaryList.add(summary);
                 }
-                handleSummaryList(unhandledSummaryList);
                 Log.d(Utils.LOG_TAG, "SummaryHandler -> onDataChange. unhandledSummaryList.size() = " + unhandledSummaryList.size());
+                if (unhandledSummaryList.size() > 0) {
+                    if (flag == false) handleSummaryList(unhandledSummaryList);
+                }
             }
 
         }
@@ -58,7 +61,9 @@ public class SummaryHandler {
     };
 
     private void handleSummaryList(List<Summary> summaryList) {
-        Log.d(Utils.LOG_TAG, "handleSummaryList");
+        Log.d(Utils.LOG_TAG, "SummaryHandler -> handleSummaryList");
+        //TODO: delete this fild
+        flag = true;
         int amount;
         MenuItem menuItem;
         String shopName;
@@ -66,12 +71,12 @@ public class SummaryHandler {
         for(Summary summary : summaryList){
             shopName = summary.getShop();
             date = summary.getDate();
+            summaryIngredientBalance = new HashMap<>();
             for(MenuItemsInSummary itemFromSummary : summary.getItemInSummary()){
                 amount = itemFromSummary.getAmount();
                 menuItem = itemFromSummary.getItem();
                 for(Ingredient ingredient : menuItem.getConsist()){
                     String ingredientName = ingredient.getName();
-                    summaryIngredientBalance = new HashMap<>();
                     if(!summaryIngredientBalance.containsKey(ingredientName)){
                         summaryIngredientBalance.put(ingredientName, ingredient.getSize() * amount);
                     } else {
@@ -81,17 +86,13 @@ public class SummaryHandler {
                     }
                 }
             }
-            Log.d(Utils.LOG_TAG, "Shop = " + shopName + ", ");
+            /*Log.d(Utils.LOG_TAG, "SummaryHandler -> handleSummaryList -> Shop = " + shopName + ", ");
             for (Map.Entry entry : summaryIngredientBalance.entrySet()) {
                 Log.w(Utils.LOG_TAG, "Key -> " + entry.getKey() + ", val = " + entry.getValue());
-            }
-            Log.d(Utils.LOG_TAG, "editShopStoreItemList for " + shopName);
+            }*/
+            Log.d(Utils.LOG_TAG, "SummaryHandler -> handleSummaryList -> editShopStoreItemList for " + shopName);
             editShopStoreItemList(shopName, summaryIngredientBalance, date);
         }
-        /*Log.w(Utils.LOG_TAG, "SummaryHandler -> handleSummaryList");
-        for (Map.Entry entry : summaryIngredientBalance.entrySet()){
-            Log.w(Utils.LOG_TAG, "Key -> " + entry.getKey() + ", val = " + entry.getValue());
-        }*/
     }
 
     private void editShopStoreItemList(final String shopName, final HashMap<String, Float> summaryIngredientBalance, final String date){
@@ -101,18 +102,21 @@ public class SummaryHandler {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.hasChildren()) {
+                    shopStoreItemList.clear();
                     for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                         StoreItem storeItem = postSnapshot.getValue(StoreItem.class);
                         float amount = 0;
                         if(summaryIngredientBalance.containsKey(storeItem.getName())){
                             amount = summaryIngredientBalance.get(storeItem.getName());
-                            Event event = new Event(date, - amount);
-                            Log.d(Utils.LOG_TAG, "storeItem = " + storeItem.getName() + ", amount = " + (-amount));
+                            Event event = new Event(date, - amount/1000);
+                            Log.d(Utils.LOG_TAG, "storeItem = " + storeItem.getName() + ", amount = " + event.getAmount());
                             storeItem.addLastConsumption(event);
                         }
                         shopStoreItemList.add(storeItem);
                     }
-                    addItemListToShopStoreInDatabase(shopStoreItemList, shopName);
+                    Log.d(Utils.LOG_TAG, "Shop name for update in FB - " + shopName + "(updated " + shopStoreItemList.size() + " items).");
+                    //TODO
+                    //addItemListToShopStoreInDatabase(shopStoreItemList, shopName);
                 }
             }
 
