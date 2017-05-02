@@ -17,7 +17,7 @@ public class Event implements Parcelable{
 
     protected Event(Parcel in) {
         date = in.readString();
-        amount = in.readInt();
+        amount = in.readFloat();
     }
 
     public static final Creator<Event> CREATOR = new Creator<Event>() {
