@@ -126,7 +126,7 @@ public class MenuFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data != null && requestCode == REQ_CODE_ADD_ITEM) {
-            MenuItem menuItem = (MenuItem) data.getExtras().getSerializable(AddItemToMenuActivity.TAG);
+            MenuItem menuItem = data.getExtras().getParcelable(AddItemToMenuActivity.TAG);
             mDataset.add(menuItem);
             mAdapter.notifyDataSetChanged();
             addMenuItemToDatabase(menuItem);
@@ -140,7 +140,7 @@ public class MenuFragment extends Fragment {
     }
 
     private void addMenuItemToDatabase(MenuItem menuItem) {
-        String key = mDatabase.push().getKey();
+        String key = mDatabase.child("menu").push().getKey();
         menuItem.setFireBaseKey(key);
         mDatabase.child("menu").child(key).setValue(menuItem);
     }
