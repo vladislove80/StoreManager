@@ -14,15 +14,16 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Введите имя продукта:"
+            android:text="Выберите продукт:"
             android:gravity="center"
             android:textSize="17sp"/>
 
-        <EditText
-            android:id="@+id/store_item_name_edittext"
+        <Spinner
+            android:id="@+id/store_items_spinner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textCapSentences"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
             android:layout_marginTop="10dp"/>
 
         <TextView
@@ -39,10 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:layout_marginTop="10dp">
-
-        </Spinner>
-
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
 
     <LinearLayout
