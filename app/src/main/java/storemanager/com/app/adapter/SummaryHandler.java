@@ -29,8 +29,6 @@ public class SummaryHandler {
     private List<Summary> unhandledSummaryList;
     private HashMap<String, Float> summaryIngredientBalance;
     private List<StoreItem> shopStoreItemList = new ArrayList<>();
-    //TODO: delete this fild
-    private boolean flag = false;
 
     public SummaryHandler(String teamName) {
         this.teamName = teamName;
@@ -47,9 +45,11 @@ public class SummaryHandler {
                     Summary summary = postSnapshot.getValue(Summary.class);
                     unhandledSummaryList.add(summary);
                 }
+                copyUnhandledToHandledSummary();
+                deleteUnhandledSummaries();
                 Log.d(Utils.LOG_TAG, "SummaryHandler -> onDataChange. unhandledSummaryList.size() = " + unhandledSummaryList.size());
                 if (unhandledSummaryList.size() > 0) {
-                    if (flag == false) handleSummaryList(unhandledSummaryList);
+                    handleSummaryList(unhandledSummaryList);
                 }
             }
 
@@ -62,8 +62,6 @@ public class SummaryHandler {
 
     private void handleSummaryList(List<Summary> summaryList) {
         Log.d(Utils.LOG_TAG, "SummaryHandler -> handleSummaryList");
-        //TODO: delete this fild
-        flag = true;
         int amount;
         MenuItem menuItem;
         String shopName;
@@ -108,6 +106,7 @@ public class SummaryHandler {
                         float amount = 0;
                         if(summaryIngredientBalance.containsKey(storeItem.getName())){
                             amount = summaryIngredientBalance.get(storeItem.getName());
+                            //recount ml/gr in to l/kg
                             Event event = new Event(date, - amount/1000);
                             Log.d(Utils.LOG_TAG, "storeItem = " + storeItem.getName() + ", amount = " + event.getAmount());
                             storeItem.addLastConsumption(event);
@@ -115,8 +114,7 @@ public class SummaryHandler {
                         shopStoreItemList.add(storeItem);
                     }
                     Log.d(Utils.LOG_TAG, "Shop name for update in FB - " + shopName + "(updated " + shopStoreItemList.size() + " items).");
-                    //TODO
-                    //addItemListToShopStoreInDatabase(shopStoreItemList, shopName);
+                    addItemListToShopStoreInDatabase(shopStoreItemList, shopName);
                 }
             }
 
@@ -128,18 +126,24 @@ public class SummaryHandler {
     }
 
     private void addItemListToShopStoreInDatabase(List<StoreItem> dataset, String shopName) {
+        Log.d(Utils.LOG_TAG, "SummaryHandler -> addItemListToShopStoreInDatabase");
         mDatabase.child("shop store").child(shopName).setValue(dataset);
-        //TODO
-        //copy to summaries folder in FB and deleteUnhandledSummaries();
     }
 
     private void deleteUnhandledSummaries(){
+        Log.d(Utils.LOG_TAG, "SummaryHandler -> deleteUnhandledSummaries");
         mDatabase.child("unhandled summaries").removeValue();
+    }
+
+    public void copyUnhandledToHandledSummary(){
+        Log.d(Utils.LOG_TAG, "SummaryHandler -> copyUnhandledToHandledSummary");
+        for (Summary summary : unhandledSummaryList) {
+            mDatabase.child("summaries").push().setValue(summary);
+        }
     }
 
     public void enableSummaryListener(){
         mDatabase.child("unhandled summaries").addValueEventListener(postListener);
-        Log.d(Utils.LOG_TAG, "SummaryHandler -> enableSummaryListener" );
     }
 
     public void disableSummaryListener(){
