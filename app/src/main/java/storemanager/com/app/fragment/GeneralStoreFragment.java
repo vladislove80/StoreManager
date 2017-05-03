@@ -22,6 +22,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import storemanager.com.app.R;
@@ -108,11 +109,16 @@ public class GeneralStoreFragment extends Fragment {
                     String newStoreItemName = data.getExtras().get(AddItemToStoreActivity.TAG_NAME).toString();
                     String measure = data.getExtras().get(AddItemToStoreActivity.TAG_MEASURE).toString();
                     StoreItem newStoreItem = new StoreItem(newStoreItemName, measure);
-                    Event zeroEvent = new Event(Utils.getCurrentDateWithoutTime(), 0);
-                    newStoreItem.addLastCommingIn(zeroEvent);
-                    mDataset.add(newStoreItem);
-                    mAdapter.notifyDataSetChanged();
-                    addStoreItemToDatabase(mDataset);
+                    if (!mDataset.contains(newStoreItem)) {
+                        Event zeroEvent = new Event(Utils.getCurrentDateWithoutTime(), 0);
+                        newStoreItem.addLastCommingIn(zeroEvent);
+                        mDataset.add(newStoreItem);
+                        Collections.sort(mDataset);
+                        mAdapter.notifyDataSetChanged();
+                        addStoreItemToDatabase(mDataset);
+                    } else {
+                        Toast.makeText(getContext(), "Уже есть на складе!" , Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case REQ_CODE_ADD_STORE_ITEM_AMAUNT:
                     String lastComingInAmount = data.getExtras().get(AddItemToListActivity.TAG).toString();

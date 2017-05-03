@@ -2,13 +2,14 @@ package storemanager.com.app.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import storemanager.com.app.utils.Utils;
 
-public class StoreItem implements Parcelable {
+public class StoreItem implements Parcelable, Comparable {
     private String name;
     private String measure;
     private Event lastComingIn;
@@ -140,7 +141,6 @@ public class StoreItem implements Parcelable {
         this.lastComingIn = lastComingIn;
     }
 
-
     public void setLastConsumption(Event lastConsumption) {
         this.lastConsumption = lastConsumption;
     }
@@ -194,5 +194,11 @@ public class StoreItem implements Parcelable {
 
     public void setBalanceListEvents(ArrayList<Event> balanceListEvents) {
         this.balanceListEvents = balanceListEvents;
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+
+        return name.compareTo(((StoreItem) o).getName());
     }
 }
