@@ -55,6 +55,7 @@
             android:label="@string/manifest_label_add_menu_item"
             android:parentActivityName=".activity.AdminActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme.PopWindow"
             android:launchMode="singleTop"/>
 
         <activity
