@@ -20,10 +20,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 
 import storemanager.com.app.R;
 import storemanager.com.app.adapter.AdminPanelFragmentPagerAdapter;
+import storemanager.com.app.adapter.GeneralStoreManager;
 import storemanager.com.app.adapter.SummaryHandler;
 import storemanager.com.app.utils.Utils;
 
@@ -37,6 +37,8 @@ public class AdminActivity extends AppCompatActivity implements GoogleApiClient.
     private String userId;
     private GoogleApiClient mGoogleApiClient;
     private SummaryHandler mSummaryHandler;
+
+    private GeneralStoreManager mGeneralStoreManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class AdminActivity extends AppCompatActivity implements GoogleApiClient.
                 userId = intent.getExtras().get(Utils.EXTRA_TAG_ID).toString();
                 teamName = intent.getExtras().get(Utils.EXTRA_TAG_TEAM).toString();
                 mSummaryHandler = new SummaryHandler(teamName);
+                mGeneralStoreManager = new GeneralStoreManager();
                 setViewPager();
             }
         }
@@ -142,5 +145,13 @@ public class AdminActivity extends AppCompatActivity implements GoogleApiClient.
     protected void onPause() {
         super.onPause();
         mSummaryHandler.disableSummaryListener();
+    }
+
+    public GeneralStoreManager getGeneralStoreManager() {
+        return mGeneralStoreManager;
+    }
+
+    public void setGeneralStoreManager(GeneralStoreManager mGeneralStoreManager) {
+        this.mGeneralStoreManager = mGeneralStoreManager;
     }
 }

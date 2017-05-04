@@ -29,12 +29,15 @@ import storemanager.com.app.R;
 import storemanager.com.app.activity.AddItemToListActivity;
 import storemanager.com.app.activity.AddItemToStoreActivity;
 import storemanager.com.app.activity.AdminActivity;
+import storemanager.com.app.activity.StatisticsActivity;
+import storemanager.com.app.adapter.GeneralStoreManager;
 import storemanager.com.app.adapter.StoreRecyclerAdapter;
 import storemanager.com.app.models.Event;
 import storemanager.com.app.models.StoreItem;
+import storemanager.com.app.utils.GeneralStoreManagerNotifier;
 import storemanager.com.app.utils.Utils;
 
-public class GeneralStoreFragment extends Fragment {
+public class GeneralStoreFragment extends Fragment implements GeneralStoreManagerNotifier {
     public static final String TAG = GeneralStoreFragment.class.getSimpleName();
     public final static int REQ_CODE_ADD_STORE_ITEM = 7;
     public final static int REQ_CODE_ADD_STORE_ITEM_AMAUNT = 8;
@@ -51,6 +54,8 @@ public class GeneralStoreFragment extends Fragment {
     private StoreItem selectedItem;
     private List<StoreItem> mDataset;
 
+    private GeneralStoreManager generalStoreManager;
+
     public static GeneralStoreFragment newInstance() {
         GeneralStoreFragment fragment = new GeneralStoreFragment();
         return fragment;
@@ -60,6 +65,13 @@ public class GeneralStoreFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDataset = new ArrayList<>();
+        AdminActivity activity = (AdminActivity) getActivity();
+        if (activity instanceof AdminActivity) {
+            generalStoreManager = activity.getGeneralStoreManager();
+            generalStoreManager.registerNotifierCallBack(this);
+        } else {
+            generalStoreManager = new GeneralStoreManager();
+        }
         Log.v(Utils.LOG_TAG, "GeneralStoreFragment -> onCreate");
     }
 
@@ -70,7 +82,6 @@ public class GeneralStoreFragment extends Fragment {
 
         teamName = AdminActivity.getTeamName();
         mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
-        getStoreItemsFromDatabase();
         progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
 
@@ -115,7 +126,8 @@ public class GeneralStoreFragment extends Fragment {
                         mDataset.add(newStoreItem);
                         Collections.sort(mDataset);
                         mAdapter.notifyDataSetChanged();
-                        addStoreItemToDatabase(mDataset);
+                        generalStoreManager.addStoreItemsToDatabase(mDataset);
+                        //addStoreItemToDatabase(mDataset);
                     } else {
                         Toast.makeText(getContext(), "Уже есть на складе!" , Toast.LENGTH_SHORT).show();
                     }
@@ -123,63 +135,59 @@ public class GeneralStoreFragment extends Fragment {
                 case REQ_CODE_ADD_STORE_ITEM_AMAUNT:
                     String lastComingInAmount = data.getExtras().get(AddItemToListActivity.TAG).toString();
                     Event event = new Event(Utils.getCurrentDateWithoutTime(), Integer.parseInt(lastComingInAmount));
-                    selectedItem.addLastCommingIn(event);
+                    generalStoreManager.addEventToStoreItemData(event);
+                    mDataset = generalStoreManager.getStoreItemList();
                     mAdapter.notifyDataSetChanged();
-                    addStoreItemToDatabase(mDataset);
                     break;
             }
 
         }
-    }
-
-    private void addStoreItemToDatabase(List<StoreItem> dataset) {
-        mDatabase.child("general store").setValue(dataset);
-    }
-
-    private void getStoreItemsFromDatabase(){
-        Query query = mDatabase.child("general store");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChildren()) {
-                    mDataset.clear();
-                    for(DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                        mDataset.add(postSnapshot.getValue(StoreItem.class));
-                    }
-                    mAdapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d(TAG, "addStoreItemToDatabase -> onCancelled = " + databaseError.getMessage());
-            }
-        });
     }
 
     private View.OnClickListener itemListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             int pos = (int) v.getTag();
-            selectedItem = mDataset.get(pos);
+            generalStoreManager.selectStoreItem(pos);
+            StoreItem selectedStoreItem = generalStoreManager.getSelectedStoreItem();
             switch (v.getId()) {
                 case R.id.change_store_item_amount_button :
-                    Toast.makeText(getContext(), selectedItem.getName() + ", Добавить" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), generalStoreManager.getSelectedStoreItem().getName() + ", Добавить" , Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), AddItemToListActivity.class);
                     intent.putExtra(AddItemToListActivity.TAG, "amount");
                     startActivityForResult(intent, REQ_CODE_ADD_STORE_ITEM_AMAUNT);
                     break;
                 case R.id.store_item_balance_stat :
-                    Toast.makeText(getContext(), selectedItem.getName() + ", Баланс" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), generalStoreManager.getSelectedStoreItem().getName() + ", Баланс" , Toast.LENGTH_SHORT).show();
+                    intent = new Intent(getActivity(), StatisticsActivity.class);
+                    intent.putExtra(StatisticsActivity.STATISTICS_TYPE, "balance");
+                    intent.putExtra(StatisticsActivity.STORE_ITEM_NAME, generalStoreManager.getSelectedStoreItem().getName());
+                    intent.putParcelableArrayListExtra(StatisticsActivity.BALANCE_LIST, generalStoreManager.getShopStoreItemBalanceList(selectedStoreItem));
+                    startActivity(intent);
                     break;
                 case R.id.store_item_consumption_num_stat :
-                    Toast.makeText(getContext(), selectedItem.getName() + ", Расход" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), generalStoreManager.getSelectedStoreItem().getName() + ", Расход" , Toast.LENGTH_SHORT).show();
+                    intent = new Intent(getActivity(), StatisticsActivity.class);
+                    intent.putExtra(StatisticsActivity.STATISTICS_TYPE, "consumption");
+                    intent.putExtra(StatisticsActivity.STORE_ITEM_NAME, generalStoreManager.getSelectedStoreItem().getName());
+                    intent.putParcelableArrayListExtra(StatisticsActivity.CONSUMPTION_LIST, generalStoreManager.getShopStoreItemConsumptionList(selectedStoreItem));
+                    startActivity(intent);
                     break;
                 case R.id.store_item_incoming_num_stat :
-                    Toast.makeText(getContext(), selectedItem.getName() + ", Приход" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), generalStoreManager.getSelectedStoreItem().getName() + ", Приход" , Toast.LENGTH_SHORT).show();
+                    intent = new Intent(getActivity(), StatisticsActivity.class);
+                    intent.putExtra(StatisticsActivity.STATISTICS_TYPE, "incoming");
+                    intent.putExtra(StatisticsActivity.STORE_ITEM_NAME, generalStoreManager.getSelectedStoreItem().getName());
+                    intent.putParcelableArrayListExtra(StatisticsActivity.INCOMING_LIST, generalStoreManager.getShopStoreItemComingInList(selectedStoreItem));
+                    startActivity(intent);
                     break;
             }
         }
     };
+
+    @Override
+    public void onDownLoaded(List<StoreItem> dataset) {
+        mDataset.addAll(dataset);
+        mAdapter.notifyDataSetChanged();
+    }
 }

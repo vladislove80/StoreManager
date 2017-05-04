@@ -34,7 +34,6 @@ import storemanager.com.app.utils.Utils;
 
 public class ShopStoreFragment extends Fragment implements ShopStoreManagerNotifier {
     public static String TAG = ShopStoreFragment.class.getSimpleName();
-    public final static String STORE_ITEM_NAME = "store item name";
     public final static int REQ_CODE_ADD_STORE_ITEM = 9;
     public final static int REQ_CODE_ADD_STORE_ITEM_AMAUNT = 10;
 
@@ -68,8 +67,7 @@ public class ShopStoreFragment extends Fragment implements ShopStoreManagerNotif
         shopName = ShopDataActivity.getShopName();
         ShopDataActivity activity = (ShopDataActivity) getActivity();
         if(activity instanceof ShopDataActivity){
-            ShopDataActivity shopDataActivity = activity;
-            shopStoreManager = shopDataActivity.getShopStoreManager();
+            shopStoreManager = activity.getShopStoreManager();
             shopStoreManager.registerDownloadedStoreItemListCallBack(this);
         } else {
             shopStoreManager = new ShopStoreManager(shopName);
@@ -125,7 +123,7 @@ public class ShopStoreFragment extends Fragment implements ShopStoreManagerNotif
                     Toast.makeText(getContext(), shopStoreManager.getSelectedShopItem().getName() + ", Balance" , Toast.LENGTH_SHORT).show();
                     intent = new Intent(getActivity(), StatisticsActivity.class);
                     intent.putExtra(StatisticsActivity.STATISTICS_TYPE, "balance");
-                    intent.putExtra(STORE_ITEM_NAME, shopStoreManager.getSelectedShopItem().getName());
+                    intent.putExtra(StatisticsActivity.STORE_ITEM_NAME, shopStoreManager.getSelectedShopItem().getName());
                     intent.putParcelableArrayListExtra(StatisticsActivity.BALANCE_LIST, shopStoreManager.getShopStoreItemBalanceList(shopStoreManager.getSelectedShopItem()));
                     startActivity(intent);
                     break;
@@ -133,7 +131,7 @@ public class ShopStoreFragment extends Fragment implements ShopStoreManagerNotif
                     Toast.makeText(getContext(), shopStoreManager.getSelectedShopItem().getName() + ",Consumption" , Toast.LENGTH_SHORT).show();
                     intent = new Intent(getActivity(), StatisticsActivity.class);
                     intent.putExtra(StatisticsActivity.STATISTICS_TYPE, "consumption");
-                    intent.putExtra(STORE_ITEM_NAME, shopStoreManager.getSelectedShopItem().getName());
+                    intent.putExtra(StatisticsActivity.STORE_ITEM_NAME, shopStoreManager.getSelectedShopItem().getName());
                     intent.putParcelableArrayListExtra(StatisticsActivity.CONSUMPTION_LIST, shopStoreManager.getShopStoreItemConsumptionList(shopStoreManager.getSelectedShopItem()));
                     startActivity(intent);
                     break;
@@ -141,7 +139,7 @@ public class ShopStoreFragment extends Fragment implements ShopStoreManagerNotif
                     Toast.makeText(getContext(), shopStoreManager.getSelectedShopItem().getName() + ", Incoming" , Toast.LENGTH_SHORT).show();
                     intent = new Intent(getActivity(), StatisticsActivity.class);
                     intent.putExtra(StatisticsActivity.STATISTICS_TYPE, "incoming");
-                    intent.putExtra(STORE_ITEM_NAME, shopStoreManager.getSelectedShopItem().getName());
+                    intent.putExtra(StatisticsActivity.STORE_ITEM_NAME, shopStoreManager.getSelectedShopItem().getName());
                     intent.putParcelableArrayListExtra(StatisticsActivity.INCOMING_LIST, shopStoreManager.getShopStoreItemComingInList(shopStoreManager.getSelectedShopItem()));
                     startActivity(intent);
                     break;

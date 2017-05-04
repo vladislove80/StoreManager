@@ -21,6 +21,7 @@ public class StatisticsActivity extends AppCompatActivity{
     public static String CONSUMPTION_LIST = "consumption list";
     public static String BALANCE_LIST = "balance list";
     public static String STATISTICS_TYPE = "statistics type";
+    public static String STORE_ITEM_NAME = "store item name";
 
     private List<Event> statisticsList;
     private String statisticsType;
@@ -50,7 +51,7 @@ public class StatisticsActivity extends AppCompatActivity{
         getWindow().setLayout((int) (width*.8),(int) (height*.8));
 
         statisticsType = getIntent().getStringExtra(STATISTICS_TYPE);
-        storeItemName = getIntent().getStringExtra(ShopStoreFragment.STORE_ITEM_NAME);
+        storeItemName = getIntent().getStringExtra(STORE_ITEM_NAME);
         switch (statisticsType) {
             case "incoming":
                 statisticsList = getIntent().getParcelableArrayListExtra(INCOMING_LIST);
