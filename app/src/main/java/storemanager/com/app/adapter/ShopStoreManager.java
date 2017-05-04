@@ -164,4 +164,11 @@ public class ShopStoreManager {
         Collections.reverse(consumptionEventList);
         return consumptionEventList;
     }
+
+    public ArrayList<Event> getShopStoreItemBalanceList(StoreItem storeItem){
+        ArrayList<Event> balanceList = new ArrayList<>();
+        balanceList.addAll(storeItem.getBalanceListEvents());
+        Collections.reverse(balanceList);
+        return balanceList;
+    }
 }

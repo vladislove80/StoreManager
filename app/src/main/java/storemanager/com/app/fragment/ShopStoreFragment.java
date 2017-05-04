@@ -126,9 +126,7 @@ public class ShopStoreFragment extends Fragment implements ShopStoreManagerNotif
                     intent = new Intent(getActivity(), StatisticsActivity.class);
                     intent.putExtra(StatisticsActivity.STATISTICS_TYPE, "balance");
                     intent.putExtra(STORE_ITEM_NAME, shopStoreManager.getSelectedShopItem().getName());
-                    ArrayList<Event> balanceList = shopStoreManager.getSelectedShopItem().getBalanceListEvents();
-                    Collections.reverse(balanceList);
-                    intent.putParcelableArrayListExtra(StatisticsActivity.BALANCE_LIST, balanceList);
+                    intent.putParcelableArrayListExtra(StatisticsActivity.BALANCE_LIST, shopStoreManager.getShopStoreItemBalanceList(shopStoreManager.getSelectedShopItem()));
                     startActivity(intent);
                     break;
                 case R.id.store_item_consumption_num_stat :
