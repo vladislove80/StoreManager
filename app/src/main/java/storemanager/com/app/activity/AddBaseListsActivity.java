@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 import android.view.View;
@@ -54,6 +55,14 @@ public class AddBaseListsActivity extends AppCompatActivity {
         Log.d(TAG, "AddBaseListsActivity -> onCreate");
         setContentView(R.layout.activity_add_base_list);
         teamName = AdminActivity.getTeamName();
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+
+        getWindow().setLayout((int) (width*.8),(int) (height*.8));
 
         Intent intent = getIntent();
         listName = intent.getStringExtra(ListOfListActivity.TAG);

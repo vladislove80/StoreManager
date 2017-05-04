@@ -9,7 +9,6 @@
         android:icon="@mipmap/espresso_machine"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:launchMode="singleTop"
         android:theme="@style/AppTheme">
         <activity
             android:name="storemanager.com.app.activity.GoogleSignInActivity"
@@ -62,6 +61,7 @@
             android:name=".activity.AddBaseListsActivity"
             android:label="@string/manifest_label_add_base_ingredient_item"
             android:parentActivityName=".activity.AddItemToMenuActivity"
+            android:theme="@style/AppTheme.PopWindow"
             android:launchMode="singleTop"/>
 
         <activity
