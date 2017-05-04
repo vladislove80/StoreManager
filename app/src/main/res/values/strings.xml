@@ -45,7 +45,7 @@
     <string name="manifest_label_add_base_ingredient_item">Добавить пункт меню</string>
 
     <!--AddItemToMenuActivity-->
-    <string name="manifest_label_add_menu_item">Добавить пункт меню</string>
+    <string name="manifest_label_add_menu_item">Добавить элемент списка</string>
     <string name="add_menu_item_layout_button">ГОТОВО !</string>
     <string name="add_menu_item_layout_name">Наименование</string>
     <string name="add_menu_item_layout_price">Цена</string>

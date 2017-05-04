@@ -13,7 +13,7 @@ import storemanager.com.app.fragment.TeamFragment;
 public class AdminPanelFragmentPagerAdapter extends FragmentPagerAdapter {
 
     final int PAGE_COUNT = 4;
-    private String tabTitles[] = new String[] { "Точки", "Команда", "Меню", "Склад" };
+    private String tabTitles[] = new String[] { "Точки", "Склад", "Меню", "Команда"};
     private Context context;
 
     public AdminPanelFragmentPagerAdapter(FragmentManager fm, Context context) {
@@ -32,11 +32,11 @@ public class AdminPanelFragmentPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0 : fragment = ShopListFragment.newInstance(1);
                 break;
-            case 1 : fragment = TeamFragment.newInstance();
+            case 1 : fragment = GeneralStoreFragment.newInstance();
                 break;
             case 2 : fragment = MenuFragment.newInstance(2);
                 break;
-            case 3 : fragment = GeneralStoreFragment.newInstance();
+            case 3 : fragment = TeamFragment.newInstance();
                 break;
             default: fragment = GeneralStoreFragment.newInstance();
         }
