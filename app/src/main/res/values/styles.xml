@@ -57,9 +57,16 @@
         <item name="tabPaddingEnd">32dp</item>
         <item name="tabBackground">?attr/selectableItemBackground</item>
         <item name="textAllCaps">true</item>
-        <item name="android:textSize">18sp</item>
+        <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
         <item name="tabSelectedTextColor">?android:textColorPrimary</item>
     </style>
+
+    <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/tab_layout_text_size</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
     <style name="AppTheme.PopWindow">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>

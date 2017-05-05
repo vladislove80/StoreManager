@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="Создавайте и редактируйте торговые точки"
             android:layout_margin="15dp"
-            android:textSize="18sp"
+            android:textSize="@dimen/shop_list_label_text_size"
             android:gravity="center_horizontal"
             android:layout_alignParentTop="true" />
 
