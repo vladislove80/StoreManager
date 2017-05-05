@@ -181,6 +181,7 @@ public class GoogleSignInActivity extends BaseActivity implements
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<String> userProjects = new ArrayList<>();
                 if (dataSnapshot.hasChildren()) {
+                    allProjectsEmails.clear();
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
                         allProjectsEmails = (List<String>) postSnapshot.getValue();
                         if (allProjectsEmails.contains(email)){
@@ -219,6 +220,7 @@ public class GoogleSignInActivity extends BaseActivity implements
         mDatabase.child("projects").child(teamName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                allProjectsEmails.clear();
                 if (dataSnapshot.hasChildren()) {
                     allProjectsEmails = (List<String>) dataSnapshot.getValue();
                     Log.d(TAG, "createTeamInFireBase");

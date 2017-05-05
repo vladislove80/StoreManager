@@ -65,13 +65,6 @@ public class TeamFragment  extends Fragment {
         usersList = new ArrayList<>();
         allProjectsEmails = new ArrayList<>();
 
-        /*User user = new User();
-        user.setName("Test");
-        user.setEmail("Emale test");
-        user.setStatus("Admin");
-        user.setRegistrationDate("Data test");
-        usersList.add(user);*/
-
         fab = (FloatingActionButton) view.findViewById(R.id.team_fragment_fab);
         teamNameTextView = (TextView) view.findViewById(R.id.team_name_textview);
         teamNameTextView.setText(teamName);
