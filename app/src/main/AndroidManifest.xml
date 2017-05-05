@@ -9,7 +9,9 @@
         android:icon="@mipmap/espresso_machine"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:configChanges="orientation"
+        android:screenOrientation="portrait">
         <activity
             android:name="storemanager.com.app.activity.GoogleSignInActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
@@ -24,7 +26,8 @@
             android:name=".activity.AdminActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
-            android:label="@string/admin_activity_label"/>
+            android:label="@string/admin_activity_label"
+            android:screenOrientation="portrait"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
@@ -32,23 +35,31 @@
         <activity
             android:name=".activity.SummaryComposerActivity"
             android:label="@string/label_send_data"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.AddItemToListActivity"
             android:theme="@style/Theme.AppCompat.Light.Dialog"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.AddItemToStoreActivity"
             android:label="@string/add_item_to_store_activity"
             android:theme="@style/Theme.AppCompat.Light.Dialog"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.ShopDataActivity"
             android:parentActivityName=".activity.AdminActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.AddItemToMenuActivity"
@@ -56,53 +67,70 @@
             android:parentActivityName=".activity.AdminActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/AppTheme.PopWindow"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.AddBaseListsActivity"
             android:label="@string/manifest_label_add_base_ingredient_item"
             android:parentActivityName=".activity.AddItemToMenuActivity"
             android:theme="@style/AppTheme.PopWindow"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.PopActivity"
             android:theme="@style/AppTheme.PopWindow"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.ListOfListActivity"
             android:label="@string/manifest_label_lists"
             android:parentActivityName=".activity.AdminActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.AddItemsToSummaryActivity"
             android:label="@string/add_item_to_summary_activity"
             android:parentActivityName=".activity.SummaryComposerActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.NewTeamNameActivity"
             android:label="@string/new_team_name_activity"
             android:theme="@style/Theme.AppCompat.Light.Dialog"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.AddMemberActivity"
             android:label="@string/add_member_activity"
             android:theme="@style/Theme.AppCompat.Light.Dialog"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".activity.AddItemsToShopStoreActivity"
             android:label="@string/add_item_to_shop_store_activity"
             android:theme="@style/AppTheme.PopWindow"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.StatisticsActivity"
             android:label="@string/statistics_activity"
             android:theme="@style/AppTheme.PopWindow"
-            android:launchMode="singleTop"/>
+            android:configChanges="orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
     </application>
 
 

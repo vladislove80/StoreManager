@@ -42,7 +42,7 @@
     <string name="manifest_label_add_amount">Введите число</string>
 
     <!--AddBaseListsActivity-->
-    <string name="manifest_label_add_base_ingredient_item">Добавить пункт меню</string>
+    <string name="manifest_label_add_base_ingredient_item">Добавить пункт</string>
 
     <!--AddItemToMenuActivity-->
     <string name="manifest_label_add_menu_item">Добавить элемент списка</string>
