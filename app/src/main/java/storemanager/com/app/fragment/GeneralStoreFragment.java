@@ -12,14 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,6 +44,7 @@ public class GeneralStoreFragment extends Fragment implements GeneralStoreManage
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
+    private RelativeLayout noDataLayout;
 
     private FloatingActionButton fab;
     private ProgressBar progressBar;
@@ -84,6 +82,11 @@ public class GeneralStoreFragment extends Fragment implements GeneralStoreManage
         mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
         progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
+
+        noDataLayout = (RelativeLayout) view.findViewById(R.id.no_menu_data_layout);
+        if (mDataset.size() > 0) {
+            noDataLayout.setVisibility(View.GONE);
+        }
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.general_store_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -124,10 +127,12 @@ public class GeneralStoreFragment extends Fragment implements GeneralStoreManage
                         Event zeroEvent = new Event(Utils.getCurrentDateWithoutTime(), 0);
                         newStoreItem.addLastCommingIn(zeroEvent);
                         mDataset.add(newStoreItem);
+                        if (mDataset.size() > 0) {
+                            noDataLayout.setVisibility(View.GONE);
+                        }
                         Collections.sort(mDataset);
                         mAdapter.notifyDataSetChanged();
                         generalStoreManager.addStoreItemsToDatabase(mDataset);
-                        //addStoreItemToDatabase(mDataset);
                     } else {
                         Toast.makeText(getContext(), "Уже есть на складе!" , Toast.LENGTH_SHORT).show();
                     }
@@ -189,5 +194,16 @@ public class GeneralStoreFragment extends Fragment implements GeneralStoreManage
     public void onDownLoaded(List<StoreItem> dataset) {
         mDataset.addAll(dataset);
         mAdapter.notifyDataSetChanged();
+        progressBar.setVisibility(View.GONE);
+        noDataLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mDataset.size() == 0) {
+            progressBar.setVisibility(View.GONE);
+            noDataLayout.setVisibility(View.VISIBLE);
+        }
     }
 }

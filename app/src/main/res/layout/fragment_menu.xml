@@ -50,6 +50,13 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true" />
 
+        <include
+            android:id="@+id/no_menu_data_layout"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/menu_buttons_layout"
+            layout="@layout/layout_no_data"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/menu_recycler_view"
             android:layout_width="match_parent"

@@ -85,8 +85,8 @@ public class MenuFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         initRecycler();
 
-        /*noDataLayout = (RelativeLayout) view.findViewById(R.id.no_menu_data_layout);
-        noDataLayout.setVisibility(View.GONE);*/
+        noDataLayout = (RelativeLayout) view.findViewById(R.id.no_menu_data_layout);
+        noDataLayout.setVisibility(View.GONE);
 
         editListsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +130,9 @@ public class MenuFragment extends Fragment {
             mDataset.add(menuItem);
             mAdapter.notifyDataSetChanged();
             addMenuItemToDatabase(menuItem);
+            if (mDataset.size() == 1) {
+                noDataLayout.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -161,11 +164,15 @@ public class MenuFragment extends Fragment {
                         Log.d(TAG, "getDataListFromDatabse -> dataSnapshot not hasChildren()");
                     }
                     mAdapter.notifyDataSetChanged();
-                    progressBar.setVisibility(View.GONE);
                 } else {
-                    progressBar.setVisibility(View.GONE);
                     Log.d(TAG, "getDataListFromDatabse -> dataSnapshot not hasChildren()");
                 }
+                if (mDataset.size() != 0) {
+                    noDataLayout.setVisibility(View.GONE);
+                } else {
+                    noDataLayout.setVisibility(View.VISIBLE);
+                }
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
@@ -188,4 +195,14 @@ public class MenuFragment extends Fragment {
             return true;
         }
     };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mDataset.size() != 0) {
+            progressBar.setVisibility(View.GONE);
+        } else {
+            noDataLayout.setVisibility(View.VISIBLE);
+        }
+    }
 }

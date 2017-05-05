@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/general_store_label"
@@ -22,19 +22,26 @@
             android:layout_marginTop="@dimen/viewer_margin_top"
             android:text="Главный склад"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/general_store_recycler_view"
-            android:layout_width="match_parent"
+        <include
+            android:id="@+id/no_menu_data_layout"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"
-            android:background="#ffffff"
-            android:layout_below="@+id/general_store_label"/>
+            android:layout_width="match_parent"
+            android:layout_below="@+id/general_store_label"
+            layout="@layout/layout_no_data"/>
 
         <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/general_store_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:layout_below="@+id/general_store_label"/>
+
     </RelativeLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/general_store_fab"

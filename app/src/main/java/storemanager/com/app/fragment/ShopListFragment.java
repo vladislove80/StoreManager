@@ -193,12 +193,11 @@ public class ShopListFragment extends Fragment {
                     Log.d(TAG, "getShopListFromDatabase -> shopList.size() = " + shopList.size());
                 }
                 if (shopList.size() != 0) {
-                    progressBar.setVisibility(View.GONE);
                     noDataLayout.setVisibility(View.GONE);
                 } else {
-                    progressBar.setVisibility(View.GONE);
                     noDataLayout.setVisibility(View.VISIBLE);
                 }
+                progressBar.setVisibility(View.GONE);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
