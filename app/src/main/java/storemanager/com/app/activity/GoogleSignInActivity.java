@@ -165,7 +165,9 @@ public class GoogleSignInActivity extends BaseActivity implements
                     newTeamName = data.getExtras().getString(NewTeamNameActivity.TAG);
                     createTeamInFireBase(userName, userEmail, userId, Utils.userStatus[0], newTeamName);
                 } else {
+                    hideProgressDialog();
                     revokeAccess();
+                    signInButton.setEnabled(true);
                 }
                 break;
         }
@@ -191,11 +193,11 @@ public class GoogleSignInActivity extends BaseActivity implements
                         checkUserInTeam(userProjects.get(0));
                     } else if (userProjects.size() == 0){
                         //ToDo There more than one project for this email. Need dialog with project choice
-                        Toast.makeText(getApplicationContext(), "Много проэктов!!", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Много проэктов!!", Toast.LENGTH_SHORT).show();
                     }
                     if (userInTeam == false){
                         //ToDo Current user is absent in any project
-                        Toast.makeText(getApplicationContext(), "Вы не добавленны!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Создайте проэкт или обратитесь к администратору!", Toast.LENGTH_LONG).show();
                         createTeam();
                     }
                 }
