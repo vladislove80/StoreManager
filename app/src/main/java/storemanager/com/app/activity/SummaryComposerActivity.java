@@ -60,6 +60,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     private String teamName;
 
     private Button mSaveToDatabaseButton;
+    private Button reCreateButton;
     private TextView mDateTextView;
     private TextView mShopTextView;
     private TextView total;
@@ -69,6 +70,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     private List<BaseItem> allDataListLists;
     private SummaryAdapter adapter;
     private int totalPrice = 0;
+    private List<Shop> shopList;
 
     private String date;
     public final static int REQ_CODE_CHILD = 1;
@@ -108,6 +110,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
         mShopTextView = (TextView) findViewById(R.id.shop);
         mDateTextView.setText(date);
         mSaveToDatabaseButton = (Button) findViewById(R.id.send_button);
+        reCreateButton = (Button) findViewById(R.id.recreate_button);
         summuryListView = (ListView) findViewById(R.id.summury);
         total = (TextView) findViewById(R.id.total);
         total.setText("0");
@@ -191,7 +194,7 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     }
 
     private void dialogShops() {
-        final List<Shop> shopList = new ArrayList<>();
+        shopList = new ArrayList<>();
         mDatabase = FirebaseDatabase.getInstance().getReference(teamName);
         mDatabase.child("shops").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -214,7 +217,6 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
     }
 
     private void showShopsDialog(List<Shop> shopList){
-
         final String cShopItem[] = new String[1];
         final String[] shopNamesArray = new String[shopList.size()];
         int i = 0;
@@ -272,6 +274,13 @@ public class SummaryComposerActivity extends AppCompatActivity implements View.O
                 fab.setVisibility(View.GONE);
                 sendSummaryToDatabase(userId, userName, userEmail);
                 mSaveToDatabaseButton.setVisibility(View.GONE);
+                reCreateButton.setVisibility(View.VISIBLE);
+                reCreateButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        recreate();
+                    }
+                });
                 Toast.makeText(getBaseContext(), "Отчет отослан!", Toast.LENGTH_LONG).show();
             } else {
                 AlertDialog.Builder alt_bld = new AlertDialog.Builder(this);
