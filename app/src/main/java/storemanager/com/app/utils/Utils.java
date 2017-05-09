@@ -8,6 +8,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Utils {
+
+    private Utils(){}
+
     public static final String LOG_TAG = "debug";
 
     public static final String userStatus[] = {"Администратор", "Реализатор"};
