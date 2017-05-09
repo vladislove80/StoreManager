@@ -40,14 +40,14 @@
             android:textAlignment="center"/>
 
         <Button
-            android:text="Send"
+            android:text="@string/send"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/send_button"
             android:theme="@style/ThemeOverlay.MyBigDarkButton" />
 
         <Button
-            android:text="Send New"
+            android:text="@string/send_new"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recreate_button"

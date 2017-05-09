@@ -33,6 +33,8 @@
     <string name="num">Num</string>
     <string name="price">Price</string>
     <string name="table_bottom_total_text">Total:</string>
+    <string name="send">Отправить!</string>
+    <string name="send_new">Новый отчет</string>
 
     <!--AddItemsActivity-->
     <string name="label_add_item">Add item</string>
@@ -109,6 +111,5 @@
     <string name="statistics_month">Месяц</string>
     <string name="statistics_all">Все</string>
     <string name="statistics_activity">Статистика</string>
-
 
 </resources>
